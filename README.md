@@ -1,2 +1,2 @@
-# XtremePark
-seriously one of the most radical things ever to be created on this planet, ぜ
+# Battle Park
+you own a nice theme park but OH NO YOUR NEIGHBOR ALSO OWNS A NICE THEME PARK and *OH NO THEY ARE LAUNCHING C4-INFUSED PARKGOERS AT YOU* so clearly the best option is to **RETALIATE WITH YOUR OWN NUCLEAR PARKGOERS**
