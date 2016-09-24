@@ -1,44 +1,26 @@
 fileFormatVersion: 2
-guid: f1e2c5b779708964185b504731a1b9c3
-timeCreated: 1472704142
+guid: b9c27cba60f255247a69101de96296a3
+timeCreated: 1472755183
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: Armature
-    100002: Center
-    100004: Chest
-    100006: Head
-    100008: Left_Foot
-    100010: Left_Foreleg
-    100012: Left_Leg
-    100014: Neck
-    100016: //RootNode
-    100018: Person
-    100020: Right_Foot
-    100022: Right_Foreleg
-    100024: Right_Leg
-    100026: Root
-    100028: Waist
+    100002: Root
+    100004: Stone
+    100006: //RootNode
+    100008: Tree
     400000: Armature
-    400002: Center
-    400004: Chest
-    400006: Head
-    400008: Left_Foot
-    400010: Left_Foreleg
-    400012: Left_Leg
-    400014: Neck
-    400016: //RootNode
-    400018: Person
-    400020: Right_Foot
-    400022: Right_Foreleg
-    400024: Right_Leg
-    400026: Root
-    400028: Waist
-    4300000: Person
+    400002: Root
+    400004: Stone
+    400006: //RootNode
+    400008: Tree
+    4300000: Stone
+    4300002: Tree
     7400000: Default Take
     9500000: //RootNode
-    13700000: Person
+    13700000: Stone
+    13700002: Tree
   materials:
     importMaterials: 1
     materialName: 0
