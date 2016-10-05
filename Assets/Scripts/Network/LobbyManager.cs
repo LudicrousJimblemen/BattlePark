@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +13,6 @@ public class LobbyManager : MonoBehaviour
 
     [SerializeField]
     private string lobbySceneName = "Lobby";
-
-    [SerializeField]
-    private PauseMenu pauseMenuPrefab;
 
     private List<LobbyClient> clients = new List<LobbyClient>();
 
@@ -34,10 +31,6 @@ public class LobbyManager : MonoBehaviour
     private bool autoStartTimerOn = false;
     private float autoStartTimer = 0;
 
-#endregion Lobby state
-
-    #region Scenes and scene initializing
-
     //Bools for scene initializing and related stuff
     private bool inLobby = false; //Are we in the lobby or in a race?
     private bool loadingLobby = false;
@@ -45,19 +38,15 @@ public class LobbyManager : MonoBehaviour
     private bool joiningRaceInProgress = false; //If true, RaceManager will be created as if a race was already in progress.
     private bool showSettingsOnLobbyLoad = false; //If true, the lobby settings window will pop up when the lobby scene is entered.
 
-    #endregion Scenes and scene initializing
-
     //Lobby messenger used to send and receive state changes.
     //This will be either a LocalLobbyMessenger or OnlineLobbyMessenger, but each are used the same way.
     private LobbyMessenger messenger;
 
-    private UI.Chat activeChat;
+    private Chat activeChat;
 
     //Timer used for syncing realtime stuff in online
     private float netUpdateTimer = 0;
     private const int NET_UPDATES_PER_SECOND = 40;
-
-    #region Properties
 
     /// <summary>
     /// True if playing online. Used for enabling online-only behaviour, like the client list and the chat
@@ -84,43 +73,20 @@ public class LobbyManager : MonoBehaviour
     public bool AutoStartTimerOn { get { return autoStartTimerOn; } }
     public float AutoStartTimer { get { return autoStartTimer; } }
 
-    #endregion Properties
-
-    #region State changing methods
-
     public void RequestSettingsChange(LobbySettings newSettings)
     {
         messenger.SendMessage(new SettingsChangedMessage(newSettings));
     }
 
-    public void RequestPlayerJoin(ControlType ctrlType, int initialCharacter)
+    public void RequestPlayerJoin()
     {
         messenger.SendMessage(new PlayerJoinedMessage(myGuid, ctrlType, initialCharacter));
     }
 
-    public void RequestPlayerLeave(ControlType ctrlType)
+    public void RequestPlayerLeave()
     {
         messenger.SendMessage(new PlayerLeftMessage(myGuid, ctrlType));
     }
-
-    public void RequestCharacterChange(ControlType ctrlType, int newCharacter)
-    {
-        messenger.SendMessage(new CharacterChangedMessage(myGuid, ctrlType, newCharacter));
-    }
-
-    public void RequestReadyChange(ControlType ctrlType, bool ready)
-    {
-        messenger.SendMessage(new ChangedReadyMessage(myGuid, ctrlType, ready));
-    }
-
-    public void RequestLoadLobby()
-    {
-        messenger.SendMessage(new LoadLobbyMessage());
-    }
-
-    #endregion State changing methods
-
-    #region Lobby message callbacks
 
     private void SettingsChangedCallback(SettingsChangedMessage msg, float travelTime)
     {
@@ -147,115 +113,11 @@ public class LobbyManager : MonoBehaviour
         clients.RemoveAll(a => a.Guid == msg.ClientGuid);
     }
 
-    private void PlayerJoinedCallback(PlayerJoinedMessage msg, float travelTime)
-    {
-        var p = new LobbyPlayer(msg.ClientGuid, msg.CtrlType, msg.InitialCharacter);
-        players.Add(p);
-
-        if (inLobby)
-        {
-            SpawnLobbyBall(p);
-        }
-
-        StopLobbyTimer();
-
-        if (LobbyPlayerAdded != null)
-            LobbyPlayerAdded(this, new LobbyPlayerEventArgs(p, msg.ClientGuid == myGuid));
-    }
-
-    private void PlayerLeftCallback(PlayerLeftMessage msg, float travelTime)
-    {
-        var player = players.FirstOrDefault(a => a.ClientGuid == msg.ClientGuid && a.CtrlType == msg.CtrlType);
-        if (player != null)
-        {
-            players.Remove(player);
-
-            if (player.BallObject)
-            {
-                player.BallObject.CreateRemovalParticles();
-                Destroy(player.BallObject.gameObject);
-            }
-
-            if (LobbyPlayerRemoved != null)
-                LobbyPlayerRemoved(this, new LobbyPlayerEventArgs(player, msg.ClientGuid == myGuid)); //TODO: determine if removed player was local
-        }
-    }
-
-    private void CharacterChangedCallback(CharacterChangedMessage msg, float travelTime)
-    {
-        if (!inLobby)
-        {
-            Debug.LogError("Cannot set character outside of lobby!");
-        }
-
-        var player = players.FirstOrDefault(a => a.ClientGuid == msg.ClientGuid && a.CtrlType == msg.CtrlType);
-        if (player != null)
-        {
-            player.CharacterId = msg.NewCharacter;
-            SpawnLobbyBall(player);
-        }
-    }
-
-    private void ChangedReadyCallback(ChangedReadyMessage msg, float travelTime)
-    {
-        var player = players.FirstOrDefault(a => a.ClientGuid == msg.ClientGuid && a.CtrlType == msg.CtrlType);
-        if (player != null)
-        {
-            player.ReadyToRace = !player.ReadyToRace;
-
-            //Check if all players are ready and start/stop lobby timer accordingly
-            var allReady = players.TrueForAll(a => a.ReadyToRace);
-            if (allReady && !lobbyTimerOn)
-            {
-                StartLobbyTimer(travelTime);
-            }
-            if (!allReady && lobbyTimerOn)
-            {
-                StopLobbyTimer();
-            }
-        }
-    }
-
-    private void LoadRaceCallback(LoadRaceMessage msg, float travelTime)
-    {
-        StopLobbyTimer();
-        CameraFade.StartAlphaFade(Color.black, false, 0.3f, 0.05f, () =>
-        {
-            GoToStage();
-        });
-    }
-
     private void ChatCallback(ChatMessage msg, float travelTime)
     {
         if (activeChat)
             activeChat.ShowMessage(msg.Type, msg.From, msg.Text);
     }
-
-    private void LoadLobbyCallback(LoadLobbyMessage msg, float travelTime)
-    {
-        GoToLobby();
-    }
-
-    private void AutoStartTimerCallback(AutoStartTimerMessage msg, float travelTime)
-    {
-        autoStartTimerOn = msg.Enabled;
-        autoStartTimer = currentSettings.AutoStartTime - travelTime;
-    }
-
-    private void PlayerMovementCallback(PlayerMovementMessage msg, float travelTime)
-    {
-        if (msg.ClientGuid == myGuid) return;
-
-        LobbyPlayer player = players.FirstOrDefault(a => a.ClientGuid == msg.ClientGuid && a.CtrlType == msg.CtrlType);
-        if (player != null && player.BallObject != null)
-        {
-            player.ProcessMovementMessage(msg);
-        }
-    }
-
-    #endregion Lobby message callbacks
-
-    #region Lobby initializing
 
     public void InitLocalLobby()
     {
@@ -291,11 +153,6 @@ public class LobbyManager : MonoBehaviour
         //Set settings
         currentSettings = lobbyState.Settings;
 
-        //Set auto start timer
-        //TODO Get and apply travel time
-        autoStartTimerOn = lobbyState.CurAutoStartTime != 0;
-        autoStartTimer = lobbyState.CurAutoStartTime;
-
         //Create messenger
         messenger = new OnlineLobbyMessenger(client);
         ((OnlineLobbyMessenger)messenger).Disconnected += (sender, e) =>
@@ -307,20 +164,8 @@ public class LobbyManager : MonoBehaviour
         activeChat = Instantiate(chatPrefab);
         activeChat.MessageSent += LocalChatMessageSent;
 
-        //Enter the lobby or stage
-        if (lobbyState.InRace)
-        {
-            joiningRaceInProgress = true;
-            GoToStage();
-        }
-        else
-        {
-            //showSettingsOnLobbyLoad = true;
-            GoToLobby();
-        }
+        GoToLobby();
     }
-
-    #endregion Lobby initializing
 
     private void Start()
     {
@@ -330,15 +175,7 @@ public class LobbyManager : MonoBehaviour
         messenger.CreateListener<SettingsChangedMessage>(SettingsChangedCallback);
         messenger.CreateListener<ClientJoinedMessage>(ClientJoinedCallback);
         messenger.CreateListener<ClientLeftMessage>(ClientLeftCallback);
-        messenger.CreateListener<PlayerJoinedMessage>(PlayerJoinedCallback);
-        messenger.CreateListener<PlayerLeftMessage>(PlayerLeftCallback);
-        messenger.CreateListener<CharacterChangedMessage>(CharacterChangedCallback);
-        messenger.CreateListener<ChangedReadyMessage>(ChangedReadyCallback);
-        messenger.CreateListener<LoadRaceMessage>(LoadRaceCallback);
         messenger.CreateListener<ChatMessage>(ChatCallback);
-        messenger.CreateListener<LoadLobbyMessage>(LoadLobbyCallback);
-        messenger.CreateListener<AutoStartTimerMessage>(AutoStartTimerCallback);
-        messenger.CreateListener<PlayerMovementMessage>(PlayerMovementCallback);
 
         //Create this client
         myGuid = Guid.NewGuid();
@@ -355,32 +192,10 @@ public class LobbyManager : MonoBehaviour
     {
         messenger.UpdateListeners();
 
-        //Pausing/unpausing
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))
-        {
-            if (!UI.PauseMenu.GamePaused)
-            {
-                UI.PauseMenu menu = Instantiate(pauseMenuPrefab);
-                menu.OnlineMode = OnlineMode;
-            }
-            else
-            {
-                var menu = FindObjectOfType<UI.PauseMenu>();
-                if (menu)
-                    Destroy(menu.gameObject);
-            }
-        }
-
         if (lobbyTimerOn && inLobby)
         {
             lobbyTimer -= Time.deltaTime;
             LobbyReferences.Active.CountdownField.text = "Lobby starts in " + Mathf.Max(1f, Mathf.Ceil(lobbyTimer));
-
-            //LoadRaceMessages don't need to be sent in online mode - the server will ignore it anyway.
-            if (lobbyTimer <= 0 && !OnlineMode)
-            {
-                messenger.SendMessage(new LoadRaceMessage());
-            }
         }
 
         if (autoStartTimerOn && inLobby)
@@ -401,17 +216,7 @@ public class LobbyManager : MonoBehaviour
                 {
                     if (player.ClientGuid == myGuid && player.BallObject)
                     {
-                        Rigidbody ballRb = player.BallObject.GetComponent<Rigidbody>();
-                        messenger.SendMessage(new PlayerMovementMessage(
-                            DateTime.Now,
-                            myGuid,
-                            player.CtrlType,
-                            player.BallObject.transform.position.ToSimpleVector3(),
-                            player.BallObject.transform.rotation.eulerAngles.ToSimpleVector3(),
-                            ballRb.velocity.ToSimpleVector3(),
-                            ballRb.angularVelocity.ToSimpleVector3(),
-                            player.BallObject.DirectionVector.ToSimpleVector3()
-                            ));
+                        //update logic
                     }
                 }
             }
@@ -424,8 +229,6 @@ public class LobbyManager : MonoBehaviour
         if (activeChat)
             Destroy(activeChat.gameObject);
     }
-
-    #region Players ready and lobby timer
 
     private void StartLobbyTimer(float offset = 0)
     {
@@ -441,10 +244,6 @@ public class LobbyManager : MonoBehaviour
         LobbyReferences.Active.CountdownField.enabled = false;
     }
 
-    #endregion Players ready and lobby timer
-
-    #region Scene changing / race loading
-
     private void GoToLobby()
     {
         if (inLobby) return;
@@ -452,109 +251,5 @@ public class LobbyManager : MonoBehaviour
         loadingStage = false;
         loadingLobby = true;
         UnityEngine.SceneManagement.SceneManager.LoadScene(lobbySceneName);
-    }
-
-    private void GoToStage()
-    {
-        var targetStage = ActiveData.Stages[currentSettings.StageId];
-
-        loadingStage = true;
-        loadingLobby = false;
-
-        foreach (var p in Players)
-        {
-            p.ReadyToRace = false;
-        }
-
-        UnityEngine.SceneManagement.SceneManager.LoadScene(targetStage.sceneName);
-        ;
-    }
-
-    //Check if we were loading the lobby or the race
-    private void OnLevelWasLoaded(int level)
-    {
-        if (loadingLobby)
-        {
-            InitLobby();
-            loadingLobby = false;
-        }
-        if (loadingStage)
-        {
-            InitRace();
-            loadingStage = false;
-        }
-    }
-
-    //Initiate the lobby after loading lobby scene
-    private void InitLobby()
-    {
-        inLobby = true;
-
-        foreach (var p in Players)
-        {
-            SpawnLobbyBall(p);
-        }
-
-        if (showSettingsOnLobbyLoad)
-        {
-            //Let the player pick settings first time entering the lobby
-            LobbyReferences.Active.LobbySettingsPanel.Show();
-            showSettingsOnLobbyLoad = false;
-        }
-    }
-
-    //Initiate a race after loading the stage scene
-    private void InitRace()
-    {
-        inLobby = false;
-
-        var raceManager = Instantiate(raceManagerPrefab);
-        raceManager.Init(currentSettings, this, messenger, joiningRaceInProgress);
-        joiningRaceInProgress = false;
-    }
-
-    public void QuitLobby(string reason = null)
-    {
-        StartCoroutine(QuitLobbyInternal(reason));
-    }
-
-    private IEnumerator QuitLobbyInternal(string reason)
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
-
-        if (reason != null)
-        {
-            yield return null;
-
-            FindObjectOfType<UI.PopupHandler>().OpenPopup(disconnectedPopupPrefab);
-            FindObjectOfType<UI.PopupDisconnected>().Reason = reason;
-        }
-
-        Destroy(gameObject);
-    }
-
-    #endregion Scene changing / race loading
-
-    private void SpawnLobbyBall(LobbyPlayer player)
-    {
-        var spawner = LobbyReferences.Active.BallSpawner;
-        if (player.BallObject != null)
-        {
-            player.BallObject.CreateRemovalParticles();
-            Destroy(player.BallObject.gameObject);
-        }
-
-        string name = clients.First(a => a.Guid == player.ClientGuid).Name + " (" + GameInput.GetControlTypeName(player.CtrlType) + ")";
-
-        player.BallObject = spawner.SpawnBall(PlayerType.Normal, (player.ClientGuid == myGuid) ? player.CtrlType : ControlType.None, player.CharacterId, name);
-
-        if (player.ClientGuid != myGuid)
-        {
-            Marker marker = Instantiate(markerPrefab);
-            marker.transform.SetParent(LobbyReferences.Active.MarkerContainer, false);
-            marker.Color = Color.clear;
-            marker.Text = name;
-            marker.Target = player.BallObject.transform;
-        }
     }
 }
