@@ -33,7 +33,7 @@ public class Server : MonoBehaviour {
 						break;
 						
 					default:
-						print("Server unhandled message with type: " 	+ message.MessageType);
+						print("Server unhandled message with type: " + message.MessageType + " - " + message.ReadString());
 						break;
 			    }
 			}

@@ -32,7 +32,7 @@ public class Client : MonoBehaviour {
 						break;
 						
 					default:
-						print("Client unhandled message with type: " 	+ message.MessageType);
+						print("Client unhandled message with type: " 	+ message.MessageType + " - " + message.ReadString());
 						break;
 			    }
 			}
