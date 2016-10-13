@@ -1,25 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using Lidgren.Network;
 
 public class Client : MonoBehaviour {
 	public NetClient client;
-	
+
 	void Start () {
 		client = new NetClient(new NetPeerConfiguration("Battle Park"));
-		
-		if (client.ConnectionStatus == NetConnectionStatus.Disconnected) {
-			client.Start();
-			client.Connect("127.0.0.1", 12345);
-		}
 	}
-
-	void Update () {
-		if (Input.GetKeyDown(KeyCode.A)) {
-			var message = client.CreateMessage();
-			message.Write("bep bep!!!");
-			client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
-		}
-		
+	
+	void Update ()
+	{
 		if (client.ConnectionStatus == NetConnectionStatus.Connected) {
 			NetIncomingMessage message;
 			while ((message = client.ReadMessage()) != null)
@@ -30,22 +21,35 @@ public class Client : MonoBehaviour {
 						print("Client Data: " + message.ReadString());
 						break;
 						
-					/*case NetIncomingMessageType.StatusChanged:
+					case NetIncomingMessageType.StatusChanged:
 						switch(message.SenderConnection.Status)
 						{
 						}
 						break;
-					*/	
+						
 					case NetIncomingMessageType.DebugMessage:
 						print("Client Debug: " + message.ReadString());
 						break;
 						
 						/* .. */
 					default:
-						print("unhandled message with type: " 	+ message.MessageType);
+						print("Client unhandled message with type: " 	+ message.MessageType);
 						break;
 			    }
 			}
 		}
+	}
+	
+	public void StartClient() {
+		if (client.ConnectionStatus == NetConnectionStatus.Disconnected) {
+			client.Start();
+			client.Connect("127.0.0.1", 12345);
+		}
+	}
+	
+	public void SendClientMessage() {
+		var outgoingMessage = client.CreateMessage();
+		outgoingMessage.Write(FindObjectOfType<InputField>().text);
+		client.SendMessage(outgoingMessage, NetDeliveryMethod.ReliableOrdered);
 	}
 }

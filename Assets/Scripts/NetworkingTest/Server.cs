@@ -1,17 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Net;
+using UnityEngine;
+using UnityEngine.UI;
 using Lidgren.Network;
 
 public class Server : MonoBehaviour {
 	public NetServer server;
 
-	// Use this for initialization
 	void Start () {
 		server = new NetServer(new NetPeerConfiguration("Battle Park") { Port = 12345 });
-		server.Start();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (server.Status == NetPeerStatus.Running) {
 			NetIncomingMessage message;
 			while ((message = server.ReadMessage()) != null)
@@ -21,23 +22,33 @@ public class Server : MonoBehaviour {
 					case NetIncomingMessageType.Data:
 						print("Server Data: " + message.ReadString());
 						break;
-						
-					/*case NetIncomingMessageType.StatusChanged:
+					case NetIncomingMessageType.StatusChanged:
 						switch(message.SenderConnection.Status)
 						{
+							default:
+								break;
 						}
 						break;
-					*/	
 					case NetIncomingMessageType.DebugMessage:
-						print("Server Debug: " + message.ReadString());
 						break;
-						
-						/* .. */
 					default:
-						print("unhandled message with type: " 	+ message.MessageType);
+						print("Server unhandled message with type: " + message.MessageType);
 						break;
 			    }
 			}
+		}
+	}
+
+	public void StartServer() {
+		print(Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString());
+		server.Start();
+	}
+	
+	public void SendServerMessage() {
+		var outgoingMessage = server.CreateMessage();
+		outgoingMessage.Write(FindObjectOfType<InputField>().text);
+		foreach (var connection in server.Connections) {
+			server.SendMessage(outgoingMessage, connection, NetDeliveryMethod.ReliableOrdered);				
 		}
 	}
 }
