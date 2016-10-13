@@ -47,7 +47,7 @@ public class Server : MonoBehaviour {
 	public void SendServerMessage() {
 		var outgoingMessage = server.CreateMessage();
 		outgoingMessage.Write(FindObjectOfType<InputField>().text);
-		FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = String.Empty;
+		FindObjectsOfType<InputField>().First(x => x.name == "ChatInput").text = String.Empty;
 		foreach (var connection in server.Connections) {
 			server.SendMessage(outgoingMessage, connection, NetDeliveryMethod.ReliableOrdered);				
 		}

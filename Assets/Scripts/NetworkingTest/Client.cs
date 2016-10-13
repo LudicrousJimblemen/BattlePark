@@ -49,7 +49,7 @@ public class Client : MonoBehaviour {
 	public void SendClientMessage() {
 		var outgoingMessage = client.CreateMessage();
 		outgoingMessage.Write(FindObjectOfType<InputField>().text);
-		FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = String.Empty;
+		FindObjectsOfType<InputField>().First(x => x.name == "ChatInput").text = String.Empty;
 		client.SendMessage(outgoingMessage, NetDeliveryMethod.ReliableOrdered);
 	}
 }
