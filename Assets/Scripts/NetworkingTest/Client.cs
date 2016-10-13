@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 using Lidgren.Network;
 
@@ -22,16 +24,13 @@ public class Client : MonoBehaviour {
 						break;
 						
 					case NetIncomingMessageType.StatusChanged:
-						switch(message.SenderConnection.Status)
-						{
-						}
+						print("Client Status: " + message.ReadString());
 						break;
 						
 					case NetIncomingMessageType.DebugMessage:
 						print("Client Debug: " + message.ReadString());
 						break;
 						
-						/* .. */
 					default:
 						print("Client unhandled message with type: " 	+ message.MessageType);
 						break;
@@ -43,13 +42,14 @@ public class Client : MonoBehaviour {
 	public void StartClient() {
 		if (client.ConnectionStatus == NetConnectionStatus.Disconnected) {
 			client.Start();
-			client.Connect("127.0.0.1", 12345);
+			client.Connect(FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text, 12345);
 		}
 	}
 	
 	public void SendClientMessage() {
 		var outgoingMessage = client.CreateMessage();
 		outgoingMessage.Write(FindObjectOfType<InputField>().text);
+		FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = String.Empty;
 		client.SendMessage(outgoingMessage, NetDeliveryMethod.ReliableOrdered);
 	}
 }

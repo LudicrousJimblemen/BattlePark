@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Lidgren.Network;
@@ -22,17 +23,17 @@ public class Server : MonoBehaviour {
 					case NetIncomingMessageType.Data:
 						print("Server Data: " + message.ReadString());
 						break;
+						
 					case NetIncomingMessageType.StatusChanged:
-						switch(message.SenderConnection.Status)
-						{
-							default:
-								break;
-						}
+						print("Server Status: " + message.ReadString());
 						break;
+						
 					case NetIncomingMessageType.DebugMessage:
+						print("Server Debug: " + message.ReadString());
 						break;
+						
 					default:
-						print("Server unhandled message with type: " + message.MessageType);
+						print("Server unhandled message with type: " 	+ message.MessageType);
 						break;
 			    }
 			}
@@ -40,13 +41,13 @@ public class Server : MonoBehaviour {
 	}
 
 	public void StartServer() {
-		print(Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString());
 		server.Start();
 	}
 	
 	public void SendServerMessage() {
 		var outgoingMessage = server.CreateMessage();
 		outgoingMessage.Write(FindObjectOfType<InputField>().text);
+		FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = String.Empty;
 		foreach (var connection in server.Connections) {
 			server.SendMessage(outgoingMessage, connection, NetDeliveryMethod.ReliableOrdered);				
 		}
