@@ -1,5 +1,6 @@
-﻿using System.Net;
-using System.IO;
+﻿using System;
+using System.Net;
+using System.Net.Sockets;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +11,7 @@ public class UI : MonoBehaviour {
 		FindObjectsOfType<InputField>().First(x => x.name == "ChatInput").interactable = true;
 		FindObjectsOfType<InputField>().First(x => x.name == "PortInput").interactable = false;
 		FindObjectsOfType<InputField>().First(x => x.name == "IPInput").interactable = false;
-        WebResponse resp = WebRequest.Create("http://checkip.dyndns.org").GetResponse();
-        StreamReader reader = new StreamReader(resp.GetResponseStream());
-        FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = reader.ReadToEnd().Trim().Split(':')[1].Substring(1).Split('<')[0];
+        FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = Dns.GetHostEntry(Dns.GetHostName()).AddressList.First(x => x.AddressFamily == AddressFamily.InterNetwork).ToString();
 		FindObjectsOfType<Button>().First(x => x.name == "StartClient").interactable = false;
 		FindObjectsOfType<Button>().First(x => x.name == "StartServer").interactable = false;
 		FindObjectsOfType<Button>().First(x => x.name == "SendClient").interactable = false;
