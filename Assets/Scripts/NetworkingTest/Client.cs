@@ -42,7 +42,7 @@ public class Client : MonoBehaviour {
 	public void StartClient(string port) {
 		if (client.ConnectionStatus == NetConnectionStatus.Disconnected) {
 			client.Start();
-			client.Connect(FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text, Int32.Parse(port.Trim()));
+			client.Connect(FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text.Trim(), Int32.Parse(port.Trim()));
 		}
 	}
 	
