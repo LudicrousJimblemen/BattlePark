@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using Lidgren.Network;
 
 public class Server : MonoBehaviour {
-	public NetServer server;
-	
-	// Update is called once per frame
-	void Update ()
+	public NetServer server = new NetServer(new NetPeerConfiguration("Battle Park") { Port = 6666 });
+
+    // Update is called once per frame
+    void Update ()
 	{
 		if (server.Status == NetPeerStatus.Running) {
 			NetIncomingMessage message;
