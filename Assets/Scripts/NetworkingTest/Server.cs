@@ -6,10 +6,6 @@ using Lidgren.Network;
 
 public class Server : MonoBehaviour {
 	public NetServer server;
-
-	void Start () {
-		server = new NetServer(new NetPeerConfiguration("Battle Park") { Port = 12345 });
-	}
 	
 	// Update is called once per frame
 	void Update ()
@@ -40,8 +36,9 @@ public class Server : MonoBehaviour {
 		}
 	}
 
-	public void StartServer() {
-		server.Start();
+	public void StartServer(string port) {
+        server = new NetServer(new NetPeerConfiguration("Battle Park") { Port = Int32.Parse(port.Trim()) });
+        server.Start();
 	}
 	
 	public void SendServerMessage() {

@@ -39,10 +39,10 @@ public class Client : MonoBehaviour {
 		}
 	}
 	
-	public void StartClient() {
+	public void StartClient(string port) {
 		if (client.ConnectionStatus == NetConnectionStatus.Disconnected) {
 			client.Start();
-			client.Connect(FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text, 12345);
+			client.Connect(FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text, Int32.Parse(port.Trim()));
 		}
 	}
 	

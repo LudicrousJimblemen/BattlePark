@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour {
 	public void StartServer() {
-		FindObjectOfType<Server>().StartServer();
+		FindObjectOfType<Server>().StartServer(FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text);
 		FindObjectsOfType<InputField>().First(x => x.name == "ChatInput").interactable = true;
+		FindObjectsOfType<InputField>().First(x => x.name == "PortInput").interactable = false;
 		FindObjectsOfType<InputField>().First(x => x.name == "IPInput").interactable = false;
-		FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();
+        FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();
 		FindObjectsOfType<Button>().First(x => x.name == "StartClient").interactable = false;
 		FindObjectsOfType<Button>().First(x => x.name == "StartServer").interactable = false;
 		FindObjectsOfType<Button>().First(x => x.name == "SendClient").interactable = false;
@@ -16,8 +17,9 @@ public class UI : MonoBehaviour {
 	}
 	
 	public void StartClient() {
-		FindObjectOfType<Client>().StartClient();
+		FindObjectOfType<Client>().StartClient(FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text);
 		FindObjectsOfType<InputField>().First(x => x.name == "ChatInput").interactable = true;
+		FindObjectsOfType<InputField>().First(x => x.name == "PortInput").interactable = false;
 		FindObjectsOfType<InputField>().First(x => x.name == "IPInput").interactable = false;
 		FindObjectsOfType<Button>().First(x => x.name == "StartClient").interactable = false;
 		FindObjectsOfType<Button>().First(x => x.name == "StartServer").interactable = false;
