@@ -2,51 +2,30 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Lidgren.Network;
+using UnityEngine.Networking;
 
 public class Client : MonoBehaviour {
-	public NetClient client;
+	public NetworkClient client;
 
 	void Start() {
-		client = new NetClient(new NetPeerConfiguration("Battle Park"));
-	}
-
-	void Update() {
-		if (client.ConnectionStatus == NetConnectionStatus.Connected) {
-			NetIncomingMessage message;
-			while ((message = client.ReadMessage()) != null) {
-				switch (message.MessageType) {
-					case NetIncomingMessageType.Data:
-						print("Client Data: " + message.ReadString());
-						break;
-
-					case NetIncomingMessageType.StatusChanged:
-						print("Client Status: " + message.ReadString());
-						break;
-
-					case NetIncomingMessageType.DebugMessage:
-						print("Client Debug: " + message.ReadString());
-						break;
-
-					default:
-						print("Client unhandled message with type: " + message.MessageType + " - " + message.ReadString());
-						break;
-				}
-			}
-		}
+		client = new NetworkClient();
+		client.RegisterHandler(ChatMessage.Code, OnChatMessage);
 	}
 
 	public void StartClient(string port) {
-		if (client.ConnectionStatus == NetConnectionStatus.Disconnected) {
-			client.Start();
-			client.Connect(FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text.Trim(), Int32.Parse(port.Trim()));
-		}
+		client.Connect(FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text.Trim(), Int32.Parse(port.Trim()));
 	}
+	
+	public void OnChatMessage(NetworkMessage incoming) {	
+        ChatMessage message = incoming.ReadMessage<ChatMessage>();
+        print("ChatMessage: " + message.Message);
+    }
 
 	public void SendClientMessage() {
-		var outgoingMessage = client.CreateMessage();
-		outgoingMessage.Write(FindObjectsOfType<InputField>().First(x => x.name == "ChatInput").text);
+		ChatMessage outgoingMessage = new ChatMessage() {
+			Message = FindObjectsOfType<InputField>().First(x => x.name == "ChatInput").text
+		};
 		FindObjectsOfType<InputField>().First(x => x.name == "ChatInput").text = String.Empty;
-		client.SendMessage(outgoingMessage, NetDeliveryMethod.ReliableOrdered);
+		client.Send(ChatMessage.Code, outgoingMessage);
 	}
 }
