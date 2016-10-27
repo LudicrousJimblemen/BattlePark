@@ -6,7 +6,6 @@ public class GridObject : MonoBehaviour
 	
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
-		GetComponent<MeshRenderer>().material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1, 1, 1);
 	}
 	
 	void Update() {

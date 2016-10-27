@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.NetworkSystem;
 
 public class Server : MonoBehaviour {
 	public NetworkManager networkManager;
@@ -16,27 +17,13 @@ public class Server : MonoBehaviour {
 		}
 	}
 	
-	void Update() {
-		if (!NetworkServer.active) {
-			return;
-		}
-		
-		string e = String.Empty;
-		foreach (var connection in NetworkServer.connections) {
-			if (connection != null) {
-				e += connection.address + " ";
-			}
-		}
-		print(e);
-	}
-	
 	public void StartServer() {
-		NetworkServer.RegisterHandler(GridObjectMessage.Code, OnGridObjectMessage);
+		NetworkServer.RegisterHandler(ChatNetMessage.Code, OnChatNetMessage);
 		NetworkServer.Listen(networkManager.Port);
 	}
 	
-	public void OnGridObjectMessage(NetworkMessage incoming) {
-		GridObjectMessage message = incoming.ReadMessage<GridObjectMessage>();
-		NetworkServer.SendToAll(GridObjectMessage.Code, message);
+	public void OnChatNetMessage(NetworkMessage incoming) {
+		 ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
+		 print(message.Message);
 	}
 }

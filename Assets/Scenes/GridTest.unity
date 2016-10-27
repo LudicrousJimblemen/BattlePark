@@ -228,10 +228,6 @@ MonoBehaviour:
   VerticalConstrainRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  PlaceholderObjectPrefab: {fileID: 1000010111816564, guid: 4253888a00481ec4f922a7e6103dec13,
-    type: 2}
-  GridObjectPrefab: {fileID: 1000014025589750, guid: 5fdb83c6ec15eb746a4abc19db48c729,
-    type: 2}
   GridXZ: 1
   GridY: 0.5
 --- !u!1 &291123410

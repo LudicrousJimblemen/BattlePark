@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GridPlaceholder : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class GridPlaceholder : MonoBehaviour
 		};
 	
 		if (Input.GetMouseButtonDown(0)) {
-			FindObjectOfType<Client>().SendGridObjectMessage(gameObject);
+			//TODO Send message
 			Destroy(gameObject);
 		}
 	}
