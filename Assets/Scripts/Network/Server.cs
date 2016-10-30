@@ -18,12 +18,19 @@ public class Server : MonoBehaviour {
 	}
 	
 	public void StartServer() {
-		NetworkServer.RegisterHandler(ChatNetMessage.Code, OnChatNetMessage);
+		NetworkServer.RegisterHandler(ChatNetMessage.Code, ResendMessage);
+		NetworkServer.RegisterHandler(GridObjectPlacedNetMessage.Code, ResendMessage);
 		NetworkServer.Listen(networkManager.Port);
 	}
 	
-	public void OnChatNetMessage(NetworkMessage incoming) {
-		 ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
-		 print(message.Message);
+	public void ResendMessage(NetworkMessage incoming) {
+		switch (incoming.msgType) {
+			case ChatNetMessage.Code:
+				NetworkServer.SendToAll(incoming.msgType, incoming.ReadMessage<ChatNetMessage>());
+				break;
+			case GridObjectPlacedNetMessage.Code:
+				NetworkServer.SendToAll(incoming.msgType, incoming.ReadMessage<GridObjectPlacedNetMessage>());
+				break;
+		}
 	}
 }

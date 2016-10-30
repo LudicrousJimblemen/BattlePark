@@ -2,35 +2,55 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Networking.NetworkSystem;
 
 public class Client : MonoBehaviour {
-	private Grid grid;
+	private NetworkManager networkManager;
 	
-	public NetworkManager networkManager;
-	public NetworkClient networkClient;
+	public NetworkClient NetworkClient;
 
 	void Start() {
-		grid = FindObjectOfType<Grid>();
 		networkManager = FindObjectOfType<NetworkManager>();
 		StartClient();
 	}
 	
 	void Update() {
 		if (Input.GetKeyDown(KeyCode.Q)) {
-			GameObject newSculpture = (GameObject)Instantiate(Objects.Sculpture);
-			newSculpture.AddComponent<GridPlaceholder>();
+			SummonGridObject("Sculpture");
 		}
+		if (Input.GetKeyDown(KeyCode.W)) {
+			SummonGridObject("Tree");
+		}
+	}
+	
+	public void SummonGridObject(string name) {
+		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + name));
+		
+		GridPlaceholder component = newGridObject.AddComponent<GridPlaceholder>();
+		component.Type = name;
 	}
 
 	public void StartClient() {
-		networkClient = new NetworkClient();
-		NetworkServer.RegisterHandler(ChatNetMessage.Code, OnChatNetMessage);
-		networkClient.Connect(networkManager.Ip, networkManager.Port);
+		NetworkClient = new NetworkClient();
+		NetworkClient.RegisterHandler(ChatNetMessage.Code, OnChatNetMessage);
+		NetworkClient.RegisterHandler(GridObjectPlacedNetMessage.Code, OnGridObjectPlacedNetMessage);
+		NetworkClient.Connect(networkManager.Ip, networkManager.Port);
 	}
 	
 	public void OnChatNetMessage(NetworkMessage incoming) {
 		 ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
 		 print(message.Message);
+	}
+	
+	public void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
+		GridObjectPlacedNetMessage message = incoming.ReadMessage<GridObjectPlacedNetMessage>();
+		
+		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + message.Type));
+		GridObject component = newGridObject.GetComponent<GridObject>();
+		
+		component.Direction = message.Direction;
+		component.Position = message.Position;
+		
+		component.IsScenery = message.IsScenery;
+		component.IsNice = message.IsNice;
 	}
 }

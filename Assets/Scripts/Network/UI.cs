@@ -7,6 +7,7 @@ public class UI : MonoBehaviour {
 	private NetworkManager networkManager;
 	
 	void Start() {
+		FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text = "6666";
 		networkManager = FindObjectOfType<NetworkManager>();
 	}
 	

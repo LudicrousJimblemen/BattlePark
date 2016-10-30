@@ -1,14 +1,30 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class GridObject : MonoBehaviour
-{
-	private NetworkManager networkManager;
+public class GridObject : MonoBehaviour {
+	public bool Active;
 	
-	void Start() {
-		networkManager = FindObjectOfType<NetworkManager>();
+	#region GridObject Data
+	public Direction Direction;
+	public Vector3 Position;
+	#endregion
+	
+	#region Scenery Data
+	public bool IsScenery;
+	public bool IsNice;
+	#endregion
+	
+	public virtual void Start() {
+		//
 	}
 	
-	void Update() {
-		//PUT THE THINGS IN HERE?E?E?E?E
+	public virtual void Update() {
+		Active = !GetComponent<GridPlaceholder>();
+
+		transform.rotation = Quaternion.Euler(-90, 0, (int)Direction * 90);
+		
+		if (Active) {
+			transform.position = Position;
+		}
 	}
 }
