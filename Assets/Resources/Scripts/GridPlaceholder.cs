@@ -82,4 +82,7 @@ public class GridPlaceholder : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+	void OnDrawGizmos () {
+		Gizmos.DrawCube (transform.position, Vector3.one);
+	}
 }

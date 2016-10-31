@@ -7,19 +7,35 @@ public class Client : MonoBehaviour {
 	private NetworkManager networkManager;
 	
 	public NetworkClient NetworkClient;
+	
+	private string[] Hotbar = new string[9];
 
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
 		StartClient();
+		
+		//temporary, eventually hotbar slots will be defined dynamically
+		Hotbar[0] = "Sculpture";
+		Hotbar[1] = "Tree";
 	}
 	
 	void Update() {
+		//returns which of the alpha keys were pressed this frame, preferring lower numbers
+		for (int i = 0; i < 9; i ++) {
+			//49 50 51 52 53 54 55 56 57
+			if (Input.GetKeyDown ((KeyCode) (49 + i))) {
+				if (Hotbar[i] != null) SummonGridObject (Hotbar[i]);
+				break;
+			}
+		}
+		/*
 		if (Input.GetKeyDown(KeyCode.Q)) {
 			SummonGridObject("Sculpture");
 		}
 		if (Input.GetKeyDown(KeyCode.W)) {
 			SummonGridObject("Tree");
 		}
+		*/
 	}
 	
 	public void SummonGridObject(string name) {
