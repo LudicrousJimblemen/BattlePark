@@ -34,21 +34,26 @@ public class GridPlaceholder : MonoBehaviour
 			verticalConstraint.transform.rotation = Quaternion.LookRotation(transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 		}
 		
+		if (Input.GetKeyDown(KeyCode.A)) {
+			if (GetComponent<Tree>()) {
+				GetComponent<Tree>().SpinsALot = !GetComponent<Tree>().SpinsALot;
+			}
+		}
 		
 		if (Input.GetKeyDown(KeyCode.Z)) {
-			GridObject.Data.Direction--;
+			GridObject.Direction--;
 		} else if (Input.GetKeyDown(KeyCode.X)) {
-			GridObject.Data.Direction++;
+			GridObject.Direction++;
 		}
 		
-		if (GridObject.Data.Direction > (Direction)3) {
-			GridObject.Data.Direction = (Direction)0;
+		if (GridObject.Direction > (Direction)3) {
+			GridObject.Direction = (Direction)0;
 		}
-		if (GridObject.Data.Direction < (Direction)0) {
-			GridObject.Data.Direction = (Direction)3;
+		if (GridObject.Direction < (Direction)0) {
+			GridObject.Direction = (Direction)3;
 		}
 		
-		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Data.Direction * 90);
+		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		RaycastHit hit;
 		

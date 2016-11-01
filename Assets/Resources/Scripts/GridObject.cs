@@ -3,6 +3,10 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 public class GridObject : MonoBehaviour {
+	public class GridObjectData {
+		public Direction Direction;
+	}
+	
 	public bool Active;
 	
 	public Direction Direction;
@@ -10,7 +14,7 @@ public class GridObject : MonoBehaviour {
 	public virtual void Start() {
 		Serialize();
 		
-		transform.Rotate(-90, 0, (int)(Direction) * 90);
+		transform.rotation = Quaternion.Euler (-90, 0, (int)(Direction) * 90);
 	}
 	
 	public virtual void Update() {
@@ -18,10 +22,13 @@ public class GridObject : MonoBehaviour {
 	}
 	
 	public virtual string Serialize() {
-		return JsonConvert.SerializeObject(this);
+		return JsonConvert.SerializeObject(new GridObjectData {
+			Direction = Direction
+		});
 	}
 	
 	public virtual void Deserialize(string message) {
-		this = JsonConvert.DeserializeObject<GridObject>(message);
+		GridObjectData deserialized = JsonConvert.DeserializeObject<GridObjectData>(message);
+		Direction = deserialized.Direction;
 	}
 }

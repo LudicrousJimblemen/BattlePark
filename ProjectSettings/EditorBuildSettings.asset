@@ -10,6 +10,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GridTest.unity
   - enabled: 1
-    path: Assets/Resources/Scenes/GridTest.unity
-  - enabled: 1
     path: Assets/Resources/Scenes/Network.unity
+  - enabled: 1
+    path: Assets/Resources/Scenes/GridTest.unity

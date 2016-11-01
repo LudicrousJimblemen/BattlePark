@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011829653992}
   - 33: {fileID: 33000011687780188}
   - 23: {fileID: 23000013380845030}
-  - 114: {fileID: 114000013857739952}
+  - 114: {fileID: 114000011436285656}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -78,7 +78,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012678372954}
   m_Mesh: {fileID: 4300000, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
---- !u!114 &114000013857739952
+--- !u!114 &114000011436285656
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -86,11 +86,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012678372954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da2d39dbba7c0874886afd9183087bac, type: 3}
+  m_Script: {fileID: 11500000, guid: 57b6ca409af242a488919f7e0b8d4e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Active: 0
-  Direction: 90
-  Position: {x: 0, y: 0, z: 0}
-  IsScenery: 1
-  IsNice: 0
+  Direction: 0
+  SpinsALot: 0
