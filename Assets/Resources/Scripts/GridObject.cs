@@ -1,30 +1,27 @@
 ﻿using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class GridObject : MonoBehaviour {
 	public bool Active;
 	
-	#region GridObject Data
 	public Direction Direction;
-	public Vector3 Position;
-	#endregion
-	
-	#region Scenery Data
-	public bool IsScenery;
-	public bool IsNice;
-	#endregion
 	
 	public virtual void Start() {
-		//
+		Serialize();
+		
+		transform.Rotate(-90, 0, (int)(Direction) * 90);
 	}
 	
 	public virtual void Update() {
 		Active = !GetComponent<GridPlaceholder>();
-
-		transform.rotation = Quaternion.Euler(-90, 0, (int)Direction * 90);
-		
-		if (Active) {
-			transform.position = Position;
-		}
+	}
+	
+	public virtual string Serialize() {
+		return JsonConvert.SerializeObject(this);
+	}
+	
+	public virtual void Deserialize(string message) {
+		this = JsonConvert.DeserializeObject<GridObject>(message);
 	}
 }

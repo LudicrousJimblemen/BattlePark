@@ -23,8 +23,8 @@ public class Client : MonoBehaviour {
 		//returns which of the alpha keys were pressed this frame, preferring lower numbers
 		for (int i = 0; i < 9; i ++) {
 			//49 50 51 52 53 54 55 56 57
-			if (Input.GetKeyDown ((KeyCode) (49 + i))) {
-				if (Hotbar[i] != null) SummonGridObject (Hotbar[i]);
+			if (Input.GetKeyDown((KeyCode)(49 + i))) {
+				if (Hotbar[i] != null) SummonGridObject(Hotbar[i]);
 				break;
 			}
 		}
@@ -63,10 +63,7 @@ public class Client : MonoBehaviour {
 		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + message.Type));
 		GridObject component = newGridObject.GetComponent<GridObject>();
 		
-		component.Direction = message.Direction;
-		component.Position = message.Position;
-		
-		component.IsScenery = message.IsScenery;
-		component.IsNice = message.IsNice;
+		newGridObject.transform.position = message.Position;
+		component.Deserialize(message.ObjectData);
 	}
 }

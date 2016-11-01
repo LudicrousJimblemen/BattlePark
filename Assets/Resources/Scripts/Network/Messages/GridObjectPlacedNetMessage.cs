@@ -9,13 +9,6 @@ public class GridObjectPlacedNetMessage : MessageBase {
 	
 	public string Type;
 	
-	#region GridObject Data
-	public Direction Direction;
 	public Vector3 Position;
-	#endregion
-	
-	#region Scenery Data
-	public bool IsScenery;
-	public bool IsNice;
-	#endregion
+	public string ObjectData;
 }

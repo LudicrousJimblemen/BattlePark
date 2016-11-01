@@ -36,17 +36,19 @@ public class GridPlaceholder : MonoBehaviour
 		
 		
 		if (Input.GetKeyDown(KeyCode.Z)) {
-			GridObject.Direction--;
+			GridObject.Data.Direction--;
 		} else if (Input.GetKeyDown(KeyCode.X)) {
-			GridObject.Direction++;
+			GridObject.Data.Direction++;
 		}
 		
-		if (GridObject.Direction > (Direction)3) {
-			GridObject.Direction = (Direction)0;
+		if (GridObject.Data.Direction > (Direction)3) {
+			GridObject.Data.Direction = (Direction)0;
 		}
-		if (GridObject.Direction < (Direction)0) {
-			GridObject.Direction = (Direction)3;
+		if (GridObject.Data.Direction < (Direction)0) {
+			GridObject.Data.Direction = (Direction)3;
 		}
+		
+		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Data.Direction * 90);
 		
 		RaycastHit hit;
 		
@@ -67,22 +69,18 @@ public class GridPlaceholder : MonoBehaviour
 		};
 		
 		if (Input.GetMouseButtonDown(0)) {
-			GridObject.Position = transform.position;
 			client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
 				ConnectionId = client.connection.connectionId,
 				
 				Type = Type,
 				
-				Direction = GridObject.Direction,
-				Position = GridObject.Position,
-				
-				IsScenery = GridObject.IsScenery,
-				IsNice = GridObject.IsNice
+				Position = transform.position,
+				ObjectData = GridObject.Serialize()
 			});
 			Destroy(gameObject);
 		}
 	}
-	void OnDrawGizmos () {
-		Gizmos.DrawCube (transform.position, Vector3.one);
+	void OnDrawGizmos() {
+		Gizmos.DrawCube(transform.position, Vector3.one);
 	}
 }
