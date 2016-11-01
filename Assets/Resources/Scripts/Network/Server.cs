@@ -20,7 +20,7 @@ public class Server : MonoBehaviour {
 	public void StartServer() {
 		NetworkServer.RegisterHandler(ChatNetMessage.Code, ResendMessage);
 		NetworkServer.RegisterHandler(GridObjectPlacedNetMessage.Code, ResendMessage);
-		NetworkServer.Listen(networkManager.Port);
+		NetworkServer.Listen(networkManager.Ip, networkManager.Port);
 	}
 	
 	public void ResendMessage(NetworkMessage incoming) {
