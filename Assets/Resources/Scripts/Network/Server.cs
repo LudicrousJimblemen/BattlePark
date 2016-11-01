@@ -9,7 +9,6 @@ public class Server : MonoBehaviour {
 	
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
-		
 		if (!networkManager.IsServer) {
 			Destroy(this);
 		} else {
