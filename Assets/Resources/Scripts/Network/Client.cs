@@ -7,8 +7,11 @@ public class Client : MonoBehaviour {
 	private NetworkManager networkManager;
 	
 	public NetworkClient NetworkClient;
+
+	private GameObject SummonedObject;
 	
 	private string[] Hotbar = new string[9];
+	private bool canSummon = true;
 
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
@@ -24,7 +27,10 @@ public class Client : MonoBehaviour {
 		for (int i = 0; i < 9; i ++) {
 			//49 50 51 52 53 54 55 56 57
 			if (Input.GetKeyDown((KeyCode)(49 + i))) {
-				if (Hotbar[i] != null) SummonGridObject(Hotbar[i]);
+				if (Hotbar[i] != null && canSummon) {
+					SummonedObject = SummonGridObject (Hotbar[i]);
+					canSummon = false;
+				}
 				break;
 			}
 		}
@@ -38,11 +44,12 @@ public class Client : MonoBehaviour {
 		*/
 	}
 	
-	public void SummonGridObject(string name) {
+	public GameObject SummonGridObject(string name) {
 		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + name));
 		
 		GridPlaceholder component = newGridObject.AddComponent<GridPlaceholder>();
 		component.Type = name;
+		return newGridObject;
 	}
 
 	public void StartClient() {
