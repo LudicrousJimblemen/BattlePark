@@ -63,13 +63,14 @@ public class GridPlaceholder : MonoBehaviour
 			}
 		} else {
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
+				//if (hit.collider.GetComponent<Grid> ().player == FindObjectOfType<Client> ().PlayerNumber) 
 				transform.position = hit.point;
 			}
 		}
 		
 		transform.position = new Vector3 { //snap to grid
-			x = Mathf.Round(transform.position.x / grid.GridXZ) * grid.GridXZ,
-			z = Mathf.Round(transform.position.z / grid.GridXZ) * grid.GridXZ,
+			x = Mathf.Floor(transform.position.x / grid.GridXZ) * grid.GridXZ + 0.5f * grid.GridXZ,
+			z = Mathf.Floor(transform.position.z / grid.GridXZ) * grid.GridXZ + 0.5f * grid.GridXZ,
 			y = Mathf.Clamp(Mathf.Round(transform.position.y / grid.GridY) * grid.GridY, 0, Mathf.Infinity)
 		};
 		
@@ -82,6 +83,7 @@ public class GridPlaceholder : MonoBehaviour
 				Position = transform.position,
 				ObjectData = GridObject.Serialize()
 			});
+			FindObjectOfType<Client> ().AllowSummons ();
 			Destroy(gameObject);
 		}
 	}
