@@ -11,10 +11,6 @@ public class Tree : GridObject {
 	
 	public override void Update() {
 		base.Update();
-		
-		if (SpinsALot) { //TEST SECTION DELETE NOW
-			GetComponent<MeshRenderer>().material.color = UnityEngine.Random.ColorHSV(0f, 1f, 0.8f, 1f, 1f, 1f);
-		}
 	}
 	
 	public override string Serialize() {

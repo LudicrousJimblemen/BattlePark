@@ -75,8 +75,7 @@ public class GridPlaceholder : MonoBehaviour
 			GridObject.Direction = (Direction)3;
 		}
 	}
-	public void Raycast (bool UseVerticalConstraint = false) {
-		
+	public void Raycast (bool UseVerticalConstraint) {
 		RaycastHit hit;
 		if (UseVerticalConstraint) {
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
