@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,15 +15,17 @@ public class Client : MonoBehaviour {
 	private string[] Hotbar = new string[9];
 	private bool canSummon = true;
 	
-	private List<int> Players;
+	private GridPlaceholder gridPlaceholder;
+	
+	int[] PlayerList;
 
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
-		StartClient();
-		print ("e");
+		
 		//temporary, eventually hotbar slots will be defined dynamically
 		Hotbar[0] = "Sculpture";
 		Hotbar[1] = "Tree";
+		if (!networkManager.IsServer) StartClient();
 	}
 	
 	void Update() {
@@ -31,22 +34,30 @@ public class Client : MonoBehaviour {
 		for (int i = 0; i < 9; i ++) {
 			//49 50 51 52 53 54 55 56 57
 			if (Input.GetKeyDown((KeyCode)(49 + i))) {
-				print (Hotbar[i]);
-				if (Hotbar[i] != null && canSummon) {
-					SummonedObject = SummonGridObject (Hotbar[i]);
-					canSummon = false;
+				if (Hotbar[i] != null) {
+					if (canSummon) {
+						SummonedObject = SummonGridObject (Hotbar[i]);
+						canSummon = false;
+					} else {
+						Destroy (SummonedObject);
+						SummonedObject = SummonGridObject (Hotbar[i]);
+					}
+					gridPlaceholder = FindObjectOfType<GridPlaceholder>();
+					break;
 				}
-				break;
 			}
 		}
-		/*
-		if (Input.GetKeyDown(KeyCode.Q)) {
-			SummonGridObject("Sculpture");
+		if (gridPlaceholder == null) return;
+		if (Input.GetKeyDown(KeyCode.LeftControl)) {
+			gridPlaceholder.EnableVerticalConstraint ();
 		}
-		if (Input.GetKeyDown(KeyCode.W)) {
-			SummonGridObject("Tree");
+		
+		if (Input.GetKeyDown (KeyCode.Z)) {
+			gridPlaceholder.Rotate (-1);
+		} else if (Input.GetKeyDown (KeyCode.X)) {
+			gridPlaceholder.Rotate (1);
 		}
-		*/
+		gridPlaceholder.Raycast (Input.GetKey (KeyCode.LeftControl));
 	}
 	
 	public void AllowSummons () {
@@ -66,10 +77,20 @@ public class Client : MonoBehaviour {
 		NetworkClient.RegisterHandler(ChatNetMessage.Code, OnChatNetMessage);
 		NetworkClient.RegisterHandler(GridObjectPlacedNetMessage.Code, OnGridObjectPlacedNetMessage);
 		NetworkClient.RegisterHandler (UpdatePlayerListMessage.Code, OnUpdatePlayerListMessage);
+		NetworkClient.RegisterHandler (ClientJoinedMessage.Code, OnClientJoinedMessage);
 		NetworkClient.Connect(networkManager.Ip, networkManager.Port);
+		StartCoroutine (sendJoinMessage ());
+	}
+	public IEnumerator sendJoinMessage () {
+		
+		yield return new WaitWhile(() => !NetworkClient.isConnected);
 		NetworkClient.Send (ClientJoinedMessage.Code, new ClientJoinedMessage () {
 			ConnectionId = NetworkClient.connection.connectionId
 		});
+	}
+	
+	void OnClientJoinedMessage (NetworkMessage incoming) {
+		return;
 	}
 	
 	public void OnChatNetMessage(NetworkMessage incoming) {
@@ -89,6 +110,6 @@ public class Client : MonoBehaviour {
 	
 	public void OnUpdatePlayerListMessage (NetworkMessage incoming) {
 		UpdatePlayerListMessage message = incoming.ReadMessage<UpdatePlayerListMessage>();
-		Players = message.PlayerList;
+		PlayerList = message.PlayerList;
 	}
 }

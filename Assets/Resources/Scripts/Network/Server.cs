@@ -7,12 +7,15 @@ using UnityEngine.Networking.NetworkSystem;
 
 public class Server : MonoBehaviour {
 	public NetworkManager networkManager;
-	int PlayerNumberCounter = 1;
 	
-	List<int> Players = new List<int> ();
+	int[] PlayerList;
 	
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
+		PlayerList = new int[networkManager.MaxPlayers];
+		for (int i = 0; i < PlayerList.Length; i ++) {
+			PlayerList[i] = -1;
+		}
 		if (!networkManager.IsServer) {
 			Destroy(this);
 		} else {
@@ -25,6 +28,7 @@ public class Server : MonoBehaviour {
 		NetworkServer.RegisterHandler(GridObjectPlacedNetMessage.Code, ResendMessage);
 		NetworkServer.RegisterHandler(ClientJoinedMessage.Code, SendToClients);
 		NetworkServer.Listen(networkManager.Ip, networkManager.Port);
+		FindObjectOfType<Client> ().StartClient ();
 	}
 	
 	public void ResendMessage(NetworkMessage incoming) {
@@ -34,15 +38,28 @@ public class Server : MonoBehaviour {
 				break;
 			case GridObjectPlacedNetMessage.Code:
 				NetworkServer.SendToAll(incoming.msgType, incoming.ReadMessage<GridObjectPlacedNetMessage>());
-				break;				
+				break;
 		}
 	}
 	
 	public void SendToClients (NetworkMessage incoming) {
 		int id = incoming.ReadMessage<ClientJoinedMessage>().ConnectionId;
-		Players.Add (id);
-		NetworkServer.SendToAll (incoming.msgType, new UpdatePlayerListMessage () {
-			PlayerList = Players
-		});
+		int freeIndex = -1;
+		for (int i = 0; i < PlayerList.Length; i ++) {
+			if (PlayerList[i] == -1) {
+				freeIndex = i;
+				break;
+			}
+		}
+		if (freeIndex == -1) {
+			NetworkServer.SendToAll (incoming.msgType, new UpdatePlayerListMessage () {
+				PlayerList = null
+			});
+		} else {
+			PlayerList[freeIndex] = id;
+			NetworkServer.SendToAll (incoming.msgType, new UpdatePlayerListMessage () {
+				PlayerList = PlayerList
+			});
+		}
 	}
 }

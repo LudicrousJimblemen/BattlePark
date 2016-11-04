@@ -5,5 +5,6 @@ using UnityEngine.Networking;
 public class UpdatePlayerListMessage : MessageBase {
 	public const short Code = 1004;
 	
-	public List<int> PlayerList;
+	public int[] PlayerList;
+	//public List<int> PlayerList;
 }
