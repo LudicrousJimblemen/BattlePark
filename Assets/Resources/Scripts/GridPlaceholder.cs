@@ -10,9 +10,9 @@ public class GridPlaceholder : MonoBehaviour
 	private VerticalConstraint verticalConstraint;
 	
 	public GridObject GridObject;
-	public string Type;
 	
-	void Start() {
+	void Start()
+	{
 		client = FindObjectOfType<Client>().NetworkClient;
 		camera = FindObjectOfType<Camera>();
 		grid = FindObjectOfType<Grid>();
@@ -21,8 +21,9 @@ public class GridPlaceholder : MonoBehaviour
 		GridObject = GetComponent<GridObject>();
 	}
 	
-	void Update() {
-		verticalConstraint.MeshCollider.enabled = Input.GetKey (KeyCode.LeftControl);
+	void Update()
+	{
+		verticalConstraint.MeshCollider.enabled = Input.GetKey(KeyCode.LeftControl);
 		
 		/*
 		if (Input.GetKeyDown(KeyCode.A)) {
@@ -30,9 +31,7 @@ public class GridPlaceholder : MonoBehaviour
 				GetComponent<Tree>().SpinsALot = !GetComponent<Tree>().SpinsALot;
 			}
 		}
-		*/
-		
-		
+		 */
 		
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
@@ -45,18 +44,17 @@ public class GridPlaceholder : MonoBehaviour
 		if (Input.GetMouseButtonDown(0)) {
 			client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
 				ConnectionId = client.connection.connectionId,
-				
-				Type = Type,
-				
+			            	
 				Position = transform.position,
 				ObjectData = GridObject.Serialize()
 			});
-			print (client.connection.connectionId);
-			FindObjectOfType<Client> ().AllowSummons ();
+			print(client.connection.connectionId);
+			FindObjectOfType<Client>().AllowSummons();
 			Destroy(gameObject);
 		}
 	}
-	public void EnableVerticalConstraint () {
+	public void EnableVerticalConstraint()
+	{
 		Vector3 correctedPosition = new Vector3(
 			camera.transform.position.x,
 			0,
@@ -65,7 +63,8 @@ public class GridPlaceholder : MonoBehaviour
 		verticalConstraint.transform.position = transform.position;
 		verticalConstraint.transform.rotation = Quaternion.LookRotation(transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 	}
-	public void Rotate (int direction) {
+	public void Rotate(int direction)
+	{
 		GridObject.Direction += direction;
 		
 		if (GridObject.Direction > (Direction)3) {
@@ -75,7 +74,8 @@ public class GridPlaceholder : MonoBehaviour
 			GridObject.Direction = (Direction)3;
 		}
 	}
-	public void Raycast (bool UseVerticalConstraint = false) {
+	public void Raycast(bool UseVerticalConstraint = false)
+	{
 		
 		RaycastHit hit;
 		if (UseVerticalConstraint) {
@@ -84,12 +84,13 @@ public class GridPlaceholder : MonoBehaviour
 			}
 		} else {
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				//if (hit.collider.GetComponent<Grid> ().player == FindObjectOfType<Client> ().PlayerNumber) 
+				//if (hit.collider.GetComponent<Grid> ().player == FindObjectOfType<Client> ().PlayerNumber)
 				transform.position = hit.point;
 			}
 		}
 	}
-	void OnDrawGizmos() {
+	void OnDrawGizmos()
+	{
 		Gizmos.DrawCube(transform.position, Vector3.one);
 	}
 }

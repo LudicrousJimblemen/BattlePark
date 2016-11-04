@@ -2,14 +2,17 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class Tree : GridObject {
-	public class TreeData : GridObjectData {
+public class Tree : GridObject
+{
+	public class TreeData : GridObjectData
+	{
 		public bool SpinsALot;
 	}
 	
 	public bool SpinsALot;
 	
-	public override void Update() {
+	public override void Update()
+	{
 		base.Update();
 		
 		if (SpinsALot) { //TEST SECTION DELETE NOW
@@ -17,7 +20,8 @@ public class Tree : GridObject {
 		}
 	}
 	
-	public override string Serialize() {
+	public override string Serialize()
+	{
 		return JsonConvert.SerializeObject(new TreeData {
 			Direction = Direction,
 			
@@ -25,7 +29,8 @@ public class Tree : GridObject {
 		});
 	}
 	
-	public override void Deserialize(string message) {
+	public override void Deserialize(string message)
+	{
 		TreeData deserialized = JsonConvert.DeserializeObject<TreeData>(message);
 		
 		Direction = deserialized.Direction;

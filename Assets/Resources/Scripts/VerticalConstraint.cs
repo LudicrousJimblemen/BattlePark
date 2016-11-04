@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 
-public class VerticalConstraint : MonoBehaviour { 
+public class VerticalConstraint : MonoBehaviour
+{
 	[HideInInspector]
 	public MeshCollider MeshCollider;
 	
-	void Start() {
+	void Start()
+	{
 		MeshCollider = GetComponent<MeshCollider>();
 	}
 }

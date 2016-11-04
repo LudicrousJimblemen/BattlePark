@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-public class Grid : MonoBehaviour {
+public class Grid : MonoBehaviour
+{
 	public LayerMask RaycastLayerMask;
 	public LayerMask VerticalConstrainRaycastLayerMask;
 	
