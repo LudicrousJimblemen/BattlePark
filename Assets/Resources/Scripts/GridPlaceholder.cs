@@ -40,18 +40,6 @@ public class GridPlaceholder : MonoBehaviour
 			z = Mathf.Floor(transform.position.z / grid.GridXZ) * grid.GridXZ + 0.5f * grid.GridXZ,
 			y = Mathf.Clamp(Mathf.Round(transform.position.y / grid.GridY) * grid.GridY, 0, Mathf.Infinity)
 		};
-		
-		if (Input.GetMouseButtonDown(0)) {
-			client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
-				ConnectionId = client.connection.connectionId,
-			            	
-				Position = transform.position,
-				ObjectData = GridObject.Serialize()
-			});
-			print(client.connection.connectionId);
-			FindObjectOfType<Client>().AllowSummons();
-			Destroy(gameObject);
-		}
 	}
 	public void EnableVerticalConstraint()
 	{
@@ -62,6 +50,18 @@ public class GridPlaceholder : MonoBehaviour
 		);
 		verticalConstraint.transform.position = transform.position;
 		verticalConstraint.transform.rotation = Quaternion.LookRotation(transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
+	}
+	public void PlaceObject () {
+		client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
+			ConnectionId = client.connection.connectionId,
+			//N A M E ( C L O N E )
+			//0 1 2 3 4 5 6 7 8 9 10
+			Type = name.Substring(0, name.Length-7),
+			Position = transform.position,
+			ObjectData = GridObject.Serialize()
+		});
+		FindObjectOfType<Client>().AllowSummons();
+		Destroy(gameObject);
 	}
 	public void Rotate(int direction)
 	{
@@ -79,11 +79,12 @@ public class GridPlaceholder : MonoBehaviour
 		RaycastHit hit;
 		if (UseVerticalConstraint) {
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
+				//if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			}
 		} else {
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				//if (hit.collider.GetComponent<Grid> ().player == FindObjectOfType<Client> ().PlayerNumber)
+				if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
 				transform.position = hit.point;
 			}
 		}

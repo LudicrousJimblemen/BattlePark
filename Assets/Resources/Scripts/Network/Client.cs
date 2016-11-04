@@ -62,7 +62,11 @@ public class Client : MonoBehaviour
 		} else if (Input.GetKeyDown(KeyCode.X)) {
 			gridPlaceholder.Rotate(1);
 		}
+		
 		gridPlaceholder.Raycast(Input.GetKey(KeyCode.LeftControl));
+		if (Input.GetMouseButtonDown (0)) {	
+			gridPlaceholder.PlaceObject ();
+		}
 	}
 	
 	public void AllowSummons()
@@ -111,8 +115,8 @@ public class Client : MonoBehaviour
 	public void OnGridObjectPlacedNetMessage(NetworkMessage incoming)
 	{
 		GridObjectPlacedNetMessage message = incoming.ReadMessage<GridObjectPlacedNetMessage>();
-		
 		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + message.Type));
+		
 		GridObject component = newGridObject.GetComponent<GridObject>();
 		
 		newGridObject.transform.position = message.Position;
