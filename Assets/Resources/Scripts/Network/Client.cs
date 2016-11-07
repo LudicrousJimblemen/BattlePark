@@ -64,7 +64,8 @@ public class Client : MonoBehaviour
 		}
 		
 		gridPlaceholder.Raycast(Input.GetKey(KeyCode.LeftControl));
-		if (Input.GetMouseButtonDown (0)) {	
+		gridPlaceholder.Griddify();
+		if (Input.GetMouseButtonDown (0)) {
 			gridPlaceholder.PlaceObject ();
 		}
 	}
@@ -94,7 +95,6 @@ public class Client : MonoBehaviour
 	}
 	public IEnumerator sendJoinMessage()
 	{
-		
 		yield return new WaitWhile(() => !NetworkClient.isConnected);
 		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage() {
 			ConnectionId = NetworkClient.connection.connectionId

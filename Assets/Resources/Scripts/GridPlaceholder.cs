@@ -32,7 +32,8 @@ public class GridPlaceholder : MonoBehaviour
 			}
 		}
 		 */
-		
+	}
+	public void Griddify () {
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		transform.position = new Vector3 { //snap to grid
@@ -83,7 +84,9 @@ public class GridPlaceholder : MonoBehaviour
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			}
 		} else {
+			//print (camera.name);
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
+				print (hit.collider.name);
 				if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
 				transform.position = hit.point;
 			}
