@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -7,31 +8,18 @@ public class GridPlaceholder : MonoBehaviour
 	private NetworkClient client;
 	private new Camera camera;
 	private Grid grid;
-	private VerticalConstraint verticalConstraint;
 	
 	public GridObject GridObject;
+	
+	public int Owner;
 	
 	void Start()
 	{
 		client = FindObjectOfType<Client>().NetworkClient;
 		camera = FindObjectOfType<Camera>();
-		grid = FindObjectOfType<Grid>();
-		verticalConstraint = FindObjectOfType<VerticalConstraint>();
-		
+		grid = FindObjectsOfType<Grid>().First (x => x.playerId == Owner);
+		print (grid == null);
 		GridObject = GetComponent<GridObject>();
-	}
-	
-	void Update()
-	{
-		verticalConstraint.MeshCollider.enabled = Input.GetKey(KeyCode.LeftControl);
-		
-		/*
-		if (Input.GetKeyDown(KeyCode.A)) {
-			if (GetComponent<Tree>()) {
-				GetComponent<Tree>().SpinsALot = !GetComponent<Tree>().SpinsALot;
-			}
-		}
-		 */
 	}
 	public void Griddify () {
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
@@ -42,16 +30,7 @@ public class GridPlaceholder : MonoBehaviour
 			y = Mathf.Clamp(Mathf.Round(transform.position.y / grid.GridY) * grid.GridY, 0, Mathf.Infinity)
 		};
 	}
-	public void EnableVerticalConstraint()
-	{
-		Vector3 correctedPosition = new Vector3(
-			camera.transform.position.x,
-			0,
-			camera.transform.position.z
-		);
-		verticalConstraint.transform.position = transform.position;
-		verticalConstraint.transform.rotation = Quaternion.LookRotation(transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
-	}
+	
 	public void PlaceObject () {
 		client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
 			ConnectionId = client.connection.connectionId,
@@ -84,7 +63,7 @@ public class GridPlaceholder : MonoBehaviour
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			}
 		} else {
-			//print (camera.name);
+			print (grid == null);
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
 				print (hit.collider.name);
 				if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)

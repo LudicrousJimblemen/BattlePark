@@ -17,6 +17,7 @@ public class Client : MonoBehaviour
 	private bool canSummon = true;
 	
 	private GridPlaceholder gridPlaceholder;
+	private VerticalConstraint verticalConstraint;
 	
 	int[] PlayerList;
 
@@ -27,6 +28,7 @@ public class Client : MonoBehaviour
 		//temporary, eventually hotbar slots will be defined dynamically
 		Hotbar[0] = "Sculpture";
 		Hotbar[1] = "Tree";
+		verticalConstraint = FindObjectOfType<VerticalConstraint>();
 		if (!networkManager.IsServer)
 			StartClient();
 	}
@@ -40,21 +42,22 @@ public class Client : MonoBehaviour
 			if (Input.GetKeyDown((KeyCode)(49 + i))) {
 				if (Hotbar[i] != null) {
 					if (canSummon) {
-						SummonedObject = SummonGridObject(Hotbar[i]);
 						canSummon = false;
 					} else {
 						Destroy(SummonedObject);
-						SummonedObject = SummonGridObject(Hotbar[i]);
 					}
+					SummonedObject = SummonGridObject(Hotbar[i]);
 					gridPlaceholder = FindObjectOfType<GridPlaceholder>();
+					gridPlaceholder.Owner = NetworkClient.connection.connectionId;
 					break;
 				}
 			}
 		}
+		verticalConstraint.gameObject.SetActive(Input.GetKey(KeyCode.LeftControl));
 		if (gridPlaceholder == null)
 			return;
 		if (Input.GetKeyDown(KeyCode.LeftControl)) {
-			gridPlaceholder.EnableVerticalConstraint();
+			EnableVerticalConstraint();
 		}
 		
 		if (Input.GetKeyDown(KeyCode.Z)) {
@@ -73,6 +76,17 @@ public class Client : MonoBehaviour
 	public void AllowSummons()
 	{
 		canSummon = true;
+	}
+	
+	public void EnableVerticalConstraint()
+	{
+		Vector3 correctedPosition = new Vector3(
+			Camera.main.transform.position.x,
+			0,
+			Camera.main.transform.position.z
+		);
+		verticalConstraint.transform.position = gridPlaceholder.transform.position;
+		verticalConstraint.transform.rotation = Quaternion.LookRotation(transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 	}
 	
 	public GameObject SummonGridObject(string name)
@@ -99,6 +113,7 @@ public class Client : MonoBehaviour
 		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage() {
 			ConnectionId = NetworkClient.connection.connectionId
 		});
+		print (NetworkClient.connection.connectionId);
 	}
 	
 	void OnClientJoinedMessage(NetworkMessage incoming)
