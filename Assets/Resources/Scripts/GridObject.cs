@@ -4,27 +4,16 @@ using UnityEngine;
 
 public class GridObject : MonoBehaviour
 {
+	#region Data Variables
 	public class GridObjectData
 	{
 		public Direction Direction;
 	}
 	
-	public bool Active;
-	
 	public Direction Direction;
+	#endregion
 	
-	public virtual void Start()
-	{
-		Serialize();
-		
-		transform.rotation = Quaternion.Euler(-90, 0, (int)(Direction) * 90);
-	}
-	
-	public virtual void Update()
-	{
-		Active = !GetComponent<GridPlaceholder>();
-	}
-	
+	#region Serialization
 	public virtual string Serialize()
 	{
 		return JsonConvert.SerializeObject(new GridObjectData {
@@ -37,4 +26,17 @@ public class GridObject : MonoBehaviour
 		GridObjectData deserialized = JsonConvert.DeserializeObject<GridObjectData>(message);
 		Direction = deserialized.Direction;
 	}
+	#endregion
+	
+	public virtual void Start()
+	{
+		Serialize();
+		
+		transform.rotation = Quaternion.Euler(-90, 0, (int)(Direction) * 90);
+	}
+	
+	public virtual void Update();
+	
+	public virtual void OnPlaced();
+	public virtual void OnDemolished();
 }

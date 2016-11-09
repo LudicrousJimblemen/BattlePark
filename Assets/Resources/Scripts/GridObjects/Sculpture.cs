@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Sculpture : GridObject
 {
+	#region Data Variables
 	public class SculptureData : GridObjectData
 	{
 		//
 	}
+	#endregion
 	
+	#region Serialization
 	public override string Serialize()
 	{
 		return JsonConvert.SerializeObject(new SculptureData {
@@ -22,4 +25,5 @@ public class Sculpture : GridObject
 		
 		Direction = deserialized.Direction;
 	}
+	#endregion
 }

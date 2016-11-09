@@ -79,6 +79,7 @@ public class Client : MonoBehaviour
 		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + name));
 		
 		newGridObject.AddComponent<GridPlaceholder>();
+		
 		return newGridObject;
 	}
 
@@ -90,9 +91,10 @@ public class Client : MonoBehaviour
 		NetworkClient.RegisterHandler(UpdatePlayerListMessage.Code, OnUpdatePlayerListMessage);
 		NetworkClient.RegisterHandler(ClientJoinedMessage.Code, OnClientJoinedMessage);
 		NetworkClient.Connect(networkManager.Ip, networkManager.Port);
-		StartCoroutine(sendJoinMessage());
+		StartCoroutine(SendJoinMessage());
 	}
-	public IEnumerator sendJoinMessage()
+	
+	public IEnumerator SendJoinMessage()
 	{
 		
 		yield return new WaitWhile(() => !NetworkClient.isConnected);
@@ -121,6 +123,7 @@ public class Client : MonoBehaviour
 		
 		newGridObject.transform.position = message.Position;
 		component.Deserialize(message.ObjectData);
+		component.OnPlaced();
 	}
 	
 	public void OnUpdatePlayerListMessage(NetworkMessage incoming)

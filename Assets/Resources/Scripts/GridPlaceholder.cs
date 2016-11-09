@@ -41,28 +41,32 @@ public class GridPlaceholder : MonoBehaviour
 			y = Mathf.Clamp(Mathf.Round(transform.position.y / grid.GridY) * grid.GridY, 0, Mathf.Infinity)
 		};
 	}
+	
 	public void EnableVerticalConstraint()
 	{
 		Vector3 correctedPosition = new Vector3(
-			camera.transform.position.x,
-			0,
-			camera.transform.position.z
-		);
+			                            camera.transform.position.x,
+			                            0,
+			                            camera.transform.position.z
+		                            );
 		verticalConstraint.transform.position = transform.position;
 		verticalConstraint.transform.rotation = Quaternion.LookRotation(transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 	}
-	public void PlaceObject () {
+	
+	public void PlaceObject()
+	{
 		client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
 			ConnectionId = client.connection.connectionId,
 			//N A M E ( C L O N E )
 			//0 1 2 3 4 5 6 7 8 9 10
-			Type = name.Substring(0, name.Length-7),
+			Type = name.Substring(0, name.Length - 7),
 			Position = transform.position,
 			ObjectData = GridObject.Serialize()
 		});
 		FindObjectOfType<Client>().AllowSummons();
 		Destroy(gameObject);
 	}
+	
 	public void Rotate(int direction)
 	{
 		GridObject.Direction += direction;
@@ -74,6 +78,7 @@ public class GridPlaceholder : MonoBehaviour
 			GridObject.Direction = (Direction)3;
 		}
 	}
+	
 	public void Raycast(bool UseVerticalConstraint = false)
 	{
 		RaycastHit hit;
@@ -84,12 +89,13 @@ public class GridPlaceholder : MonoBehaviour
 			}
 		} else {
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
-				transform.position = hit.point;
+				if (hit.collider.GetComponent<Grid>().playerId == client.connection.connectionId)
+					transform.position = hit.point;
 			}
 		}
 	}
-	void OnDrawGizmos()
+	
+	private void OnDrawGizmos()
 	{
 		Gizmos.DrawCube(transform.position, Vector3.one);
 	}

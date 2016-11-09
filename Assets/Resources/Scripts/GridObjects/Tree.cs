@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class Tree : GridObject
 {
+	#region Data Variables
 	public class TreeData : GridObjectData
 	{
 		public bool SpinsALot;
 	}
 	
 	public bool SpinsALot;
+	#endregion
 	
-	public override void Update()
-	{
-		base.Update();
-	}
-	
+	#region Serialization
 	public override string Serialize()
 	{
 		return JsonConvert.SerializeObject(new TreeData {
@@ -33,4 +31,5 @@ public class Tree : GridObject
 		
 		SpinsALot = deserialized.SpinsALot;
 	}
+	#endregion
 }
