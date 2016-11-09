@@ -11,7 +11,6 @@ public class UI : MonoBehaviour
 	void Start()
 	{
 		FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text = "6666";
-		
 		try {	
 			FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();
 		} catch (Exception e) {

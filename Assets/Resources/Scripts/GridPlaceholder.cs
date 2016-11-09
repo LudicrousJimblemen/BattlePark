@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -11,28 +12,17 @@ public class GridPlaceholder : MonoBehaviour
 	
 	public GridObject GridObject;
 	
+	public int Owner;
+	
 	void Start()
 	{
 		client = FindObjectOfType<Client>().NetworkClient;
 		camera = FindObjectOfType<Camera>();
-		grid = FindObjectOfType<Grid>();
-		verticalConstraint = FindObjectOfType<VerticalConstraint>();
-		
+		grid = FindObjectsOfType<Grid>().First (x => x.playerId == Owner);
+		print (grid == null);
 		GridObject = GetComponent<GridObject>();
 	}
-	
-	void Update()
-	{
-		verticalConstraint.MeshCollider.enabled = Input.GetKey(KeyCode.LeftControl);
-		
-		/*
-		if (Input.GetKeyDown(KeyCode.A)) {
-			if (GetComponent<Tree>()) {
-				GetComponent<Tree>().SpinsALot = !GetComponent<Tree>().SpinsALot;
-			}
-		}
-		 */
-		
+	public void Griddify () {
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		transform.position = new Vector3 { //snap to grid
@@ -45,10 +35,10 @@ public class GridPlaceholder : MonoBehaviour
 	public void EnableVerticalConstraint()
 	{
 		Vector3 correctedPosition = new Vector3(
-			                            camera.transform.position.x,
-			                            0,
-			                            camera.transform.position.z
-		                            );
+			camera.transform.position.x,
+			0,
+			camera.transform.position.z
+		);
 		verticalConstraint.transform.position = transform.position;
 		verticalConstraint.transform.rotation = Quaternion.LookRotation(transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 	}
@@ -88,9 +78,13 @@ public class GridPlaceholder : MonoBehaviour
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			}
 		} else {
+			print (grid == null);
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid>().playerId == client.connection.connectionId)
+				print (hit.collider.name);
+				if (hit.collider.GetComponent<Grid>().playerId == client.connection.connectionId) {
+					
 					transform.position = hit.point;
+				}
 			}
 		}
 	}

@@ -30,8 +30,9 @@ public class Server : MonoBehaviour
 		NetworkServer.RegisterHandler(ChatNetMessage.Code, ResendMessage);
 		NetworkServer.RegisterHandler(GridObjectPlacedNetMessage.Code, ResendMessage);
 		NetworkServer.RegisterHandler(ClientJoinedMessage.Code, SendToClients);
-		NetworkServer.Listen(networkManager.Ip, networkManager.Port);
+		NetworkServer.Listen(networkManager.Port);
 		FindObjectOfType<Client>().StartClient();
+		print ("e");
 	}
 	
 	public void ResendMessage(NetworkMessage incoming)
