@@ -6,14 +6,14 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class Client : MonoBehaviour {
-	private NetworkManager networkManager;
-	
 	public NetworkClient NetworkClient;
-
-	private GameObject SummonedObject;
+	public bool CanSummon = true;
 	
-	private string[] Hotbar = new string[9];
-	private bool canSummon = true;
+	private NetworkManager networkManager;
+
+	private GameObject summonedObject;
+	
+	private string[] hotbar = new string[9];
 	
 	private GridPlaceholder gridPlaceholder;
 	private VerticalConstraint verticalConstraint;
@@ -24,38 +24,42 @@ public class Client : MonoBehaviour {
 		networkManager = FindObjectOfType<NetworkManager>();
 		
 		//temporary, eventually hotbar slots will be defined dynamically
-		Hotbar[0] = "Sculpture";
-		Hotbar[1] = "Tree";
-		Hotbar[2] = "Path";
+		hotbar[0] = "Sculpture";
+		hotbar[1] = "Tree";
+		hotbar[2] = "Path";
+		
 		verticalConstraint = FindObjectOfType<VerticalConstraint>();
-		if (!networkManager.IsServer)
+		
+		if (!networkManager.IsServer) {
 			StartClient();
+		}
 	}
 	
 	void Update() {
-		//print (canSummon);
 		//returns which of the alpha keys were pressed this frame, preferring lower numbers
 		for (int i = 0; i < 9; i++) {
-			//49 50 51 52 53 54 55 56 57
 			if (Input.GetKeyDown((KeyCode)(49 + i))) {
-				if (Hotbar[i] != null) {
-					if (canSummon) {
-						canSummon = false;
+				if (hotbar[i] != null) {
+					if (CanSummon) {
+						CanSummon = false;
 					} else {
-						Destroy(SummonedObject);
+						Destroy(summonedObject);
 					}
-					SummonedObject = SummonGridObject(Hotbar[i]);
+					summonedObject = SummonGridObject(hotbar[i]);
 					gridPlaceholder = FindObjectOfType<GridPlaceholder>();
 					gridPlaceholder.Owner = NetworkClient.connection.connectionId;
 					break;
 				}
 			}
 		}
+		
 		verticalConstraint.gameObject.SetActive(Input.GetKey(KeyCode.LeftControl));
-		if (gridPlaceholder == null)
-			return;
 		if (Input.GetKeyDown(KeyCode.LeftControl)) {
 			EnableVerticalConstraint();
+		}
+		
+		if (gridPlaceholder == null) {
+			return;
 		}
 		
 		if (Input.GetKeyDown(KeyCode.Z)) {
@@ -64,23 +68,20 @@ public class Client : MonoBehaviour {
 			gridPlaceholder.Rotate(-1);
 		}
 		
-		gridPlaceholder.Raycast(Input.GetKey(KeyCode.LeftControl));
-		gridPlaceholder.Griddify();
+		gridPlaceholder.Position(Input.GetKey(KeyCode.LeftControl));
+		gridPlaceholder.Snap();
+		
 		if (Input.GetMouseButtonDown(0)) {
 			gridPlaceholder.PlaceObject();
 		}
 	}
 	
-	public void AllowSummons() {
-		canSummon = true;
-	}
-	
 	public void EnableVerticalConstraint() {
 		Vector3 correctedPosition = new Vector3(
-			                            Camera.main.transform.position.x,
-			                            0,
-			                            Camera.main.transform.position.z
-		                            );
+			Camera.main.transform.position.x,
+			0,
+			Camera.main.transform.position.z
+		);
 		verticalConstraint.transform.position = gridPlaceholder.transform.position;
 		verticalConstraint.transform.rotation = Quaternion.LookRotation(gridPlaceholder.transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 	}
@@ -111,16 +112,16 @@ public class Client : MonoBehaviour {
 		print(NetworkClient.connection.connectionId);
 	}
 	
-	void OnClientJoinedMessage(NetworkMessage incoming) {
+	private void OnClientJoinedMessage(NetworkMessage incoming) {
 		return;
 	}
 	
-	public void OnChatNetMessage(NetworkMessage incoming) {
+	private void OnChatNetMessage(NetworkMessage incoming) {
 		ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
 		print(message.Message);
 	}
 	
-	public void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
+	private void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
 		GridObjectPlacedNetMessage message = incoming.ReadMessage<GridObjectPlacedNetMessage>();
 		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + message.Type));
 		
@@ -137,7 +138,7 @@ public class Client : MonoBehaviour {
 		component.OnPlaced();
 	}
 	
-	public void OnUpdatePlayerListMessage(NetworkMessage incoming) {
+	private void OnUpdatePlayerListMessage(NetworkMessage incoming) {
 		UpdatePlayerListMessage message = incoming.ReadMessage<UpdatePlayerListMessage>();
 		PlayerList = message.PlayerList;
 	}

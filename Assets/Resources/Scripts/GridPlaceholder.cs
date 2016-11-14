@@ -7,7 +7,6 @@ public class GridPlaceholder : MonoBehaviour {
 	private NetworkClient client;
 	private new Camera camera;
 	private Grid grid;
-	private VerticalConstraint verticalConstraint;
 	
 	public GridObject GridObject;
 	
@@ -16,12 +15,11 @@ public class GridPlaceholder : MonoBehaviour {
 	void Start() {
 		client = FindObjectOfType<Client>().NetworkClient;
 		camera = FindObjectOfType<Camera>();
-		grid = FindObjectsOfType<Grid>().First(x => x.playerId == Owner);
-		print(grid == null);
+		grid = FindObjectsOfType<Grid>().First(x => x.PlayerId == Owner);
 		GridObject = GetComponent<GridObject>();
 	}
 	
-	public void Griddify() {
+	public void Snap() {
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		transform.position = new Vector3 { //snap to grid
@@ -29,16 +27,6 @@ public class GridPlaceholder : MonoBehaviour {
 			z = Mathf.Round(transform.position.z / grid.GridXZ) * grid.GridXZ,
 			y = Mathf.Round(Mathf.Clamp(transform.position.y / grid.GridY, 0, Mathf.Infinity)) * grid.GridY
 		};
-	}
-	
-	public void EnableVerticalConstraint() {
-		Vector3 correctedPosition = new Vector3(
-			                            camera.transform.position.x,
-			                            0,
-			                            camera.transform.position.z
-		                            );
-		verticalConstraint.transform.position = transform.position;
-		verticalConstraint.transform.rotation = Quaternion.LookRotation(transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 	}
 	
 	public void PlaceObject() {
@@ -52,7 +40,7 @@ public class GridPlaceholder : MonoBehaviour {
 			Type = name.Substring(0, name.Length - 7),
 			ObjectData = GridObject.Serialize()
 		});
-		FindObjectOfType<Client>().AllowSummons();
+		FindObjectOfType<Client>().CanSummon = true;
 		Destroy(gameObject);
 	}
 	
@@ -67,17 +55,15 @@ public class GridPlaceholder : MonoBehaviour {
 		}
 	}
 	
-	public void Raycast(bool UseVerticalConstraint = false) {
+	public void Position(bool UseVerticalConstraint = false) {
 		RaycastHit hit;
 		if (UseVerticalConstraint) {
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
-				//if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			}
 		} else {
 			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid>().playerId == client.connection.connectionId) {
-					
+				if (hit.collider.GetComponent<Grid>().PlayerId == client.connection.connectionId) {
 					transform.position = hit.point;
 				}
 			}

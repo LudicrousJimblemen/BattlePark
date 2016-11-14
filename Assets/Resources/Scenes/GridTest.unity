@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c071f6dfd7b4e34793cf53d470c8360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanSummon: 1
 --- !u!4 &13012330
 Transform:
   m_ObjectHideFlags: 0
@@ -227,7 +228,7 @@ MonoBehaviour:
   VerticalConstrainRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  playerId: 0
+  PlayerId: 0
   GridXZ: 1
   GridY: 0.5
 --- !u!1 &194769800
@@ -266,7 +267,7 @@ MonoBehaviour:
   VerticalConstrainRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 1536
-  playerId: 0
+  PlayerId: 0
   GridXZ: 1
   GridY: 0.5
 --- !u!23 &194769802
@@ -435,6 +436,7 @@ GameObject:
   - 124: {fileID: 952732581}
   - 81: {fileID: 952732580}
   - 114: {fileID: 952732585}
+  - 114: {fileID: 952732586}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -525,6 +527,23 @@ MonoBehaviour:
   boundsRadius: 150
   boundsCenter: {x: 0, y: 0, z: 0}
   minimumHeight: 5
+--- !u!114 &952732586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 952732579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f90a98c7741c946863838fbdcb1e43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GridSizeX: 100
+  GridSizeZ: 100
+  MainStep: 1
+  StartX: -104
+  StartZ: -50
+  mainColor: {r: 1, g: 1, b: 1, a: 0.375}
 --- !u!1 &1415627475
 GameObject:
   m_ObjectHideFlags: 0
