@@ -57,18 +57,21 @@ public class GridPlaceholder : MonoBehaviour
 	public void Raycast(bool UseVerticalConstraint = false)
 	{
 		RaycastHit hit;
+		bool hasHit;
 		if (UseVerticalConstraint) {
-			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
+			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
 				//if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			}
+			gameObject.SetActive (hasHit);
 		} else {
 			print (grid == null);
-			if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
+			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
 				print (hit.collider.name);
 				if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
 				transform.position = hit.point;
 			}
+			gameObject.SetActive (hasHit);
 		}
 	}
 	void OnDrawGizmos()
