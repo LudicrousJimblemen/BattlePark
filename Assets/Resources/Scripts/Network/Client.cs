@@ -5,8 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Client : MonoBehaviour
-{
+public class Client : MonoBehaviour {
 	private NetworkManager networkManager;
 	
 	public NetworkClient NetworkClient;
@@ -21,8 +20,7 @@ public class Client : MonoBehaviour
 	
 	int[] PlayerList;
 
-	void Start()
-	{
+	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
 		
 		//temporary, eventually hotbar slots will be defined dynamically
@@ -34,8 +32,7 @@ public class Client : MonoBehaviour
 			StartClient();
 	}
 	
-	void Update()
-	{
+	void Update() {
 		//print (canSummon);
 		//returns which of the alpha keys were pressed this frame, preferring lower numbers
 		for (int i = 0; i < 9; i++) {
@@ -62,36 +59,33 @@ public class Client : MonoBehaviour
 		}
 		
 		if (Input.GetKeyDown(KeyCode.Z)) {
-			gridPlaceholder.Rotate(-1);
-		} else if (Input.GetKeyDown(KeyCode.X)) {
 			gridPlaceholder.Rotate(1);
+		} else if (Input.GetKeyDown(KeyCode.X)) {
+			gridPlaceholder.Rotate(-1);
 		}
 		
 		gridPlaceholder.Raycast(Input.GetKey(KeyCode.LeftControl));
 		gridPlaceholder.Griddify();
-		if (Input.GetMouseButtonDown (0)) {
-			gridPlaceholder.PlaceObject ();
+		if (Input.GetMouseButtonDown(0)) {
+			gridPlaceholder.PlaceObject();
 		}
 	}
 	
-	public void AllowSummons()
-	{
+	public void AllowSummons() {
 		canSummon = true;
 	}
 	
-	public void EnableVerticalConstraint()
-	{
+	public void EnableVerticalConstraint() {
 		Vector3 correctedPosition = new Vector3(
-			Camera.main.transform.position.x,
-			0,
-			Camera.main.transform.position.z
-		);
+			                            Camera.main.transform.position.x,
+			                            0,
+			                            Camera.main.transform.position.z
+		                            );
 		verticalConstraint.transform.position = gridPlaceholder.transform.position;
-		verticalConstraint.transform.rotation = Quaternion.LookRotation(transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
+		verticalConstraint.transform.rotation = Quaternion.LookRotation(gridPlaceholder.transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 	}
 	
-	public GameObject SummonGridObject(string name)
-	{
+	public GameObject SummonGridObject(string name) {
 		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + name));
 		
 		newGridObject.AddComponent<GridPlaceholder>();
@@ -99,8 +93,7 @@ public class Client : MonoBehaviour
 		return newGridObject;
 	}
 
-	public void StartClient()
-	{
+	public void StartClient() {
 		NetworkClient = new NetworkClient();
 		NetworkClient.RegisterHandler(ChatNetMessage.Code, OnChatNetMessage);
 		NetworkClient.RegisterHandler(GridObjectPlacedNetMessage.Code, OnGridObjectPlacedNetMessage);
@@ -110,40 +103,41 @@ public class Client : MonoBehaviour
 		StartCoroutine(SendJoinMessage());
 	}
 	
-	public IEnumerator SendJoinMessage()
-	{
+	public IEnumerator SendJoinMessage() {
 		yield return new WaitWhile(() => !NetworkClient.isConnected);
 		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage() {
 			ConnectionId = NetworkClient.connection.connectionId
 		});
-		print (NetworkClient.connection.connectionId);
+		print(NetworkClient.connection.connectionId);
 	}
 	
-	void OnClientJoinedMessage(NetworkMessage incoming)
-	{
+	void OnClientJoinedMessage(NetworkMessage incoming) {
 		return;
 	}
 	
-	public void OnChatNetMessage(NetworkMessage incoming)
-	{
+	public void OnChatNetMessage(NetworkMessage incoming) {
 		ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
 		print(message.Message);
 	}
 	
-	public void OnGridObjectPlacedNetMessage(NetworkMessage incoming)
-	{
+	public void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
 		GridObjectPlacedNetMessage message = incoming.ReadMessage<GridObjectPlacedNetMessage>();
 		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + message.Type));
 		
 		GridObject component = newGridObject.GetComponent<GridObject>();
 		
-		newGridObject.transform.position = message.Position;
 		component.Deserialize(message.ObjectData);
+		newGridObject.transform.position = new Vector3(
+			component.X * FindObjectOfType<Grid>().GridXZ,
+			component.Y * FindObjectOfType<Grid>().GridY,
+			component.Z * FindObjectOfType<Grid>().GridXZ
+		);
+		newGridObject.transform.rotation = Quaternion.Euler(-90, 0, (int)component.Direction * 90);
+		
 		component.OnPlaced();
 	}
 	
-	public void OnUpdatePlayerListMessage(NetworkMessage incoming)
-	{
+	public void OnUpdatePlayerListMessage(NetworkMessage incoming) {
 		UpdatePlayerListMessage message = incoming.ReadMessage<UpdatePlayerListMessage>();
 		PlayerList = message.PlayerList;
 	}

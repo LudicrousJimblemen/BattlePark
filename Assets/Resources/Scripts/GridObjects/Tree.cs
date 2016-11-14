@@ -18,6 +18,9 @@ public class Tree : GridObject
 	{
 		return JsonConvert.SerializeObject(new TreeData {
 			Direction = Direction,
+			X = X,
+			Y = Y,
+			Z = Z,
 			
 			SpinsALot = SpinsALot
 		});
@@ -28,6 +31,9 @@ public class Tree : GridObject
 		TreeData deserialized = JsonConvert.DeserializeObject<TreeData>(message);
 		
 		Direction = deserialized.Direction;
+		X = deserialized.X;
+		Y = deserialized.Y;
+		Z = deserialized.Z;
 		
 		SpinsALot = deserialized.SpinsALot;
 	}

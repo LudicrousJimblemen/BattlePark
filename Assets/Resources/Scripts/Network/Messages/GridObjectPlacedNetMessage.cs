@@ -10,6 +10,5 @@ public class GridObjectPlacedNetMessage : MessageBase
 	
 	public string Type;
 	
-	public Vector3 Position;
 	public string ObjectData;
 }

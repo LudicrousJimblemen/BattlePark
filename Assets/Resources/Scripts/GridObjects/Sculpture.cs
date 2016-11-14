@@ -15,7 +15,10 @@ public class Sculpture : GridObject
 	public override string Serialize()
 	{
 		return JsonConvert.SerializeObject(new SculptureData {
-			Direction = Direction
+			Direction = Direction,
+			X = X,
+			Y = Y,
+			Z = Z
 		});
 	}
 	
@@ -24,6 +27,9 @@ public class Sculpture : GridObject
 		SculptureData deserialized = JsonConvert.DeserializeObject<SculptureData>(message);
 		
 		Direction = deserialized.Direction;
+		X = deserialized.X;
+		Y = deserialized.Y;
+		Z = deserialized.Z;
 	}
 	#endregion
 }

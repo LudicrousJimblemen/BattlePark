@@ -24,6 +24,10 @@ public class Path : GridObject
 	{
 		return JsonConvert.SerializeObject(new PathData {
 			Direction = Direction,
+			X = X,
+			Y = Y,
+			Z = Z,
+				
 			OccupiedNorth = OccupiedNorth,
 			OccupiedEast = OccupiedEast,
 			OccupiedSouth = OccupiedSouth,
@@ -36,6 +40,10 @@ public class Path : GridObject
 		PathData deserialized = JsonConvert.DeserializeObject<PathData>(message);
 		
 		Direction = deserialized.Direction;
+		X = deserialized.X;
+		Y = deserialized.Y;
+		Z = deserialized.Z;
+		
 		OccupiedNorth = deserialized.OccupiedNorth;
 		OccupiedEast = deserialized.OccupiedEast;
 		OccupiedSouth = deserialized.OccupiedSouth;
