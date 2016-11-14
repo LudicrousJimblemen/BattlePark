@@ -10,6 +10,7 @@ public class Client : MonoBehaviour {
 	public bool CanSummon = true;
 	
 	private NetworkManager networkManager;
+	private GridOverlay gridOverlay;
 
 	private GameObject summonedObject;
 	
@@ -22,6 +23,7 @@ public class Client : MonoBehaviour {
 
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
+		gridOverlay = FindObjectOfType<GridOverlay>();
 		
 		//temporary, eventually hotbar slots will be defined dynamically
 		hotbar[0] = "Sculpture";
@@ -58,6 +60,7 @@ public class Client : MonoBehaviour {
 			EnableVerticalConstraint();
 		}
 		
+		gridOverlay.enabled = gridPlaceholder != null;
 		if (gridPlaceholder == null) {
 			return;
 		}

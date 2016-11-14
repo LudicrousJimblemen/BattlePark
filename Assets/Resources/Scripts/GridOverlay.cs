@@ -4,7 +4,9 @@ using System.Collections;
 public class GridOverlay : MonoBehaviour {
  
 	//public GameObject plane;
- 
+ 	
+	public bool ShowGrid = true;
+	
 	public int GridSizeX = 100;
 	public int GridSizeZ = 100;
  
@@ -35,26 +37,28 @@ public class GridOverlay : MonoBehaviour {
 	}
  
 	void OnPostRender() {
-		CreateLineMaterial();
-		// set the current material
-		lineMaterial.SetPass(0);
- 
-		GL.Begin(GL.LINES);
- 
-		GL.Color(mainColor);
-
-		//X axis lines
-		for (float i = 0; i <= GridSizeZ; i += MainStep) {
-			GL.Vertex3(StartX, 0, StartZ + i);
-			GL.Vertex3(StartX + GridSizeX, 0, StartZ + i);
+		if (ShowGrid) {
+			CreateLineMaterial();
+			// set the current material
+			lineMaterial.SetPass(0);
+	 
+			GL.Begin(GL.LINES);
+	 
+			GL.Color(mainColor);
+	
+			//X axis lines
+			for (float i = 0; i <= GridSizeZ; i += MainStep) {
+				GL.Vertex3(StartX, 0, StartZ + i);
+				GL.Vertex3(StartX + GridSizeX, 0, StartZ + i);
+			}
+	
+			//Z axis lines
+			for (float i = 0; i <= GridSizeX; i += MainStep) {
+				GL.Vertex3(StartX + i, 0, StartZ);
+				GL.Vertex3(StartX + i, 0, StartZ + GridSizeZ);
+			}
+	 
+			GL.End();
 		}
-
-		//Z axis lines
-		for (float i = 0; i <= GridSizeX; i += MainStep) {
-			GL.Vertex3(StartX + i, 0, StartZ);
-			GL.Vertex3(StartX + i, 0, StartZ + GridSizeZ);
-		}
- 
-		GL.End();
 	}
 }
