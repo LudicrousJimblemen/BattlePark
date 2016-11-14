@@ -35,8 +35,8 @@ public class GridObject : MonoBehaviour
 		transform.rotation = Quaternion.Euler(-90, 0, (int)(Direction) * 90);
 	}
 	
-	public virtual void Update();
+	public virtual void Update() {}
 	
-	public virtual void OnPlaced();
-	public virtual void OnDemolished();
+	public virtual void OnPlaced() {}
+	public virtual void OnDemolished() {}
 }

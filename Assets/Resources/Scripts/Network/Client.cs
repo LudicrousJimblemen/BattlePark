@@ -28,6 +28,7 @@ public class Client : MonoBehaviour
 		//temporary, eventually hotbar slots will be defined dynamically
 		Hotbar[0] = "Sculpture";
 		Hotbar[1] = "Tree";
+		Hotbar[2] = "Path";
 		verticalConstraint = FindObjectOfType<VerticalConstraint>();
 		if (!networkManager.IsServer)
 			StartClient();
