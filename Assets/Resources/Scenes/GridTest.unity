@@ -468,7 +468,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 952732579}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: -54, y: 45, z: -80}
+  m_LocalPosition: {x: 0, y: 4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
   m_Children: []
@@ -482,13 +482,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 952732579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3ba7b936e0790a42ae504410ae4030d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3214a9e9f96a8ec41b8a2b1c9e665bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  boundsRadius: 150
-  boundsCenter: {x: 0, y: 0, z: 0}
-  minimumHeight: 5
+  MovementSpeed: 1
+  RotationSpeed: 4
+  TiltHeight: 18
+  FlatHeight: 3
+  TiltAngle: 35
+  FlatAngle: 20
 --- !u!114 &952732586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,6 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f90a98c7741c946863838fbdcb1e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowGrid: 1
   GridSizeX: 100
   GridSizeZ: 100
   MainStep: 1

@@ -60,7 +60,7 @@ public class Client : MonoBehaviour {
 			EnableVerticalConstraint();
 		}
 		
-		gridOverlay.enabled = gridPlaceholder != null;
+		gridOverlay.ShowGrid = gridPlaceholder != null;
 		if (gridPlaceholder == null) {
 			return;
 		}
