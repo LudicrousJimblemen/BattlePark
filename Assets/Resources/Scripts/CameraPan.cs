@@ -31,7 +31,7 @@ public class CameraPan : MonoBehaviour {
 		transform.position += difference;
 		PivotPoint += difference;
 		
-		transform.RotateAround(PivotPoint, Vector3.up, -Input.GetAxis("Rotate") * RotationSpeed);
+		transform.RotateAround(PivotPoint, Vector3.up, Input.GetAxis("Rotate") * RotationSpeed);
 		
 		transform.rotation = Quaternion.Euler(
 			Mathf.Lerp(FlatAngle, TiltAngle, Mathf.SmoothStep(0f, 1f, (transform.position.y - FlatHeight) / (TiltHeight - FlatHeight))),
