@@ -3,8 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class GridPlaceholder : MonoBehaviour
-{
+public class GridPlaceholder : MonoBehaviour {
 	private NetworkClient client;
 	private new Camera camera;
 	private Grid grid;
@@ -13,38 +12,39 @@ public class GridPlaceholder : MonoBehaviour
 	
 	public int Owner;
 	
-	void Start()
-	{
+	void Start() {
 		client = FindObjectOfType<Client>().NetworkClient;
 		camera = FindObjectOfType<Camera>();
-		grid = FindObjectsOfType<Grid>().First (x => x.playerId == Owner);
-		print (grid == null);
+		grid = FindObjectsOfType<Grid>().First(x => x.PlayerId == Owner);
 		GridObject = GetComponent<GridObject>();
 	}
-	public void Griddify () {
+	
+	public void Snap() {
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		transform.position = new Vector3 { //snap to grid
-			x = Mathf.Floor(transform.position.x / grid.GridXZ) * grid.GridXZ + 0.5f * grid.GridXZ,
-			z = Mathf.Floor(transform.position.z / grid.GridXZ) * grid.GridXZ + 0.5f * grid.GridXZ,
-			y = Mathf.Clamp(Mathf.Round(transform.position.y / grid.GridY) * grid.GridY, 0, Mathf.Infinity)
+			x = Mathf.Round(transform.position.x / grid.GridXZ) * grid.GridXZ,
+			z = Mathf.Round(transform.position.z / grid.GridXZ) * grid.GridXZ,
+			y = Mathf.Round(Mathf.Clamp(transform.position.y / grid.GridY, 0, Mathf.Infinity)) * grid.GridY
 		};
 	}
 	
-	public void PlaceObject () {
+	public void PlaceObject() {
+		GridObject.X = Mathf.RoundToInt(transform.position.x / grid.GridXZ);
+		GridObject.Y = Mathf.RoundToInt(transform.position.y / grid.GridY);
+		GridObject.Z = Mathf.RoundToInt(transform.position.z / grid.GridXZ);
 		client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
 			ConnectionId = client.connection.connectionId,
 			//N A M E ( C L O N E )
 			//0 1 2 3 4 5 6 7 8 9 10
-			Type = name.Substring(0, name.Length-7),
-			Position = transform.position,
+			Type = name.Substring(0, name.Length - 7),
 			ObjectData = GridObject.Serialize()
 		});
-		FindObjectOfType<Client>().AllowSummons();
+		FindObjectOfType<Client>().CanSummon = true;
 		Destroy(gameObject);
 	}
-	public void Rotate(int direction)
-	{
+	
+	public void Rotate(int direction) {
 		GridObject.Direction += direction;
 		
 		if (GridObject.Direction > (Direction)3) {
@@ -54,8 +54,8 @@ public class GridPlaceholder : MonoBehaviour
 			GridObject.Direction = (Direction)3;
 		}
 	}
-	public void Raycast(bool UseVerticalConstraint = false)
-	{
+	
+	public void Position(bool UseVerticalConstraint = false) {
 		RaycastHit hit;
 		bool hasHit;
 		if (UseVerticalConstraint) {
@@ -65,17 +65,15 @@ public class GridPlaceholder : MonoBehaviour
 			}
 			gameObject.SetActive (hasHit);
 		} else {
-			print (grid == null);
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				print (hit.collider.name);
 				if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
 				transform.position = hit.point;
 			}
 			gameObject.SetActive (hasHit);
 		}
 	}
-	void OnDrawGizmos()
-	{
+	
+	private void OnDrawGizmos() {
 		Gizmos.DrawCube(transform.position, Vector3.one);
 	}
 }

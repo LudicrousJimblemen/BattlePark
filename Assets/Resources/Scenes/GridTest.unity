@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c071f6dfd7b4e34793cf53d470c8360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanSummon: 1
 --- !u!4 &13012330
 Transform:
   m_ObjectHideFlags: 0
@@ -227,7 +228,7 @@ MonoBehaviour:
   VerticalConstrainRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  playerId: 0
+  PlayerId: 0
   GridXZ: 1
   GridY: 0.5
 --- !u!1 &194769800
@@ -266,7 +267,7 @@ MonoBehaviour:
   VerticalConstrainRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 1536
-  playerId: 0
+  PlayerId: 0
   GridXZ: 1
   GridY: 0.5
 --- !u!23 &194769802
@@ -340,8 +341,6 @@ GameObject:
   - 4: {fileID: 291123413}
   - 64: {fileID: 291123412}
   - 114: {fileID: 291123411}
-  - 33: {fileID: 291123415}
-  - 23: {fileID: 291123414}
   m_Layer: 9
   m_Name: Vertical Constraint
   m_TagString: Untagged
@@ -386,42 +385,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
---- !u!23 &291123414
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 291123410}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!33 &291123415
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 291123410}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &952732579
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +398,7 @@ GameObject:
   - 124: {fileID: 952732581}
   - 81: {fileID: 952732580}
   - 114: {fileID: 952732585}
+  - 114: {fileID: 952732586}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -504,7 +468,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 952732579}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: -54, y: 45, z: -80}
+  m_LocalPosition: {x: 0, y: 4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
   m_Children: []
@@ -518,13 +482,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 952732579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3ba7b936e0790a42ae504410ae4030d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3214a9e9f96a8ec41b8a2b1c9e665bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  boundsRadius: 150
-  boundsCenter: {x: 0, y: 0, z: 0}
-  minimumHeight: 5
+  MovementSpeed: 1
+  RotationSpeed: 4
+  TiltHeight: 18
+  FlatHeight: 3
+  TiltAngle: 35
+  FlatAngle: 20
+--- !u!114 &952732586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 952732579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f90a98c7741c946863838fbdcb1e43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowGrid: 1
+  GridSizeX: 100
+  GridSizeZ: 100
+  MainStep: 1
+  StartX: -104
+  StartZ: -50
+  mainColor: {r: 1, g: 1, b: 1, a: 0.375}
 --- !u!1 &1415627475
 GameObject:
   m_ObjectHideFlags: 0

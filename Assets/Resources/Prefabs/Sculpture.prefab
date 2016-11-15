@@ -89,8 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2d39dbba7c0874886afd9183087bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Active: 0
-  Direction: 90
-  Position: {x: 0, y: 0, z: 0}
-  IsScenery: 1
-  IsNice: 1
+  Direction: 2
+  X: 0
+  Y: 0
+  Z: 0
