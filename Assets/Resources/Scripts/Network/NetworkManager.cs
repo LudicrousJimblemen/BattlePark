@@ -1,7 +1,5 @@
 ﻿using System;
 using System;
-using System.Resources;
-using System.Reflection;
 using System.Linq;
 using UnityEngine;
 
