@@ -14,7 +14,7 @@ public class Client : MonoBehaviour {
 	
 	private NetworkManager networkManager;
 	private GridOverlay gridOverlay;
-	private Text chatText;
+	private ChatText chatText;
 	
 	private GameObject summonedObject;
 	
@@ -22,7 +22,7 @@ public class Client : MonoBehaviour {
 	private GridPlaceholder gridPlaceholder;
 	
 	private VerticalConstraint verticalConstraint;
-
+	
 	public int PlayerID;
 	
 	int[] PlayerList;
@@ -30,12 +30,10 @@ public class Client : MonoBehaviour {
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
 		gridOverlay = FindObjectOfType<GridOverlay>();
-		chatText = FindObjectsOfType<Text>().First(x => x.name == "ChatText");
+		chatText = FindObjectsOfType<ChatText>().First(x => x.name == "ChatText");
 		
 		//temporary, eventually hotbar slots will be defined dynamically
 		hotbar[0] = "Sculpture";
-		hotbar[1] = "Tree";
-		hotbar[2] = "Path";
 		
 		verticalConstraint = FindObjectOfType<VerticalConstraint>();
 		
@@ -127,7 +125,11 @@ public class Client : MonoBehaviour {
 	
 	private void OnChatNetMessage(NetworkMessage incoming) {
 		ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
+<<<<<<< HEAD
 		chatText.text += String.Format("\n<{0}> {1}", incoming.conn.connectionId, message.Message);
+=======
+		chatText.AddText(String.Format("<b><{0}></b> {1}", message.ConnectionId, message.Message));
+>>>>>>> origin/master
 	}
 	
 	private void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
@@ -160,7 +162,7 @@ public class Client : MonoBehaviour {
 		grid.Objects.Add (newGridObject.transform.position,component);
     }
 	void OnGUI () {
-		GUI.Label (new Rect (0,0,100,100),"PlayerID: " + PlayerID.ToString ());
+		GUI.Label (new Rect (0,0,100,100),"PlayerID: " + PlayerID);
 	}
 	private void OnUpdatePlayerAssignment(NetworkMessage incoming) {
 		UpdatePlayerAssignment message = incoming.ReadMessage<UpdatePlayerAssignment>();
