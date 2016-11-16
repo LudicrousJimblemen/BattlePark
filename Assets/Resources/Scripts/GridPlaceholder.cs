@@ -20,6 +20,7 @@ public class GridPlaceholder : MonoBehaviour {
 	}
 	
 	public void Snap() {
+		if (GridObject == null) return;
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		transform.position = new Vector3 { //snap to grid
@@ -73,6 +74,7 @@ public class GridPlaceholder : MonoBehaviour {
 			}
 			gameObject.SetActive (hasHit);
 		} else {
+			if (grid == null) return;
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
 				if (hit.collider.GetComponent<Grid> ().PlayerId == client.connection.connectionId)
 				transform.position = hit.point;
