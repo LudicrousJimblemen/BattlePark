@@ -86,8 +86,4 @@ public class GridPlaceholder : MonoBehaviour {
 			gameObject.SetActive(hasHit);
 		}
 	}
-	
-	private void OnDrawGizmos() {
-		Gizmos.DrawCube(transform.position, Vector3.one);
-	}
 }

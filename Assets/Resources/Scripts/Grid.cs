@@ -26,18 +26,20 @@ public class Grid : MonoBehaviour {
 		Objects = JsonConvert.DeserializeObject<GridObjects>(message);
 	}
 	
-	[Range(-10, 10)] public int TestX;
-	[Range(-10, 10)] public int TestY;
-	[Range(-10, 10)] public int TestZ;
+	//TEMPORARY GIZMOS STUFF
+	
+	[SerializeField][Range(-10, 10)] private int testX;
+	[SerializeField][Range(-10, 10)] private int testY;
+	[SerializeField][Range(-10, 10)] private int testZ;
 	void OnDrawGizmos() {
-		if (Objects.ObjectAt(new Vector3(TestX, TestY, TestZ)) != null) {
+		if (Objects.ObjectAt(new Vector3(testX, testY, testZ)) != null) {
 			Gizmos.color = Color.green;
-		} else if (Objects.Occupied(new Vector3(TestX, TestY, TestZ))) {
+		} else if (Objects.Occupied(new Vector3(testX, testY, testZ))) {
 			Gizmos.color = Color.blue;
 		} else {
 			Gizmos.color = Color.white;
 		}
 		
-		Gizmos.DrawSphere(new Vector3(TestX * GridXZ, TestY * GridY, TestZ * GridXZ), 0.5f);
+		Gizmos.DrawSphere(new Vector3(testX * GridXZ, testY * GridY, testZ * GridXZ), 0.5f);
 	}
 }
