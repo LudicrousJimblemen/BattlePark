@@ -233,9 +233,6 @@ MonoBehaviour:
   PlayerId: 0
   GridXZ: 1
   GridY: 0.5
-  testX: 0
-  testY: 0
-  testZ: 0
 --- !u!1 &194769800
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,9 +272,6 @@ MonoBehaviour:
   PlayerId: 0
   GridXZ: 1
   GridY: 0.5
-  testX: 0
-  testY: 0
-  testZ: 0
 --- !u!23 &194769802
 MeshRenderer:
   m_ObjectHideFlags: 0
