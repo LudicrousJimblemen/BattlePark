@@ -20,7 +20,8 @@ public class GridPlaceholder : MonoBehaviour {
 	}
 	
 	public void Snap() {
-		if (GridObject == null) return;
+		if (GridObject == null)
+			return;
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		transform.position = new Vector3 { //snap to grid
@@ -31,15 +32,16 @@ public class GridPlaceholder : MonoBehaviour {
 	}
 	
 	public void PlaceObject() {
-		Vector3 SnappedPos = new Vector3 (Mathf.RoundToInt(transform.position.x / grid.GridXZ), 
-		                                  Mathf.RoundToInt(transform.position.y / grid.GridY),
-		                                  Mathf.RoundToInt(transform.position.z / grid.GridXZ));
+		Vector3 SnappedPos = new Vector3(Mathf.RoundToInt(transform.position.x / grid.GridXZ), 
+			                     Mathf.RoundToInt(transform.position.y / grid.GridY),
+			                     Mathf.RoundToInt(transform.position.z / grid.GridXZ));
 		//if the snapped position, ie the desired spot to place the object at, is null, it's o k to place it
 		//otherwise, it's no good
-		if (grid.Objects.ContainsKey(SnappedPos)) return;
-		GridObject.X = (int)SnappedPos.x;
-		GridObject.Y = (int)SnappedPos.y;
-		GridObject.Z = (int)SnappedPos.z;
+		if (grid.Objects.Occupied(SnappedPos)) {
+			return;
+		}
+		
+		GridObject.Location = SnappedPos;
 		client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
 			//N A M E ( C L O N E )
 			//0 1 2 3 4 5 6 7 8 9 10
@@ -71,14 +73,15 @@ public class GridPlaceholder : MonoBehaviour {
 				//if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			}
-			gameObject.SetActive (hasHit);
+			gameObject.SetActive(hasHit);
 		} else {
-			if (grid == null) return;
+			if (grid == null)
+				return;
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid> ().PlayerId == FindObjectOfType<Client> ().PlayerID)
-				transform.position = hit.point;
+				if (hit.collider.GetComponent<Grid>().PlayerId == FindObjectOfType<Client>().PlayerID)
+					transform.position = hit.point;
 			}
-			gameObject.SetActive (hasHit);
+			gameObject.SetActive(hasHit);
 		}
 	}
 	

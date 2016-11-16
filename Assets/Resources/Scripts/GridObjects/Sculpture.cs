@@ -9,7 +9,8 @@ public class Sculpture : GridObject
 	{
 		//
 	}
-	public Vector3[] OccupiedOffsets = new Vector3[3] { Vector3.zero, new Vector3 (0, 1, 0),new Vector3 (0,2,0) };
+	
+	public Vector3[] OccupiedOffsets = { Vector3.zero, new Vector3 (0, 1, 0),new Vector3 (0,2,0) };
 	#endregion
 
 	#region Serialization
@@ -17,9 +18,7 @@ public class Sculpture : GridObject
 	{
 		return JsonConvert.SerializeObject(new SculptureData {
 			Direction = Direction,
-			X = X,
-			Y = Y,
-			Z = Z
+			Location = Location
 		});
 	}
 	
@@ -28,9 +27,7 @@ public class Sculpture : GridObject
 		SculptureData deserialized = JsonConvert.DeserializeObject<SculptureData>(message);
 		
 		Direction = deserialized.Direction;
-		X = deserialized.X;
-		Y = deserialized.Y;
-		Z = deserialized.Z;
+		Location = deserialized.Location;
 	}
 	#endregion
 }

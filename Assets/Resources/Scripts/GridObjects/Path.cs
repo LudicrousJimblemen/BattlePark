@@ -17,7 +17,8 @@ public class Path : GridObject
 	public bool OccupiedEast;
 	public bool OccupiedSouth;
 	public bool OccupiedWest;
-	public Vector3[] OccupiedOffsets = new Vector3[1] { Vector3.zero };
+	
+	public Vector3[] OccupiedOffsets = { Vector3.zero };
 	#endregion
 	
 	#region Serialization
@@ -25,9 +26,7 @@ public class Path : GridObject
 	{
 		return JsonConvert.SerializeObject(new PathData {
 			Direction = Direction,
-			X = X,
-			Y = Y,
-			Z = Z,
+			Location = Location,
 				
 			OccupiedNorth = OccupiedNorth,
 			OccupiedEast = OccupiedEast,
@@ -41,9 +40,7 @@ public class Path : GridObject
 		PathData deserialized = JsonConvert.DeserializeObject<PathData>(message);
 		
 		Direction = deserialized.Direction;
-		X = deserialized.X;
-		Y = deserialized.Y;
-		Z = deserialized.Z;
+		Location = deserialized.Location;
 		
 		OccupiedNorth = deserialized.OccupiedNorth;
 		OccupiedEast = deserialized.OccupiedEast;

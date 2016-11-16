@@ -3,8 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-public class Grid : MonoBehaviour
-{
+public class Grid : MonoBehaviour {
 	public LayerMask RaycastLayerMask;
 	public LayerMask VerticalConstrainRaycastLayerMask;
 	
@@ -13,16 +12,17 @@ public class Grid : MonoBehaviour
 	public float GridXZ = 1f;
 	public float GridY = 0.5f;
 	
-	public Dictionary<Vector3, GridObject> Objects;
+	public GridObjects Objects;
 	
 	void Start() {
 		PlayerId = int.Parse(name.Substring(4, name.Length - 4));
-		Objects = new Dictionary<Vector3, GridObject> ();
+		Objects = new GridObjects();
 	}
-	public string Serialize () {
-		return JsonConvert.SerializeObject (Objects);
+	
+	public string Serialize() {
+		return JsonConvert.SerializeObject(Objects);
 	}
-	public void Deserialize (string message) {
-		Objects =  JsonConvert.DeserializeObject<Dictionary<Vector3, GridObject>> (message);
+	public void Deserialize(string message) {
+		Objects = JsonConvert.DeserializeObject<GridObjects>(message);
 	}
 }

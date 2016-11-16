@@ -8,15 +8,13 @@ public class GridObject : MonoBehaviour
 	public class GridObjectData
 	{
 		public Direction Direction;
-		public int X;
-		public int Y;
-		public int Z;
+		public Vector3 Location;
 	}
 	
 	public Direction Direction;
-	public int X;
-	public int Y;
-	public int Z;
+	public Vector3 Location;
+	
+	public Vector3[] OccupiedOffsets = { Vector3.zero };
 	#endregion
 	
 	#region Serialization
@@ -24,9 +22,7 @@ public class GridObject : MonoBehaviour
 	{
 		return JsonConvert.SerializeObject(new GridObjectData {
 			Direction = Direction,
-			X = X,
-			Y = Y,
-			Z = Z
+			Location = Location
 		});
 	}
 	
@@ -35,9 +31,7 @@ public class GridObject : MonoBehaviour
 		GridObjectData deserialized = JsonConvert.DeserializeObject<GridObjectData>(message);
 		
 		Direction = deserialized.Direction;
-		X = deserialized.X;
-		Y = deserialized.Y;
-		Z = deserialized.Z;
+		Location = deserialized.Location;
 	}
 	#endregion
 	
