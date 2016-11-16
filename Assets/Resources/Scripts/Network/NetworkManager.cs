@@ -1,10 +1,8 @@
 ﻿using System;
-using System;
 using System.Linq;
 using UnityEngine;
 
-public class NetworkManager : MonoBehaviour
-{
+public class NetworkManager : MonoBehaviour {
 	public string Ip;
 	public int Port;
 	
@@ -12,8 +10,7 @@ public class NetworkManager : MonoBehaviour
 	
 	public bool IsServer;
 	
-	void Start()
-	{
+	void Start() {
 		DontDestroyOnLoad(this);
 	}
 }

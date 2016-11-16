@@ -43,8 +43,8 @@ public class ChatInput : InputField {
 	
 	public override void OnDeselect(BaseEventData eventData) {
 		interactable = false;
-        base.OnDeselect(eventData);
-        interactable = true;
+		base.OnDeselect(eventData);
+		interactable = true;
 		
 		if (submitted) {
 			client.NetworkClient.Send(ChatNetMessage.Code, new ChatNetMessage {

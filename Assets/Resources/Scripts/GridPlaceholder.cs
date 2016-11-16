@@ -39,7 +39,7 @@ public class GridPlaceholder : MonoBehaviour {
 			                     Mathf.RoundToInt(transform.position.z / grid.GridXZ));
 		//if the snapped position, ie the desired spot to place the object at, is null, it's o k to place it
 		//otherwise, it's no good
-		if (grid.Objects.Occupied(SnappedPos)) {
+		if (grid.Objects.OccupiedIn(SnappedPos)) {
 			return;
 		}
 		GridObject.X = (int)SnappedPos.x;
