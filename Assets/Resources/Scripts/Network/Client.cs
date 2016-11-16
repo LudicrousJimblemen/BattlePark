@@ -18,6 +18,8 @@ public class Client : MonoBehaviour {
 	
 	private GridPlaceholder gridPlaceholder;
 	private VerticalConstraint verticalConstraint;
+
+	public int PlayerID;
 	
 	int[] PlayerList;
 
@@ -101,7 +103,7 @@ public class Client : MonoBehaviour {
 		NetworkClient = new NetworkClient();
 		NetworkClient.RegisterHandler(ChatNetMessage.Code, OnChatNetMessage);
 		NetworkClient.RegisterHandler(GridObjectPlacedNetMessage.Code, OnGridObjectPlacedNetMessage);
-		NetworkClient.RegisterHandler(UpdatePlayerListMessage.Code, OnUpdatePlayerListMessage);
+		NetworkClient.RegisterHandler(UpdatePlayerAssignment.Code, OnUpdatePlayerAssignment);
 		NetworkClient.RegisterHandler(ClientJoinedMessage.Code, OnClientJoinedMessage);
 		NetworkClient.Connect(networkManager.Ip, networkManager.Port);
 		StartCoroutine(SendJoinMessage());
@@ -112,7 +114,6 @@ public class Client : MonoBehaviour {
 		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage() {
 			ConnectionId = NetworkClient.connection.connectionId
 		});
-		print(NetworkClient.connection.connectionId);
 	}
 	
 	private void OnClientJoinedMessage(NetworkMessage incoming) {
@@ -140,9 +141,11 @@ public class Client : MonoBehaviour {
 		
 		component.OnPlaced();
 	}
-	
-	private void OnUpdatePlayerListMessage(NetworkMessage incoming) {
-		UpdatePlayerListMessage message = incoming.ReadMessage<UpdatePlayerListMessage>();
-		PlayerList = message.PlayerList;
+	void OnGUI () {
+		GUI.Label (new Rect (0,0,100,100),"PlayerID: " + PlayerID.ToString ());
+	}
+	private void OnUpdatePlayerAssignment(NetworkMessage incoming) {
+		UpdatePlayerAssignment message = incoming.ReadMessage<UpdatePlayerAssignment>();
+		PlayerID = message.PlayerID;
 	}
 }

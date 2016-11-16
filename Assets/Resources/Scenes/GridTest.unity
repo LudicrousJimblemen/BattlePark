@@ -491,6 +491,7 @@ MonoBehaviour:
   FlatHeight: 3
   TiltAngle: 35
   FlatAngle: 20
+  MinimumPivotY: 1
 --- !u!114 &952732586
 MonoBehaviour:
   m_ObjectHideFlags: 0

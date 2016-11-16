@@ -10,14 +10,11 @@ public class Server : MonoBehaviour
 	public NetworkManager networkManager;
 	
 	int[] PlayerList;
+	private int currentPlayerCount = 0;
 	
 	void Start()
 	{
 		networkManager = FindObjectOfType<NetworkManager>();
-		PlayerList = new int[networkManager.MaxPlayers];
-		for (int i = 0; i < PlayerList.Length; i++) {
-			PlayerList[i] = -1;
-		}
 		if (!networkManager.IsServer) {
 			Destroy(this);
 		} else {
@@ -50,6 +47,12 @@ public class Server : MonoBehaviour
 	
 	public void SendToClients(NetworkMessage incoming)
 	{
+		ClientJoinedMessage message = incoming.ReadMessage<ClientJoinedMessage> ();
+		int playerIDToAssign = ++currentPlayerCount;
+		NetworkServer.SendToClient (message.ConnectionId,UpdatePlayerAssignment.Code,new UpdatePlayerAssignment () {
+			PlayerID = playerIDToAssign
+		});
+		/*
 		int id = incoming.ReadMessage<ClientJoinedMessage>().ConnectionId;
 		int freeIndex = -1;
 		for (int i = 0; i < PlayerList.Length; i++) {
@@ -68,5 +71,6 @@ public class Server : MonoBehaviour
 				PlayerList = PlayerList
 			});
 		}
+		*/
 	}
 }
