@@ -5,16 +5,8 @@ using UnityEngine;
 public class Path : GridObject {
 	#region Data Variables
 	public class PathData : GridObjectData {
-		public bool OccupiedNorth;
-		public bool OccupiedEast;
-		public bool OccupiedSouth;
-		public bool OccupiedWest;
+		//
 	}
-	
-	public bool OccupiedNorth;
-	public bool OccupiedEast;
-	public bool OccupiedSouth;
-	public bool OccupiedWest;
 	
 	#endregion
 	
@@ -24,12 +16,7 @@ public class Path : GridObject {
 			Direction = Direction,
 			X = X,
 			Y = Y,
-			Z = Z,
-				
-			OccupiedNorth = OccupiedNorth,
-			OccupiedEast = OccupiedEast,
-			OccupiedSouth = OccupiedSouth,
-			OccupiedWest = OccupiedWest
+			Z = Z
 		});
 	}
 	
@@ -40,23 +27,27 @@ public class Path : GridObject {
 		X = deserialized.X;
 		Y = deserialized.Y;
 		Z = deserialized.Z;
-		
-		OccupiedNorth = deserialized.OccupiedNorth;
-		OccupiedEast = deserialized.OccupiedEast;
-		OccupiedSouth = deserialized.OccupiedSouth;
-		OccupiedWest = deserialized.OccupiedWest;
 	}
 	#endregion
 	
 	public override void Start() {
-		OccupiedOffsets = new [] { Vector3.zero };
+		base.Start();
+		
+		OccupiedOffsets = new [] { 
+			new Vector3(0, 1, 0)
+		};
 	}
 	
 	public override void OnPlaced() {
-		//update own occupation variables
-		//foreach surrounding path
-		//update occupation variables
-		//update mesh
-		//update own mesh
+		foreach (var gridObject in Grid.Objects.AdjacentObjects(GridPosition(), true)) {
+			if (gridObject.GetComponent<Path>() != null) {
+				gridObject.GetComponent<Path>().UpdatePath();
+				UpdatePath();
+			}
+		}
+	}
+	
+	public void UpdatePath() {
+		//TODO generate mesh
 	}
 }

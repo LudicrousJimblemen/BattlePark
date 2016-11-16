@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ClientJoinedMessage : MessageBase
-{
+public class ClientJoinedMessage : MessageBase {
 	public const short Code = 1001;
 }

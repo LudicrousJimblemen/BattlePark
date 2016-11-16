@@ -30,6 +30,8 @@ public class Sculpture : GridObject {
 	#endregion
 	
 	public override void Start() {
+		base.Start();
+		
 		OccupiedOffsets = new [] {
 			new Vector3(0, 1, 0),
 			new Vector3(0, 2, 0)

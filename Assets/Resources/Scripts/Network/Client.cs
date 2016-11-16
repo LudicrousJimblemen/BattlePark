@@ -120,7 +120,7 @@ public class Client : MonoBehaviour {
 	}
 	
 	private void OnClientJoinedMessage(NetworkMessage incoming) {
-		ClientJoinedMessage message = incoming.ReadMessage<ClientJoinedMessage>();
+		//ClientJoinedMessage message = incoming.ReadMessage<ClientJoinedMessage>();
 		chatText.AddText(String.Format(FindObjectOfType<LanguageManager>().GetString("chat.userJoined"), "a"));
 	}
 	
@@ -157,7 +157,8 @@ public class Client : MonoBehaviour {
 			grid.Objects.Add (newGridObject.transform.position + CorrectedOffset,component);
 		}
 		*/
-		grid.Objects.Add(newGridObject.transform.position, component);
+		component.Grid = grid;
+		grid.Objects.Add(component.GridPosition(), component);
 	}
 	void OnGUI() {
 		GUI.Label(new Rect(0, 0, 100, 100), "PlayerID: " + PlayerID);

@@ -2,11 +2,9 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class GridObject : MonoBehaviour
-{
+public class GridObject : MonoBehaviour {
 	#region Data Variables
-	public class GridObjectData
-	{
+	public class GridObjectData {
 		public Direction Direction;
 		public int X;
 		public int Y;
@@ -21,9 +19,10 @@ public class GridObject : MonoBehaviour
 	public Vector3[] OccupiedOffsets = { Vector3.zero };
 	#endregion
 	
+	public Grid Grid;
+	
 	#region Serialization
-	public virtual string Serialize()
-	{
+	public virtual string Serialize() {
 		return JsonConvert.SerializeObject(new GridObjectData {
 			Direction = Direction,
 			X = X,
@@ -32,8 +31,7 @@ public class GridObject : MonoBehaviour
 		});
 	}
 	
-	public virtual void Deserialize(string message)
-	{
+	public virtual void Deserialize(string message) {
 		GridObjectData deserialized = JsonConvert.DeserializeObject<GridObjectData>(message);
 		
 		Direction = deserialized.Direction;
@@ -43,9 +41,13 @@ public class GridObject : MonoBehaviour
 	}
 	#endregion
 	
-	public virtual void Start()	{}
+	public virtual void Start() {}
 	public virtual void Update() {}
 	
 	public virtual void OnPlaced() {}
 	public virtual void OnDemolished() {}
+	
+	public Vector3 GridPosition() {
+		return new Vector3(X, Y, Z);
+	}
 }

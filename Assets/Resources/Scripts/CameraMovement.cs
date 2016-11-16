@@ -4,8 +4,7 @@ using System.Collections;
 //Hopefully, this will be usable in any future project we do
 
 [RequireComponent(typeof(Camera))]
-public class CameraMovement : MonoBehaviour
-{
+public class CameraMovement : MonoBehaviour {
 
 	public float speed = 5f;
 	[Range(0, Mathf.Infinity)]
@@ -14,8 +13,7 @@ public class CameraMovement : MonoBehaviour
 	[Range(0, Mathf.Infinity)]
 	public float minimumHeight = 5f;
 	
-	void LateUpdate()
-	{
+	void LateUpdate() {
 		Vector3 flatForward = transform.forward;
 		flatForward.y = 0;
 		flatForward.Normalize();
