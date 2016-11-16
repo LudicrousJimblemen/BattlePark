@@ -25,7 +25,7 @@ public class Client : MonoBehaviour {
 	
 	public int PlayerID;
 	
-	int[] PlayerList;
+	private bool Paused;
 
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
@@ -43,22 +43,33 @@ public class Client : MonoBehaviour {
 	}
 	
 	void Update() {
-		if (Enabled) {
-			//returns which of the alpha keys were pressed this frame, preferring lower numbers
-			for (int i = 0; i < 9; i++) {
-				if (Input.GetKeyDown((KeyCode)(49 + i))) {
-					if (hotbar[i] != null) {
-						if (CanSummon) {
-							CanSummon = false;
-						} else {
-							Destroy(summonedObject);
-						}
-						summonedObject = SummonGridObject(hotbar[i]);
-						gridPlaceholder = FindObjectOfType<GridPlaceholder>();
-						gridPlaceholder.Owner = NetworkClient.connection.connectionId;
-						break;
+		Camera.main.GetComponent<CameraPan>().enabled = !Paused;
+		if (Paused) {
+			Paused = !Input.GetKeyDown (KeyCode.Escape);
+			return;
+		}
+		if (!Enabled) return;
+		//returns which of the alpha keys were pressed this frame, preferring lower numbers
+		for (int i = 0; i < 9; i++) {
+			if (Input.GetKeyDown((KeyCode)(49 + i))) {
+				if (hotbar[i] != null) {
+					if (CanSummon) {
+						CanSummon = false;
+					} else {
+						Destroy(summonedObject);
 					}
+					summonedObject = SummonGridObject(hotbar[i]);
+					gridPlaceholder = FindObjectOfType<GridPlaceholder>();
+					gridPlaceholder.Owner = NetworkClient.connection.connectionId;
+					break;
 				}
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			if (summonedObject != null) {
+				Destroy (summonedObject);
+			} else {
+				Paused = true;
 			}
 		}
 		
@@ -77,7 +88,7 @@ public class Client : MonoBehaviour {
 					gridPlaceholder.Rotate(-1);
 				}
 			
-			gridPlaceholder.Position(Input.GetKey(KeyCode.LeftControl));
+			Position(summonedObject, Input.GetKey(KeyCode.LeftControl));
 			gridPlaceholder.Snap();
 			
 			if (Input.GetMouseButtonDown(0)) {
@@ -102,6 +113,29 @@ public class Client : MonoBehaviour {
 		newGridObject.AddComponent<GridPlaceholder>();
 		
 		return newGridObject;
+	}
+	
+	public void Position(GameObject gridObject, bool UseVerticalConstraint = false) {
+		Camera camera = Camera.main;
+		Grid grid = FindObjectsOfType<Grid> ().First (x => x.PlayerId == PlayerID);
+		RaycastHit hit;
+		bool hasHit;
+		if (UseVerticalConstraint) {
+			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
+					gridObject.transform.position = new Vector3(gridObject.transform.position.x, hit.point.y, gridObject.transform.position.z);
+			}
+			gameObject.SetActive(hasHit);
+		} else {
+			if (grid == null) {
+				gridObject.transform.position = new Vector3 (0, -100, 0);
+				return;
+			}
+			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
+				if (hit.collider.GetComponent<Grid> ().PlayerId == PlayerID)
+					gridObject.transform.position = hit.point;
+			}
+			gameObject.SetActive(hasHit);
+		}
 	}
 
 	public void StartClient() {
@@ -161,6 +195,12 @@ public class Client : MonoBehaviour {
 	}
 	void OnGUI() {
 		GUI.Label(new Rect(0, 0, 100, 100), "PlayerID: " + PlayerID);
+		if (Paused) {
+			GUIStyle style = new GUIStyle ();
+			style.alignment = TextAnchor.MiddleCenter;
+			style.fontSize = 100;
+			GUI.Label (new Rect (Screen.width/2-50, Screen.height/2-25, 100, 50), "Paused", style);
+		}
 	}
 	private void OnUpdatePlayerAssignment(NetworkMessage incoming) {
 		UpdatePlayerAssignment message = incoming.ReadMessage<UpdatePlayerAssignment>();

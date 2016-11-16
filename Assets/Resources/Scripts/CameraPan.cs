@@ -12,12 +12,12 @@ public class CameraPan : MonoBehaviour {
 	public float RotationSpeed = 4f;
 	
 	[Range(0, 50)]
-	public float TiltHeight = 18f;
+	public float TiltHeight = 36f;
 	[Range(0, 50)]
 	public float FlatHeight = 3f;
 	
 	[Range(0, 90)]
-	public float TiltAngle = 35f;
+	public float TiltAngle = 45f;
 	[Range(0, 90)]
 	public float FlatAngle = 20f;
 	
