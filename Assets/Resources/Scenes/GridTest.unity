@@ -271,7 +271,7 @@ MonoBehaviour:
     m_Bits: 4294967035
   VerticalConstrainRaycastLayerMask:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 512
   PlayerId: 0
   GridXZ: 1
   GridY: 0.5

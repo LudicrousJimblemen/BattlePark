@@ -124,7 +124,7 @@ public class Client : MonoBehaviour {
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
 					gridObject.transform.position = new Vector3(gridObject.transform.position.x, hit.point.y, gridObject.transform.position.z);
 			}
-			gameObject.SetActive(hasHit);
+			gridObject.SetActive(hasHit);
 		} else {
 			if (grid == null) {
 				gridObject.transform.position = new Vector3 (0, -100, 0);
@@ -134,7 +134,7 @@ public class Client : MonoBehaviour {
 				if (hit.collider.GetComponent<Grid> ().PlayerId == PlayerID)
 					gridObject.transform.position = hit.point;
 			}
-			gameObject.SetActive(hasHit);
+			gridObject.SetActive(hasHit);
 		}
 	}
 
