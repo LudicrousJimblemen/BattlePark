@@ -20,8 +20,10 @@ public class GridPlaceholder : MonoBehaviour {
 	}
 	
 	public void Snap() {
-		if (GridObject == null)
+		if (GridObject == null) {
 			return;
+		}
+		
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		transform.position = new Vector3 { //snap to grid
@@ -40,8 +42,9 @@ public class GridPlaceholder : MonoBehaviour {
 		if (grid.Objects.Occupied(SnappedPos)) {
 			return;
 		}
-		
-		GridObject.Location = SnappedPos;
+		GridObject.X = (int)SnappedPos.x;
+		GridObject.Y = (int)SnappedPos.y;
+		GridObject.Z = (int)SnappedPos.z;
 		client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
 			//N A M E ( C L O N E )
 			//0 1 2 3 4 5 6 7 8 9 10

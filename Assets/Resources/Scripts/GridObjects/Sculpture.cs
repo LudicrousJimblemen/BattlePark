@@ -18,7 +18,9 @@ public class Sculpture : GridObject
 	{
 		return JsonConvert.SerializeObject(new SculptureData {
 			Direction = Direction,
-			Location = Location
+			X = X,
+			Y = Y,
+			Z = Z
 		});
 	}
 	
@@ -27,7 +29,9 @@ public class Sculpture : GridObject
 		SculptureData deserialized = JsonConvert.DeserializeObject<SculptureData>(message);
 		
 		Direction = deserialized.Direction;
-		Location = deserialized.Location;
+		X = deserialized.X;
+		Y = deserialized.Y;
+		Z = deserialized.Z;
 	}
 	#endregion
 }

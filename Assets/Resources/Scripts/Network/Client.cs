@@ -125,7 +125,8 @@ public class Client : MonoBehaviour {
 	
 	private void OnChatNetMessage(NetworkMessage incoming) {
 		ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
-		chatText.AddText(String.Format("<b><{0}></b> {1}", message.ConnectionId, message.Message));
+		//chatText.AddText(String.Format("<b><{0}></b> {1}", message.ConnectionId, message.Message));
+		chatText.AddText(String.Format("<b><a></b> {0}", message.Message));
 	}
 	
 	private void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {

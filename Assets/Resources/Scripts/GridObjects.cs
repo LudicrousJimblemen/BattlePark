@@ -37,7 +37,7 @@ public class GridObjects {
 		} else {
 			foreach (var item in dictionary.Values) {
 				foreach (var offset in item.OccupiedOffsets) {
-					if (item.Location + offset == location) {
+					if (new Vector3(item.X, item.Y, item.Z) + offset == location) {
 						return item;
 					}
 				}
