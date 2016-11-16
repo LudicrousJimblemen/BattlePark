@@ -11,8 +11,9 @@ public class Tree : GridObject
 	}
 	
 	public bool SpinsALot;
+	public Vector3[] OccupiedOffsets = new Vector3[5] { Vector3.zero,new Vector3 (0,1,0),new Vector3 (0,2,0),new Vector3 (0,3,0),new Vector3 (0,4,0) };
 	#endregion
-	
+
 	#region Serialization
 	public override string Serialize()
 	{

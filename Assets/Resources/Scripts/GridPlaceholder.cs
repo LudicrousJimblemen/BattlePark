@@ -41,13 +41,12 @@ public class GridPlaceholder : MonoBehaviour {
 		GridObject.Y = (int)SnappedPos.y;
 		GridObject.Z = (int)SnappedPos.z;
 		client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
-			ConnectionId = client.connection.connectionId,
 			//N A M E ( C L O N E )
 			//0 1 2 3 4 5 6 7 8 9 10
 			Type = name.Substring(0, name.Length - 7),
 			ObjectData = GridObject.Serialize()
 		});
-		grid.Objects.Add (SnappedPos, GridObject);
+		//grid.Objects.Add (SnappedPos, GridObject);
 		print("<Client> Sent object");
 		FindObjectOfType<Client>().CanSummon = true;
 		Destroy(gameObject);
@@ -76,7 +75,7 @@ public class GridPlaceholder : MonoBehaviour {
 		} else {
 			if (grid == null) return;
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid> ().PlayerId == client.connection.connectionId)
+				if (hit.collider.GetComponent<Grid> ().PlayerId == FindObjectOfType<Client> ().PlayerID)
 				transform.position = hit.point;
 			}
 			gameObject.SetActive (hasHit);

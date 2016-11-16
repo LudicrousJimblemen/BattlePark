@@ -118,9 +118,7 @@ public class Client : MonoBehaviour {
 	
 	public IEnumerator SendJoinMessage() {
 		yield return new WaitWhile(() => !NetworkClient.isConnected);
-		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage() {
-			ConnectionId = NetworkClient.connection.connectionId
-		});
+		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage ());
 	}
 	
 	private void OnClientJoinedMessage(NetworkMessage incoming) {
@@ -129,7 +127,7 @@ public class Client : MonoBehaviour {
 	
 	private void OnChatNetMessage(NetworkMessage incoming) {
 		ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
-		chatText.text += String.Format("\n<{0}> {1}", message.ConnectionId, message.Message);
+		chatText.text += String.Format("\n<{0}> {1}", incoming.conn.connectionId, message.Message);
 	}
 	
 	private void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
@@ -137,7 +135,7 @@ public class Client : MonoBehaviour {
 		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + message.Type));
 		
 		GridObject component = newGridObject.GetComponent<GridObject>();
-		
+
 		component.Deserialize(message.ObjectData);
 		newGridObject.transform.position = new Vector3(
 			component.X * FindObjectOfType<Grid>().GridXZ,
@@ -147,7 +145,20 @@ public class Client : MonoBehaviour {
 		newGridObject.transform.rotation = Quaternion.Euler(-90, 0, (int)component.Direction * 90);
 		
 		component.OnPlaced();
-	}
+		Grid grid = FindObjectsOfType<Grid> ().First (x => x.PlayerId == incoming.conn.connectionId);
+		/*
+		print (component.OccupiedOffsets.Length);
+		for (int i = 0; i < component.OccupiedOffsets.Length; i ++) {
+			Vector3 CorrectedOffset = component.OccupiedOffsets[i];
+			CorrectedOffset.x *= grid.GridXZ;
+			CorrectedOffset.z *= grid.GridXZ;
+			CorrectedOffset.y *= grid.GridY;
+			
+			grid.Objects.Add (newGridObject.transform.position + CorrectedOffset,component);
+		}
+		*/
+		grid.Objects.Add (newGridObject.transform.position,component);
+    }
 	void OnGUI () {
 		GUI.Label (new Rect (0,0,100,100),"PlayerID: " + PlayerID.ToString ());
 	}

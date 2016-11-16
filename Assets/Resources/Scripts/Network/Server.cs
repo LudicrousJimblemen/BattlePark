@@ -9,9 +9,6 @@ public class Server : MonoBehaviour
 {
 	public NetworkManager networkManager;
 	
-	int[] PlayerList;
-	private int currentPlayerCount = 0;
-	
 	void Start()
 	{
 		networkManager = FindObjectOfType<NetworkManager>();
@@ -45,32 +42,11 @@ public class Server : MonoBehaviour
 		}
 	}
 	
-	public void SendToClients(NetworkMessage incoming)
+	public void SendToClients(NetworkMessage incoming) 
 	{
 		ClientJoinedMessage message = incoming.ReadMessage<ClientJoinedMessage> ();
-		int playerIDToAssign = ++currentPlayerCount;
-		NetworkServer.SendToClient (message.ConnectionId,UpdatePlayerAssignment.Code,new UpdatePlayerAssignment () {
-			PlayerID = playerIDToAssign
+		NetworkServer.SendToClient (incoming.conn.connectionId,UpdatePlayerAssignment.Code,new UpdatePlayerAssignment () {
+			PlayerID = incoming.conn.connectionId
 		});
-		/*
-		int id = incoming.ReadMessage<ClientJoinedMessage>().ConnectionId;
-		int freeIndex = -1;
-		for (int i = 0; i < PlayerList.Length; i++) {
-			if (PlayerList[i] == -1) {
-				freeIndex = i;
-				break;
-			}
-		}
-		if (freeIndex == -1) {
-			NetworkServer.SendToAll(incoming.msgType, new UpdatePlayerListMessage() {
-				PlayerList = null
-			});
-		} else {
-			PlayerList[freeIndex] = id;
-			NetworkServer.SendToAll(incoming.msgType, new UpdatePlayerListMessage() {
-				PlayerList = PlayerList
-			});
-		}
-		*/
 	}
 }

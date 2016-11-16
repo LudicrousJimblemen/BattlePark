@@ -17,6 +17,7 @@ public class Path : GridObject
 	public bool OccupiedEast;
 	public bool OccupiedSouth;
 	public bool OccupiedWest;
+	public Vector3[] OccupiedOffsets = new Vector3[1] { Vector3.zero };
 	#endregion
 	
 	#region Serialization

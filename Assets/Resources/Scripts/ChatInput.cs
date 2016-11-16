@@ -48,7 +48,6 @@ public class ChatInput : InputField {
 		
 		if (submitted) {
 			client.NetworkClient.Send(ChatNetMessage.Code, new ChatNetMessage {
-				ConnectionId = client.NetworkClient.connection.connectionId,
 				Message = text
 			});
 			text = String.Empty;

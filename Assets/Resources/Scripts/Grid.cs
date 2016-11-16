@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public class Grid : MonoBehaviour
 {
@@ -21,5 +22,11 @@ public class Grid : MonoBehaviour
 		// 0 1 2 3 4 5 6 etc
 		PlayerId = int.Parse(name.Substring(4, name.Length - 4));
 		Objects = new Dictionary<Vector3, GridObject> ();
+	}
+	public string Serialize () {
+		return JsonConvert.SerializeObject (Objects);
+	}
+	public void Deserialize (string message) {
+		Objects =  JsonConvert.DeserializeObject<Dictionary<Vector3, GridObject>> (message);
 	}
 }
