@@ -4,19 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class Client : MonoBehaviour {
+	public bool Enabled = true;
+	
 	public NetworkClient NetworkClient;
 	public bool CanSummon = true;
 	
 	private NetworkManager networkManager;
 	private GridOverlay gridOverlay;
-
+	private Text chatText;
+	
 	private GameObject summonedObject;
 	
 	private string[] hotbar = new string[9];
-	
 	private GridPlaceholder gridPlaceholder;
+	
 	private VerticalConstraint verticalConstraint;
 	
 	int[] PlayerList;
@@ -24,6 +28,7 @@ public class Client : MonoBehaviour {
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
 		gridOverlay = FindObjectOfType<GridOverlay>();
+		chatText = FindObjectsOfType<Text>().First(x => x.name == "ChatText");
 		
 		//temporary, eventually hotbar slots will be defined dynamically
 		hotbar[0] = "Sculpture";
@@ -38,44 +43,46 @@ public class Client : MonoBehaviour {
 	}
 	
 	void Update() {
-		//returns which of the alpha keys were pressed this frame, preferring lower numbers
-		for (int i = 0; i < 9; i++) {
-			if (Input.GetKeyDown((KeyCode)(49 + i))) {
-				if (hotbar[i] != null) {
-					if (CanSummon) {
-						CanSummon = false;
-					} else {
-						Destroy(summonedObject);
+		if (Enabled) {
+			//returns which of the alpha keys were pressed this frame, preferring lower numbers
+			for (int i = 0; i < 9; i++) {
+				if (Input.GetKeyDown((KeyCode)(49 + i))) {
+					if (hotbar[i] != null) {
+						if (CanSummon) {
+							CanSummon = false;
+						} else {
+							Destroy(summonedObject);
+						}
+						summonedObject = SummonGridObject(hotbar[i]);
+						gridPlaceholder = FindObjectOfType<GridPlaceholder>();
+						gridPlaceholder.Owner = NetworkClient.connection.connectionId;
+						break;
 					}
-					summonedObject = SummonGridObject(hotbar[i]);
-					gridPlaceholder = FindObjectOfType<GridPlaceholder>();
-					gridPlaceholder.Owner = NetworkClient.connection.connectionId;
-					break;
 				}
 			}
-		}
-		
-		verticalConstraint.gameObject.SetActive(Input.GetKey(KeyCode.LeftControl));
-		if (Input.GetKeyDown(KeyCode.LeftControl)) {
-			EnableVerticalConstraint();
 		}
 		
 		gridOverlay.ShowGrid = gridPlaceholder != null;
 		if (gridPlaceholder == null) {
 			return;
-		}
+		} else {
+			verticalConstraint.gameObject.SetActive(Input.GetKey(KeyCode.LeftControl));
+			if (Input.GetKeyDown(KeyCode.LeftControl)) {
+				EnableVerticalConstraint();
+			}
 		
-		if (Input.GetKeyDown(KeyCode.Z)) {
-			gridPlaceholder.Rotate(1);
-		} else if (Input.GetKeyDown(KeyCode.X)) {
-			gridPlaceholder.Rotate(-1);
-		}
-		
-		gridPlaceholder.Position(Input.GetKey(KeyCode.LeftControl));
-		gridPlaceholder.Snap();
-		
-		if (Input.GetMouseButtonDown(0)) {
-			gridPlaceholder.PlaceObject();
+			if (Input.GetKeyDown(KeyCode.Z)) {
+				gridPlaceholder.Rotate(1);
+			} else if (Input.GetKeyDown(KeyCode.X)) {
+					gridPlaceholder.Rotate(-1);
+				}
+			
+			gridPlaceholder.Position(Input.GetKey(KeyCode.LeftControl));
+			gridPlaceholder.Snap();
+			
+			if (Input.GetMouseButtonDown(0)) {
+				gridPlaceholder.PlaceObject();
+			}
 		}
 	}
 	
@@ -112,7 +119,6 @@ public class Client : MonoBehaviour {
 		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage() {
 			ConnectionId = NetworkClient.connection.connectionId
 		});
-		print(NetworkClient.connection.connectionId);
 	}
 	
 	private void OnClientJoinedMessage(NetworkMessage incoming) {
@@ -121,7 +127,7 @@ public class Client : MonoBehaviour {
 	
 	private void OnChatNetMessage(NetworkMessage incoming) {
 		ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
-		print(message.Message);
+		chatText.text += String.Format("\n<{0}> {1}", message.ConnectionId, message.Message);
 	}
 	
 	private void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {

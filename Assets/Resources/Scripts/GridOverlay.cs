@@ -17,7 +17,7 @@ public class GridOverlay : MonoBehaviour {
  
 	private Material lineMaterial;
  
-	public  Color mainColor = new Color(1f, 1f, 1f, 0.375f);
+	public  Color mainColor = new Color(0f, 0f, 0f, 42f / 255f);
  
 	void CreateLineMaterial() {
 		if (!lineMaterial) {
