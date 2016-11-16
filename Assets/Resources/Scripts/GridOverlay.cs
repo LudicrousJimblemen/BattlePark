@@ -54,8 +54,8 @@ public class GridOverlay : MonoBehaviour {
 	
 			//Z axis lines
 			for (float i = 0; i <= GridSizeX; i += MainStep) {
-				GL.Vertex3(StartX + 0, 0, StartZ);
-				GL.Vertex3(StartX + 0, 0, StartZ + GridSizeZ);
+				GL.Vertex3(StartX + i, 0, StartZ);
+				GL.Vertex3(StartX + i, 0, StartZ + GridSizeZ);
 			}
 	 
 			GL.End();
