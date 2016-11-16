@@ -121,7 +121,7 @@
     <value>Battle Park</value>
   </data>
   <data name="chat.chatMessage" xml:space="preserve">
-    <value>&lt;{0}&gt; {1}</value>
+    <value>&lt;b&gt;&lt;{0}&gt;&lt;/b&gt; {1}</value>
   </data>
   <data name="chat.userJoined" xml:space="preserve">
     <value>{0} joined.</value>

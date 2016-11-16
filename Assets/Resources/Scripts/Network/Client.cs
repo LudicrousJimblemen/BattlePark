@@ -14,7 +14,7 @@ public class Client : MonoBehaviour {
 	
 	private NetworkManager networkManager;
 	private GridOverlay gridOverlay;
-	private Text chatText;
+	private ChatText chatText;
 	
 	private GameObject summonedObject;
 	
@@ -22,7 +22,7 @@ public class Client : MonoBehaviour {
 	private GridPlaceholder gridPlaceholder;
 	
 	private VerticalConstraint verticalConstraint;
-
+	
 	public int PlayerID;
 	
 	int[] PlayerList;
@@ -30,7 +30,7 @@ public class Client : MonoBehaviour {
 	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
 		gridOverlay = FindObjectOfType<GridOverlay>();
-		chatText = FindObjectsOfType<Text>().First(x => x.name == "ChatText");
+		chatText = FindObjectsOfType<ChatText>().First(x => x.name == "ChatText");
 		
 		//temporary, eventually hotbar slots will be defined dynamically
 		hotbar[0] = "Sculpture";
@@ -129,7 +129,7 @@ public class Client : MonoBehaviour {
 	
 	private void OnChatNetMessage(NetworkMessage incoming) {
 		ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
-		chatText.text += String.Format("\n<{0}> {1}", message.ConnectionId, message.Message);
+		chatText.AddText(String.Format("<b><{0}></b> {1}", message.ConnectionId, message.Message));
 	}
 	
 	private void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
