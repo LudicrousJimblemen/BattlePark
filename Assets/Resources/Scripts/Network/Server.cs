@@ -5,12 +5,10 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 
-public class Server : MonoBehaviour
-{
+public class Server : MonoBehaviour {
 	public NetworkManager networkManager;
 	
-	void Start()
-	{
+	void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
 		if (!networkManager.IsServer) {
 			Destroy(this);
@@ -19,33 +17,28 @@ public class Server : MonoBehaviour
 		}
 	}
 	
-	public void StartServer()
-	{
+	public void StartServer() {
 		NetworkServer.RegisterHandler(ChatNetMessage.Code, ResendMessage);
 		NetworkServer.RegisterHandler(GridObjectPlacedNetMessage.Code, ResendMessage);
 		NetworkServer.RegisterHandler(ClientJoinedMessage.Code, SendToClients);
 		NetworkServer.Listen(networkManager.Port);
 		FindObjectOfType<Client>().StartClient();
-		print ("e");
 	}
 	
-	public void ResendMessage(NetworkMessage incoming)
-	{
+	public void ResendMessage(NetworkMessage incoming) {
 		switch (incoming.msgType) {
 			case ChatNetMessage.Code:
 				NetworkServer.SendToAll(incoming.msgType, incoming.ReadMessage<ChatNetMessage>());
 				break;
 			case GridObjectPlacedNetMessage.Code:
-				print("<Server> Received object");
 				NetworkServer.SendToAll(incoming.msgType, incoming.ReadMessage<GridObjectPlacedNetMessage>());
 				break;
 		}
 	}
 	
-	public void SendToClients(NetworkMessage incoming) 
-	{
-		ClientJoinedMessage message = incoming.ReadMessage<ClientJoinedMessage> ();
-		NetworkServer.SendToClient (incoming.conn.connectionId,UpdatePlayerAssignment.Code,new UpdatePlayerAssignment () {
+	public void SendToClients(NetworkMessage incoming) {
+		ClientJoinedMessage message = incoming.ReadMessage<ClientJoinedMessage>();
+		NetworkServer.SendToClient(incoming.conn.connectionId, UpdatePlayerAssignment.Code, new UpdatePlayerAssignment() {
 			PlayerID = incoming.conn.connectionId
 		});
 	}

@@ -2,11 +2,9 @@
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class Path : GridObject
-{
+public class Path : GridObject {
 	#region Data Variables
-	public class PathData : GridObjectData
-	{
+	public class PathData : GridObjectData {
 		public bool OccupiedNorth;
 		public bool OccupiedEast;
 		public bool OccupiedSouth;
@@ -18,12 +16,10 @@ public class Path : GridObject
 	public bool OccupiedSouth;
 	public bool OccupiedWest;
 	
-	public Vector3[] OccupiedOffsets = { Vector3.zero };
 	#endregion
 	
 	#region Serialization
-	public override string Serialize()
-	{
+	public override string Serialize() {
 		return JsonConvert.SerializeObject(new PathData {
 			Direction = Direction,
 			X = X,
@@ -37,8 +33,7 @@ public class Path : GridObject
 		});
 	}
 	
-	public override void Deserialize(string message)
-	{
+	public override void Deserialize(string message) {
 		PathData deserialized = JsonConvert.DeserializeObject<PathData>(message);
 		
 		Direction = deserialized.Direction;
@@ -53,12 +48,15 @@ public class Path : GridObject
 	}
 	#endregion
 	
-	public override void OnPlaced()
-	{
+	public override void Start() {
+		OccupiedOffsets = new [] { Vector3.zero };
+	}
+	
+	public override void OnPlaced() {
 		//update own occupation variables
 		//foreach surrounding path
-			//update occupation variables
-			//update mesh
+		//update occupation variables
+		//update mesh
 		//update own mesh
 	}
 }

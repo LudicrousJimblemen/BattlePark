@@ -52,7 +52,6 @@ public class GridPlaceholder : MonoBehaviour {
 			ObjectData = GridObject.Serialize()
 		});
 		//grid.Objects.Add (SnappedPos, GridObject);
-		print("<Client> Sent object");
 		FindObjectOfType<Client>().CanSummon = true;
 		Destroy(gameObject);
 	}

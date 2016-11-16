@@ -25,4 +25,19 @@ public class Grid : MonoBehaviour {
 	public void Deserialize(string message) {
 		Objects = JsonConvert.DeserializeObject<GridObjects>(message);
 	}
+	
+	[Range(-10, 10)] public int TestX;
+	[Range(-10, 10)] public int TestY;
+	[Range(-10, 10)] public int TestZ;
+	void OnDrawGizmos() {
+		if (Objects.ObjectAt(new Vector3(TestX, TestY, TestZ)) != null) {
+			Gizmos.color = Color.green;
+		} else if (Objects.Occupied(new Vector3(TestX, TestY, TestZ))) {
+			Gizmos.color = Color.blue;
+		} else {
+			Gizmos.color = Color.white;
+		}
+		
+		Gizmos.DrawSphere(new Vector3(TestX * GridXZ, TestY * GridY, TestZ * GridXZ), 0.5f);
+	}
 }

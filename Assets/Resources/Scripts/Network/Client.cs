@@ -88,10 +88,10 @@ public class Client : MonoBehaviour {
 	
 	public void EnableVerticalConstraint() {
 		Vector3 correctedPosition = new Vector3(
-			Camera.main.transform.position.x,
-			0,
-			Camera.main.transform.position.z
-		);
+			                            Camera.main.transform.position.x,
+			                            0,
+			                            Camera.main.transform.position.z
+		                            );
 		verticalConstraint.transform.position = gridPlaceholder.transform.position;
 		verticalConstraint.transform.rotation = Quaternion.LookRotation(gridPlaceholder.transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 	}
@@ -116,7 +116,7 @@ public class Client : MonoBehaviour {
 	
 	public IEnumerator SendJoinMessage() {
 		yield return new WaitWhile(() => !NetworkClient.isConnected);
-		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage ());
+		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage());
 	}
 	
 	private void OnClientJoinedMessage(NetworkMessage incoming) {
@@ -136,6 +136,7 @@ public class Client : MonoBehaviour {
 		GridObject component = newGridObject.GetComponent<GridObject>();
 
 		component.Deserialize(message.ObjectData);
+		//TODO add reference to grid
 		newGridObject.transform.position = new Vector3(
 			component.X * FindObjectOfType<Grid>().GridXZ,
 			component.Y * FindObjectOfType<Grid>().GridY,
@@ -144,7 +145,7 @@ public class Client : MonoBehaviour {
 		newGridObject.transform.rotation = Quaternion.Euler(-90, 0, (int)component.Direction * 90);
 		
 		component.OnPlaced();
-		Grid grid = FindObjectsOfType<Grid> ().First (x => x.PlayerId == incoming.conn.connectionId);
+		Grid grid = FindObjectsOfType<Grid>().First(x => x.PlayerId == incoming.conn.connectionId);
 		/*
 		print (component.OccupiedOffsets.Length);
 		for (int i = 0; i < component.OccupiedOffsets.Length; i ++) {
@@ -156,10 +157,10 @@ public class Client : MonoBehaviour {
 			grid.Objects.Add (newGridObject.transform.position + CorrectedOffset,component);
 		}
 		*/
-		grid.Objects.Add (newGridObject.transform.position,component);
-    }
-	void OnGUI () {
-		GUI.Label (new Rect (0,0,100,100),"PlayerID: " + PlayerID);
+		grid.Objects.Add(newGridObject.transform.position, component);
+	}
+	void OnGUI() {
+		GUI.Label(new Rect(0, 0, 100, 100), "PlayerID: " + PlayerID);
 	}
 	private void OnUpdatePlayerAssignment(NetworkMessage incoming) {
 		UpdatePlayerAssignment message = incoming.ReadMessage<UpdatePlayerAssignment>();
