@@ -206,10 +206,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 64553690}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 54, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -233,9 +233,6 @@ MonoBehaviour:
   PlayerId: 0
   GridXZ: 1
   GridY: 0.5
-  testX: 0
-  testY: 0
-  testZ: 0
 --- !u!1 &194769800
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,13 +268,10 @@ MonoBehaviour:
     m_Bits: 4294967035
   VerticalConstrainRaycastLayerMask:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 512
   PlayerId: 0
   GridXZ: 1
   GridY: 0.5
-  testX: 0
-  testY: 0
-  testZ: 0
 --- !u!23 &194769802
 MeshRenderer:
   m_ObjectHideFlags: 0
