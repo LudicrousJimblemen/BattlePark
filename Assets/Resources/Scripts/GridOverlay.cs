@@ -7,13 +7,13 @@ public class GridOverlay : MonoBehaviour {
  	
 	public bool ShowGrid = true;
 	
-	public int GridSizeX = 100;
-	public int GridSizeZ = 100;
+	public int GridSizeX = 32;
+	public int GridSizeZ = 32;
  
 	public float MainStep = 1;
  
-	public float StartX = -104f;
-	public float StartZ = -50f;
+	public float StartX = 0f;
+	public float StartZ = 0f;
  
 	private Material lineMaterial;
  

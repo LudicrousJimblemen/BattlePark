@@ -23,7 +23,7 @@ public class Client : MonoBehaviour {
 	
 	private VerticalConstraint verticalConstraint;
 	
-	public int PlayerID;
+	public int PlayerId;
 	
 	private bool Paused;
 
@@ -45,10 +45,11 @@ public class Client : MonoBehaviour {
 	void Update() {
 		Camera.main.GetComponent<CameraPan>().enabled = !Paused;
 		if (Paused) {
-			Paused = !Input.GetKeyDown (KeyCode.Escape);
+			Paused = !Input.GetKeyDown(KeyCode.Escape);
 			return;
 		}
-		if (!Enabled) return;
+		if (!Enabled)
+			return;
 		//returns which of the alpha keys were pressed this frame, preferring lower numbers
 		for (int i = 0; i < 9; i++) {
 			if (Input.GetKeyDown((KeyCode)(49 + i))) {
@@ -67,7 +68,7 @@ public class Client : MonoBehaviour {
 		}
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			if (summonedObject != null) {
-				Destroy (summonedObject);
+				Destroy(summonedObject);
 			} else {
 				Paused = true;
 			}
@@ -85,8 +86,8 @@ public class Client : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Z)) {
 				gridPlaceholder.Rotate(1);
 			} else if (Input.GetKeyDown(KeyCode.X)) {
-					gridPlaceholder.Rotate(-1);
-				}
+				gridPlaceholder.Rotate(-1);
+			}
 			
 			Position(summonedObject, Input.GetKey(KeyCode.LeftControl));
 			gridPlaceholder.Snap();
@@ -117,21 +118,21 @@ public class Client : MonoBehaviour {
 	
 	public void Position(GameObject gridObject, bool UseVerticalConstraint = false) {
 		Camera camera = Camera.main;
-		Grid grid = FindObjectsOfType<Grid> ().First (x => x.PlayerId == PlayerID);
+		Grid grid = FindObjectsOfType<Grid>().First(x => x.PlayerId == PlayerId);
 		RaycastHit hit;
 		bool hasHit;
 		if (UseVerticalConstraint) {
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
-					gridObject.transform.position = new Vector3(gridObject.transform.position.x, hit.point.y, gridObject.transform.position.z);
+				gridObject.transform.position = new Vector3(gridObject.transform.position.x, hit.point.y, gridObject.transform.position.z);
 			}
 			gridObject.SetActive(hasHit);
 		} else {
 			if (grid == null) {
-				gridObject.transform.position = new Vector3 (0, -100, 0);
+				gridObject.transform.position = new Vector3(0, -100, 0);
 				return;
 			}
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid> ().PlayerId == PlayerID)
+				if (hit.collider.GetComponent<Grid>().PlayerId == PlayerId)
 					gridObject.transform.position = hit.point;
 			}
 			gridObject.SetActive(hasHit);
@@ -195,16 +196,16 @@ public class Client : MonoBehaviour {
 		grid.Objects.Add(component.GridPosition(), component);
 	}
 	void OnGUI() {
-		GUI.Label(new Rect(0, 0, 100, 100), "PlayerID: " + PlayerID);
+		GUI.Label(new Rect(0, 0, 100, 100), "PlayerId: " + PlayerId);
 		if (Paused) {
-			GUIStyle style = new GUIStyle ();
+			GUIStyle style = new GUIStyle();
 			style.alignment = TextAnchor.MiddleCenter;
 			style.fontSize = 100;
-			GUI.Label (new Rect (Screen.width/2-50, Screen.height/2-25, 100, 50), "Paused", style);
+			GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 25, 100, 50), "Paused", style);
 		}
 	}
 	private void OnUpdatePlayerAssignment(NetworkMessage incoming) {
 		UpdatePlayerAssignment message = incoming.ReadMessage<UpdatePlayerAssignment>();
-		PlayerID = message.PlayerID;
+		PlayerId = message.PlayerId;
 	}
 }

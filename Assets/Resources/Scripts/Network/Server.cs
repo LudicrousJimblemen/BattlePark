@@ -39,7 +39,7 @@ public class Server : MonoBehaviour {
 	public void SendToClients(NetworkMessage incoming) {
 		//ClientJoinedMessage message = incoming.ReadMessage<ClientJoinedMessage>();
 		NetworkServer.SendToClient(incoming.conn.connectionId, UpdatePlayerAssignment.Code, new UpdatePlayerAssignment() {
-			PlayerID = incoming.conn.connectionId
+			PlayerId = incoming.conn.connectionId
 		});
 	}
 }

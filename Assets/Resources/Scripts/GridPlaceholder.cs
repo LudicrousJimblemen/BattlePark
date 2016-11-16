@@ -80,7 +80,7 @@ public class GridPlaceholder : MonoBehaviour {
 			if (grid == null)
 				return;
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid>().PlayerId == FindObjectOfType<Client>().PlayerID)
+				if (hit.collider.GetComponent<Grid>().PlayerId == FindObjectOfType<Client>().PlayerId)
 					transform.position = hit.point;
 			}
 			gameObject.SetActive(hasHit);
