@@ -30,9 +30,15 @@ public class GridPlaceholder : MonoBehaviour {
 	}
 	
 	public void PlaceObject() {
-		GridObject.X = Mathf.RoundToInt(transform.position.x / grid.GridXZ);
-		GridObject.Y = Mathf.RoundToInt(transform.position.y / grid.GridY);
-		GridObject.Z = Mathf.RoundToInt(transform.position.z / grid.GridXZ);
+		Vector3 SnappedPos = new Vector3 (Mathf.RoundToInt(transform.position.x / grid.GridXZ), 
+		                                  Mathf.RoundToInt(transform.position.y / grid.GridY),
+		                                  Mathf.RoundToInt(transform.position.z / grid.GridXZ));
+		//if the snapped position, ie the desired spot to place the object at, is null, it's o k to place it
+		//otherwise, it's no good
+		if (grid.Objects.ContainsKey(SnappedPos)) return;
+		GridObject.X = (int)SnappedPos.x;
+		GridObject.Y = (int)SnappedPos.y;
+		GridObject.Z = (int)SnappedPos.z;
 		client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
 			ConnectionId = client.connection.connectionId,
 			//N A M E ( C L O N E )
@@ -40,6 +46,8 @@ public class GridPlaceholder : MonoBehaviour {
 			Type = name.Substring(0, name.Length - 7),
 			ObjectData = GridObject.Serialize()
 		});
+		grid.Objects.Add (SnappedPos, GridObject);
+		print("<Client> Sent object");
 		FindObjectOfType<Client>().CanSummon = true;
 		Destroy(gameObject);
 	}
@@ -66,7 +74,7 @@ public class GridPlaceholder : MonoBehaviour {
 			gameObject.SetActive (hasHit);
 		} else {
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
+				if (hit.collider.GetComponent<Grid> ().PlayerId == client.connection.connectionId)
 				transform.position = hit.point;
 			}
 			gameObject.SetActive (hasHit);

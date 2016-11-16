@@ -42,6 +42,7 @@ public class Server : MonoBehaviour
 				NetworkServer.SendToAll(incoming.msgType, incoming.ReadMessage<ChatNetMessage>());
 				break;
 			case GridObjectPlacedNetMessage.Code:
+				print("<Server> Received object");
 				NetworkServer.SendToAll(incoming.msgType, incoming.ReadMessage<GridObjectPlacedNetMessage>());
 				break;
 		}
