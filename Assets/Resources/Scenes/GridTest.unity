@@ -233,6 +233,9 @@ MonoBehaviour:
   PlayerId: 0
   GridXZ: 1
   GridY: 0.5
+  testX: 0
+  testY: 0
+  testZ: 0
 --- !u!1 &194769800
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +275,9 @@ MonoBehaviour:
   PlayerId: 0
   GridXZ: 1
   GridY: 0.5
+  testX: 0
+  testY: 0
+  testZ: 0
 --- !u!23 &194769802
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -564,9 +570,9 @@ MonoBehaviour:
   Enabled: 1
   MovementSpeed: 1
   RotationSpeed: 4
-  TiltHeight: 18
+  TiltHeight: 36
   FlatHeight: 3
-  TiltAngle: 35
+  TiltAngle: 45
   FlatAngle: 20
   MinimumPivotY: 1
 --- !u!114 &952732586
@@ -964,7 +970,7 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
-  ChatText: {fileID: 0}
+  ChatText: {fileID: 1515187699}
 --- !u!222 &1762317413
 CanvasRenderer:
   m_ObjectHideFlags: 0
