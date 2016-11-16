@@ -34,8 +34,6 @@ public class Client : MonoBehaviour {
 		
 		//temporary, eventually hotbar slots will be defined dynamically
 		hotbar[0] = "Sculpture";
-		hotbar[1] = "Tree";
-		hotbar[2] = "Path";
 		
 		verticalConstraint = FindObjectOfType<VerticalConstraint>();
 		
@@ -148,8 +146,8 @@ public class Client : MonoBehaviour {
 		
 		component.OnPlaced();
 	}
-	void OnGUI () {
-		GUI.Label (new Rect (0,0,100,100),"PlayerID: " + PlayerID.ToString ());
+	void OnGUI() {
+		GUI.Label(new Rect(0, 0, 100, 100), "PlayerID: " + PlayerID);
 	}
 	private void OnUpdatePlayerAssignment(NetworkMessage incoming) {
 		UpdatePlayerAssignment message = incoming.ReadMessage<UpdatePlayerAssignment>();

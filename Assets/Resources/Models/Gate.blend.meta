@@ -1,46 +1,19 @@
 fileFormatVersion: 2
-guid: f1e2c5b779708964185b504731a1b9c3
-timeCreated: 1477941847
+guid: fb84ab8c7a42bbe41b00c43c13a14d89
+timeCreated: 1479276526
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Armature
-    100002: Center
-    100004: Chest
-    100006: Head
-    100008: Left_Foot
-    100010: Left_Foreleg
-    100012: Left_Leg
-    100014: Neck
-    100016: //RootNode
-    100018: Person
-    100020: Right_Foot
-    100022: Right_Foreleg
-    100024: Right_Leg
-    100026: Root
-    100028: Waist
-    400000: Armature
-    400002: Center
-    400004: Chest
-    400006: Head
-    400008: Left_Foot
-    400010: Left_Foreleg
-    400012: Left_Leg
-    400014: Neck
-    400016: //RootNode
-    400018: Person
-    400020: Right_Foot
-    400022: Right_Foreleg
-    400024: Right_Leg
-    400026: Root
-    400028: Waist
-    4300000: Person
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Pingu
     7400000: Default Take
     9500000: //RootNode
-    13700000: Person
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 2
   animations:
