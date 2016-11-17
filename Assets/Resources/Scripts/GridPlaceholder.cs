@@ -40,7 +40,7 @@ public class GridPlaceholder : MonoBehaviour {
 			z = Mathf.RoundToInt((transform.position.z - 0.5f) / grid.GridStepXZ)
 		};
 		
-		if (grid.Objects.WillIntersect(snappedPos, GridObject.OccupiedOffsets)) {
+		if (grid.Objects.WillIntersect(snappedPos, GridObject.OccupiedOffsets) || !grid.ValidRegion(transform.position, client.PlayerId)) {
 			return;
 		}
 		
@@ -75,15 +75,13 @@ public class GridPlaceholder : MonoBehaviour {
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			}
-			gameObject.SetActive(hasHit);
 		} else {
 			if (grid == null)
 				return;
 			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid>().ValidRegion(hit.point, FindObjectOfType<Client>().PlayerId))
-					transform.position = hit.point;
+				transform.position = hit.point;
 			}
-			gameObject.SetActive(hasHit);
 		}
+		gameObject.SetActive(hasHit);
 	}
 }

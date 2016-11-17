@@ -51,9 +51,9 @@ public class GridObject : MonoBehaviour {
 	
 	public void UpdatePosition() {
 		transform.position = new Vector3 {
-			x = X * Grid.GridStepXZ,
+			x = X * Grid.GridStepXZ + 0.5f,
 			y = Y * Grid.GridStepY,
-			z = Z * Grid.GridStepXZ
+			z = Z * Grid.GridStepXZ + 0.5f
 		};
 		transform.rotation = Quaternion.Euler(-90, 0, (int)Direction * 90);
 	}

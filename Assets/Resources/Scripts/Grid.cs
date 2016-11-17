@@ -1,6 +1,7 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using Newtonsoft.Json;
 
 public class Grid : MonoBehaviour {
@@ -19,6 +20,10 @@ public class Grid : MonoBehaviour {
 	
 	private void Awake() {
 		GenerateMesh(GridSizeX, GridSizeZ, 4);
+		Regions.Add(new GridRegion(1, 1, 3, 3, -1));
+		Regions.Add(new GridRegion(5, 1, 3, 3, 0));
+		Regions.Add(new GridRegion(1, 5, 3, 3, 1));
+		Regions.Add(new GridRegion(9, 2, 6, 4, 2));
 	}
 	
 	private void GenerateMesh(int xSize, int zSize, float checkerboardWidth) {
@@ -70,6 +75,21 @@ public class Grid : MonoBehaviour {
 	}
 	
 	public bool ValidRegion(Vector3 position, int id) {
-		return true;
+		return Regions.Any(x => x.Inside(ToGridSpace(position)) && x.Valid(id));
+	}
+	
+	private void OnDrawGizmos() {
+		foreach (var region in Regions) {
+			if (region.Owner == -1) {
+				Gizmos.color = Color.grey;
+			} else if (region.Owner == 0) {
+				Gizmos.color = Color.white;
+			} else if (region.Owner == 1) {
+				Gizmos.color = Color.blue;
+			} else if (region.Owner == 2) {
+				Gizmos.color = Color.red;
+			}
+			Gizmos.DrawCube(region.GetCenter(this), new Vector3(region.Width, 0.1f, region.Length));
+		}
 	}
 }
