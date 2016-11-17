@@ -67,6 +67,26 @@ public class GridObjects {
 		return ObjectIn(location) != null;
 	}
 	
+	/// <summary>
+	/// Tests if a position and its occupation offsets will
+	/// </summary>
+	/// <param name="location">The starting position to test</param>
+	/// <param name="offsets">The occupation offsets to test.</param>
+	/// <returns>True if the given position or its offsets intersect with an existing object.</returns>
+	public bool WillIntersect(Vector3 location, Vector3[] offsets) {
+		if (OccupiedIn(location)) {
+			return true;
+		}
+		
+		foreach (var offset in offsets) {
+			if (OccupiedIn(location + offset)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public List<GridObject> AdjacentObjects(Vector3 location, bool corners = false) {
 		List<GridObject> objects = new List<GridObject>();
 	
