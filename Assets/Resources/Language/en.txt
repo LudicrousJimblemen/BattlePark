@@ -1,6 +1,6 @@
 ﻿{
 	"gameInfo.name": "Battle Park",
-	"chat.chatMessage": "<b><{0}><b> {1}",
+	"chat.chatMessage": "<{0}> {1}",
 	"chat.userJoined": "{0} joined.",
 	"chat.userLeft": "{0} left."
 }
