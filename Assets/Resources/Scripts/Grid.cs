@@ -7,32 +7,21 @@ public class Grid : MonoBehaviour {
 	public LayerMask RaycastLayerMask;
 	public LayerMask VerticalConstrainRaycastLayerMask;
 	
-	public int PlayerId;
+	public GridObjects Objects = new GridObjects();
+	public List<GridRegion> Regions = new List<GridRegion>();
 	
-	public int GridSize = 30;
+	public int GridSizeX = 64;
+	public int GridSizeZ = 32;
 	
-	public float GridXZ = 1f;
-	public float GridY = 0.5f;
+	public float GridStepXZ = 1f;
+	public float GridStepY = 0.5f;
 	
-	public GridObjects Objects;
 	
-	void Awake() {
-		GenerateMesh(GridSize, GridSize, 4);
+	private void Awake() {
+		GenerateMesh(GridSizeX, GridSizeZ, 4);
 	}
 	
-	void Start() {
-		PlayerId = int.Parse(name.Substring(4, name.Length - 4));
-		Objects = new GridObjects();
-	}
-	
-	public string Serialize() {
-		return JsonConvert.SerializeObject(Objects);
-	}
-	public void Deserialize(string message) {
-		Objects = JsonConvert.DeserializeObject<GridObjects>(message);
-	}
-	
-	public void GenerateMesh(int xSize, int zSize, float checkerboardWidth) {
+	private void GenerateMesh(int xSize, int zSize, float checkerboardWidth) {
 		MeshFilter meshFilter = GetComponent<MeshFilter>();
 		
 		meshFilter.mesh = new Mesh();
@@ -63,7 +52,24 @@ public class Grid : MonoBehaviour {
 		meshFilter.mesh.RecalculateNormals();
 		
 		GetComponent<MeshCollider>().sharedMesh = meshFilter.mesh;
-		
-		transform.Translate(0, 0, -zSize / 2f, Space.Self);
+	}
+	
+	public string Serialize() {
+		return JsonConvert.SerializeObject(Objects);
+	}
+	public void Deserialize(string message) {
+		Objects = JsonConvert.DeserializeObject<GridObjects>(message);
+	}
+	
+	public Vector3 ToGridSpace(Vector3 position) {
+		return new Vector3 {
+			x = Mathf.RoundToInt((position.x - 0.5f) / GridStepXZ),
+			y = Mathf.RoundToInt(position.y / GridStepY),
+			z = Mathf.RoundToInt((position.z - 0.5f) / GridStepXZ)
+		};
+	}
+	
+	public bool ValidRegion(Vector3 position, int id) {
+		return true;
 	}
 }

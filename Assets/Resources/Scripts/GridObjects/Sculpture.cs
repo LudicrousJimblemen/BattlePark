@@ -33,8 +33,7 @@ public class Sculpture : GridObject {
 		base.Start();
 		
 		OccupiedOffsets = new [] {
-			new Vector3(0, 1, 0),
-			new Vector3(0, 2, 0)
+			new Vector3(0, 1, 0)
 		};
 	}
 }

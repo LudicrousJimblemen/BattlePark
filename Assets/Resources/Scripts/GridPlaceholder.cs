@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class GridPlaceholder : MonoBehaviour {
-	private NetworkClient client;
+	private Client client;
 	private new Camera camera;
 	private Grid grid;
 	
@@ -12,10 +12,10 @@ public class GridPlaceholder : MonoBehaviour {
 	
 	public int Owner;
 	
-	void Start() {
-		client = FindObjectOfType<Client>().NetworkClient;
+	private void Start() {
+		client = FindObjectOfType<Client>();
 		camera = FindObjectOfType<Camera>();
-		grid = FindObjectsOfType<Grid>().First(x => x.PlayerId == Owner);
+		grid = FindObjectOfType<Grid>();
 		GridObject = GetComponent<GridObject>();
 	}
 	
@@ -27,33 +27,34 @@ public class GridPlaceholder : MonoBehaviour {
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		transform.position = new Vector3 { //snap to grid
-			x = Mathf.Round(transform.position.x / grid.GridXZ) * grid.GridXZ,
-			z = Mathf.Round(transform.position.z / grid.GridXZ) * grid.GridXZ,
-			y = Mathf.Round(Mathf.Clamp(transform.position.y / grid.GridY, 0, Mathf.Infinity)) * grid.GridY
+			x = (Mathf.Round((transform.position.x - 0.5f) / grid.GridStepXZ) * grid.GridStepXZ) + 0.5f,
+			y = Mathf.Round(transform.position.y / grid.GridStepY) * grid.GridStepY,
+			z = (Mathf.Round((transform.position.z - 0.5f) / grid.GridStepXZ) * grid.GridStepXZ) + 0.5f
 		};
 	}
 	
 	public void PlaceObject() {
-		Vector3 SnappedPos = new Vector3(Mathf.RoundToInt(transform.position.x / grid.GridXZ), 
-			                     Mathf.RoundToInt(transform.position.y / grid.GridY),
-			                     Mathf.RoundToInt(transform.position.z / grid.GridXZ));
-		//if the snapped position, ie the desired spot to place the object at, is null, it's o k to place it
-		//otherwise, it's no good
-		if (grid.Objects.OccupiedIn(SnappedPos)) {
+		Vector3 snappedPos = new Vector3 {
+			x = Mathf.RoundToInt((transform.position.x - 0.5f) / grid.GridStepXZ),
+			y = Mathf.RoundToInt(transform.position.y / grid.GridStepY),
+			z = Mathf.RoundToInt((transform.position.z - 0.5f) / grid.GridStepXZ)
+		};
+		
+		if (grid.Objects.OccupiedIn(snappedPos)) {
 			return;
 		}
-		GridObject.X = (int)SnappedPos.x;
-		GridObject.Y = (int)SnappedPos.y;
-		GridObject.Z = (int)SnappedPos.z;
-		client.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage() {
-			//N A M E ( C L O N E )
-			//0 1 2 3 4 5 6 7 8 9 10
-			Type = name.Substring(0, name.Length - 7),
+		
+		GridObject.X = (int)snappedPos.x;
+		GridObject.Y = (int)snappedPos.y;
+		GridObject.Z = (int)snappedPos.z;
+		client.NetworkClient.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage {
+			Position = transform.position,
+			Rotation = transform.rotation,
+			Type = name,
 			ObjectData = GridObject.Serialize()
 		});
-		//grid.Objects.Add (SnappedPos, GridObject);
-		FindObjectOfType<Client>().CanSummon = true;
 		Destroy(gameObject);
+		FindObjectOfType<Client>().CanSummon = true;
 	}
 	
 	public void Rotate(int direction) {
@@ -67,20 +68,19 @@ public class GridPlaceholder : MonoBehaviour {
 		}
 	}
 	
-	public void Position(bool UseVerticalConstraint = false) {
+	public void Position(Vector3 mousePosition, bool UseVerticalConstraint = false) {
 		RaycastHit hit;
 		bool hasHit;
 		if (UseVerticalConstraint) {
-			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
-				//if (hit.collider.GetComponent<Grid> ().playerId == client.connection.connectionId)
+			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			}
 			gameObject.SetActive(hasHit);
 		} else {
 			if (grid == null)
 				return;
-			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid>().PlayerId == FindObjectOfType<Client>().PlayerId)
+			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
+				if (hit.collider.GetComponent<Grid>().ValidRegion(hit.point, FindObjectOfType<Client>().PlayerId))
 					transform.position = hit.point;
 			}
 			gameObject.SetActive(hasHit);

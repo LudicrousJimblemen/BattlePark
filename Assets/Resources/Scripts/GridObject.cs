@@ -41,11 +41,22 @@ public class GridObject : MonoBehaviour {
 	}
 	#endregion
 	
-	public virtual void Start() {}
+	public virtual void Start() {
+		Grid = FindObjectOfType<Grid>();
+	}
 	public virtual void Update() {}
 	
 	public virtual void OnPlaced() {}
 	public virtual void OnDemolished() {}
+	
+	public void UpdatePosition() {
+		transform.position = new Vector3 {
+			x = X * Grid.GridStepXZ,
+			y = Y * Grid.GridStepY,
+			z = Z * Grid.GridStepXZ
+		};
+		transform.rotation = Quaternion.Euler(-90, 0, (int)Direction * 90);
+	}
 	
 	public Vector3 GridPosition() {
 		return new Vector3(X, Y, Z);

@@ -8,7 +8,7 @@ public class UI : MonoBehaviour {
 	private NetworkManager networkManager;
 	
 	void Start() {
-		FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text = "6666";
+		FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text = "25001";
 		try {	
 			FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();
 		} catch (Exception e) {

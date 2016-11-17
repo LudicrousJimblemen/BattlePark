@@ -12,44 +12,45 @@ public class Client : MonoBehaviour {
 	public NetworkClient NetworkClient;
 	public bool CanSummon = true;
 	
+	public int PlayerId;
+	
+	private Grid grid;
 	private NetworkManager networkManager;
 	private GridOverlay gridOverlay;
 	private ChatText chatText;
+	private VerticalConstraint verticalConstraint;
 	
+	private GridPlaceholder gridPlaceholder;
 	private GameObject summonedObject;
 	
 	private string[] hotbar = new string[9];
-	private GridPlaceholder gridPlaceholder;
-	
-	private VerticalConstraint verticalConstraint;
-	
-	public int PlayerId;
 	
 	private bool Paused;
-
-	void Start() {
+	
+	private void Start() {
+		grid = FindObjectOfType<Grid>();
 		networkManager = FindObjectOfType<NetworkManager>();
 		gridOverlay = FindObjectOfType<GridOverlay>();
 		chatText = FindObjectsOfType<ChatText>().First(x => x.name == "ChatText");
+		verticalConstraint = FindObjectOfType<VerticalConstraint>();
 		
 		//temporary, eventually hotbar slots will be defined dynamically
 		hotbar[0] = "Sculpture";
-		
-		verticalConstraint = FindObjectOfType<VerticalConstraint>();
 		
 		if (!networkManager.IsServer) {
 			StartClient();
 		}
 	}
 	
-	void Update() {
+	private void Update() {
 		Camera.main.GetComponent<CameraPan>().enabled = !Paused;
 		if (Paused) {
 			Paused = !Input.GetKeyDown(KeyCode.Escape);
 			return;
 		}
-		if (!Enabled)
+		if (!Enabled) {
 			return;
+		}
 		//returns which of the alpha keys were pressed this frame, preferring lower numbers
 		for (int i = 0; i < 9; i++) {
 			if (Input.GetKeyDown((KeyCode)(49 + i))) {
@@ -84,12 +85,12 @@ public class Client : MonoBehaviour {
 			}
 		
 			if (Input.GetKeyDown(KeyCode.Z)) {
-				gridPlaceholder.Rotate(1);
-			} else if (Input.GetKeyDown(KeyCode.X)) {
 				gridPlaceholder.Rotate(-1);
+			} else if (Input.GetKeyDown(KeyCode.X)) {
+				gridPlaceholder.Rotate(1);
 			}
 			
-			Position(summonedObject, Input.GetKey(KeyCode.LeftControl));
+			gridPlaceholder.Position(Input.mousePosition, Input.GetKey(KeyCode.LeftControl));
 			gridPlaceholder.Snap();
 			
 			if (Input.GetMouseButtonDown(0)) {
@@ -98,52 +99,38 @@ public class Client : MonoBehaviour {
 		}
 	}
 	
+	private void OnGUI() {
+		GUI.Label(new Rect(0, 0, 100, 100), "PlayerId: " + PlayerId);
+		if (Paused) {
+			GUIStyle style = new GUIStyle();
+			style.alignment = TextAnchor.MiddleCenter;
+			style.fontSize = 100;
+			GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 25, 100, 50), "Paused", style);
+		}
+	}
+	
 	public void EnableVerticalConstraint() {
-		Vector3 correctedPosition = new Vector3(
-			                            Camera.main.transform.position.x,
-			                            0,
-			                            Camera.main.transform.position.z
-		                            );
+		Vector3 correctedPosition = new Vector3 {
+			x = Camera.main.transform.position.x,
+			y = 0,
+			z = Camera.main.transform.position.z
+		};
 		verticalConstraint.transform.position = gridPlaceholder.transform.position;
 		verticalConstraint.transform.rotation = Quaternion.LookRotation(gridPlaceholder.transform.position - correctedPosition) * Quaternion.Euler(-90, 0, 0);
 	}
 	
 	public GameObject SummonGridObject(string name) {
 		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + name));
-		
+		newGridObject.name = name;
 		newGridObject.AddComponent<GridPlaceholder>();
-		
 		return newGridObject;
-	}
-	
-	public void Position(GameObject gridObject, bool UseVerticalConstraint = false) {
-		Camera camera = Camera.main;
-		Grid grid = FindObjectsOfType<Grid>().First(x => x.PlayerId == PlayerId);
-		RaycastHit hit;
-		bool hasHit;
-		if (UseVerticalConstraint) {
-			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.VerticalConstrainRaycastLayerMask)) {
-				gridObject.transform.position = new Vector3(gridObject.transform.position.x, hit.point.y, gridObject.transform.position.z);
-			}
-			gridObject.SetActive(hasHit);
-		} else {
-			if (grid == null) {
-				gridObject.transform.position = new Vector3(0, -100, 0);
-				return;
-			}
-			if (hasHit = Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, grid.RaycastLayerMask)) {
-				if (hit.collider.GetComponent<Grid>().PlayerId == PlayerId)
-					gridObject.transform.position = hit.point;
-			}
-			gridObject.SetActive(hasHit);
-		}
 	}
 
 	public void StartClient() {
 		NetworkClient = new NetworkClient();
 		NetworkClient.RegisterHandler(ChatNetMessage.Code, OnChatNetMessage);
 		NetworkClient.RegisterHandler(GridObjectPlacedNetMessage.Code, OnGridObjectPlacedNetMessage);
-		NetworkClient.RegisterHandler(UpdatePlayerAssignment.Code, OnUpdatePlayerAssignment);
+		NetworkClient.RegisterHandler(UpdatePlayerAssignment.Code, OnUpdatePlayerAssignmentMessage);
 		NetworkClient.RegisterHandler(ClientJoinedMessage.Code, OnClientJoinedMessage);
 		NetworkClient.Connect(networkManager.Ip, networkManager.Port);
 		StartCoroutine(SendJoinMessage());
@@ -166,45 +153,17 @@ public class Client : MonoBehaviour {
 	
 	private void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
 		GridObjectPlacedNetMessage message = incoming.ReadMessage<GridObjectPlacedNetMessage>();
-		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + message.Type));
+		GameObject newGridObject = (GameObject)Instantiate(Resources.Load("Prefabs/" + message.Type), message.Position, message.Rotation);
 		
 		GridObject component = newGridObject.GetComponent<GridObject>();
 
 		component.Deserialize(message.ObjectData);
-		//TODO add reference to grid
-		newGridObject.transform.position = new Vector3(
-			component.X * FindObjectOfType<Grid>().GridXZ,
-			component.Y * FindObjectOfType<Grid>().GridY,
-			component.Z * FindObjectOfType<Grid>().GridXZ
-		);
-		newGridObject.transform.rotation = Quaternion.Euler(-90, 0, (int)component.Direction * 90);
 		
 		component.OnPlaced();
-		Grid grid = FindObjectsOfType<Grid>().First(x => x.PlayerId == incoming.conn.connectionId);
-		/*
-		print (component.OccupiedOffsets.Length);
-		for (int i = 0; i < component.OccupiedOffsets.Length; i ++) {
-			Vector3 CorrectedOffset = component.OccupiedOffsets[i];
-			CorrectedOffset.x *= grid.GridXZ;
-			CorrectedOffset.z *= grid.GridXZ;
-			CorrectedOffset.y *= grid.GridY;
-			
-			grid.Objects.Add (newGridObject.transform.position + CorrectedOffset,component);
-		}
-		*/
-		component.Grid = grid;
-		grid.Objects.Add(component.GridPosition(), component);
+		FindObjectOfType<Grid>().Objects.Add(component.GridPosition(), component);
 	}
-	void OnGUI() {
-		GUI.Label(new Rect(0, 0, 100, 100), "PlayerId: " + PlayerId);
-		if (Paused) {
-			GUIStyle style = new GUIStyle();
-			style.alignment = TextAnchor.MiddleCenter;
-			style.fontSize = 100;
-			GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 25, 100, 50), "Paused", style);
-		}
-	}
-	private void OnUpdatePlayerAssignment(NetworkMessage incoming) {
+	
+	private void OnUpdatePlayerAssignmentMessage(NetworkMessage incoming) {
 		UpdatePlayerAssignment message = incoming.ReadMessage<UpdatePlayerAssignment>();
 		PlayerId = message.PlayerId;
 	}

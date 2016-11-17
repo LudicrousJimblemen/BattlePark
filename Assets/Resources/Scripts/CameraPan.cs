@@ -21,11 +21,9 @@ public class CameraPan : MonoBehaviour {
 	[Range(0, 90)]
 	public float FlatAngle = 20f;
 	
-	[Range(0, 5)]
-	public float MinimumPivotY = 1f;
+	[Range(-5, 10)]
+	public float MinimumPivotY = -2f;
 
-	//the point which the camera pivots around
-	//wow
 	private Vector3 PivotPoint = Vector3.zero;
 	
 	void LateUpdate() {
