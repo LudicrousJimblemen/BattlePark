@@ -28,16 +28,16 @@ public class GridPlaceholder : MonoBehaviour {
 		
 		transform.position = new Vector3 { //snap to grid
 			x = (Mathf.Round((transform.position.x - 0.5f) / grid.GridStepXZ) * grid.GridStepXZ) + 0.5f,
-			y = Mathf.Round(transform.position.y / grid.GridStepY) * grid.GridStepY,
+			y = Mathf.Clamp(Mathf.Round(transform.position.y / grid.GridStepY) * grid.GridStepY, 0, float.PositiveInfinity),
 			z = (Mathf.Round((transform.position.z - 0.5f) / grid.GridStepXZ) * grid.GridStepXZ) + 0.5f
 		};
 	}
 	
 	public void PlaceObject() {
 		Vector3 snappedPos = new Vector3 {
-			x = Mathf.RoundToInt((transform.position.x - 0.5f) / grid.GridStepXZ),
-			y = Mathf.RoundToInt(transform.position.y / grid.GridStepY),
-			z = Mathf.RoundToInt((transform.position.z - 0.5f) / grid.GridStepXZ)
+			x = Mathf.Round((transform.position.x - 0.5f) / grid.GridStepXZ),
+			y = Mathf.Clamp(Mathf.RoundToInt(transform.position.y / grid.GridStepY), 0, float.PositiveInfinity),
+			z = Mathf.Round((transform.position.z - 0.5f) / grid.GridStepXZ)
 		};
 		
 		if (grid.Objects.WillIntersect(snappedPos, GridObject.OccupiedOffsets) || !grid.ValidRegion(transform.position, client.PlayerId)) {
