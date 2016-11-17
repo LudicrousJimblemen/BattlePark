@@ -9,6 +9,7 @@ public class GridObject : MonoBehaviour {
 		public int X;
 		public int Y;
 		public int Z;
+		public int Owner;
 	}
 	
 	public Direction Direction;
@@ -18,6 +19,8 @@ public class GridObject : MonoBehaviour {
 	
 	public Vector3[] OccupiedOffsets = { Vector3.zero };
 	#endregion
+	
+	public int Owner;
 	
 	public Grid Grid;
 	
@@ -38,6 +41,7 @@ public class GridObject : MonoBehaviour {
 		X = deserialized.X;
 		Y = deserialized.Y;
 		Z = deserialized.Z;
+		Owner = deserialized.Owner;
 	}
 	#endregion
 	

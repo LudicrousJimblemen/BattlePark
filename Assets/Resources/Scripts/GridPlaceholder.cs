@@ -47,6 +47,8 @@ public class GridPlaceholder : MonoBehaviour {
 		GridObject.X = (int)snappedPos.x;
 		GridObject.Y = (int)snappedPos.y;
 		GridObject.Z = (int)snappedPos.z;
+		GridObject.Owner = client.PlayerId;
+		
 		client.NetworkClient.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage {
 			Position = transform.position,
 			Rotation = transform.rotation,
