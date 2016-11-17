@@ -7,7 +7,8 @@ public class NetworkManager : MonoBehaviour {
 	public int Port;
 	
 	public int MaxPlayers = 2;
-	
+
+	public string Username;
 	public bool IsServer;
 	
 	void Start() {

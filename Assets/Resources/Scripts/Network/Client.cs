@@ -13,6 +13,7 @@ public class Client : MonoBehaviour {
 	public bool CanSummon = true;
 	
 	public int PlayerId;
+	public string Username;
 	
 	private Grid grid;
 	private NetworkManager networkManager;
@@ -33,7 +34,8 @@ public class Client : MonoBehaviour {
 		gridOverlay = FindObjectOfType<GridOverlay>();
 		chatText = FindObjectsOfType<ChatText>().First(x => x.name == "ChatText");
 		verticalConstraint = FindObjectOfType<VerticalConstraint>();
-		
+
+		Username = networkManager.Username;
 		//temporary, eventually hotbar slots will be defined dynamically
 		hotbar[0] = "Sculpture";
 		
@@ -101,6 +103,8 @@ public class Client : MonoBehaviour {
 	
 	private void OnGUI() {
 		GUI.Label(new Rect(0, 0, 100, 100), "PlayerId: " + PlayerId);
+		GUI.Label (new Rect (0,15,500,100),"Username: " + Username);
+		chatText.rectTransform.sizeDelta = new Vector2 (Screen.width - 20,Screen.height / 2);
 		if (Paused) {
 			GUIStyle style = new GUIStyle();
 			style.alignment = TextAnchor.MiddleCenter;
@@ -138,17 +142,19 @@ public class Client : MonoBehaviour {
 	
 	public IEnumerator SendJoinMessage() {
 		yield return new WaitWhile(() => !NetworkClient.isConnected);
-		NetworkClient.Send(ClientJoinedMessage.Code, new ClientJoinedMessage());
+		NetworkClient.Send (ClientJoinedMessage.Code,new ClientJoinedMessage () {
+			Username = Username
+		});
 	}
 	
 	private void OnClientJoinedMessage(NetworkMessage incoming) {
-		//ClientJoinedMessage message = incoming.ReadMessage<ClientJoinedMessage>();
-		chatText.AddText(String.Format(FindObjectOfType<LanguageManager>().GetString("chat.userJoined"), "a"));
+		ClientJoinedMessage message = incoming.ReadMessage<ClientJoinedMessage>();
+		chatText.AddText(String.Format(FindObjectOfType<LanguageManager>().GetString("chat.userJoined"), message.Username));
 	}
 	
 	private void OnChatNetMessage(NetworkMessage incoming) {
 		ChatNetMessage message = incoming.ReadMessage<ChatNetMessage>();
-		chatText.AddText(String.Format(FindObjectOfType<LanguageManager>().GetString("chat.chatMessage"), "a", message.Message));
+		chatText.AddText(String.Format(FindObjectOfType<LanguageManager>().GetString("chat.chatMessage"), message.Username, message.Message));
 	}
 	
 	private void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
