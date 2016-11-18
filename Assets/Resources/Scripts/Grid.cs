@@ -26,6 +26,7 @@ public class Grid : MonoBehaviour {
 	}
 
 	private void OnDrawGizmos () {
+		/*
 		foreach (var region in Regions) {
 			if (region.Owner == -1) {
 				Gizmos.color = Color.grey;
@@ -38,6 +39,7 @@ public class Grid : MonoBehaviour {
 			}
 			Gizmos.DrawCube (region.GetCenter (this),new Vector3 (region.Width,0.1f,region.Length));
 		}
+		*/
 	}
 
 	private void GenerateMesh(int xSize, int zSize, float checkerboardWidth) {

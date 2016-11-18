@@ -8,7 +8,7 @@ public class Sculpture : GridObject {
 		//
 	}
 	#endregion
-
+	public Vector3[] rotatedOffsets;
 	#region Serialization
 	public override string Serialize() {
 		return JsonConvert.SerializeObject(new SculptureData {
@@ -35,5 +35,16 @@ public class Sculpture : GridObject {
 		OccupiedOffsets = new [] {
 			new Vector3(0, 1, 0)
 		};
+	}
+	public override void Update () {
+		base.Update ();
+		rotatedOffsets = RotatedOffsets();
+	}
+	
+	public void OnDrawGizmos () {
+		Vector3[] rotated = RotatedOffsets();
+		for (int i = 0; i < OccupiedOffsets.Length; i++) {
+			Gizmos.DrawCube (transform.position + rotated[i], Vector3.one);
+		}
 	}
 }
