@@ -105,6 +105,8 @@ public class Client : MonoBehaviour {
 		GUI.Label(new Rect(0, 0, 100, 100), "PlayerId: " + PlayerId);
 		GUI.Label (new Rect (0,15,500,100),"Username: " + Username);
 		FindObjectOfType<Mask> ().rectTransform.sizeDelta = new Vector2 (Screen.width/3,Screen.height / 2);
+		Scrollbar scrollbar = FindObjectOfType<Scrollbar> ();
+		scrollbar.interactable = scrollbar.size != 1;
 		if (Paused) {
 			GUIStyle style = new GUIStyle();
 			style.alignment = TextAnchor.MiddleCenter;
