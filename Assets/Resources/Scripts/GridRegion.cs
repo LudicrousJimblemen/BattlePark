@@ -25,10 +25,8 @@ public struct GridRegion {
 		switch (Owner) {
 			case -1:
 				return false;
-				break;
 			case 0: 
 				return true;
-				break;
 			default:
 				Debug.Log(id + " " + Owner);
 				if (id == Owner) {
