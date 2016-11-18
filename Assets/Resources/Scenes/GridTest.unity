@@ -170,8 +170,8 @@ MonoBehaviour:
   VerticalConstrainRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  GridSizeX: 64
-  GridSizeZ: 32
+  GridSizeX: 132
+  GridSizeZ: 63
   GridStepXZ: 1
   GridStepY: 0.5
 --- !u!23 &194769802
@@ -633,11 +633,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowGrid: 1
-  GridSizeX: 32
-  GridSizeZ: 32
+  GridSizeX: 63
+  GridSizeZ: 63
   MainStep: 1
-  StartX: 0
-  StartZ: 0
+  StartX: -66
+  StartZ: -31.5
   mainColor: {r: 0, g: 0, b: 0, a: 0.16470589}
 --- !u!1 &1334978170
 GameObject:

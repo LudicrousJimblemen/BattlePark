@@ -11,17 +11,35 @@ public class Grid : MonoBehaviour {
 	public GridObjects Objects = new GridObjects();
 	public List<GridRegion> Regions = new List<GridRegion>();
 	
-	public int GridSizeX = 64;
-	public int GridSizeZ = 32;
+	public int GridSizeX = 129;
+	public int GridSizeZ = 63;
 	
 	public float GridStepXZ = 1f;
 	public float GridStepY = 0.5f;
 	
 	
 	private void Awake() {
-		GenerateMesh(GridSizeX, GridSizeZ, 4);
+		GenerateMesh(GridSizeX, GridSizeZ, 3);
+		Regions.Add (new GridRegion (0,0,GridSizeZ,GridSizeZ,1));
+		Regions.Add (new GridRegion (GridSizeX - GridSizeZ,0,GridSizeZ,GridSizeZ,2));
+		Regions.Add (new GridRegion (GridSizeZ,0,GridSizeX - 2*GridSizeZ,GridSizeZ,-1));
 	}
-	
+
+	private void OnDrawGizmos () {
+		foreach (var region in Regions) {
+			if (region.Owner == -1) {
+				Gizmos.color = Color.grey;
+			} else if (region.Owner == 0) {
+				Gizmos.color = Color.white;
+			} else if (region.Owner == 1) {
+				Gizmos.color = Color.blue;
+			} else if (region.Owner == 2) {
+				Gizmos.color = Color.red;
+			}
+			Gizmos.DrawCube (region.GetCenter (this),new Vector3 (region.Width,0.1f,region.Length));
+		}
+	}
+
 	private void GenerateMesh(int xSize, int zSize, float checkerboardWidth) {
 		MeshFilter meshFilter = GetComponent<MeshFilter>();
 		
