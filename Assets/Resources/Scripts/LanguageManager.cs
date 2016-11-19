@@ -21,7 +21,7 @@ public class LanguageManager : MonoBehaviour {
 	
 	public string GetString(string key) {
 		TextAsset language = (TextAsset)Resources.Load("Language/" + Language);
-		string text;
+		string text = "ERROR";
 		JsonConvert.DeserializeObject<Dictionary<string, string>>(language.text).TryGetValue(key, out text);
 		return text;
 	}

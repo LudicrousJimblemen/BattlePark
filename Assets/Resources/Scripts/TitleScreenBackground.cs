@@ -1,23 +1,19 @@
 ﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TitleScreenBackground : MonoBehaviour {
-	public GameObject Fade;
-	
 	[Range(0f, 20f)]
-	public float RotationSpeed = 1f;
+	public float CameraRotationSpeed = 0.25f;
 	
+	[Range(1f, 6f)]
+	public float PersonRotationTimerMultiple = 3f;
 	public GameObject LeftLeg;
 	public GameObject RightLeg;
 	public GameObject Body;
 	
-	[Range(1f, 6f)]
-	public float TimerMultiple = 3f;
-	
-	public GameObject Plane;
 	[Range(0f, 0.5f)]
 	public float PlaneSpeed = 0.1f;
+	public GameObject Plane;
 	
 	private int timer;
 	
@@ -29,15 +25,7 @@ public class TitleScreenBackground : MonoBehaviour {
 	private Quaternion rightLegRotation;
 	private Quaternion bodyRotation;
 	
-	private Image fade;
-	
-	private void Awake() {
-		fade = Fade.GetComponent<Image>();
-	}
-	
 	private void Update() {
-		fade.color = Color.Lerp(Color.white, new Color(1f, 1f, 1f, 0), Mathf.SmoothStep(0f, 1f, timer / 60f));
-		
 		if (timer <= 130) {
 			transform.position = Vector3.Lerp(
 				new Vector3(0, 0.5f, -1.25f),
@@ -46,33 +34,33 @@ public class TitleScreenBackground : MonoBehaviour {
 			);
 		}
 		
-		transform.RotateAround(Vector3.zero, Vector3.up, RotationSpeed * Mathf.SmoothStep(0f, 1f, (timer - 130f) / 180f));
+		transform.RotateAround(Vector3.zero, Vector3.up, CameraRotationSpeed * Mathf.SmoothStep(0f, 1f, (timer - 130f) / 180f));
 		
-		if (timer % Mathf.RoundToInt(TimerMultiple) == 0) {
+		if (timer % Mathf.RoundToInt(PersonRotationTimerMultiple) == 0) {
 			leftLegRotationPrev = LeftLeg.transform.rotation;
 			rightLegRotationPrev = RightLeg.transform.rotation;
 			bodyRotationPrev = Body.transform.rotation;
 			
 			leftLegRotation = leftLegRotationPrev * Quaternion.Euler(
 				0,
-				Random.Range(-25f * TimerMultiple, -15f * TimerMultiple),
+				Random.Range(-25f * PersonRotationTimerMultiple, -15f * PersonRotationTimerMultiple),
 				0
 			);
 			rightLegRotation = rightLegRotationPrev * Quaternion.Euler(
 				0,
-				Random.Range(-25f * TimerMultiple, -15f * TimerMultiple),
+				Random.Range(-25f * PersonRotationTimerMultiple, -15f * PersonRotationTimerMultiple),
 				0
 			);
 			bodyRotation = bodyRotationPrev * Quaternion.Euler(
 				0,
-				Random.Range(-8f * TimerMultiple, 8f * TimerMultiple),
+				Random.Range(-8f * PersonRotationTimerMultiple, 8f * PersonRotationTimerMultiple),
 				0
 			);
 		}
 		
-		LeftLeg.transform.rotation = Quaternion.Lerp(leftLegRotationPrev, leftLegRotation, ((timer % TimerMultiple) + 1) / TimerMultiple);
-		RightLeg.transform.rotation = Quaternion.Lerp(rightLegRotationPrev, rightLegRotation, ((timer % TimerMultiple) + 1) / TimerMultiple);
-		Body.transform.rotation = Quaternion.Lerp(bodyRotationPrev, bodyRotation, ((timer % TimerMultiple) + 1) / TimerMultiple);
+		LeftLeg.transform.rotation = Quaternion.Lerp(leftLegRotationPrev, leftLegRotation, ((timer % PersonRotationTimerMultiple) + 1) / PersonRotationTimerMultiple);
+		RightLeg.transform.rotation = Quaternion.Lerp(rightLegRotationPrev, rightLegRotation, ((timer % PersonRotationTimerMultiple) + 1) / PersonRotationTimerMultiple);
+		Body.transform.rotation = Quaternion.Lerp(bodyRotationPrev, bodyRotation, ((timer % PersonRotationTimerMultiple) + 1) / PersonRotationTimerMultiple);
 		
 		Plane.transform.Translate(0, 0, PlaneSpeed);
 		
