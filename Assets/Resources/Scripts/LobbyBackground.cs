@@ -12,7 +12,7 @@ public class LobbyBackground : MonoBehaviour {
 	
 	private void Update() {
 		if (timer % RagdollInterval == 0) {
-			GameObject newRagdoll = (GameObject)Instantiate(Ragdoll, SpawnPosition, Quaternion.Euler(
+			Instantiate(Ragdoll, SpawnPosition, Quaternion.Euler(
 				Random.Range(0, 360f),
 				Random.Range(0, 360f),
 				Random.Range(0, 360f)
