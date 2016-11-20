@@ -48,10 +48,13 @@ public class GridObject : MonoBehaviour {
 	public virtual void Start() {
 		Grid = FindObjectOfType<Grid>();
 	}
-	public virtual void Update() {}
+	public virtual void Update() {
+	}
 	
-	public virtual void OnPlaced() {}
-	public virtual void OnDemolished() {}
+	public virtual void OnPlaced() {
+	}
+	public virtual void OnDemolished() {
+	}
 	
 	public void UpdatePosition() {
 		transform.position = new Vector3 {
@@ -66,7 +69,7 @@ public class GridObject : MonoBehaviour {
 		return new Vector3(X, Y, Z);
 	}
 	
-	public Vector3[] RotatedOffsets () {
+	public Vector3[] RotatedOffsets() {
 		Vector3[] ReturnList = new Vector3[OccupiedOffsets.Length];
 		//Default is south
 		//	multiply x and z by 1
