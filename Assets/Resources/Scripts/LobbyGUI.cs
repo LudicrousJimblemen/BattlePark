@@ -47,7 +47,7 @@ public class LobbyGUI : MonoBehaviour {
 	private IEnumerator LoadTitleScreen() {
 		inAnimation = true;
 		for (float i = 0; i < 60; i++) {
-			Fade.color = Color.Lerp(Color.clear, Color.black, Mathf.SmoothStep(0f, 1f, i / 40f));
+			Fade.color = Color.Lerp(new Color(1f, 1f, 1f, 0), Color.white, Mathf.SmoothStep(0f, 1f, i / 40f));
 			yield return null;
 		}
 		Destroy(NetworkManager);

@@ -128,13 +128,13 @@ public class TitleScreenGUI : MonoBehaviour {
 		panel.rectTransform.position = new Vector3(644f * fromDirection, 0, 0);
 		for (int i = 0; i < 70; i++) {
 			panel.rectTransform.localPosition = Vector3.Lerp(
-				new Vector3(644f * fromDirection, 0, 0),
+				new Vector3(panel.rectTransform.rect.width * fromDirection, 0, 0),
 				Vector3.zero,
 				Mathf.SmoothStep(0, 1f, Mathf.SmoothStep(0, 1f, i / 70f))
 			);
 			CurrentPanel.rectTransform.localPosition = Vector3.Lerp(
 				Vector3.zero,
-				new Vector3(644f * -fromDirection, 0, 0),
+				new Vector3(CurrentPanel.rectTransform.rect.width * -fromDirection, 0, 0),
 				Mathf.SmoothStep(0, 1f, Mathf.SmoothStep(0, 1f, i / 70f))
 			);
 			yield return null;
