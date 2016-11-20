@@ -7,8 +7,8 @@ public class GridOverlay : MonoBehaviour {
  	
 	public bool ShowGrid = true;
 	
-	public int GridSizeX = 32;
-	public int GridSizeZ = 32;
+	public int GridSizeX = 63;
+	public int GridSizeZ = 63;
  
 	public float MainStep = 1;
  

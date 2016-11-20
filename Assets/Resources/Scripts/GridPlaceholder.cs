@@ -40,13 +40,15 @@ public class GridPlaceholder : MonoBehaviour {
 			z = Mathf.Round((transform.position.z - 0.5f) / grid.GridStepXZ)
 		};
 		
-		if (grid.Objects.WillIntersect(snappedPos, GridObject.OccupiedOffsets) || !grid.ValidRegion(transform.position, client.PlayerId)) {
+		if (grid.Objects.WillIntersect(snappedPos, GridObject.RotatedOffsets) || !grid.ValidRegion(transform.position, client.PlayerId)) {
 			return;
 		}
 		
 		GridObject.X = (int)snappedPos.x;
 		GridObject.Y = (int)snappedPos.y;
 		GridObject.Z = (int)snappedPos.z;
+		GridObject.Owner = client.PlayerId;
+		
 		client.NetworkClient.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage {
 			Position = transform.position,
 			Rotation = transform.rotation,
