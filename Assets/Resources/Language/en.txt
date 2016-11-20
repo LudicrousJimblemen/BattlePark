@@ -5,11 +5,15 @@
 	"titleScreen.startClient":"START CLIENT",
 	"titleScreen.exit":"EXIT",
 	"titleScreen.back":"BACK",
-	"titleScreen.portInputField":"Port",
-	"titleScreen.ipInputField":"IP",
-	"titleScreen.usernameInputField":"Username",
+	"titleScreen.port":"Port",
+	"titleScreen.ip":"IP",
+	"titleScreen.username":"Username",
 	"titleScreen.serverHost":"HOST SERVER",
 	"titleScreen.clientJoin":"JOIN GAME",
+	
+	"lobby.leave":"LEAVE",
+	"lobby.ready":"READY",
+	"lobby.chat":"Chat...",
 	
 	"chat.chatMessage": "<{0}> {1}",
 	"chat.userJoined": "{0} joined.",

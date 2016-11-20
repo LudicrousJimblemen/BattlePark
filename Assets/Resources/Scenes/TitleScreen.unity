@@ -3635,7 +3635,7 @@ MonoBehaviour:
   ClientBackButton: {fileID: 1470644105}
   ClientIpInputField: {fileID: 808263165}
   ClientPortInputField: {fileID: 502701689}
-  ClientUsernameInputField: {fileID: 479793658}
+  ClientUsernameInputField: {fileID: 827295136}
   ClientJoinButton: {fileID: 1575326838}
   NetworkManager: {fileID: 1621824059}
   LanguageManager: {fileID: 617797755}

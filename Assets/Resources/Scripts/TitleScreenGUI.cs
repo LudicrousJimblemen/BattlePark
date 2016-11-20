@@ -46,14 +46,14 @@ public class TitleScreenGUI : MonoBehaviour {
 		ExitButton.GetComponentInChildren<Text>().text = LanguageManager.GetString("titleScreen.exit");
 		
 		ServerBackButton.GetComponentInChildren<Text>().text = LanguageManager.GetString("titleScreen.back");
-		ServerPortInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.portInputField");
-		ServerUsernameInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.usernameInputField");
+		ServerPortInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.port");
+		ServerUsernameInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.username");
 		ServerHostButton.GetComponentInChildren<Text>().text = LanguageManager.GetString("titleScreen.serverHost");
 		
 		ClientBackButton.GetComponentInChildren<Text>().text = LanguageManager.GetString("titleScreen.back");
-		ClientIpInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.ipInputField");
-		ClientPortInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.portInputField");
-		ClientUsernameInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.usernameInputField");
+		ClientIpInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.ip");
+		ClientPortInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.port");
+		ClientUsernameInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("titleScreen.username");
 		ClientJoinButton.GetComponentInChildren<Text>().text = LanguageManager.GetString("titleScreen.clientJoin");
 	
 		ServerUsernameInputField.text = GenerateUsername();
