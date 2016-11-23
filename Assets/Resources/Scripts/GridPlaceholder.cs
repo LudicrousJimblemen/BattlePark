@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class GridPlaceholder : MonoBehaviour {
-	private Client client;
 	private new Camera camera;
 	private Grid grid;
 	
@@ -13,7 +12,6 @@ public class GridPlaceholder : MonoBehaviour {
 	public int Owner;
 	
 	private void Start() {
-		client = FindObjectOfType<Client>();
 		camera = FindObjectOfType<Camera>();
 		grid = FindObjectOfType<Grid>();
 		GridObject = GetComponent<GridObject>();
@@ -40,23 +38,17 @@ public class GridPlaceholder : MonoBehaviour {
 			z = Mathf.Round((transform.position.z - 0.5f) / grid.GridStepXZ)
 		};
 		
-		if (grid.Objects.WillIntersect(snappedPos, GridObject.RotatedOffsets()) || !grid.ValidRegion(transform.position, client.PlayerId)) {
+		if (grid.Objects.WillIntersect(snappedPos, GridObject.RotatedOffsets()) || !grid.ValidRegion(transform.position, 6666666)) {
 			return;
 		}
 		
 		GridObject.X = (int)snappedPos.x;
 		GridObject.Y = (int)snappedPos.y;
 		GridObject.Z = (int)snappedPos.z;
-		GridObject.Owner = client.PlayerId;
 		
-		client.NetworkClient.Send(GridObjectPlacedNetMessage.Code, new GridObjectPlacedNetMessage {
-			Position = transform.position,
-			Rotation = transform.rotation,
-			Type = name,
-			ObjectData = GridObject.Serialize()
-		});
+		//GRID PLACEHOLDER!!!!!!!!!!
+		
 		Destroy(gameObject);
-		FindObjectOfType<Client>().CanSummon = true;
 	}
 	
 	public void Rotate(int direction) {

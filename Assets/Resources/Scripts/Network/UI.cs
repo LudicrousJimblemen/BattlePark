@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UI : MonoBehaviour {
-	private NetworkManager networkManager;
-	
 	void Start() {
 		FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text = "25001";
 		try {	
@@ -17,23 +15,21 @@ public class UI : MonoBehaviour {
 		}
 		
 		GenerateUsername();
-		
-		networkManager = FindObjectOfType<NetworkManager>();
 	}
 	
 	public void StartServer() {
-		networkManager.IsServer = true;
-		networkManager.Ip = FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text;
-		networkManager.Port = Int32.Parse(FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text);
-		networkManager.Username = FindObjectsOfType<InputField>().First(x => x.name == "UsernameInput").text;
+		NetworkManager.IsServer = true;
+		NetworkManager.Ip = FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text;
+		NetworkManager.Port = Int32.Parse(FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text);
+		NetworkManager.Username = FindObjectsOfType<InputField>().First(x => x.name == "UsernameInput").text;
 		UnityEngine.SceneManagement.SceneManager.LoadScene("GridTest");
 	}
 
 	public void StartClient() {
-		networkManager.IsServer = false;
-		networkManager.Ip = FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text;
-		networkManager.Port = Int32.Parse(FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text);
-		networkManager.Username = FindObjectsOfType<InputField>().First(x => x.name == "UsernameInput").text;
+		NetworkManager.IsServer = false;
+		NetworkManager.Ip = FindObjectsOfType<InputField>().First(x => x.name == "IPInput").text;
+		NetworkManager.Port = Int32.Parse(FindObjectsOfType<InputField>().First(x => x.name == "PortInput").text);
+		NetworkManager.Username = FindObjectsOfType<InputField>().First(x => x.name == "UsernameInput").text;
 		UnityEngine.SceneManagement.SceneManager.LoadScene("GridTest");
 	}
 	

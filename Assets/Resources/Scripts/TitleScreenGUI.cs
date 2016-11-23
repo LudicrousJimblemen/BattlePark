@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,9 +34,6 @@ public class TitleScreenGUI : MonoBehaviour {
 	public InputField ClientUsernameInputField;
 	public Button ClientJoinButton;
 	
-	public NetworkManager NetworkManager;
-	public LanguageManager LanguageManager;
-	
 	private int timer;
 	
 	private bool inAnimation;
@@ -58,7 +56,7 @@ public class TitleScreenGUI : MonoBehaviour {
 	
 		ServerUsernameInputField.text = GenerateUsername();
 		ClientUsernameInputField.text = GenerateUsername();
-		ClientIpInputField.text = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0].ToString();
+		ClientIpInputField.text = GetLocalIP();
 		
 		StartServerButton.onClick.AddListener(() => StartCoroutine(AnimatePanel(ServerPanel, 1)));
 		StartClientButton.onClick.AddListener(() => StartCoroutine(AnimatePanel(ClientPanel, 1)));
@@ -84,6 +82,7 @@ public class TitleScreenGUI : MonoBehaviour {
 	
 	private void StartServer() {
 		NetworkManager.IsServer = true;
+		NetworkManager.Ip = GetLocalIP();
 		NetworkManager.Port = Int32.Parse(ServerPortInputField.text);
 		NetworkManager.Username = ServerUsernameInputField.text;
 		StartCoroutine(LoadLobby());
@@ -171,5 +170,17 @@ public class TitleScreenGUI : MonoBehaviour {
 		}
 		
 		return returnedName;
+	}
+	
+		
+	private string GetLocalIP() {
+		IPHostEntry host;
+		host = Dns.GetHostEntry(Dns.GetHostName());
+		foreach (IPAddress ip in host.AddressList) {
+			if (ip.AddressFamily == AddressFamily.InterNetwork) {
+				return ip.ToString();
+			}
+		}
+		return "127.0.0.1";
 	}
 }

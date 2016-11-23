@@ -4,22 +4,21 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class LanguageManager : MonoBehaviour {
-	public string Language = "en";
+public static class LanguageManager {
+	public static string Language = String.Empty;
 	
-	void Start() {
-		DontDestroyOnLoad(this);
-		switch (Application.systemLanguage) {
-			case SystemLanguage.English:
-				Language = "en";
-				break;
-			default:
-				Language = "en";
-				break;
+	public static string GetString(string key) {
+		if (Language == string.Empty) {
+			switch (Application.systemLanguage) {
+				case SystemLanguage.English:
+					Language = "en";
+					break;
+				default:
+					Language = "en";
+					break;
+			}
 		}
-	}
-	
-	public string GetString(string key) {
+		
 		TextAsset language = (TextAsset)Resources.Load("Language/" + Language);
 		string text = "ERROR";
 		JsonConvert.DeserializeObject<Dictionary<string, string>>(language.text).TryGetValue(key, out text);

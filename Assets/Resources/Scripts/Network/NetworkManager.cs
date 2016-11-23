@@ -1,17 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class NetworkManager : MonoBehaviour {
-	public string Ip;
-	public int Port;
-	
-	public int MaxPlayers = 2;
+public static class NetworkManager {
+	public static string Ip = "127.0.0.1";
+	public static int Port = 6666;
 
-	public string Username;
-	public bool IsServer;
+	public static string Username;
+	public static bool IsServer;
 	
-	void Start() {
-		DontDestroyOnLoad(this);
-	}
+	public static int MaxUsers = 2;
 }

@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ChatInput : InputField {
 	public Text ChatText;
 	
-	private Client client;
 	private CameraPan camera;
 	
 	private bool submitted;
@@ -15,13 +14,11 @@ public class ChatInput : InputField {
 	void Start() {
 		ChatText = FindObjectsOfType<Text>().First(x => x.name == "ChatText");
 		
-		client = FindObjectOfType<Client>();
 		camera = FindObjectOfType<CameraPan>();
 	}
 	
 	void Update() {
 		camera.Enabled = !isFocused;
-		client.Enabled = !isFocused;
 		
 		if (Input.GetKeyUp(KeyCode.Slash)) {
 			EventSystem.current.SetSelectedGameObject(gameObject, null);
@@ -47,9 +44,7 @@ public class ChatInput : InputField {
 		interactable = true;
 		
 		if (submitted) {
-			client.NetworkClient.Send(ChatNetMessage.Code, new ChatNetMessage {
-				Message = text
-			});
+			//SEND THE CHAT!!!!!!!!!!
 			text = String.Empty;
 		}
 		submitted = false;
