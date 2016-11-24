@@ -39,7 +39,7 @@ public class GridObjects {
 			return foundObject;
 		} else {
 			foreach (var item in dictionary.Values) {
-				foreach (var offset in item.RotatedOffsets) {
+				foreach (var offset in item.RotatedOffsets ()) {
 					if (item.GridPosition() + offset == location) {
 						return item;
 					}

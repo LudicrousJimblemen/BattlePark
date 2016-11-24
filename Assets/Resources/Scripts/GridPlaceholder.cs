@@ -40,7 +40,7 @@ public class GridPlaceholder : MonoBehaviour {
 			z = Mathf.Round((transform.position.z - 0.5f) / grid.GridStepXZ)
 		};
 		
-		if (grid.Objects.WillIntersect(snappedPos, GridObject.RotatedOffsets) || !grid.ValidRegion(transform.position, client.PlayerId)) {
+		if (grid.Objects.WillIntersect(snappedPos, GridObject.RotatedOffsets ()) || !grid.ValidRegion(transform.position, client.PlayerId)) {
 			return;
 		}
 		
