@@ -172,8 +172,8 @@ MonoBehaviour:
     m_Bits: 512
   GridSizeX: 132
   GridSizeZ: 63
-  GridStepXZ: 1
-  GridStepY: 0.5
+  GridStepXZ: 3
+  GridStepY: 1.5
 --- !u!23 &194769802
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -615,9 +615,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enabled: 1
   MovementSpeed: 1
-  RotationSpeed: 4
-  TiltHeight: 36
-  FlatHeight: 3
+  RotationSpeed: 2
+  TiltHeight: 80
+  FlatHeight: 40
   TiltAngle: 45
   FlatAngle: 20
   MinimumPivotY: -2

@@ -27,17 +27,17 @@ public class GridPlaceholder : MonoBehaviour {
 		transform.rotation = Quaternion.Euler(-90, 0, (int)GridObject.Direction * 90);
 		
 		transform.position = new Vector3 { //snap to grid
-			x = (Mathf.Round((transform.position.x - 0.5f) / grid.GridStepXZ) * grid.GridStepXZ) + 0.5f,
+			x = (Mathf.Round((transform.position.x - grid.GridStepXZ / 2) / grid.GridStepXZ) * grid.GridStepXZ) + grid.GridStepXZ / 2,
 			y = Mathf.Clamp(Mathf.Round(transform.position.y / grid.GridStepY) * grid.GridStepY, 0, float.PositiveInfinity),
-			z = (Mathf.Round((transform.position.z - 0.5f) / grid.GridStepXZ) * grid.GridStepXZ) + 0.5f
+			z = (Mathf.Round((transform.position.z - grid.GridStepXZ / 2) / grid.GridStepXZ) * grid.GridStepXZ) + grid.GridStepXZ / 2
 		};
 	}
 	
 	public void PlaceObject() {
 		Vector3 snappedPos = new Vector3 {
-			x = Mathf.Round((transform.position.x - 0.5f) / grid.GridStepXZ),
-			y = Mathf.Clamp(Mathf.RoundToInt(transform.position.y / grid.GridStepY), 0, float.PositiveInfinity),
-			z = Mathf.Round((transform.position.z - 0.5f) / grid.GridStepXZ)
+			x = Mathf.Round ((transform.position.x - grid.GridStepXZ / 2) / grid.GridStepXZ),
+			y = Mathf.Clamp (Mathf.RoundToInt (transform.position.y / grid.GridStepY),0,float.PositiveInfinity),
+			z = Mathf.Round ((transform.position.z - grid.GridStepXZ / 2) / grid.GridStepXZ)
 		};
 		
 		if (grid.Objects.WillIntersect(snappedPos, GridObject.RotatedOffsets ()) || !grid.ValidRegion(transform.position, client.PlayerId)) {

@@ -11,7 +11,7 @@ public class CameraPan : MonoBehaviour {
 	[Range(0, 10)]
 	public float RotationSpeed = 4f;
 	
-	[Range(0, 50)]
+	[Range(0, 150)]
 	public float TiltHeight = 36f;
 	[Range(0, 50)]
 	public float FlatHeight = 3f;
@@ -51,7 +51,7 @@ public class CameraPan : MonoBehaviour {
 		
 		//Control rotation around the y axis		
 		if (Enabled) {
-			transform.RotateAround(PivotPoint, Vector3.up, Input.GetAxis("Rotate") * RotationSpeed);
+			transform.RotateAround(PivotPoint, Vector3.up, -Input.GetAxis("Rotate") * RotationSpeed);
 		}
 		
 		//Rotate around the local x axis of camera going through the pivot, based on the height of the camera

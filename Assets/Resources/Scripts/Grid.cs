@@ -14,8 +14,8 @@ public class Grid : MonoBehaviour {
 	public int GridSizeX = 129;
 	public int GridSizeZ = 63;
 	
-	public float GridStepXZ = 1f;
-	public float GridStepY = 0.5f;
+	public float GridStepXZ = 3;
+	public float GridStepY = 1.5f;
 	
 	
 	private void Awake() {
@@ -52,7 +52,7 @@ public class Grid : MonoBehaviour {
 		Vector2[] uv = new Vector2[vertices.Length];
 		for (int i = 0, z = 0; z <= zSize; z++) {
 			for (int x = 0; x <= xSize; x++, i++) {
-				vertices[i] = new Vector3(x, 0, z);
+				vertices[i] = new Vector3(x, 0, z) * GridStepXZ;
 				uv[i] = new Vector2((float)x * (1f / checkerboardWidth) * 0.5f, (float)z * (1f / checkerboardWidth) * 0.5f);
 			}
 		}
