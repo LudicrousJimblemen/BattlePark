@@ -13,5 +13,6 @@ public class NetworkManager : MonoBehaviour {
 	
 	void Start() {
 		DontDestroyOnLoad(this);
+		//Settings settings = new Settings ();
 	}
 }
