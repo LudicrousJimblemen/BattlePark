@@ -69,16 +69,22 @@ public class GridOverlay : MonoBehaviour {
 				GL.Begin(GL.LINES);
 
 				GL.Color(mainColor);
+				
+				float startX = overlay.StartX * overlay.MainStep;
+				float startZ = overlay.StartZ * overlay.MainStep;
+				float sizeX = overlay.GridSizeX * overlay.MainStep;
+				float sizeZ = overlay.GridSizeZ * overlay.MainStep;
+
 				//X axis lines
-				for(float i = 0; i <= overlay.GridSizeZ * overlay.MainStep; i += overlay.MainStep) {
-					GL.Vertex3(overlay.StartX,0,overlay.StartZ + i);
-					GL.Vertex3(overlay.StartX + overlay.GridSizeX * overlay.MainStep,0,overlay.StartZ + i);
+				for(float i = 0; i <= sizeX; i += overlay.MainStep) {
+					GL.Vertex3(startX,0,startZ + i);
+					GL.Vertex3(startX + sizeX,0,startZ + i);
 				}
 
 				//Z axis lines
-				for(float i = 0; i <= overlay.GridSizeX * overlay.MainStep; i += overlay.MainStep) {
-					GL.Vertex3(overlay.StartX + i,0,overlay.StartZ);
-					GL.Vertex3(overlay.StartX + i,0,overlay.StartZ + overlay.GridSizeZ * overlay.MainStep);
+				for(float i = 0; i <= sizeX; i += overlay.MainStep) {
+					GL.Vertex3(startX + i,0,startZ);
+					GL.Vertex3(startX + i,0,startZ + sizeZ);
 				}
 
 				GL.End();
