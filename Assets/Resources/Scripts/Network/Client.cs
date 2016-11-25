@@ -12,58 +12,54 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Client : MonoBehaviour {
-	
+
 	public NetworkClient NetworkClient;
 
 	public int PlayerId;
 	public string Username;
 	private NetworkManager networkManager;
 
-	public delegate void OnMessageReceived (NetworkMessage message);
-	public event OnMessageReceived ThrowEvent = delegate { };
-	
+	public delegate void OnGameplayMessageReceived(NetworkMessage message);
+	public event OnGameplayMessageReceived ThrowGameplayEvent = delegate { };
+
+	public delegate void OnConnected();
+	public event OnConnected ThrowConnectionEvent = delegate { };
+
 	private void Start() {
 		networkManager = FindObjectOfType<NetworkManager>();
 
 		Username = networkManager.Username;
-		
-		if (!networkManager.IsServer) {
+
+		if(!networkManager.IsServer) {
 			StartClient();
 		}
 	}
 
 	public void StartClient() {
 		NetworkClient = new NetworkClient();
-		NetworkClient.RegisterHandler(ChatNetMessage.Code, OnChatNetMessage);
-		NetworkClient.RegisterHandler(GridObjectPlacedNetMessage.Code, OnGridObjectPlacedNetMessage);
-		NetworkClient.RegisterHandler(UpdatePlayerAssignment.Code, OnUpdatePlayerAssignmentMessage);
-		NetworkClient.RegisterHandler(ClientJoinedMessage.Code, OnClientJoinedMessage);
-		NetworkClient.Connect(networkManager.Ip, networkManager.Port);
+		NetworkClient.RegisterHandler(ChatNetMessage.Code,OnGameplayMessage);
+		NetworkClient.RegisterHandler(GridObjectPlacedNetMessage.Code,OnGameplayMessage);
+		NetworkClient.RegisterHandler(ClientJoinedMessage.Code,OnGameplayMessage);
+		NetworkClient.RegisterHandler(UpdatePlayerAssignment.Code,OnUpdatePlayerAssignmentMessage);
+		NetworkClient.Connect(networkManager.Ip,networkManager.Port);
 		StartCoroutine(SendJoinMessage());
 	}
-	
+
 	public IEnumerator SendJoinMessage() {
 		yield return new WaitWhile(() => !NetworkClient.isConnected);
-		NetworkClient.Send (ClientJoinedMessage.Code,new ClientJoinedMessage () {
+		NetworkClient.Send(ClientJoinedMessage.Code,new ClientJoinedMessage() {
 			Username = Username
 		});
 	}
 
-	private void OnClientJoinedMessage (NetworkMessage incoming) {
-		ThrowEvent (incoming);
+	private void OnGameplayMessage(NetworkMessage incoming) {
+		ThrowGameplayEvent(incoming);
 	}
 
-	private void OnChatNetMessage (NetworkMessage incoming) {
-		ThrowEvent (incoming);
-	}
-	
-	private void OnGridObjectPlacedNetMessage(NetworkMessage incoming) {
-		print ("object received");
-		ThrowEvent (incoming);
-	}
-	
 	private void OnUpdatePlayerAssignmentMessage(NetworkMessage incoming) {
 		UpdatePlayerAssignment message = incoming.ReadMessage<UpdatePlayerAssignment>();
 		PlayerId = message.PlayerId;
+		ThrowConnectionEvent();
+		print("Connected");
 	}
 }

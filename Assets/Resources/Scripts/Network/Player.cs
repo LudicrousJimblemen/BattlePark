@@ -40,7 +40,7 @@ public class Player : MonoBehaviour {
 
 		Client = FindObjectOfType<Client> ();
 
-		Client.ThrowEvent += ReceiveFromClient;
+		Client.ThrowGameplayEvent += ReceiveFromClient;
 
 		//temporary, eventually hotbar slots will be defined dynamically
 		hotbar[0] = "Sculpture";

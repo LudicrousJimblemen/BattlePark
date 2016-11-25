@@ -634,8 +634,8 @@ MonoBehaviour:
   GridSizeX: 63
   GridSizeZ: 63
   MainStep: 1
-  StartX: -66
-  StartZ: -31.5
+  StartX: 0
+  StartZ: 0
   mainColor: {r: 0, g: 0, b: 0, a: 0.16470589}
 --- !u!1 &1167533189
 GameObject:
