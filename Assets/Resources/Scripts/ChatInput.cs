@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ChatInput : InputField {
 	public Text ChatText;
 	
+	private Player player;
 	private Client client;
 	private CameraPan camera;
 	
@@ -14,14 +15,15 @@ public class ChatInput : InputField {
 	
 	void Start() {
 		ChatText = FindObjectsOfType<Text>().First(x => x.name == "ChatText");
-		
-		client = FindObjectOfType<Client>();
+
+		client = FindObjectOfType<Client> ();
+		player = FindObjectOfType<Player>();
 		camera = FindObjectOfType<CameraPan>();
 	}
 	
 	void Update() {
 		camera.Enabled = !isFocused;
-		client.Enabled = !isFocused;
+		player.Enabled = !isFocused;
 		
 		if (Input.GetKeyUp(KeyCode.Slash)) {
 			EventSystem.current.SetSelectedGameObject(gameObject, null);

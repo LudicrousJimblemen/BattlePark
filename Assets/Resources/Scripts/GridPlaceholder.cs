@@ -56,7 +56,7 @@ public class GridPlaceholder : MonoBehaviour {
 			ObjectData = GridObject.Serialize()
 		});
 		Destroy(gameObject);
-		FindObjectOfType<Client>().CanSummon = true;
+		FindObjectOfType<Player>().CanSummon = true;
 	}
 	
 	public void Rotate(int direction) {
