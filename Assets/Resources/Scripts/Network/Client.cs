@@ -5,41 +5,23 @@ using System.Net;
 using System.Reflection;
 using UnityEngine;
 using Lidgren.Network;
+using Newtonsoft.Json;
 
-public class MatchMessageListener {
-	public Type MessageType { get; private set; }
-	public object Handler { get; private set; }
+public class Client {
+	private NetClient client = new NetClient(new NetPeerConfiguration("Battle Park"));
 
-	public MatchMessageListener(Type messageType, object handler) {
-		MessageType = messageType;
-		Handler = handler;
-	}
-}
+	private JsonSerializerSettings serializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 
-public class NetMessenger {
-	private NetClient client;
+	private List<NetMessageListener> listeners = new List<NetMessageListener>();
 
-	private Newtonsoft.Json.JsonSerializerSettings serializerSettings;
-	
-	private List<MatchMessageListener> listeners = new List<MatchMessageListener>();
-
-	public event EventHandler OnChat;
-
-	public NetMessenger(NetClient client) {
-		this.client = client;
-
-		serializerSettings = new Newtonsoft.Json.JsonSerializerSettings();
-		serializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All;
+	public void CreateListener<T>(NetMessage<T> handler) where T : NetMessage {
+		listeners.Add(new NetMessageListener(typeof(T), handler));
 	}
 
-	public void CreateListener<T>(MatchMessageHandler<T> handler) where T : MatchMessage {
-		listeners.Add(new MatchMessageListener(typeof(T), handler));
-	}
-
-	public bool RemoveListener<T>(MatchMessageHandler<T> handler) where T : MatchMessage {
+	public bool RemoveListener<T>(NetMessage<T> handler) where T : NetMessage {
 		for (int i = 0; i < listeners.Count; i++) {
-			MatchMessageListener listenerEntry = listeners[i];
-			if (listenerEntry.MessageType == typeof(T) && (MatchMessageHandler<T>)listenerEntry.Handler == handler) {
+			NetMessageListener listenerEntry = listeners[i];
+			if (listenerEntry.MessageType == typeof(T) && (NetMessage<T>) listenerEntry.Handler == handler) {
 				listeners.Remove(listenerEntry);
 				return true;
 			}
@@ -51,7 +33,7 @@ public class NetMessenger {
 		NetOutgoingMessage netMessage = client.CreateMessage();
 		netMessage.WriteTime(false);
 
-		string data = Newtonsoft.Json.JsonConvert.SerializeObject(message, serializerSettings);
+		string data = JsonConvert.SerializeObject(message, serializerSettings);
 		netMessage.Write(data);
 
 		client.SendMessage(netMessage, NetDeliveryMethod.ReliableOrdered);
@@ -75,7 +57,7 @@ public class NetMessenger {
 					break;
 
 				case NetIncomingMessageType.StatusChanged:
-					NetConnectionStatus status = (NetConnectionStatus)msg.ReadByte();
+					NetConnectionStatus status = (NetConnectionStatus) msg.ReadByte();
 					string statusMsg = msg.ReadString();
 
 					switch (status) {
@@ -87,9 +69,9 @@ public class NetMessenger {
 
 				case NetIncomingMessageType.Data:
 					double timestamp = msg.ReadTime(false);
-					MatchMessage message = Newtonsoft.Json.JsonConvert.DeserializeObject<MatchMessage>(msg.ReadString(), serializerSettings);
+					NetMessage message = JsonConvert.DeserializeObject<NetMessage>(msg.ReadString(), serializerSettings);
 
-					MethodInfo methodToCall = typeof(NetMessenger).GetMethod("ReceiveMessage");
+					MethodInfo methodToCall = typeof(Client).GetMethod("ReceiveMessage", BindingFlags.NonPublic | BindingFlags.Instance);
 					MethodInfo genericVersion = methodToCall.MakeGenericMethod(message.GetType());
 					genericVersion.Invoke(this, new object[] {
 						message,
@@ -105,35 +87,26 @@ public class NetMessenger {
 	}
 
 	public void Close() {
-		client.Disconnect("Client left the match");
+		client.Disconnect(String.Empty);
 	}
-	
+
 	public long GetUniqueId() {
 		return client.UniqueIdentifier;
 	}
-	
+
 	public void JoinOnlineGame(string ip = "127.0.0.1", int port = 6666) {
-		IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(ip), port);
-		
 		NetPeerConfiguration conf = new NetPeerConfiguration("Battle Park");
 		client = new NetClient(conf);
 		client.Start();
 
-		NetOutgoingMessage approval = client.CreateMessage();
-		
-		approval.Write(Newtonsoft.Json.JsonConvert.SerializeObject(info));
-
-		client.Connect(endpoint);
+		client.Connect(ip, port);
 	}
 
-
-	private void ReceiveMessage<T>(T message, double timestamp) where T : MatchMessage {
-		float travelTime = (float)(NetTime.Now - timestamp);
-
+	private void ReceiveMessage<T>(T message, double timestamp) where T : NetMessage {
 		for (int i = 0; i < listeners.Count; i++) {
-			MatchMessageListener listener = listeners[i];
+			NetMessageListener listener = listeners[i];
 			if (listener.MessageType == message.GetType()) {
-				((MatchMessageHandler<T>)listener.Handler).Invoke(message, travelTime);
+				((NetMessage<T>) listener.Handler).Invoke(message);
 			}
 		}
 	}

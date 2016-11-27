@@ -174,13 +174,17 @@ public class TitleScreenGUI : MonoBehaviour {
 	
 		
 	private string GetLocalIP() {
-		IPHostEntry host;
-		host = Dns.GetHostEntry(Dns.GetHostName());
-		foreach (IPAddress ip in host.AddressList) {
-			if (ip.AddressFamily == AddressFamily.InterNetwork) {
-				return ip.ToString();
+		try {
+			IPHostEntry host;
+			host = Dns.GetHostEntry(Dns.GetHostName());
+			foreach (IPAddress ip in host.AddressList) {
+				if (ip.AddressFamily == AddressFamily.InterNetwork) {
+					return ip.ToString();
+				}
 			}
+			return "127.0.0.1";
+		} catch {
+			return "127.0.0.1";
 		}
-		return "127.0.0.1";
 	}
 }

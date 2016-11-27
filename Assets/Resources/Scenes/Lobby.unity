@@ -149,7 +149,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.1882353}
     m_PressedColor: {r: 0, g: 0, b: 0, a: 0.5019608}
-    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.2
   m_SpriteState:
@@ -272,7 +272,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 19911430}
   m_OnClick:
     m_PersistentCalls:
@@ -428,7 +428,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 143173332}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc734bec4a67bae419cea670bcb0bce0, type: 3}
+  m_Script: {fileID: 11500000, guid: 445d919c4c05a1c4784c93af52949739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &194933505
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 292530654}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e15e5a3f06b44945bd602b57541a140, type: 3}
+  m_Script: {fileID: 11500000, guid: 13ff56c34930b7e41b458da0afaece1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &292530656
@@ -884,9 +884,9 @@ MonoBehaviour:
     m_MaxSize: 40
     m_Alignment: 6
     m_AlignByGeometry: 0
-    m_RichText: 0
+    m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 
 --- !u!222 &954466047
@@ -1661,7 +1661,7 @@ MonoBehaviour:
     m_MaxSize: 244
     m_Alignment: 0
     m_AlignByGeometry: 0
-    m_RichText: 0
+    m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1

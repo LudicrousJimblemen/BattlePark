@@ -1,24 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
 
 public class GameClient : MonoBehaviour {
-	private NetMessenger messenger;
-	
-	public long UniqueId;
-	
-	public void Chat(string from, string text) {
-		messenger.SendMessage(new ChatNetMessage(from, text));
+	private Client messenger = new Client();
+
+	public List<GameUser> Users = new List<GameUser>();
+
+	public void Close() {
+		messenger.Close();
 	}
-	
+
 	private void Start() {
 		DontDestroyOnLoad(gameObject);
-		
-		messenger.CreateListener<ChatNetMessage>(ChatCallback);
-		
-		UniqueId = messenger.GetUniqueId();
+
+		messenger.JoinOnlineGame(NetworkManager.Ip, NetworkManager.Port);
 	}
-	
-	private void ChatCallback(ChatNetMessage message) {
+
+	private void Update() {
+		messenger.UpdateListeners();
 	}
 }

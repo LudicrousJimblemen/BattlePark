@@ -17,28 +17,41 @@ public class LobbyGUI : MonoBehaviour {
 	public Button ReadyButton;
 
 	public InputField ChatInputField;
-	
-	private int timer;
+
+	private GameClient client;
 	
 	private bool inAnimation;
-	
+
+	public IEnumerator LoadTitleScreen() {
+		inAnimation = true;
+
+		//client.Close();
+
+		for (float i = 0; i < 60; i++) {
+			Fade.color = Color.Lerp(new Color(1f, 1f, 1f, 0), Color.white, Mathf.SmoothStep(0f, 1f, i / 40f));
+			yield return null;
+		}
+
+		UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScreen");
+	}
+
 	private void Awake() {
 		LeaveButton.GetComponentInChildren<Text>().text = LanguageManager.GetString("lobby.leave");
 		ReadyButton.GetComponentInChildren<Text>().text = LanguageManager.GetString("lobby.ready");
 		ChatInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("lobby.chat");
 	
-		ChatInputField.onEndEdit.AddListener(SendChatMessage);
+		//ChatInputField.onEndEdit.AddListener(Chat);
 		
 		LeaveButton.onClick.AddListener(() => StartCoroutine(LoadTitleScreen()));
-		//ReadyButton.onClick.AddListener(IAmReadyPleaseStartTheGameThankYouVeryMuch);
-		
+		//ReadyButton.onClick.AddListener(BecomeReady);
+
+		client = FindObjectOfType<GameClient>();
+
 		StartCoroutine(FadeGraphic(Fade, 0, 60f, Color.black, Color.clear));
 	}
 	
 	private void Update() {
 		Fade.raycastTarget = inAnimation;
-		
-		timer++;
 	}
 	
 	private IEnumerator FadeGraphic(Graphic graphic, float delay, float duration, Color fromColor, Color toColor) {
@@ -48,25 +61,5 @@ public class LobbyGUI : MonoBehaviour {
 			yield return null;
 		}
 		inAnimation = false;
-	}
-	
-	private void SendChatMessage(string e) {
-		if (!Input.GetKey(KeyCode.Return)) {
-			return;
-		} else {
-			//
-			
-			ChatInputField.text = String.Empty;
-		}
-	}
-	
-	public IEnumerator LoadTitleScreen() {
-		inAnimation = true;
-		for (float i = 0; i < 60; i++) {
-			Fade.color = Color.Lerp(new Color(1f, 1f, 1f, 0), Color.white, Mathf.SmoothStep(0f, 1f, i / 40f));
-			yield return null;
-		}
-		
-		UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScreen");
-	}
+	}	
 }

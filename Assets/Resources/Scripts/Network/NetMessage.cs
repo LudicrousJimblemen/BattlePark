@@ -1,5 +1,5 @@
 ﻿using System;
 
-public delegate void MatchMessageHandler<T>(T message, float travelTime) where T : MatchMessage;
+public delegate void NetMessage<T>(T message) where T : NetMessage;
 
-public abstract class MatchMessage { }
+public abstract class NetMessage { }
