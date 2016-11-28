@@ -29,13 +29,13 @@ namespace BattlePark.Server {
 		private static void Main(string[] args) {
 			UpdateTitle();
 			
-			NetPeerConfiguration config = new NetPeerConfiguration("Battle Park");
+			NetPeerConfiguration config = new NetPeerConfiguration(GameConfig.Name);
 			config.Port = serverConfig.Port;
 			config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
 
 			serializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 			
-			server = new NetServer(config);
+			server = new NetServer(new NetPeerConfiguration(GameConfig.Name));
 			server.Start();
 
 			Log(String.Format("Server started on port {0}.", serverConfig.Port));

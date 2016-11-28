@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class VerticalConstraint : MonoBehaviour
-{
-	[HideInInspector]
-	public MeshCollider MeshCollider;
+namespace BattlePark {
+	public class VerticalConstraint : MonoBehaviour {
+		[HideInInspector]
+		public MeshCollider MeshCollider;
 	
-	void Start()
-	{
-		MeshCollider = GetComponent<MeshCollider>();
+		void Start() {
+			MeshCollider = GetComponent<MeshCollider>();
+		}
 	}
 }

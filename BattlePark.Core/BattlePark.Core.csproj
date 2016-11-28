@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameConfig.cs" />
     <Compile Include="GameUser.cs" />
     <Compile Include="GameVersion.cs" />
     <Compile Include="NetMessage.cs" />

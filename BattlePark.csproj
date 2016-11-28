@@ -34,15 +34,21 @@
     <NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lidgren.Network">
+      <HintPath>Assets\Libraries\Lidgren\Lidgren.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\Libraries\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.XML" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="UnityEngine">
-      <HintPath>D:/Essentials/Unity/Data/Managed/UnityEngine.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>D:/Essentials/Unity/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>Library\ScriptAssemblies\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -61,13 +67,9 @@
     <Compile Include="Assets\Scripts\LanguageManager.cs" />
     <Compile Include="Assets\Scripts\LobbyBackground.cs" />
     <Compile Include="Assets\Scripts\LobbyGUI.cs" />
+    <Compile Include="Assets\Scripts\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Network\GameClient.cs" />
-    <Compile Include="Assets\Scripts\Network\NetMessage.cs" />
-    <Compile Include="Assets\Scripts\Network\NetMessages\ApprovalMessage.cs" />
-    <Compile Include="Assets\Scripts\Network\NetMessages\ChatNetMessage.cs" />
-    <Compile Include="Assets\Scripts\Network\NetMessenger.cs" />
-    <Compile Include="Assets\Scripts\Network\UI.cs" />
-    <Compile Include="Assets\Scripts\Pause.cs" />
+    <Compile Include="Assets\Scripts\Network\NetMessageListener.cs" />
     <Compile Include="Assets\Scripts\PersonRagdoll.cs" />
     <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
     <Compile Include="Assets\Scripts\TitleScreenGUI.cs" />
@@ -80,24 +82,11 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>C:/Users/s-asengupta/Documents/GitHub/Battle-Park/Assets/Resources/Libraries/Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Lidgren.Network">
-      <HintPath>C:/Users/s-asengupta/Documents/GitHub/Battle-Park/Assets/Resources/Libraries/Lidgren/Lidgren.Network.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Scripts\Network\NetMessages" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="BattlePark.Core\BattlePark.Core.csproj">
       <Project>{732dac1d-a274-4580-b6df-6b2cdee3d556}</Project>
       <Name>BattlePark.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="BattlePark.Server\BattlePark.Server.csproj">
-      <Project>{0b71be0a-1b65-45d0-af4d-0db3c8d98e22}</Project>
-      <Name>BattlePark.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
