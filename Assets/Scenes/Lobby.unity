@@ -441,6 +441,7 @@ GameObject:
   - 224: {fileID: 194933506}
   - 222: {fileID: 194933508}
   - 114: {fileID: 194933507}
+  - 114: {fileID: 194933509}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -498,13 +499,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: READY
+  m_Text: '{{lobby.ready}}'
 --- !u!222 &194933508
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 194933505}
+--- !u!114 &194933509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 194933505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &292530654
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +567,7 @@ GameObject:
   - 224: {fileID: 541764883}
   - 222: {fileID: 541764885}
   - 114: {fileID: 541764884}
+  - 114: {fileID: 541764886}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -612,13 +625,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Chat...
+  m_Text: '{{lobby.chat}}'
 --- !u!222 &541764885
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 541764882}
+--- !u!114 &541764886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 541764882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &750953268
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,6 +929,7 @@ GameObject:
   - 224: {fileID: 1029462858}
   - 222: {fileID: 1029462860}
   - 114: {fileID: 1029462859}
+  - 114: {fileID: 1029462861}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -962,13 +987,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LEAVE
+  m_Text: '{{lobby.leave}}'
 --- !u!222 &1029462860
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1029462857}
+--- !u!114 &1029462861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1029462857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1097775209
 GameObject:
   m_ObjectHideFlags: 0

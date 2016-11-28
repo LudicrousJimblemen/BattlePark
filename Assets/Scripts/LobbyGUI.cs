@@ -36,10 +36,6 @@ public class LobbyGUI : MonoBehaviour {
 	}
 
 	private void Awake() {
-		LeaveButton.GetComponentInChildren<Text>().text = LanguageManager.GetString("lobby.leave");
-		ReadyButton.GetComponentInChildren<Text>().text = LanguageManager.GetString("lobby.ready");
-		ChatInputField.placeholder.GetComponent<Text>().text = LanguageManager.GetString("lobby.chat");
-	
 		//ChatInputField.onEndEdit.AddListener(Chat);
 		
 		LeaveButton.onClick.AddListener(() => StartCoroutine(LoadTitleScreen()));
