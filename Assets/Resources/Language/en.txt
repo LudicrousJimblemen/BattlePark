@@ -1,6 +1,7 @@
 ﻿{
 	"gameInfo.name": "Battle Park",
-	
+	"gameInfo.language": "English",
+
 	"titleScreen.startServer":"START SERVER",
 	"titleScreen.startClient":"START CLIENT",
 	"titleScreen.exit":"EXIT",
