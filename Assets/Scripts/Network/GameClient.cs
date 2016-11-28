@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
+using BattlePark.Core;
 
-public class GameClient : MonoBehaviour {
-	private Client messenger = new Client();
+namespace BattlePark {
+	public class GameClient : MonoBehaviour {
+		private Client messenger = new Client();
 
-	public List<GameUser> Users = new List<GameUser>();
+		public List<GameUser> Users = new List<GameUser>();
 
-	public void Close() {
-		messenger.Close();
-	}
+		private void Start() {
+			DontDestroyOnLoad(gameObject);
+		}
 
-	private void Start() {
-		DontDestroyOnLoad(gameObject);
+		private void Update() {
+			messenger.UpdateListeners();
+		}
 
-		messenger.JoinOnlineGame(NetworkManager.Ip, NetworkManager.Port);
-	}
-
-	private void Update() {
-		messenger.UpdateListeners();
+		public void Close() {
+			messenger.Close();
+		}
+		
+		public void Join(string username, string ip, int port) {
+			messenger.JoinOnlineGame(username, GameConfig.Version, ip, port);
+		}
 	}
 }
