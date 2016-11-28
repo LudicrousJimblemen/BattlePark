@@ -2,15 +2,19 @@
 	"gameInfo.name": "Battle Park",
 	"gameInfo.language": "English",
 
-	"titleScreen.startServer":"START SERVER",
 	"titleScreen.startClient":"START CLIENT",
 	"titleScreen.exit":"EXIT",
 	"titleScreen.back":"BACK",
 	"titleScreen.port":"Port",
 	"titleScreen.ip":"IP",
 	"titleScreen.username":"Username",
-	"titleScreen.serverHost":"HOST SERVER",
 	"titleScreen.clientJoin":"JOIN GAME",
+	
+	"error.notFound":"No server was found at the specified IP.",
+	"error.wrongVersion":"Your game version ({1}) does not match with the server's game version ({2}).",
+	"error.emptyUsername":"Your username must not be empty.",
+	"error.duplicateUsername":"A user with your username ('{0}') already exists.",
+	"error.roomFull":"The room is full.",
 	
 	"lobby.leave":"LEAVE",
 	"lobby.ready":"READY",

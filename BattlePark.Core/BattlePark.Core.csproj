@@ -8,8 +8,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BattlePark.Core</RootNamespace>
     <AssemblyName>BattlePark.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,9 +35,6 @@
     <Reference Include="Lidgren.Network">
       <HintPath>..\Assets\Libraries\Lidgren\Lidgren.Network.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Assets\Libraries\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -48,21 +46,20 @@
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\Library\ScriptAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameUser.cs" />
+    <Compile Include="GameVersion.cs" />
     <Compile Include="NetMessage.cs" />
+    <Compile Include="NetMessages\ClientApprovalNetMessge.cs" />
+    <Compile Include="NetMessages\ServerDenialNetMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Assembly-CSharp.csproj">
-      <Project>{62d7b3e8-a80c-4dfc-8fe5-4604e57eda92}</Project>
-      <Name>Battle-Park</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BattlePark.Server\BattlePark.Server.csproj">
-      <Project>{0b71be0a-1b65-45d0-af4d-0db3c8d98e22}</Project>
-      <Name>BattlePark.Server</Name>
-    </ProjectReference>
+    <Folder Include="NetMessages" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

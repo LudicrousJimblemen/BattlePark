@@ -46,34 +46,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Resources\Scripts\CameraMovement.cs" />
-    <Compile Include="Assets\Resources\Scripts\CameraPan.cs" />
-    <Compile Include="Assets\Resources\Scripts\ChatInput.cs" />
-    <Compile Include="Assets\Resources\Scripts\Direction.cs" />
-    <Compile Include="Assets\Resources\Scripts\Grid.cs" />
-    <Compile Include="Assets\Resources\Scripts\GridObject.cs" />
-    <Compile Include="Assets\Resources\Scripts\GridObjects.cs" />
-    <Compile Include="Assets\Resources\Scripts\GridObjects\Path.cs" />
-    <Compile Include="Assets\Resources\Scripts\GridObjects\Sculpture.cs" />
-    <Compile Include="Assets\Resources\Scripts\GridOverlay.cs" />
-    <Compile Include="Assets\Resources\Scripts\GridPlaceholder.cs" />
-    <Compile Include="Assets\Resources\Scripts\GridRegion.cs" />
-    <Compile Include="Assets\Resources\Scripts\LanguageManager.cs" />
-    <Compile Include="Assets\Resources\Scripts\LobbyBackground.cs" />
-    <Compile Include="Assets\Resources\Scripts\LobbyGUI.cs" />
-    <Compile Include="Assets\Resources\Scripts\Network\GameClient.cs" />
-    <Compile Include="Assets\Resources\Scripts\Network\NetMessage.cs" />
-    <Compile Include="Assets\Resources\Scripts\Network\NetMessages\ApprovalMessage.cs" />
-    <Compile Include="Assets\Resources\Scripts\Network\NetMessages\ChatNetMessage.cs" />
-    <Compile Include="Assets\Resources\Scripts\Network\NetMessenger.cs" />
-    <Compile Include="Assets\Resources\Scripts\Network\NetworkManager.cs" />
-    <Compile Include="Assets\Resources\Scripts\Network\UI.cs" />
-    <Compile Include="Assets\Resources\Scripts\Pause.cs" />
-    <Compile Include="Assets\Resources\Scripts\PersonRagdoll.cs" />
-    <Compile Include="Assets\Resources\Scripts\TitleScreenBackground.cs" />
-    <Compile Include="Assets\Resources\Scripts\TitleScreenGUI.cs" />
-    <Compile Include="Assets\Resources\Scripts\VerticalConstraint.cs" />
-    <None Include="Assets\Resources\Fonts\OFL.txt" />
+    <Compile Include="Assets\Scripts\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\CameraPan.cs" />
+    <Compile Include="Assets\Scripts\ChatInput.cs" />
+    <Compile Include="Assets\Scripts\Direction.cs" />
+    <Compile Include="Assets\Scripts\Grid.cs" />
+    <Compile Include="Assets\Scripts\GridObject.cs" />
+    <Compile Include="Assets\Scripts\GridObjects.cs" />
+    <Compile Include="Assets\Scripts\GridObjects\Path.cs" />
+    <Compile Include="Assets\Scripts\GridObjects\Sculpture.cs" />
+    <Compile Include="Assets\Scripts\GridOverlay.cs" />
+    <Compile Include="Assets\Scripts\GridPlaceholder.cs" />
+    <Compile Include="Assets\Scripts\GridRegion.cs" />
+    <Compile Include="Assets\Scripts\LanguageManager.cs" />
+    <Compile Include="Assets\Scripts\LobbyBackground.cs" />
+    <Compile Include="Assets\Scripts\LobbyGUI.cs" />
+    <Compile Include="Assets\Scripts\Network\GameClient.cs" />
+    <Compile Include="Assets\Scripts\Network\NetMessage.cs" />
+    <Compile Include="Assets\Scripts\Network\NetMessages\ApprovalMessage.cs" />
+    <Compile Include="Assets\Scripts\Network\NetMessages\ChatNetMessage.cs" />
+    <Compile Include="Assets\Scripts\Network\NetMessenger.cs" />
+    <Compile Include="Assets\Scripts\Network\UI.cs" />
+    <Compile Include="Assets\Scripts\Pause.cs" />
+    <Compile Include="Assets\Scripts\PersonRagdoll.cs" />
+    <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
+    <Compile Include="Assets\Scripts\TitleScreenGUI.cs" />
+    <Compile Include="Assets\Scripts\VerticalConstraint.cs" />
+    <None Include="Assets\Fonts\OFL.txt" />
     <None Include="Assets\Resources\Language\en.txt" />
     <Reference Include="UnityEngine.UI">
       <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -89,7 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Resources\Scripts\Network\NetMessages" />
+    <Folder Include="Assets\Scripts\Network\NetMessages" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="BattlePark.Core\BattlePark.Core.csproj">
