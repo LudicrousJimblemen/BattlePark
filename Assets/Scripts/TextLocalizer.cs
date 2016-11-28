@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Text))]
 public class TextLocalizer : MonoBehaviour {
-	[Serializable]
-	public struct LocalizableText {
-		public Text Text;
-		public string Reference;
-	}
+	Regex regex = new Regex("({{)(.*)(}})");
 
-	public List<LocalizableText> Texts;
-
-	private void Update() {
-		foreach (var text in Texts) {
-			text.Text.text = LanguageManager.GetString(text.Reference);
-		}
+	private void Awake() {
+		GetComponent<Text>().text = regex.Replace(GetComponent<Text>().text, match => LanguageManager.GetString(match.Groups[2].Value));
 	}
 }

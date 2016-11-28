@@ -805,6 +805,7 @@ GameObject:
   - 224: {fileID: 655242966}
   - 222: {fileID: 655242968}
   - 114: {fileID: 655242967}
+  - 114: {fileID: 655242969}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -862,13 +863,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: HOST SERVER
+  m_Text: '{{titleScreen.serverHost}}'
 --- !u!222 &655242968
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 655242965}
+--- !u!114 &655242969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 655242965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &684834111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,6 +1367,7 @@ GameObject:
   - 224: {fileID: 934921078}
   - 222: {fileID: 934921080}
   - 114: {fileID: 934921079}
+  - 114: {fileID: 934921081}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1412,13 +1425,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: JOIN GAME
+  m_Text: '{{titleScreen.clientJoin}}'
 --- !u!222 &934921080
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 934921077}
+--- !u!114 &934921081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 934921077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1011967827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,6 +1527,7 @@ GameObject:
   - 224: {fileID: 1018659483}
   - 222: {fileID: 1018659485}
   - 114: {fileID: 1018659484}
+  - 114: {fileID: 1018659486}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1560,13 +1585,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: EXIT
+  m_Text: '{{titleScreen.exit}}'
 --- !u!222 &1018659485
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1018659482}
+--- !u!114 &1018659486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1018659482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1081668087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1687,7 @@ GameObject:
   - 224: {fileID: 1082806792}
   - 222: {fileID: 1082806794}
   - 114: {fileID: 1082806793}
+  - 114: {fileID: 1082806795}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -1708,13 +1745,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Port
+  m_Text: '{{titleScreen.port}}'
 --- !u!222 &1082806794
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1082806791}
+--- !u!114 &1082806795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1082806791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1191992602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,6 +1845,7 @@ GameObject:
   - 224: {fileID: 1209292163}
   - 222: {fileID: 1209292165}
   - 114: {fileID: 1209292164}
+  - 114: {fileID: 1209292166}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -1854,13 +1903,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Username
+  m_Text: '{{titleScreen.username}}'
 --- !u!222 &1209292165
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1209292162}
+--- !u!114 &1209292166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1209292162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1237248434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,6 +2241,7 @@ GameObject:
   - 224: {fileID: 1356368675}
   - 222: {fileID: 1356368677}
   - 114: {fileID: 1356368676}
+  - 114: {fileID: 1356368678}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2238,13 +2299,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BACK
+  m_Text: '{{titleScreen.back}}'
 --- !u!222 &1356368677
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1356368674}
+--- !u!114 &1356368678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1356368674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1372590908
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,6 +2608,7 @@ GameObject:
   - 224: {fileID: 1492032857}
   - 222: {fileID: 1492032859}
   - 114: {fileID: 1492032858}
+  - 114: {fileID: 1492032860}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2593,13 +2666,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: START CLIENT
+  m_Text: '{{titleScreen.startClient}}'
 --- !u!222 &1492032859
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1492032856}
+--- !u!114 &1492032860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1492032856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1557759782
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,6 +2949,7 @@ GameObject:
   - 224: {fileID: 1626088937}
   - 222: {fileID: 1626088939}
   - 114: {fileID: 1626088938}
+  - 114: {fileID: 1626088940}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2922,13 +3007,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: START SERVER
+  m_Text: '{{titleScreen.startServer}}'
 --- !u!222 &1626088939
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1626088936}
+--- !u!114 &1626088940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1626088936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1784600549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2939,6 +3035,7 @@ GameObject:
   - 224: {fileID: 1784600550}
   - 222: {fileID: 1784600552}
   - 114: {fileID: 1784600551}
+  - 114: {fileID: 1784600553}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2996,13 +3093,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BACK
+  m_Text: '{{titleScreen.back}}'
 --- !u!222 &1784600552
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1784600549}
+--- !u!114 &1784600553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1784600549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1854329794
 GameObject:
   m_ObjectHideFlags: 0
@@ -3124,6 +3232,7 @@ GameObject:
   - 224: {fileID: 1875037745}
   - 222: {fileID: 1875037747}
   - 114: {fileID: 1875037746}
+  - 114: {fileID: 1875037748}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -3181,13 +3290,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: IP
+  m_Text: '{{titleScreen.ip}}'
 --- !u!222 &1875037747
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1875037744}
+--- !u!114 &1875037748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1875037744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1982820977
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,6 +3318,7 @@ GameObject:
   - 224: {fileID: 1982820978}
   - 222: {fileID: 1982820980}
   - 114: {fileID: 1982820979}
+  - 114: {fileID: 1982820981}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -3255,13 +3376,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Username
+  m_Text: '{{titleScreen.username}}'
 --- !u!222 &1982820980
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1982820977}
+--- !u!114 &1982820981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1982820977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1986317960
 GameObject:
   m_ObjectHideFlags: 0
@@ -3346,6 +3478,7 @@ GameObject:
   - 224: {fileID: 1998875989}
   - 222: {fileID: 1998875991}
   - 114: {fileID: 1998875990}
+  - 114: {fileID: 1998875992}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -3403,13 +3536,24 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Port
+  m_Text: '{{titleScreen.port}}'
 --- !u!222 &1998875991
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1998875988}
+--- !u!114 &1998875992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1998875988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2123550131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3424,7 +3568,6 @@ GameObject:
   - 81: {fileID: 2123550132}
   - 114: {fileID: 2123550137}
   - 114: {fileID: 2123550138}
-  - 114: {fileID: 2123550139}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3552,42 +3695,6 @@ MonoBehaviour:
   ClientPortInputField: {fileID: 502701689}
   ClientUsernameInputField: {fileID: 827295136}
   ClientJoinButton: {fileID: 1575326838}
---- !u!114 &2123550139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2123550131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eff57ae8b8b9dc44894c11fc2360d67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Texts:
-  - Text: {fileID: 1626088938}
-    Reference: titleScreen.startServer
-  - Text: {fileID: 1492032858}
-    Reference: titleScreen.startClient
-  - Text: {fileID: 1018659484}
-    Reference: titleScreen.exit
-  - Text: {fileID: 1784600551}
-    Reference: titleScreen.back
-  - Text: {fileID: 1082806793}
-    Reference: titleScreen.port
-  - Text: {fileID: 1982820979}
-    Reference: titleScreen.username
-  - Text: {fileID: 655242967}
-    Reference: titleScreen.serverHost
-  - Text: {fileID: 1356368676}
-    Reference: titleScreen.back
-  - Text: {fileID: 1875037746}
-    Reference: titleScreen.ip
-  - Text: {fileID: 1998875990}
-    Reference: titleScreen.port
-  - Text: {fileID: 1209292164}
-    Reference: titleScreen.username
-  - Text: {fileID: 934921079}
-    Reference: titleScreen.clientJoin
 --- !u!1 &2128656979
 GameObject:
   m_ObjectHideFlags: 0
