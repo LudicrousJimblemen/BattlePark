@@ -34,15 +34,15 @@ namespace BattlePark.Server {
 				switch (msg.MessageType) {
 					case NetIncomingMessageType.DebugMessage:
 					case NetIncomingMessageType.VerboseDebugMessage:
-						Log(msg.ReadString());
+						Log(msg.ReadString(), MessageType.Test);
 						break;
 
 					case NetIncomingMessageType.WarningMessage:
-						Log(msg.ReadString());
+						Log(msg.ReadString(), MessageType.Warning);
 						break;
 
 					case NetIncomingMessageType.ErrorMessage:
-						Log(msg.ReadString());
+						Log(msg.ReadString(), MessageType.Error);
 						break;
 
 					case NetIncomingMessageType.ConnectionApproval:
@@ -51,7 +51,7 @@ namespace BattlePark.Server {
 						break;
 
 					case NetIncomingMessageType.Data:
-						double timestamp = msg.ReadTime(false);
+						//double timestamp = msg.ReadTime(false);
 						NetMessage netMessage = JsonConvert.DeserializeObject<NetMessage>(msg.ReadString(), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All });
 
 						/*
@@ -63,11 +63,11 @@ namespace BattlePark.Server {
 						}
 						*/
 
-						Log("ah! Ah!!! AH!!!!! UNHANLED MESSAGE TYPE IN SERVER!!!!!!! " + msg.ReadString());
-
+						Log(String.Format("Unhandled netMessage data type: {0}", msg.ReadString()), MessageType.Warning);
 						break;
+						
 					default:
-						Log(String.Format("UNHANDLED!!! AAA!!! {0} MESSAGE: {1}", msg.MessageType, msg.ReadString()));
+						Log(String.Format("Unhandled message type {0}: {1}", msg.MessageType, msg.ReadString()), MessageType.Warning);
 						break;
 				}
 			}
@@ -82,9 +82,39 @@ namespace BattlePark.Server {
 			server.SendToAll(netMsg, NetDeliveryMethod.ReliableOrdered);
 		}
 
-		public static void Log(object message) {
-			//make this pretty sometime
-			Console.WriteLine(message);
+		public enum MessageType {
+			Info,
+			Warning,
+			Error,
+			Test
+		}
+		private readonly object consoleLock = new object();
+		public static void Log(object message, MessageType type = MessageType.Info) {
+			lock (consoleLock) {
+					DateTime time = DateTime.Now;
+				if (type == MessageType.Info) {
+					Console.ForegroundColor = ConsoleColor.Green;
+					Console.Write("[INFO ");
+				} else if (type == MessageType.Warning) {
+					Console.ForegroundColor = ConsoleColor.Yellow;
+					Console.Write("[WARN ");
+				} else if (type == MessageType.Error) {
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.Write("[ERRR ");
+				} else if (type == MessageType.Test) {
+					Console.ForegroundColor = ConsoleColor.Cyan;
+					Console.Write("[TEST ");
+				}
+	
+				Console.Write(time.ToString("HH:mm:ss dd/MM/yyyy"));
+				Console.Write("] ");
+				Console.ResetColor();
+				try {
+					Console.WriteLine(message);
+				} catch (NullReferenceException) {
+					Console.WriteLine("NULL");
+				}
+			}
 		}
 	}
 }
