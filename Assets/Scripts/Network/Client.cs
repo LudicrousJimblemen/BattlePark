@@ -7,6 +7,8 @@ using UnityEngine;
 using Lidgren.Network;
 using Newtonsoft.Json;
 
+using BattlePark.Core;
+
 public class Client {
 	private NetClient client = new NetClient(new NetPeerConfiguration("Battle Park"));
 
