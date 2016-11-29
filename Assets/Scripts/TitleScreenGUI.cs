@@ -17,17 +17,10 @@ namespace BattlePark {
 		public Image CurrentPanel;
 	
 		public Image MainPanel;
-		public Image ServerPanel;
 		public Image ClientPanel;
 	
-		public Button StartServerButton;
 		public Button StartClientButton;
 		public Button ExitButton;
-	
-		public Button ServerBackButton;
-		public InputField ServerPortInputField;
-		public InputField ServerUsernameInputField;
-		public Button ServerHostButton;
 	
 		public Button ClientBackButton;
 		public InputField ClientIpInputField;
@@ -40,15 +33,15 @@ namespace BattlePark {
 		private bool inAnimation;
 	
 		private void Awake() {
-			ServerUsernameInputField.text = GenerateUsername();
 			ClientUsernameInputField.text = GenerateUsername();
 			ClientIpInputField.text = GetLocalIP();
 		
-			StartServerButton.onClick.AddListener(() => StartCoroutine(AnimatePanel(ServerPanel, 1)));
-			StartClientButton.onClick.AddListener(() => StartCoroutine(AnimatePanel(ClientPanel, 1)));
+			StartClientButton.onClick.AddListener(() => {
+				StartCoroutine(AnimatePanel(ClientPanel, 1));
+				ClientUsernameInputField.text = GenerateUsername();
+			});
 			ExitButton.onClick.AddListener(Application.Quit);
-			ServerBackButton.onClick.AddListener(() => StartCoroutine(AnimatePanel(MainPanel, -1)));
-			ServerHostButton.onClick.AddListener(StartServer);
+			
 			ClientBackButton.onClick.AddListener(() => StartCoroutine(AnimatePanel(MainPanel, -1)));
 			ClientJoinButton.onClick.AddListener(StartClient);
 		
@@ -64,14 +57,6 @@ namespace BattlePark {
 			Fade.raycastTarget = inAnimation;
 		
 			timer++;
-		}
-	
-		private void StartServer() {
-			NetworkManager.IsServer = true;
-			NetworkManager.Ip = GetLocalIP();
-			NetworkManager.Port = Int32.Parse(ServerPortInputField.text);
-			NetworkManager.Username = ServerUsernameInputField.text;
-			StartCoroutine(LoadLobby());
 		}
 
 		private void StartClient() {

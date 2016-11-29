@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Resources/Scenes/TitleScreen.unity
+    path: Assets/Scenes/TitleScreen.unity
   - enabled: 1
-    path: Assets/Resources/Scenes/Network.unity
+    path: Assets/Scenes/GridTest.unity
   - enabled: 1
-    path: Assets/Resources/Scenes/GridTest.unity
-  - enabled: 1
-    path: Assets/Resources/Scenes/Lobby.unity
+    path: Assets/Scenes/Lobby.unity
+  - enabled: 0
+    path: Assets/Scenes/Network.unity

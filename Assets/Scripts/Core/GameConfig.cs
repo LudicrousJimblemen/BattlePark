@@ -1,5 +1,4 @@
 ﻿using System;
-using BattlePark.Core;
 
 namespace BattlePark.Core {
 	public static class GameConfig {

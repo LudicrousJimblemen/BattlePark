@@ -63,12 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Assembly-CSharp.csproj">
-      <Project>{62d7b3e8-a80c-4dfc-8fe5-4604e57eda92}</Project>
-      <Name>Battle-Park</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BattlePark.Core\BattlePark.Core.csproj">
-      <Project>{732dac1d-a274-4580-b6df-6b2cdee3d556}</Project>
-      <Name>BattlePark.Core</Name>
+      <Project>{fd3bf9ec-be71-cab8-e859-35897c3a8bff}</Project>
+      <Name>BattlePark</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

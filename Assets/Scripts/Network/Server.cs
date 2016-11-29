@@ -6,6 +6,7 @@ using System.Reflection;
 using UnityEngine;
 using Lidgren.Network;
 using Newtonsoft.Json;
+using BattlePark.Core;
 
 public class Server {
 	private NetServer server = new NetServer(new NetPeerConfiguration("Battle Park"));

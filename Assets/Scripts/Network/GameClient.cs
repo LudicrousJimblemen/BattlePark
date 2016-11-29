@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Lidgren.Network;
 using BattlePark.Core;
 
 namespace BattlePark {
@@ -9,7 +8,7 @@ namespace BattlePark {
 		private Client messenger = new Client();
 
 		public List<GameUser> Users = new List<GameUser>();
-
+		
 		private void Start() {
 			DontDestroyOnLoad(gameObject);
 		}
