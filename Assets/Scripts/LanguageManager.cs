@@ -14,6 +14,9 @@ namespace BattlePark {
 					case SystemLanguage.English:
 						Language = "en";
 						break;
+					case SystemLanguage.Japanese:
+						Language = "jp";
+						break;
 					default:
 						Language = "en";
 						break;

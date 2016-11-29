@@ -1,6 +1,6 @@
 {
-	"gameInfo.name": "バトルパーク　いや～ん！エッチ！♥"
-  "gameInfo.language": "日本語",
+	"gameInfo.name": "バトルパーク",
+	"gameInfo.language": "日本語",
 
 	"titleScreen.startClient":"クライエントを始める",
 	"titleScreen.exit":"ゲームを閉じる",
@@ -14,13 +14,13 @@
 	"error.wrongVersion":"あなたのゲームバージョン({1})はサーバーのゲームバージョン({2})と統一しません。",
 	"error.emptyUsername":"ユーザーネームを空欄にしないでください。",
 	"error.duplicateUsername":"このユーザーネーム('{0}')はもう使われています。",
-	"error.roomFull":"このルームは満タンです。"
+	"error.roomFull":"このルームは満タンです。",
 	
 	"lobby.leave":"ゲームを出る",
 	"lobby.ready":"準備完了",
 	"lobby.chat":"チャット...",
 	
 	"chat.chatMessage": "<{0}> {1}",
-	"chat.userJoined": "{0} がログインしました。"
+	"chat.userJoined": "{0} がログインしました。",
 	"chat.userLeft": "{0}　がログアウトしました。"
 }
