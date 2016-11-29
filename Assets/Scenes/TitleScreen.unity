@@ -2524,20 +2524,13 @@ MonoBehaviour:
   FirstPanel: {fileID: 814286846}
   Logo: {fileID: 684834113}
   Buttons:
-  - {fileID: 0}
   - {fileID: 1492032858}
   - {fileID: 1018659484}
   CurrentPanel: {fileID: 814286846}
   MainPanel: {fileID: 814286846}
-  ServerPanel: {fileID: 0}
   ClientPanel: {fileID: 62039789}
-  StartServerButton: {fileID: 0}
   StartClientButton: {fileID: 1306470931}
   ExitButton: {fileID: 188673149}
-  ServerBackButton: {fileID: 0}
-  ServerPortInputField: {fileID: 0}
-  ServerUsernameInputField: {fileID: 0}
-  ServerHostButton: {fileID: 0}
   ClientBackButton: {fileID: 1470644105}
   ClientIpInputField: {fileID: 808263165}
   ClientPortInputField: {fileID: 502701689}
