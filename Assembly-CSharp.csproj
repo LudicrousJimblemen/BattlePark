@@ -67,10 +67,8 @@
      <Compile Include="Assets\Scripts\LobbyBackground.cs" />
      <Compile Include="Assets\Scripts\LobbyGUI.cs" />
      <Compile Include="Assets\Scripts\Network\Client.cs" />
-     <Compile Include="Assets\Scripts\Network\GameClient.cs" />
      <Compile Include="Assets\Scripts\Network\NetMessageListener.cs" />
      <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
-     <Compile Include="Assets\Scripts\Network\Server.cs" />
      <Compile Include="Assets\Scripts\PersonRagdoll.cs" />
      <Compile Include="Assets\Scripts\TextLocalizer.cs" />
      <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />

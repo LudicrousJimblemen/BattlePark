@@ -6,11 +6,10 @@ using System.Reflection;
 using UnityEngine;
 using Lidgren.Network;
 using Newtonsoft.Json;
-
 using BattlePark.Core;
 
 namespace BattlePark {
-	public class Client {
+	public class Client : MonoBehaviour {
 		private NetClient client = new NetClient(new NetPeerConfiguration(GameConfig.Name));
 
 		private JsonSerializerSettings serializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
@@ -42,7 +41,28 @@ namespace BattlePark {
 			client.SendMessage(netMessage, NetDeliveryMethod.ReliableOrdered);
 		}
 
-		public void UpdateListeners() {
+		public void Close() {
+			client.Disconnect(String.Empty);
+		}
+
+		public long GetUniqueId() {
+			return client.UniqueIdentifier;
+		}
+
+		public void JoinOnlineGame(string username, GameVersion version, string ip = "127.0.0.1", int port = 6666) {
+			client.Start();
+			
+			var approval = client.CreateMessage();
+			approval.Write(JsonConvert.SerializeObject(new ClientApprovalNetMessage { Username = username, Version = version }, serializerSettings));
+
+			client.Connect(ip, port, approval);
+		}
+		
+		private void Start() {
+			DontDestroyOnLoad(gameObject);
+		}
+
+		private void Update() {
 			NetIncomingMessage msg;
 			while ((msg = client.ReadMessage()) != null) {
 				switch (msg.MessageType) {
@@ -87,23 +107,6 @@ namespace BattlePark {
 						break;
 				}
 			}
-		}
-
-		public void Close() {
-			client.Disconnect(String.Empty);
-		}
-
-		public long GetUniqueId() {
-			return client.UniqueIdentifier;
-		}
-
-		public void JoinOnlineGame(string username, GameVersion version, string ip = "127.0.0.1", int port = 6666) {
-			client.Start();
-			
-			var approval = client.CreateMessage();
-			approval.Write(JsonConvert.SerializeObject(new ClientApprovalNetMessage { Username = username, Version = version }, serializerSettings));
-
-			client.Connect(ip, port, approval);
 		}
 
 		private void ReceiveMessage<T>(T message) where T : NetMessage {

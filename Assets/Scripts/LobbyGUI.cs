@@ -19,7 +19,7 @@ namespace BattlePark {
 
 		public InputField ChatInputField;
 
-		private GameClient client;
+		private Client client;
 	
 		private bool inAnimation;
 
@@ -42,7 +42,7 @@ namespace BattlePark {
 			LeaveButton.onClick.AddListener(() => StartCoroutine(LoadTitleScreen()));
 			//ReadyButton.onClick.AddListener(BecomeReady);
 
-			client = FindObjectOfType<GameClient>();
+			client = FindObjectOfType<Client>();
 
 			StartCoroutine(FadeGraphic(Fade, 0, 60f, Color.black, Color.clear));
 		}
