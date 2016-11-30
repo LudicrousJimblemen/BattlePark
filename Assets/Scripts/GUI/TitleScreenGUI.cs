@@ -28,31 +28,10 @@ namespace BattlePark.Menu {
 		public InputField ClientPortInputField;
 		public InputField ClientUsernameInputField;
 		public Button ClientJoinButton;
-
-		private Client client;
-	
-		private int timer;
 	
 		private bool inAnimation;
 	
-		private void Awake() {
-			ClientUsernameInputField.text = GenerateUsername();
-			ClientIpInputField.text = GetLocalIP();
-		
-			StartClientButton.onClick.AddListener(() => {
-				StartCoroutine(AnimatePanel(ClientPanel, 1));
-				ClientUsernameInputField.text = GenerateUsername();
-			});
-			ExitButton.onClick.AddListener(Application.Quit);
-			
-			ClientBackButton.onClick.AddListener(() => StartCoroutine(AnimatePanel(MainPanel, -1)));
-			ClientJoinButton.onClick.AddListener(StartClient);
-
-			client = FindObjectOfType<Client>();
-			
-			client.CreateListener<ServerApprovalNetMessage>(OnServerApproval);
-			client.CreateListener<ServerDenialNetMessage>(OnServerDenial);
-		
+		public void Awake() {
 			StartCoroutine(FadeGraphic(Fade, 0, 60f, Color.white, new Color(1f, 1f, 1f, 0)));
 			StartCoroutine(FadeGraphic(MainPanel, 70f, 40f, Color.clear, new Color(0f, 0f, 0f, 0.125f)));
 			StartCoroutine(FadeGraphic(Logo, 100f, 40f, new Color(1f, 1f, 1f, 0), Color.white));
@@ -63,43 +42,22 @@ namespace BattlePark.Menu {
 	
 		private void Update() {
 			Fade.raycastTarget = inAnimation;
-		
-			timer++;
-		}
-
-		private void StartClient() {
-			client.JoinOnlineGame(
-				ClientUsernameInputField.text,
-				ClientIpInputField.text,
-				Int32.Parse(ClientPortInputField.text)
-			);
-			
-			StartCoroutine(FadeGraphic(Fade, 0, 30f, Color.clear, new Color(0, 0, 0, 0.4f), true));
 		}
 	
-		private IEnumerator LoadLobby() {
-			inAnimation = true;
-			for (float i = 0; i < 60; i++) {
-				Fade.color = Color.Lerp(new Color(0, 0, 0, 0.4f), Color.black, Mathf.SmoothStep(0f, 1f, i / 40f));
-				yield return null;
-			}
-			
-			client.RemoveListener<ServerApprovalNetMessage>(OnServerApproval);
-			client.RemoveListener<ServerDenialNetMessage>(OnServerDenial);
-			
-			UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby");
-		}
-	
-		private IEnumerator FadeGraphic(Graphic graphic, float delay, float duration, Color fromColor, Color toColor, bool disableRaycast = false) {
+		public IEnumerator FadeGraphic(Graphic graphic, float delay, float duration, Color fromColor, Color toColor, bool disableRaycast = false, Action callback = null) {
 			for (int i = 0; i < duration + delay; i++) {
 				inAnimation = true;
 				graphic.color = Color.Lerp(fromColor, toColor, Mathf.SmoothStep(0f, 1f, (i - delay) / duration));
 				yield return null;
 			}
 			inAnimation = disableRaycast;
+			
+			if (callback != null) {
+				callback();
+			}
 		}
 	
-		private IEnumerator AnimatePanel(Image panel, int fromDirection) {
+		public IEnumerator AnimatePanel(Image panel, int fromDirection) {
 			inAnimation = true;
 			panel.gameObject.SetActive(true);
 			foreach (var thing in CurrentPanel.transform.GetComponentsInChildren<Selectable>()) {
@@ -129,7 +87,7 @@ namespace BattlePark.Menu {
 			inAnimation = false;
 		}
 	
-		private string GenerateUsername() {
+		public void GenerateUsername() {
 			string consonants = "bbbbbbbbbbbbbbbbbbbbbbbcdffgghjklmnppppppppppppppppppppppqrsssstvwxzzzz";
 			string vowels = "aaeeiiiiiooooooooooouuuuuuuuuuuuuy";
 			int type = Mathf.RoundToInt(UnityEngine.Random.Range(0, 1));
@@ -154,32 +112,23 @@ namespace BattlePark.Menu {
 				}
 			}
 		
-			return returnedName;
+			ClientUsernameInputField.text = returnedName;
 		}
 	
 		
-		private string GetLocalIP() {
+		public void FindIP() {
 			try {
 				IPHostEntry host;
 				host = Dns.GetHostEntry(Dns.GetHostName());
 				foreach (IPAddress ip in host.AddressList) {
 					if (ip.AddressFamily == AddressFamily.InterNetwork) {
-						return ip.ToString();
+						ClientIpInputField.text = ip.ToString();
 					}
 				}
-				return "127.0.0.1";
+				ClientIpInputField.text = "127.0.0.1";
 			} catch {
-				return "127.0.0.1";
+				ClientIpInputField.text = "127.0.0.1";
 			}
-		}
-		
-		private void OnServerApproval(ServerApprovalNetMessage message) {
-			StartCoroutine(LoadLobby());
-		}
-		
-		private void OnServerDenial(ServerDenialNetMessage message) {
-			Debug.LogWarning(String.Format(LanguageManager.GetString(message.Reason), message.Username, message.ClientVersion, message.ServerVersion));
-			StartCoroutine(FadeGraphic(Fade, 0, 30f, new Color(0, 0, 0, 0.4f), Color.clear));
 		}
 	}
 }

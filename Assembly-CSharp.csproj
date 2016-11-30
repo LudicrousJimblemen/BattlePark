@@ -51,7 +51,8 @@
      <Compile Include="Assets\Scripts\Core\NetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ClientApprovalNetMessge.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ClientChatNetMessage.cs" />
-     <Compile Include="Assets\Scripts\Core\NetMessages\ClientReadyNetMessage.cs" />
+     <Compile Include="Assets\Scripts\Core\NetMessages\ClientGameReadyNetMessage.cs" />
+     <Compile Include="Assets\Scripts\Core\NetMessages\ClientLobbyReadyNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ClientRequestPlayersNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerApprovalNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerChatNetMessage.cs" />
@@ -78,7 +79,9 @@
      <Compile Include="Assets\Scripts\Game\MenuBackground\LobbyRagdoll.cs" />
      <Compile Include="Assets\Scripts\Game\MenuBackground\TitleScreenBackground.cs" />
      <Compile Include="Assets\Scripts\Network\Client.cs" />
+     <Compile Include="Assets\Scripts\Network\LobbyNetworker.cs" />
      <Compile Include="Assets\Scripts\Network\NetMessageListener.cs" />
+     <Compile Include="Assets\Scripts\Network\TitleScreenNetworker.cs" />
      <None Include="Assets\Fonts\OFL.txt" />
      <None Include="Assets\Resources\Language\jp.txt" />
      <None Include="Assets\Resources\Language\en.txt" />

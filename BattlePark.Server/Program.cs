@@ -142,8 +142,8 @@ namespace BattlePark.Server {
 								break;
 							}
 							
-							if (netMessage is ClientReadyNetMessage) {
-								ClientReadyCallback((ClientReadyNetMessage)netMessage, msg.SenderConnection);
+							if (netMessage is ClientLobbyReadyNetMessage) {
+								ClientLobbyReadyCallback((ClientLobbyReadyNetMessage)netMessage, msg.SenderConnection);
 								
 								break;
 							}
@@ -205,8 +205,8 @@ namespace BattlePark.Server {
 			Log(String.Format("User '{0}' chats: {1}", GetUser(sender.RemoteUniqueIdentifier).Username, message.Message));
 		}
 		
-		public static void ClientReadyCallback(ClientReadyNetMessage message, NetConnection sender) {
-			GetUser(sender.RemoteUniqueIdentifier).Ready = true;
+		public static void ClientLobbyReadyCallback(ClientLobbyReadyNetMessage message, NetConnection sender) {
+			GetUser(sender.RemoteUniqueIdentifier).LobbyReady = true;
 			
 			SendToAll(new ServerUserUpdateNetMessage {
 				Users = users
@@ -215,8 +215,9 @@ namespace BattlePark.Server {
 			Log(String.Format("User '{0}' is ready.", GetUser(sender.RemoteUniqueIdentifier).Username));
 			
 			if (users.Count > 1) {
-				if (!users.Any(x => x.Ready)) {
+				if (!users.Any(x => !x.LobbyReady)) {
 					SendToAll(new ServerStartGameNetMessage());
+					Log(String.Format("All users are ready, sent StartGame message."));
 				}
 			}
 		}
