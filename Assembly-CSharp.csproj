@@ -45,9 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CameraMovement.cs" />
-     <Compile Include="Assets\Scripts\CameraPan.cs" />
-     <Compile Include="Assets\Scripts\ChatInput.cs" />
      <Compile Include="Assets\Scripts\Core\GameConfig.cs" />
      <Compile Include="Assets\Scripts\Core\GameUser.cs" />
      <Compile Include="Assets\Scripts\Core\GameVersion.cs" />
@@ -62,15 +59,17 @@
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerStartGameNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerUserJoinNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerUserUpdateNetMessage.cs" />
-     <Compile Include="Assets\Scripts\Direction.cs" />
-     <Compile Include="Assets\Scripts\Grid.cs" />
-     <Compile Include="Assets\Scripts\GridObject.cs" />
-     <Compile Include="Assets\Scripts\GridObjects.cs" />
-     <Compile Include="Assets\Scripts\GridObjects\Path.cs" />
-     <Compile Include="Assets\Scripts\GridObjects\Sculpture.cs" />
-     <Compile Include="Assets\Scripts\GridOverlay.cs" />
-     <Compile Include="Assets\Scripts\GridPlaceholder.cs" />
-     <Compile Include="Assets\Scripts\GridRegion.cs" />
+     <Compile Include="Assets\Scripts\Game\CameraPan.cs" />
+     <Compile Include="Assets\Scripts\Game\Direction.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid.cs" />
+     <Compile Include="Assets\Scripts\Game\GridObject.cs" />
+     <Compile Include="Assets\Scripts\Game\GridObjects.cs" />
+     <Compile Include="Assets\Scripts\Game\GridObjects\Path.cs" />
+     <Compile Include="Assets\Scripts\Game\GridObjects\Sculpture.cs" />
+     <Compile Include="Assets\Scripts\Game\GridOverlay.cs" />
+     <Compile Include="Assets\Scripts\Game\GridPlaceholder.cs" />
+     <Compile Include="Assets\Scripts\Game\GridRegion.cs" />
+     <Compile Include="Assets\Scripts\Game\VerticalConstraint.cs" />
      <Compile Include="Assets\Scripts\LanguageManager.cs" />
      <Compile Include="Assets\Scripts\Menu\LobbyBackground.cs" />
      <Compile Include="Assets\Scripts\Menu\LobbyGUI.cs" />
@@ -80,7 +79,6 @@
      <Compile Include="Assets\Scripts\Network\Client.cs" />
      <Compile Include="Assets\Scripts\Network\NetMessageListener.cs" />
      <Compile Include="Assets\Scripts\TextLocalizer.cs" />
-     <Compile Include="Assets\Scripts\VerticalConstraint.cs" />
      <None Include="Assets\Fonts\OFL.txt" />
      <None Include="Assets\Resources\Language\jp.txt" />
      <None Include="Assets\Resources\Language\en.txt" />
