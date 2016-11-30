@@ -8,7 +8,7 @@
 	"titleScreen.port":"ポート",
 	"titleScreen.ip":"IP",
 	"titleScreen.username":"ユーザーネーム",
-	"titleScreen.clientJoin":"ゲームに入る",
+	"titleScreen.clientJoin":"ゲームに参加する",
 	
 	"error.notFound":"このIPではサーバーが見つかりません。",
 	"error.wrongVersion":"あなたのゲームバージョン({1})はサーバーのゲームバージョン({2})と統一しません。",
@@ -16,7 +16,7 @@
 	"error.duplicateUsername":"このユーザーネーム('{0}')はもう使われています。",
 	"error.roomFull":"このルームは満タンです。",
 	
-	"lobby.leave":"ゲームを出る",
+	"lobby.leave":"ゲームを退出する",
 	"lobby.ready":"準備完了",
 	"lobby.chat":"チャット...",
 	

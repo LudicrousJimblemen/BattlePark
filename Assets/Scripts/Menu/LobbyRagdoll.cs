@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace BattlePark {
-	public class PersonRagdoll : MonoBehaviour {
+namespace BattlePark.Menu {
+	public class LobbyRagdoll : MonoBehaviour {
 		public Rigidbody Waist;
 		[Range(60, 360)]
 		public int DestroyTime = 240;

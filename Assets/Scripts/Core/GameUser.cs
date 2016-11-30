@@ -6,17 +6,15 @@ using Newtonsoft.Json;
 namespace BattlePark.Core {
 	public class GameUser {
 		public long Id { get; private set; }
-		public int Number { get; private set; }
 		public string Username { get; private set; }
 
 		[JsonIgnore]
 		public NetConnection Connection { get; private set; }
 
-		public bool ReadyToStart { get; set; }
+		public bool Ready { get; set; }
 
-		public GameUser(long id, int number, string username, NetConnection connection) {
+		public GameUser(long id, string username, NetConnection connection) {
 			Id = id;
-			Number = number;
 			Username = username;
 			Connection = connection;
 		}

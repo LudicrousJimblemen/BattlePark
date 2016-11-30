@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace BattlePark {
+namespace BattlePark.Menu {
 	public class TitleScreenBackground : MonoBehaviour {
 		[Range(0f, 20f)]
 		public float CameraRotationSpeed = 0.25f;

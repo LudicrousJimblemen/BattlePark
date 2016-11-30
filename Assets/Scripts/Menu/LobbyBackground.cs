@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace BattlePark {
+namespace BattlePark.Menu {
 	public class LobbyBackground : MonoBehaviour {
 		public GameObject Ragdoll;
 		[Range(15, 180)]

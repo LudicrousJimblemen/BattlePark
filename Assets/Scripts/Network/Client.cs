@@ -33,10 +33,8 @@ namespace BattlePark {
 
 		public void SendMessage<T>(T message) {
 			NetOutgoingMessage netMessage = client.CreateMessage();
-			netMessage.WriteTime(false);
-
-			string data = JsonConvert.SerializeObject(message, serializerSettings);
-			netMessage.Write(data);
+			
+			netMessage.Write(JsonConvert.SerializeObject(message, serializerSettings));
 
 			client.SendMessage(netMessage, NetDeliveryMethod.ReliableOrdered);
 		}
@@ -49,11 +47,11 @@ namespace BattlePark {
 			return client.UniqueIdentifier;
 		}
 
-		public void JoinOnlineGame(string username, GameVersion version, string ip = "127.0.0.1", int port = 6666) {
+		public void JoinOnlineGame(string username, string ip = "127.0.0.1", int port = 6666) {
 			client.Start();
 			
 			var approval = client.CreateMessage();
-			approval.Write(JsonConvert.SerializeObject(new ClientApprovalNetMessage { Username = username, Version = version }, serializerSettings));
+			approval.Write(JsonConvert.SerializeObject(new ClientApprovalNetMessage { Username = username, Version = GameConfig.Version }, serializerSettings));
 
 			client.Connect(ip, port, approval);
 		}
@@ -81,24 +79,43 @@ namespace BattlePark {
 
 					case NetIncomingMessageType.StatusChanged:
 						NetConnectionStatus status = (NetConnectionStatus)msg.ReadByte();
-						string statusMsg = msg.ReadString();
-
+						
 						switch (status) {
+							case NetConnectionStatus.Connected:
+								NetMessage connectionMessage;
+								try {
+									connectionMessage = JsonConvert.DeserializeObject<NetMessage>(msg.ReadString(), serializerSettings);
+								} catch (Exception) {
+									connectionMessage = new ServerApprovalNetMessage();
+								}
+								
+								ReceiveMessage<ServerApprovalNetMessage>((ServerApprovalNetMessage)connectionMessage);
+								break;
+								
+							case NetConnectionStatus.Disconnected:
+								NetMessage disconnectionMessage;
+								try {
+									disconnectionMessage = JsonConvert.DeserializeObject<NetMessage>(msg.ReadString(), serializerSettings);
+								} catch (Exception) {
+									disconnectionMessage = new ServerDenialNetMessage { Reason = "error.notFound" };
+								}
+								
+								ReceiveMessage<ServerDenialNetMessage>((ServerDenialNetMessage)disconnectionMessage);
+								break;
+								
 							default:
-								Debug.Log("Status change received: " + status + " - Message: " + statusMsg);
+								Debug.Log("Status change received: " + status + " - Message: " + msg.ReadString());
 								break;
 						}
 						break;
 
 					case NetIncomingMessageType.Data:
-						double timestamp = msg.ReadTime(false);
 						NetMessage message = JsonConvert.DeserializeObject<NetMessage>(msg.ReadString(), serializerSettings);
 
 						MethodInfo methodToCall = typeof(Client).GetMethod("ReceiveMessage", BindingFlags.NonPublic | BindingFlags.Instance);
 						MethodInfo genericVersion = methodToCall.MakeGenericMethod(message.GetType());
 						genericVersion.Invoke(this, new object[] {
-							message,
-							timestamp
+							message
 						});
 						break;
 

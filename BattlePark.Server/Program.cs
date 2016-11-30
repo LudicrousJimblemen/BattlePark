@@ -15,6 +15,8 @@ namespace BattlePark.Server {
 	}
 	
 	class Program {
+		#region Server
+		
 		private static ServerConfig serverConfig = new ServerConfig {
 			Version = new GameVersion(0, 2, 0),
 			Port = 6666,
@@ -28,14 +30,14 @@ namespace BattlePark.Server {
 
 		private static void Main(string[] args) {
 			UpdateTitle();
+
+			serializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 			
 			NetPeerConfiguration config = new NetPeerConfiguration(GameConfig.Name);
 			config.Port = serverConfig.Port;
 			config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-
-			serializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 			
-			server = new NetServer(new NetPeerConfiguration(GameConfig.Name));
+			server = new NetServer(config);
 			server.Start();
 
 			Log(String.Format("Server started on port {0}.", serverConfig.Port));
@@ -69,7 +71,7 @@ namespace BattlePark.Server {
 							
 							if (castedMsg.Version != serverConfig.Version) {
 								denialReason = "error.wrongVersion";
-								Log(String.Format("User '{0}' ({1}) denied because of wrong version.", castedMsg.Username, ip));
+								Log(String.Format("User '{0}' ({1}) denied because of wrong version. ({2})", castedMsg.Username, ip, castedMsg.Version));
 							} else if (String.IsNullOrEmpty(castedMsg.Username)) {
 								denialReason = "error.emptyUsername";
 								Log(String.Format("User '{0}' ({1}) denied because of empty username.", castedMsg.Username, ip));
@@ -89,36 +91,66 @@ namespace BattlePark.Server {
 									ServerVersion = serverConfig.Version,
 								}, serializerSettings));
 							} else {
+								var response = server.CreateMessage();
+								response.Write(JsonConvert.SerializeObject(new ServerApprovalNetMessage(), serializerSettings));
+								
 								msg.SenderConnection.Approve();
-							
+								msg.SenderConnection.SendMessage(response, NetDeliveryMethod.ReliableOrdered, 0);
+								
 								GameUser newUser = new GameUser(
 									msg.SenderConnection.RemoteUniqueIdentifier,
-									users.Count,
 									castedMsg.Username,
 									msg.SenderConnection
 								);
 							
 								users.Add(newUser);
-							
-								Log(String.Format("User '{0}' ({1}) approved.", castedMsg.Username, ip));								
+								
+								SendToAll(new ServerUserJoinNetMessage { NewUser = newUser });
+								SendToAll(new ServerUserUpdateNetMessage { Users = users });
+								
+								Log(String.Format("User '{0}' ({1}) approved.", castedMsg.Username, ip));
+								UpdateTitle();
 							}
 
 							break;
 
+						case NetIncomingMessageType.StatusChanged:
+							Log(String.Format("Status changed: {0}", (NetConnectionStatus)msg.ReadByte()));
+							break;
+							
 						case NetIncomingMessageType.Data:
 							//double timestamp = msg.ReadTime(false);
 							NetMessage netMessage = JsonConvert.DeserializeObject<NetMessage>(msg.ReadString(), serializerSettings);
 	
-							/*
-							if (netMessage is ATypeOfMessage) {
-								var castedMsg = (ATypeOfMessage) netMessage;
-	
-								SendToAll(castedMsg);
-								return;
+							#region Casting
+							
+							if (netMessage is ClientApprovalNetMessage) { //should never happen
+								//ClientApprovalCallback(netMessage, msg.SenderConnection);
+								
+								break;
 							}
-							*/
+							
+							if (netMessage is ClientRequestPlayersNetMessage) {
+								ClientRequestPlayersCallback((ClientRequestPlayersNetMessage)netMessage, msg.SenderConnection);
+								
+								break;
+							}
+							
+							if (netMessage is ClientChatNetMessage) {
+								ClientChatCallback((ClientChatNetMessage)netMessage, msg.SenderConnection);
+								
+								break;
+							}
+							
+							if (netMessage is ClientReadyNetMessage) {
+								ClientReadyCallback((ClientReadyNetMessage)netMessage, msg.SenderConnection);
+								
+								break;
+							}
+							
+							#endregion
 
-							Log(String.Format("Unhandled netMessage data type: {0}", msg.ReadString()), MessageType.Warning);
+							Log(String.Format("Unhandled netMessage data type: {0}", ((object)netMessage).GetType().Name), MessageType.Warning);
 							break;
 						
 						default:
@@ -129,16 +161,16 @@ namespace BattlePark.Server {
 			}
 		}
 
-		private static void SendToAll(NetMessage matchMsg) {
+		public static void SendToAll(NetMessage matchMsg) {
 			string matchMsgSerialized = JsonConvert.SerializeObject(matchMsg, serializerSettings);
 
 			NetOutgoingMessage netMsg = server.CreateMessage();
-			netMsg.WriteTime(false);
 			netMsg.Write(matchMsgSerialized);
+			
 			server.SendToAll(netMsg, NetDeliveryMethod.ReliableOrdered);
 		}
 		
-		private static void UpdateTitle() {
+		public static void UpdateTitle() {
 			Console.Title = String.Format(
 				"Battle Park {0}, {1}/{2} users",
 				serverConfig.Version,
@@ -146,13 +178,60 @@ namespace BattlePark.Server {
 				serverConfig.MaxUsers
 			);
 		}
+		
+		public static GameUser GetUser(long id) {
+			return users.First(x => x.Id == id);
+		}
+		
+		#endregion
+		
+		#region Callbacks
+		
+		public static void ClientRequestPlayersCallback(ClientRequestPlayersNetMessage message, NetConnection sender) {
+			var outgoing = server.CreateMessage();
+			outgoing.Write(JsonConvert.SerializeObject(new ServerUserUpdateNetMessage { Users = users }, serializerSettings));
+			
+			sender.SendMessage(outgoing, NetDeliveryMethod.ReliableOrdered, 0);
+			
+			Log(String.Format("User '{0}' requests player list.", GetUser(sender.RemoteUniqueIdentifier).Username));
+		}
+		
+		public static void ClientChatCallback(ClientChatNetMessage message, NetConnection sender) {
+			SendToAll(new ServerChatNetMessage {
+				Sender = GetUser(sender.RemoteUniqueIdentifier),
+				Message = message.Message
+			});
+			
+			Log(String.Format("User '{0}' chats: {1}", GetUser(sender.RemoteUniqueIdentifier).Username, message.Message));
+		}
+		
+		public static void ClientReadyCallback(ClientReadyNetMessage message, NetConnection sender) {
+			GetUser(sender.RemoteUniqueIdentifier).Ready = true;
+			
+			SendToAll(new ServerUserUpdateNetMessage {
+				Users = users
+			});
+			
+			Log(String.Format("User '{0}' is ready.", GetUser(sender.RemoteUniqueIdentifier).Username));
+			
+			if (users.Count > 1) {
+				if (!users.Any(x => x.Ready)) {
+					SendToAll(new ServerStartGameNetMessage());
+				}
+			}
+		}
 
+		#endregion
+		
+		#region Logging
+		
 		public enum MessageType {
 			Info,
 			Warning,
 			Error,
 			Test
 		}
+		
 		private static object consoleLock = new object();
 		public static void Log(object message, MessageType type = MessageType.Info) {
 			lock (consoleLock) {
@@ -181,5 +260,7 @@ namespace BattlePark.Server {
 				}
 			}
 		}
+		
+		#endregion
 	}
 }

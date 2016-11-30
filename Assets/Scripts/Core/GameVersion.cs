@@ -2,9 +2,9 @@
 
 namespace BattlePark.Core {
 	public struct GameVersion {
-		public readonly int Major;
-		public readonly int Minor;
-		public readonly int Patch;
+		public int Major;
+		public int Minor;
+		public int Patch;
 		
 		public GameVersion(int major, int minor, int patch) {
 			this.Major = major;
