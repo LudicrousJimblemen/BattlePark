@@ -10,7 +10,7 @@ using BattlePark.Core;
 
 namespace BattlePark {
 	public class Client : MonoBehaviour {
-		private NetClient client = new NetClient(new NetPeerConfiguration(GameConfig.Name));
+		private NetClient client = new NetClient(new NetPeerConfiguration(AppConfig.Name));
 
 		private JsonSerializerSettings serializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 
@@ -51,7 +51,7 @@ namespace BattlePark {
 			client.Start();
 			
 			var approval = client.CreateMessage();
-			approval.Write(JsonConvert.SerializeObject(new ClientApprovalNetMessage { Username = username, Version = GameConfig.Version }, serializerSettings));
+			approval.Write(JsonConvert.SerializeObject(new ClientApprovalNetMessage { Username = username, Version = AppConfig.Version }, serializerSettings));
 
 			client.Connect(ip, port, approval);
 		}

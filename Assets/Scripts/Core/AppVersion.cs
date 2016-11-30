@@ -1,12 +1,12 @@
 ﻿using System;
 
 namespace BattlePark.Core {
-	public struct GameVersion {
+	public struct AppVersion {
 		public int Major;
 		public int Minor;
 		public int Patch;
 		
-		public GameVersion(int major, int minor, int patch) {
+		public AppVersion(int major, int minor, int patch) {
 			this.Major = major;
 			this.Minor = minor;
 			this.Patch = patch;
@@ -17,14 +17,14 @@ namespace BattlePark.Core {
 				return false;
 			}
 			
-			if (obj is GameVersion) {
-				return Equals((GameVersion)obj); // use Equals method below
+			if (obj is AppVersion) {
+				return Equals((AppVersion)obj); // use Equals method below
 			}
 			
 			return false;
 		}
 		
-		public bool Equals(GameVersion other) {
+		public bool Equals(AppVersion other) {
 			// add comparisions for all members here
 			return
 				this.Major == other.Major &&
@@ -40,15 +40,15 @@ namespace BattlePark.Core {
 			this.Patch.GetHashCode();
 		}
 		
-		public static bool operator ==(GameVersion left, GameVersion right) {
+		public static bool operator ==(AppVersion left, AppVersion right) {
 			return left.Equals(right);
 		}
 		
-		public static bool operator !=(GameVersion left, GameVersion right) {
+		public static bool operator !=(AppVersion left, AppVersion right) {
 			return !left.Equals(right);
 		}
 		
-		public static bool operator <(GameVersion left, GameVersion right) {
+		public static bool operator <(AppVersion left, AppVersion right) {
 			if (left.Equals(right)) {
 				return false;
 			}
@@ -73,15 +73,15 @@ namespace BattlePark.Core {
 			return false;
 		}
 		
-		public static bool operator >(GameVersion left, GameVersion right) {
+		public static bool operator >(AppVersion left, AppVersion right) {
 			return !(left.Equals(right) || left < right);
 		}
 		
-		public static bool operator <=(GameVersion left, GameVersion right) {
+		public static bool operator <=(AppVersion left, AppVersion right) {
 			return left.Equals(right) || left < right;
 		}
 		
-		public static bool operator >=(GameVersion left, GameVersion right) {
+		public static bool operator >=(AppVersion left, AppVersion right) {
 			return left.Equals(right) || left > right;
 		}
 		

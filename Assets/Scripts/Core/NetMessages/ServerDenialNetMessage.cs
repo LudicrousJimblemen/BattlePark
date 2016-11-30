@@ -6,7 +6,7 @@ namespace BattlePark.Core {
 		
 		public string Username { get; set; }
 		
-		public GameVersion ClientVersion { get; set; }
-		public GameVersion ServerVersion { get; set; }
+		public AppVersion ClientVersion { get; set; }
+		public AppVersion ServerVersion { get; set; }
 	}
 }

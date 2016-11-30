@@ -10,7 +10,7 @@ namespace BattlePark {
 			public int X;
 			public int Y;
 			public int Z;
-			public int Owner;
+			public long Owner;
 		}
 	
 		public Direction Direction;
@@ -21,7 +21,7 @@ namespace BattlePark {
 		public Vector3[] OccupiedOffsets = { Vector3.zero };
 		#endregion
 	
-		public int Owner;
+		public long Owner;
 	
 		public Grid Grid;
 	

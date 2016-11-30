@@ -8,9 +8,9 @@ namespace BattlePark {
 		public int Width;
 		public int Length;
 	
-		public int Owner;
+		public long Owner;
 	
-		public GridRegion(int x, int z, int width, int length, int owner) {
+		public GridRegion(int x, int z, int width, int length, long owner) {
 			this.X = x;
 			this.Z = z;
 			this.Width = width;
@@ -18,23 +18,18 @@ namespace BattlePark {
 			this.Owner = owner;
 		}
 	
-		public void SetOwner(int playerId) {
+		public void SetOwner(long playerId) {
 			Owner = playerId;
 		}
 	
-		public bool Valid(int id) {
+		public bool Valid(long id) {
 			switch (Owner) {
 				case -1:
 					return false;
 				case 0: 
 					return true;
 				default:
-					Debug.Log(id + " " + Owner);
-					if (id == Owner) {
-						return true;
-					} else {
-						return false;
-					}
+					return id == Owner;
 			}
 		}
 	

@@ -7,7 +7,7 @@ using BattlePark.Core;
 
 namespace BattlePark.Server {
 	struct ServerConfig {
-		public GameVersion Version;
+		public AppVersion Version;
 		
 		public int Port;
 		
@@ -18,7 +18,7 @@ namespace BattlePark.Server {
 		#region Server
 		
 		private static ServerConfig serverConfig = new ServerConfig {
-			Version = new GameVersion(0, 2, 0),
+			Version = new AppVersion(0, 2, 0),
 			Port = 6666,
 			MaxUsers = 2
 		};
@@ -33,7 +33,7 @@ namespace BattlePark.Server {
 
 			serializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 			
-			NetPeerConfiguration config = new NetPeerConfiguration(GameConfig.Name);
+			NetPeerConfiguration config = new NetPeerConfiguration(AppConfig.Name);
 			config.Port = serverConfig.Port;
 			config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
 			
@@ -126,25 +126,26 @@ namespace BattlePark.Server {
 							
 							if (netMessage is ClientApprovalNetMessage) { //should never happen
 								//ClientApprovalCallback(netMessage, msg.SenderConnection);
-								
 								break;
 							}
 							
 							if (netMessage is ClientRequestPlayersNetMessage) {
 								ClientRequestPlayersCallback((ClientRequestPlayersNetMessage)netMessage, msg.SenderConnection);
-								
 								break;
 							}
 							
 							if (netMessage is ClientChatNetMessage) {
 								ClientChatCallback((ClientChatNetMessage)netMessage, msg.SenderConnection);
-								
 								break;
 							}
 							
 							if (netMessage is ClientLobbyReadyNetMessage) {
 								ClientLobbyReadyCallback((ClientLobbyReadyNetMessage)netMessage, msg.SenderConnection);
-								
+								break;
+							}
+							
+							if (netMessage is ClientGameReadyNetMessage) {
+								ClientGameReadyCallback((ClientGameReadyNetMessage)netMessage, msg.SenderConnection);
 								break;
 							}
 							
@@ -215,10 +216,24 @@ namespace BattlePark.Server {
 			Log(String.Format("User '{0}' is ready.", GetUser(sender.RemoteUniqueIdentifier).Username));
 			
 			if (users.Count > 1) {
-				if (!users.Any(x => !x.LobbyReady)) {
-					SendToAll(new ServerStartGameNetMessage());
-					Log(String.Format("All users are ready, sent StartGame message."));
+				if (users.All(x => x.LobbyReady)) {
+					SendToAll(new ServerInitializeGameNetMessage());
+					Log(String.Format("All users are ready, sent lobby start message."));
 				}
+			}
+		}
+		
+		public static void ClientGameReadyCallback(ClientGameReadyNetMessage message, NetConnection sender) {
+			GetUser(sender.RemoteUniqueIdentifier).GameReady = true;
+			
+			Log(String.Format("Player '{0}' is loaded into game.", GetUser(sender.RemoteUniqueIdentifier).Username));
+			
+			if (users.All(x => x.GameReady)) {
+				SendToAll(new ServerStartGameNetMessage {
+					Ids = users.Select(x => x.Id).ToList(),
+					GridSize = 16
+				});
+				Log(String.Format("All player are loaded into game, sent game start message."));
 			}
 		}
 

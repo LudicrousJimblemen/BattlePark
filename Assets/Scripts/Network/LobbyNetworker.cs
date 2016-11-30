@@ -24,7 +24,7 @@ namespace BattlePark.Menu {
 			client.CreateListener<ServerUserUpdateNetMessage>(OnServerUserUpdate);
 			client.CreateListener<ServerUserJoinNetMessage>(OnServerUserJoin);
 			client.CreateListener<ServerChatNetMessage>(OnServerChat);
-			client.CreateListener<ServerStartGameNetMessage>(OnServerStartGame);
+			client.CreateListener<ServerInitializeGameNetMessage>(OnServerInitializeGame);
 			
 			client.SendMessage<ClientRequestPlayersNetMessage>(new ClientRequestPlayersNetMessage());
 		}
@@ -62,7 +62,12 @@ namespace BattlePark.Menu {
 			GUI.ChatTextPanel.text += "\n" + String.Format(LanguageManager.GetString("chat.chatMessage"), message.Sender.Username, message.Message);
 		}
 		
-		private void OnServerStartGame(ServerStartGameNetMessage message) {
+		private void OnServerInitializeGame(ServerInitializeGameNetMessage message) {
+			client.RemoveListener<ServerUserUpdateNetMessage>(OnServerUserUpdate);
+			client.RemoveListener<ServerUserJoinNetMessage>(OnServerUserJoin);
+			client.RemoveListener<ServerChatNetMessage>(OnServerChat);
+			client.RemoveListener<ServerInitializeGameNetMessage>(OnServerInitializeGame);
+			
 			StartCoroutine(GUI.FadeGraphic(GUI.Fade, 0, 60f, Color.clear, Color.black, false, () => {
 				UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
 			}));

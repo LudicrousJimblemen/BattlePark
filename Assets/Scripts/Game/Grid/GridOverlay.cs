@@ -6,8 +6,8 @@ namespace BattlePark {
 	public class GridOverlay : MonoBehaviour {
 		public bool ShowGrid = true;
 	
-		public int GridSizeX = 63;
-		public int GridSizeZ = 63;
+		public int GridSizeX = 2;
+		public int GridSizeZ = 2;
  
 		public float MainStep = 1;
  
