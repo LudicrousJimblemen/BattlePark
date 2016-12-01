@@ -93,7 +93,7 @@ PlayerSettings:
     5:4: 0
     16:10: 0
     16:9: 1
-    Others: 0
+    Others: 1
   bundleIdentifier: com.Company.ProductName
   bundleVersion: 1.0
   preloadedAssets: []

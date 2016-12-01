@@ -51,7 +51,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\Library\ScriptAssemblies\UnityEngine.dll</HintPath>
+      <HintPath>D:\Essentials\Unity\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

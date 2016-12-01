@@ -94,11 +94,11 @@
  <Reference Include="UnityEngine.Networking">
  <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/s-asengupta/Documents/GitHub/BattlePark/Assets/Libraries/Newtonsoft.Json.dll</HintPath>
- </Reference>
  <Reference Include="Lidgren.Network">
- <HintPath>C:/Users/s-asengupta/Documents/GitHub/BattlePark/Assets/Libraries/Lidgren/Lidgren.Network.dll</HintPath>
+ <HintPath>C:/Users/s-asengupta/Documents/GitHub/BattlePark/Assets/Assemblies/Lidgren/Lidgren.Network.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>C:/Users/s-asengupta/Documents/GitHub/BattlePark/Assets/Assemblies/Newtonsoft.Json.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
