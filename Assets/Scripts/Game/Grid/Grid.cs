@@ -19,18 +19,19 @@ namespace BattlePark {
 		public float GridStepY = 0.5f;
 
 		private void OnDrawGizmos() {
+			/*
 			foreach (var region in Regions) {
 				if (region.Owner == -1) {
 					Gizmos.color = Color.grey;
 				} else if (region.Owner == 0) {
 					Gizmos.color = Color.white;
-				} else if (region.Owner == 1) {
-					Gizmos.color = Color.blue;
-				} else if (region.Owner == 2) {
-					Gizmos.color = Color.red;
+				} else {
+					UnityEngine.Random.InitState(region.Owner.GetHashCode());
+					Gizmos.color = UnityEngine.Random.ColorHSV(0, 1f, 1f, 1f, 1f, 1f, 1f, 1f);
 				}
 				Gizmos.DrawCube(region.GetCenter(this), new Vector3(region.Width, 0.1f, region.Length));
 			}
+			*/
 		}
 
 		public void GenerateMesh(int xSize, int zSize, float checkerboardWidth = 4) {
