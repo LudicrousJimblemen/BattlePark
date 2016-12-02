@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\GUI\Localization\TextLocalizer.cs" />
      <Compile Include="Assets\Scripts\GUI\TitleScreenGUI.cs" />
      <Compile Include="Assets\Scripts\Game\Controls\CameraPan.cs" />
+     <Compile Include="Assets\Scripts\Game\Controls\GridSummoner.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\Direction.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\Grid.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObject.cs" />
@@ -76,7 +77,6 @@
      <Compile Include="Assets\Scripts\Game\Grid\GridOverlay.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridPlaceholder.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridRegion.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\VerticalConstraint.cs" />
      <Compile Include="Assets\Scripts\Game\MenuBackground\LobbyBackground.cs" />
      <Compile Include="Assets\Scripts\Game\MenuBackground\LobbyRagdoll.cs" />
      <Compile Include="Assets\Scripts\Game\MenuBackground\TitleScreenBackground.cs" />

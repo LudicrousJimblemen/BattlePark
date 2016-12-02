@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 namespace BattlePark {
-	public class GridObject : MonoBehaviour {
+	public abstract class GridObject : MonoBehaviour {
 		#region Data Variables
 		public class GridObjectData {
 			public Direction Direction;

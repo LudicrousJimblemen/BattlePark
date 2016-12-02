@@ -82,7 +82,7 @@ namespace BattlePark {
 			};
 		}
 	
-		public bool ValidRegion(Vector3 position, int id) {
+		public bool ValidRegion(Vector3 position, long id) {
 			return Regions.Any(x => x.Inside(ToGridSpace(position)) && x.Valid(id));
 		}
 	}

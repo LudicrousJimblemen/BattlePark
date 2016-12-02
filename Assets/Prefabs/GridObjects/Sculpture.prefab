@@ -22,6 +22,7 @@ GameObject:
   - 33: {fileID: 33000011663513094}
   - 23: {fileID: 23000012849749742}
   - 114: {fileID: 114000012787346320}
+  - 114: {fileID: 114000011939994478}
   m_Layer: 0
   m_Name: Sculpture
   m_TagString: Untagged
@@ -78,13 +79,25 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010169673046}
   m_Mesh: {fileID: 4300000, guid: 381aff69e152de24a851f5be2999acb4, type: 3}
---- !u!114 &114000012787346320
+--- !u!114 &114000011939994478
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010169673046}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f92b9f739caa0e41984fb66579ddacf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GridObject: {fileID: 114000012787346320}
+--- !u!114 &114000012787346320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010169673046}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da2d39dbba7c0874886afd9183087bac, type: 3}
   m_Name: 
@@ -93,3 +106,9 @@ MonoBehaviour:
   X: 0
   Y: 0
   Z: 0
+  OccupiedOffsets:
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 2, z: 0}
+  Owner: 0
+  Grid: {fileID: 0}
+  rotatedOffsets: []
