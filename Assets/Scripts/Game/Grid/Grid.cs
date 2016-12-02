@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
+using BattlePark.Core;
 
 namespace BattlePark {
 	public class Grid : MonoBehaviour {
@@ -17,21 +18,13 @@ namespace BattlePark {
 	
 		public float GridStepXZ = 1f;
 		public float GridStepY = 0.5f;
-
-		private void OnDrawGizmos() {
-			/*
-			foreach (var region in Regions) {
-				if (region.Owner == -1) {
-					Gizmos.color = Color.grey;
-				} else if (region.Owner == 0) {
-					Gizmos.color = Color.white;
-				} else {
-					UnityEngine.Random.InitState(region.Owner.GetHashCode());
-					Gizmos.color = UnityEngine.Random.ColorHSV(0, 1f, 1f, 1f, 1f, 1f, 1f, 1f);
-				}
-				Gizmos.DrawCube(region.GetCenter(this), new Vector3(region.Width, 0.1f, region.Length));
-			}
-			*/
+		
+		private Client client;
+		
+		private void Awake() {
+			client = FindObjectOfType<Client>();
+			
+			client.CreateListener<ServerStartGameNetMessage>(OnServerStartGame);
 		}
 
 		public void GenerateMesh(int xSize, int zSize, float checkerboardWidth = 4) {
@@ -67,13 +60,6 @@ namespace BattlePark {
 			GetComponent<MeshCollider>().sharedMesh = meshFilter.mesh;
 		}
 	
-		public string Serialize() {
-			return JsonConvert.SerializeObject(Objects);
-		}
-		public void Deserialize(string message) {
-			Objects = JsonConvert.DeserializeObject<GridObjects>(message);
-		}
-	
 		public Vector3 ToGridSpace(Vector3 position) {
 			return new Vector3 {
 				x = Mathf.RoundToInt((position.x - 0.5f) / GridStepXZ),
@@ -84,6 +70,33 @@ namespace BattlePark {
 	
 		public bool ValidRegion(Vector3 position, long id) {
 			return Regions.Any(x => x.Inside(ToGridSpace(position)) && x.Valid(id));
+		}
+		
+		private void OnServerStartGame(ServerStartGameNetMessage message) {
+			GenerateMesh(message.GridSize * 2, message.GridSize);
+			Regions.Add(new GridRegion(0, 0, message.GridSize, message.GridSize, message.Ids[0]));
+			Regions.Add(new GridRegion(0 + message.GridSize, 0, message.GridSize, message.GridSize, message.Ids[1]));
+			
+			GridOverlay gridOverlay = FindObjectOfType<GridOverlay>();
+			GridRegion ownRegion = Regions.FirstOrDefault(x => x.Owner == client.GetUniqueId());
+			gridOverlay.GridSizeX = ownRegion.Width;
+			gridOverlay.GridSizeZ = ownRegion.Length;
+			gridOverlay.StartX = ownRegion.X;
+			gridOverlay.StartZ = ownRegion.Z;
+		}
+
+		private void OnDrawGizmos() {
+			foreach (var region in Regions) {
+				if (region.Owner == -1) {
+					Gizmos.color = Color.grey;
+				} else if (region.Owner == 0) {
+					Gizmos.color = Color.white;
+				} else {
+					UnityEngine.Random.InitState(region.Owner.GetHashCode());
+					Gizmos.color = UnityEngine.Random.ColorHSV(0, 1f, 1f, 1f, 1f, 1f, 1f, 1f);
+				}
+				Gizmos.DrawCube(region.GetCenter(this), new Vector3(region.Width, 0.1f, region.Length));
+			}
 		}
 	}
 }

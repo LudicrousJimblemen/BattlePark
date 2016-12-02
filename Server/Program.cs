@@ -149,6 +149,11 @@ namespace BattlePark.Server {
 								break;
 							}
 							
+							if (netMessage is ClientGridObjectPlacedNetMessage) {
+								ClientGridObjectPlacedCallback((ClientGridObjectPlacedNetMessage)netMessage, msg.SenderConnection);
+								break;
+							}
+							
 							#endregion
 
 							Log(String.Format("Unhandled netMessage data type: {0}", ((object)netMessage).GetType().Name), MessageType.Warning);
@@ -215,7 +220,7 @@ namespace BattlePark.Server {
 			
 			Log(String.Format("User '{0}' is ready.", GetUser(sender.RemoteUniqueIdentifier).Username));
 			
-			if (users.Count > 1) {
+			if (users.Count == serverConfig.MaxUsers) {
 				if (users.All(x => x.LobbyReady)) {
 					SendToAll(new ServerInitializeGameNetMessage());
 					Log(String.Format("All users are ready, sent lobby start message."));
@@ -235,6 +240,24 @@ namespace BattlePark.Server {
 				});
 				Log(String.Format("All player are loaded into game, sent game start message."));
 			}
+		}
+		
+		
+		public static void ClientGridObjectPlacedCallback(ClientGridObjectPlacedNetMessage message, NetConnection sender) {
+			SendToAll(new ServerGridObjectPlacedNetMessage {
+				Sender = GetUser(sender.RemoteUniqueIdentifier),
+				GridObject = message.GridObject,
+				Type = message.Type
+			});
+			
+			Log(String.Format(
+				"User '{0}' placed a GridObject {1} at {2}, {3}, {4}.",
+				GetUser(sender.RemoteUniqueIdentifier).Username,
+				message.Type,
+				message.GridObject.X,
+				message.GridObject.Y,
+				message.GridObject.Z
+			));
 		}
 
 		#endregion

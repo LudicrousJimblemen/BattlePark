@@ -3,26 +3,26 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 namespace BattlePark {
+	public class PathData : GridObjectData {
+		//
+	}
+	
 	public class Path : GridObject {
 		#region Data Variables
-		public class PathData : GridObjectData {
-			//
-		}
-	
 		#endregion
 	
 		#region Serialization
-		public override string Serialize() {
-			return JsonConvert.SerializeObject(new PathData {
+		public override GridObjectData Serialize() {
+			return new PathData {
 				Direction = Direction,
 				X = X,
 				Y = Y,
 				Z = Z
-			});
+			};
 		}
 	
-		public override void Deserialize(string message) {
-			PathData deserialized = JsonConvert.DeserializeObject<PathData>(message);
+		public override void Deserialize(GridObjectData message) {
+			PathData deserialized = (PathData)message;
 		
 			Direction = deserialized.Direction;
 			X = deserialized.X;
@@ -30,14 +30,6 @@ namespace BattlePark {
 			Z = deserialized.Z;
 		}
 		#endregion
-	
-		public override void Start() {
-			base.Start();
-		
-			OccupiedOffsets = new [] { 
-				new Vector3(0, 1, 0)
-			};
-		}
 	
 		public override void OnPlaced() {
 			foreach (var gridObject in Grid.Objects.AdjacentObjects(GridPosition(), true)) {

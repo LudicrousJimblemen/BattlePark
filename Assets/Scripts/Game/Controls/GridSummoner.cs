@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
+using BattlePark.Core;
 
 namespace BattlePark {
 	public class GridSummoner : MonoBehaviour {
@@ -17,9 +18,13 @@ namespace BattlePark {
 		
 		private GridPlaceholder currentPlaceholder;
 		
-		private void Update() {
+		private void Awake() {
 			client = FindObjectOfType<Client>();
 			
+			client.CreateListener<ServerGridObjectPlacedNetMessage>(OnServerGridObjectPlaced);
+		}
+		
+		private void Update() {
 			for (int i = 0; i < Hotbar.Count; i++) {
 				if (Input.GetKeyDown(KeyCode.Alpha1 + i)) {
 					if (currentPlaceholder != null) {
@@ -27,6 +32,7 @@ namespace BattlePark {
 					}
 					
 					currentPlaceholder = SummonPlaceholder(Hotbar[i]).GetComponent<GridPlaceholder>();
+					currentPlaceholder.name = Hotbar[i];
 				}
 			}
 			
@@ -57,14 +63,27 @@ namespace BattlePark {
 					currentPlaceholder.Rotate(1);
 				}
 				
-				if (Input.GetMouseButton(0)) {
-					currentPlaceholder.PlaceObject();
+				if (Input.GetMouseButtonDown(0)) {
+					if (currentPlaceholder.PlaceObject()) {
+						currentPlaceholder = null;
+					}
 				}
 			}
 		}
 		
-		private GameObject SummonPlaceholder(string gridObjectName) {
+		private GameObject SummonPlaceholder(string gridObjectName) {	
 			return (GameObject)Instantiate(GridObjects.First(x => x.name == gridObjectName));
+		}
+		
+		private void OnServerGridObjectPlaced(ServerGridObjectPlacedNetMessage message) {
+			GridObject newObject = Instantiate(GridObjects.First(x => x.name == message.Type)).GetComponent<GridObject>();
+			Destroy(newObject.GetComponent<GridPlaceholder>());
+			newObject.Grid = FindObjectOfType<Grid>();
+			newObject.Owner = message.Sender.Id;
+			newObject.Deserialize(message.GridObject);
+			newObject.UpdatePosition();
+			newObject.OnPlaced();
+			FindObjectOfType<Grid>().Objects.Add(newObject.GridPosition(), newObject);
 		}
 	}
 }

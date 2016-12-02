@@ -52,11 +52,13 @@
      <Compile Include="Assets\Scripts\Core\NetMessages\ClientApprovalNetMessge.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ClientChatNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ClientGameReadyNetMessage.cs" />
+     <Compile Include="Assets\Scripts\Core\NetMessages\ClientGridObjectPlacedNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ClientLobbyReadyNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ClientRequestPlayersNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerApprovalNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerChatNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerDenialNetMessage.cs" />
+     <Compile Include="Assets\Scripts\Core\NetMessages\ServerGridObjectPlacedNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerInitializeGameNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerStartGameNetMessage.cs" />
      <Compile Include="Assets\Scripts\Core\NetMessages\ServerUserJoinNetMessage.cs" />

@@ -3,59 +3,49 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 namespace BattlePark {
-	public abstract class GridObject : MonoBehaviour {
-		#region Data Variables
-		public class GridObjectData {
-			public Direction Direction;
-			public int X;
-			public int Y;
-			public int Z;
-			public long Owner;
-		}
-	
+	public class GridObjectData {
 		public Direction Direction;
 		public int X;
 		public int Y;
 		public int Z;
+	}
 	
+	public abstract class GridObject : MonoBehaviour {
+		#region Data Variables
+		public Direction Direction;
+		public int X;
+		public int Y;
+		public int Z;
+		
 		public Vector3[] OccupiedOffsets = { Vector3.zero };
 		#endregion
 	
 		public long Owner;
-	
+		
 		public Grid Grid;
 	
 		#region Serialization
-		public virtual string Serialize() {
-			return JsonConvert.SerializeObject(new GridObjectData {
+		public virtual GridObjectData Serialize() {
+			return new GridObjectData {
 				Direction = Direction,
 				X = X,
 				Y = Y,
 				Z = Z
-			});
+			};
 		}
 	
-		public virtual void Deserialize(string message) {
-			GridObjectData deserialized = JsonConvert.DeserializeObject<GridObjectData>(message);
+		public virtual void Deserialize(GridObjectData message) {
+			GridObjectData deserialized = (GridObjectData)message;
 		
 			Direction = deserialized.Direction;
 			X = deserialized.X;
 			Y = deserialized.Y;
 			Z = deserialized.Z;
-			Owner = deserialized.Owner;
 		}
 		#endregion
 	
-		public virtual void Start() {
-			Grid = FindObjectOfType<Grid>();
-		}
-		public virtual void Update() {
-		}
-	
-		public virtual void OnPlaced() {
-		}
-		public virtual void OnDemolished() {
-		}
+		public virtual void OnPlaced() { }
+		public virtual void OnDemolished() { }
 	
 		public void UpdatePosition() {
 			transform.position = new Vector3 {

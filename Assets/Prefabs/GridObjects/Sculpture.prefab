@@ -90,7 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f92b9f739caa0e41984fb66579ddacf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridObject: {fileID: 114000012787346320}
 --- !u!114 &114000012787346320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,7 +107,6 @@ MonoBehaviour:
   Z: 0
   OccupiedOffsets:
   - {x: 0, y: 1, z: 0}
-  - {x: 0, y: 2, z: 0}
   Owner: 0
   Grid: {fileID: 0}
-  rotatedOffsets: []
+  UpsideDown: 0

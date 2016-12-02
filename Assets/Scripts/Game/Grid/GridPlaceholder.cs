@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using BattlePark.Core;
 
 namespace BattlePark {
 	public class GridPlaceholder : MonoBehaviour {
@@ -54,24 +55,28 @@ namespace BattlePark {
 			gameObject.SetActive(hasHit);
 		}
 	
-		public void PlaceObject() {
+		public bool PlaceObject() {
 			Vector3 snappedPos = new Vector3 {
 				x = Mathf.Round((transform.position.x - 0.5f) / grid.GridStepXZ),
 				y = Mathf.Clamp(Mathf.RoundToInt(transform.position.y / grid.GridStepY), 0, float.PositiveInfinity),
 				z = Mathf.Round((transform.position.z - 0.5f) / grid.GridStepXZ)
 			};
-		
+			
 			if (grid.Objects.WillIntersect(snappedPos, gridObject.RotatedOffsets()) || !grid.ValidRegion(transform.position, client.GetUniqueId())) {
-				return;
+				return false;
 			}
 		
 			gridObject.X = (int)snappedPos.x;
 			gridObject.Y = (int)snappedPos.y;
 			gridObject.Z = (int)snappedPos.z;
 		
-			//GRID PLACEHOLDER MESSAGE!!!!!!!!!!!!
+			client.SendMessage<ClientGridObjectPlacedNetMessage>(new ClientGridObjectPlacedNetMessage {
+				GridObject = gridObject.Serialize(),
+				Type = gridObject.name
+			});
 		
 			Destroy(gameObject);
+			return true;
 		}
 	}
 }

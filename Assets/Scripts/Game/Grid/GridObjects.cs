@@ -69,7 +69,7 @@ namespace BattlePark {
 		}
 	
 		/// <summary>
-		/// Tests if a position and its occupation offsets will
+		/// Tests if a position and its occupation offsets will intersect with an existing objct
 		/// </summary>
 		/// <param name="location">The starting position to test</param>
 		/// <param name="offsets">The occupation offsets to test.</param>
