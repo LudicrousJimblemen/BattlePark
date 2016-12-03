@@ -105,6 +105,7 @@ MonoBehaviour:
   X: 0
   Y: 0
   Z: 0
+  PlaceMultiple: 1
   OccupiedOffsets: []
   Owner: 0
   Grid: {fileID: 0}

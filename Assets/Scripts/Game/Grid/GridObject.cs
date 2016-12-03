@@ -17,6 +17,7 @@ namespace BattlePark {
 		public int Y;
 		public int Z;
 		
+		public bool PlaceMultiple;
 		public Vector3[] OccupiedOffsets = { Vector3.zero };
 		#endregion
 	

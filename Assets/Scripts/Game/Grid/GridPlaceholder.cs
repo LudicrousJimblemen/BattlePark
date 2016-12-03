@@ -74,7 +74,11 @@ namespace BattlePark {
 				GridObject = gridObject.Serialize(),
 				Type = gridObject.name
 			});
-		
+			
+			if (gridObject.PlaceMultiple) {
+				return false;
+			}
+			
 			Destroy(gameObject);
 			return true;
 		}

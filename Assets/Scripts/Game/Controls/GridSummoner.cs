@@ -55,6 +55,7 @@ namespace BattlePark {
 				
 				if (Input.GetKeyDown(KeyCode.Escape)) {
 					Destroy(currentPlaceholder.gameObject);
+					currentPlaceholder = null;
 				}
 				
 				if (Input.GetKeyDown(KeyCode.Z)) {
