@@ -30,7 +30,8 @@ namespace BattlePark {
 			Z = deserialized.Z;
 		}
 		#endregion
-	
+		
+		/*
 		public override void OnPlaced() {
 			foreach (var gridObject in Grid.Objects.AdjacentObjects(GridPosition(), true)) {
 				if (gridObject.GetComponent<Path>() != null) {
@@ -43,5 +44,6 @@ namespace BattlePark {
 		public void UpdatePath() {
 			//TODO generate mesh
 		}
+		*/
 	}
 }
