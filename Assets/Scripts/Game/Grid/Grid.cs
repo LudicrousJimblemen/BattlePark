@@ -13,8 +13,8 @@ namespace BattlePark {
 		public GridObjects Objects = new GridObjects();
 		public List<GridRegion> Regions = new List<GridRegion>();
 	
-		public int GridSizeX = 4;
-		public int GridSizeZ = 2;
+		public int GridSizeX = 16;
+		public int GridSizeZ = 16;
 	
 		public float GridStepXZ = 1f;
 		public float GridStepY = 0.5f;

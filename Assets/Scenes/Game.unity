@@ -174,10 +174,10 @@ MonoBehaviour:
   VerticalConstrainRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  GridSizeX: 132
-  GridSizeZ: 63
-  GridStepXZ: 3
-  GridStepY: 1.5
+  GridSizeX: 16
+  GridSizeZ: 16
+  GridStepXZ: 1
+  GridStepY: 0.5
 --- !u!23 &194769802
 MeshRenderer:
   m_ObjectHideFlags: 0

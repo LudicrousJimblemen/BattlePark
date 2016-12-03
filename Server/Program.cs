@@ -18,7 +18,7 @@ namespace BattlePark.Server {
 		#region Server
 		
 		private static ServerConfig serverConfig = new ServerConfig {
-			Version = new AppVersion(0, 3, 0),
+			Version = new AppVersion(0, 2, 1),
 			Port = 6666,
 			UserCount = 2
 		};
@@ -36,8 +36,8 @@ namespace BattlePark.Server {
 					} else {
 						if (serverConfig.Port < 0 || serverConfig.Port > 25565) {
 							Log(String.Format("Specified port '{0}' is out of bounds (0-65535).", args[i + 1]));
-						}
 							serverConfig.Port = 6666;
+						}
 					}
 				} else if (args[i].ToLower() == "-usercount" && args[i + 1] != null) {
 					if (!Int32.TryParse(args[i + 1], out serverConfig.UserCount)) {
@@ -45,8 +45,8 @@ namespace BattlePark.Server {
 					} else {
 						if (serverConfig.UserCount != 1 && serverConfig.UserCount != 2 && serverConfig.UserCount != 4) {
 							Log("User count must be 1, 2, or 4.");
-						}
 							serverConfig.UserCount = 1;
+						}
 					}
 				}
 			}
