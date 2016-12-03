@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 using BattlePark.Core;
 
 namespace BattlePark.Server {
-	struct ServerConfig {
+	class ServerConfig {
 		public AppVersion Version;
 		
 		public int Port;
 		
-		public int MaxUsers;
+		public int UserCount;
 	}
 	
 	class Program {
@@ -20,7 +20,7 @@ namespace BattlePark.Server {
 		private static ServerConfig serverConfig = new ServerConfig {
 			Version = new AppVersion(0, 2, 0),
 			Port = 6666,
-			MaxUsers = 2
+			UserCount = 2
 		};
 		
 		private static NetServer server;
@@ -29,6 +29,28 @@ namespace BattlePark.Server {
 		private static List<GameUser> users = new List<GameUser>();
 
 		private static void Main(string[] args) {
+			for (int i = 0; i < args.Length; i++) {
+				if (args[i].ToLower() == "-port" && args[i + 1] != null) {
+					if (!Int32.TryParse(args[i + 1], out serverConfig.Port)) {
+						Log(String.Format("Specified port '{0}' is invalid.", args[i + 1]));
+					} else {
+						if (serverConfig.Port < 0 || serverConfig.Port > 25565) {
+							Log(String.Format("Specified port '{0}' is out of bounds (0-65535).", args[i + 1]));
+						}
+						serverConfig.Port = 6666;
+					}
+				} else if (args[i].ToLower() == "-usercount" && args[i + 1] != null) {
+					if (!Int32.TryParse(args[i + 1], out serverConfig.UserCount)) {
+						Log(String.Format("Specified user count '{0}' is invalid.", args[i + 1]));
+					} else {
+						if (serverConfig.UserCount != 1 && serverConfig.UserCount != 2 && serverConfig.UserCount != 4) {
+							Log("User count must be 1, 2, or 4.");
+						}
+						serverConfig.UserCount = 1;
+					}
+				}
+			}
+			
 			UpdateTitle();
 
 			serializerSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
@@ -50,15 +72,15 @@ namespace BattlePark.Server {
 					switch (msg.MessageType) {
 						case NetIncomingMessageType.DebugMessage:
 						case NetIncomingMessageType.VerboseDebugMessage:
-							Log(msg.ReadString(), MessageType.Test);
+							//Log(msg.ReadString(), MessageType.Test);
 							break;
 
 						case NetIncomingMessageType.WarningMessage:
-							Log(msg.ReadString(), MessageType.Warning);
+							//Log(msg.ReadString(), MessageType.Warning);
 							break;
 
 						case NetIncomingMessageType.ErrorMessage:
-							Log(msg.ReadString(), MessageType.Error);
+							//Log(msg.ReadString(), MessageType.Error);
 							break;
 
 						case NetIncomingMessageType.ConnectionApproval:
@@ -78,7 +100,7 @@ namespace BattlePark.Server {
 							} else if (users.Select(x => x.Username).Contains(castedMsg.Username)) {
 								denialReason = "error.duplicateUsername";
 								Log(String.Format("User '{0}' ({1}) denied because of duplicate username.", castedMsg.Username, ip));
-							} else if (users.Count >= serverConfig.MaxUsers) {
+							} else if (users.Count >= serverConfig.UserCount) {
 								denialReason = "error.roomFull";
 								Log(String.Format("User '{0}' ({1}) denied because of a full room.", castedMsg.Username, ip));
 							}
@@ -181,7 +203,7 @@ namespace BattlePark.Server {
 				"Battle Park {0}, {1}/{2} users",
 				serverConfig.Version,
 				users.Count,
-				serverConfig.MaxUsers
+				serverConfig.UserCount
 			);
 		}
 		
@@ -220,7 +242,7 @@ namespace BattlePark.Server {
 			
 			Log(String.Format("User '{0}' is ready.", GetUser(sender.RemoteUniqueIdentifier).Username));
 			
-			if (users.Count == serverConfig.MaxUsers) {
+			if (users.Count == serverConfig.UserCount) {
 				if (users.All(x => x.LobbyReady)) {
 					SendToAll(new ServerInitializeGameNetMessage());
 					Log(String.Format("All users are ready, sent lobby start message."));
