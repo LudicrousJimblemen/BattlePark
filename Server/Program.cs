@@ -18,7 +18,7 @@ namespace BattlePark.Server {
 		#region Server
 		
 		private static ServerConfig serverConfig = new ServerConfig {
-			Version = new AppVersion(0, 2, 0),
+			Version = new AppVersion(0, 3, 0),
 			Port = 6666,
 			UserCount = 2
 		};
