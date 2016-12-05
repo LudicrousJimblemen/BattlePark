@@ -75,9 +75,9 @@ namespace BattlePark {
 				case Direction.East:
 					for (int i = 0; i < OccupiedOffsets.Length; i++) {
 						ReturnList[i] = new Vector3 {
-							x = OccupiedOffsets[i].z,
+							x = -OccupiedOffsets[i].z,
 							y = OccupiedOffsets[i].y,
-							z = -OccupiedOffsets[i].x,
+							z = OccupiedOffsets[i].x,
 						};
 					}
 					return ReturnList;
@@ -93,9 +93,9 @@ namespace BattlePark {
 				case Direction.West:
 					for (int i = 0; i < OccupiedOffsets.Length; i++) {
 						ReturnList[i] = new Vector3 {
-							x = -OccupiedOffsets[i].z,
+							x = OccupiedOffsets[i].z,
 							y = OccupiedOffsets[i].y,
-							z = OccupiedOffsets[i].x,
+							z = -OccupiedOffsets[i].x,
 						};
 					}
 					break;
