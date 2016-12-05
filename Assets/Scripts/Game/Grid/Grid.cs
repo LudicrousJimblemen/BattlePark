@@ -76,19 +76,19 @@ namespace BattlePark {
 			switch (message.Ids.Count) {
 				case 1:
 					GenerateMesh(message.GridSize, message.GridSize);
-					Regions.Add(new GridRegion(0, 0, message.GridSize, message.GridSize, message.Ids[0]));
+					Regions.Add(new GridRegion(1, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[0]));
 					break;
 				case 2:
 					GenerateMesh(message.GridSize * 2, message.GridSize);
-					Regions.Add(new GridRegion(0, 0, message.GridSize, message.GridSize, message.Ids[0]));
-					Regions.Add(new GridRegion(0 + message.GridSize, 0, message.GridSize, message.GridSize, message.Ids[1]));
+					Regions.Add(new GridRegion(1, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[0]));
+					Regions.Add(new GridRegion(1 + message.GridSize, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[1]));
 					break;
 				case 4:
 					GenerateMesh(message.GridSize * 2, message.GridSize * 2);
-					Regions.Add(new GridRegion(0, 0, message.GridSize, message.GridSize, message.Ids[0]));
-					Regions.Add(new GridRegion(0 + message.GridSize, 0, message.GridSize, message.GridSize, message.Ids[1]));
-					Regions.Add(new GridRegion(0, 0 + message.GridSize, message.GridSize, message.GridSize, message.Ids[2]));
-					Regions.Add(new GridRegion(0 + message.GridSize, 0 + message.GridSize, message.GridSize, message.GridSize, message.Ids[3]));
+					Regions.Add(new GridRegion(1, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[0]));
+					Regions.Add(new GridRegion(1 + message.GridSize, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[1]));
+					Regions.Add(new GridRegion(1, 1 + message.GridSize, message.GridSize - 1, message.GridSize - 1, message.Ids[2]));
+					Regions.Add(new GridRegion(1 + message.GridSize, 1 + message.GridSize - 1, message.GridSize - 1, message.GridSize, message.Ids[3]));
 					break;
 			}
 			
