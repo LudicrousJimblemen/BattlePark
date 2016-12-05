@@ -178,6 +178,8 @@ MonoBehaviour:
   GridSizeZ: 16
   GridStepXZ: 1
   GridStepY: 0.5
+  FencePrefab: {fileID: 1000010169673046, guid: 5f38330ed82754c4eb67b3aa9986dbd0,
+    type: 2}
 --- !u!23 &194769802
 MeshRenderer:
   m_ObjectHideFlags: 0

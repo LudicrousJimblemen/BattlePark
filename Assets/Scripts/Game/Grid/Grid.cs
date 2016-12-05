@@ -19,6 +19,8 @@ namespace BattlePark {
 		public float GridStepXZ = 1f;
 		public float GridStepY = 0.5f;
 		
+		public GameObject FencePrefab;
+		
 		private Client client;
 		
 		private void Awake() {
@@ -76,20 +78,63 @@ namespace BattlePark {
 			switch (message.Ids.Count) {
 				case 1:
 					GenerateMesh(message.GridSize, message.GridSize);
-					Regions.Add(new GridRegion(1, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[0]));
+					Regions.Add(new GridRegion(1, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[0]));
 					break;
 				case 2:
 					GenerateMesh(message.GridSize * 2, message.GridSize);
-					Regions.Add(new GridRegion(1, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[0]));
-					Regions.Add(new GridRegion(1 + message.GridSize, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[1]));
+					Regions.Add(new GridRegion(1, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[0]));
+					Regions.Add(new GridRegion(1 + message.GridSize, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[1]));
 					break;
 				case 4:
 					GenerateMesh(message.GridSize * 2, message.GridSize * 2);
-					Regions.Add(new GridRegion(1, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[0]));
-					Regions.Add(new GridRegion(1 + message.GridSize, 1, message.GridSize - 1, message.GridSize - 1, message.Ids[1]));
-					Regions.Add(new GridRegion(1, 1 + message.GridSize, message.GridSize - 1, message.GridSize - 1, message.Ids[2]));
-					Regions.Add(new GridRegion(1 + message.GridSize, 1 + message.GridSize - 1, message.GridSize - 1, message.GridSize, message.Ids[3]));
+					Regions.Add(new GridRegion(1, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[0]));
+					Regions.Add(new GridRegion(1 + message.GridSize, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[1]));
+					Regions.Add(new GridRegion(1, 1 + message.GridSize, message.GridSize - 2, message.GridSize - 2, message.Ids[2]));
+					Regions.Add(new GridRegion(1 + message.GridSize, 1 + message.GridSize - 2, message.GridSize - 2, message.GridSize, message.Ids[3]));
 					break;
+			}
+			
+			foreach (var region in Regions) {
+				for (int i = 0; i < region.Width; i++) {
+					Instantiate(
+						FencePrefab,
+						new Vector3(
+							(region.X + i) * GridStepXZ,
+							0,
+							region.Z * GridStepXZ - 1
+						) + new Vector3(0.5f, 0, 0.5f),
+						Quaternion.Euler(-90f, 0, 0)
+					);
+					Instantiate(
+						FencePrefab,
+						new Vector3(
+							(region.X + i) * GridStepXZ,
+							0,
+							region.Z * GridStepXZ + region.Length
+						) + new Vector3(0.5f, 0, 0.5f),
+						Quaternion.Euler(-90f, 180f, 0)
+					);
+				}
+				for (int i = 0; i < region.Length; i++) {
+					Instantiate(
+						FencePrefab,
+						new Vector3(
+							region.X * GridStepXZ - 1,
+							0,
+							(region.Z + i) * GridStepXZ
+						) + new Vector3(0.5f, 0, 0.5f),
+						Quaternion.Euler(-90f, 90f, 0)
+					);
+					Instantiate(
+						FencePrefab,
+						new Vector3(
+							region.X * GridStepXZ + region.Length,
+							0,
+							(region.Z + i) * GridStepXZ
+						) + new Vector3(0.5f, 0, 0.5f),
+						Quaternion.Euler(-90f, -90f, 0)
+					);
+				}
 			}
 			
 			GridOverlay gridOverlay = FindObjectOfType<GridOverlay>();
