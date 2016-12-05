@@ -12,8 +12,8 @@ To play a game, you must join a server and everyone in the server should be read
 - <kbd>S</kbd> - moves the camera backwards
 - <kbd>A</kbd> - moves the camera left
 - <kbd>W</kbd> - moves the camera right
-- <kbd>A</kbd> - moves the camera up
-- <kbd>W</kbd> - moves the camera down
+- <kbd>space</kbd> - moves the camera up
+- <kbd>shift</kbd> - moves the camera down
 - <kbd>Q</kbd> - rotates the camera anti/counter-clockwise
 - <kbd>E</kbd> - rotates the camera clockwise
 
