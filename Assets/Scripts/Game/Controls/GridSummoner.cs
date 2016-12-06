@@ -31,7 +31,7 @@ namespace BattlePark {
 						Destroy(currentPlaceholder.gameObject);
 					}
 					
-					currentPlaceholder = SummonPlaceholder(Hotbar[i]).GetComponent<GridPlaceholder>();
+					currentPlaceholder = SummonGridObjectPlaceholder(Hotbar[i]).GetComponent<GridPlaceholder>();
 					currentPlaceholder.name = Hotbar[i];
 				}
 			}
@@ -72,18 +72,40 @@ namespace BattlePark {
 			}
 		}
 		
-		private GameObject SummonPlaceholder(string gridObjectName) {	
-			return (GameObject)Instantiate(GridObjects.First(x => x.name == gridObjectName));
+		public GameObject SummonGridObjectPlaceholder(string gridObjectName) {
+			return SummonGridObjectPlaceholder(GridObjects.First(x => x.name == gridObjectName));
+		}
+		
+		public GameObject SummonGridObjectPlaceholder(GameObject gridObject) {
+			return (GameObject)Instantiate(gridObject);
+		}
+		
+		public GameObject SummonGridObject(string gridObjectName, long userId) {
+			GameObject newObject = SummonGridObjectPlaceholder(gridObjectName);
+			GridObject newGridObject = newObject.GetComponent<GridObject>();
+			Destroy(newObject.GetComponent<GridPlaceholder>());
+			newGridObject.Grid = FindObjectOfType<Grid>();
+			newGridObject.Owner = userId;
+			return newObject;
+		}
+		
+		public GameObject SummonGridObject(GameObject gridObject, long userId) {
+			GameObject newObject = SummonGridObjectPlaceholder(gridObject);
+			GridObject newGridObject = newObject.GetComponent<GridObject>();
+			Destroy(newObject.GetComponent<GridPlaceholder>());
+			newGridObject.Grid = FindObjectOfType<Grid>();
+			newGridObject.Owner = userId;
+			return newObject;
 		}
 		
 		private void OnServerGridObjectPlaced(ServerGridObjectPlacedNetMessage message) {
-			GridObject newObject = Instantiate(GridObjects.First(x => x.name == message.Type)).GetComponent<GridObject>();
-			Destroy(newObject.GetComponent<GridPlaceholder>());
-			newObject.Grid = FindObjectOfType<Grid>();
-			newObject.Owner = message.Sender.Id;
+			GridObject newObject = SummonGridObject(message.Type, message.Sender.Id).GetComponent<GridObject>();
+			
 			newObject.Deserialize(message.GridObject);
 			newObject.UpdatePosition();
+			
 			newObject.OnPlaced();
+			
 			FindObjectOfType<Grid>().Objects.Add(newObject.GridPosition(), newObject);
 		}
 	}

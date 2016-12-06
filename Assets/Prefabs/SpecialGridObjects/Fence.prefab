@@ -21,10 +21,9 @@ GameObject:
   - 4: {fileID: 4000010211260272}
   - 33: {fileID: 33000011663513094}
   - 23: {fileID: 23000012849749742}
-  - 114: {fileID: 114000012977970886}
-  - 114: {fileID: 114000011939994478}
+  - 114: {fileID: 114000010347111394}
   m_Layer: 0
-  m_Name: Path
+  m_Name: Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,8 +77,8 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010169673046}
-  m_Mesh: {fileID: 4300002, guid: a18231cdaac689040a9d33d977a9d009, type: 3}
---- !u!114 &114000011939994478
+  m_Mesh: {fileID: 4300000, guid: 72c3dc0e471d95849b66e21eaae369b4, type: 3}
+--- !u!114 &114000010347111394
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -87,26 +86,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010169673046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f92b9f739caa0e41984fb66579ddacf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000012977970886
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010169673046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2f742f1123d8be40820db1279dd3e09, type: 3}
+  m_Script: {fileID: 11500000, guid: ac4bb9d90270bbd40bfa64d0dd736948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Direction: 2
   X: 0
   Y: 0
   Z: 0
-  Placeable: 1
-  PlaceMultiple: 1
-  OccupiedOffsets: []
+  PlaceMultiple: 0
+  OccupiedOffsets:
+  - {x: 0, y: 1, z: 0}
   Owner: 0
   Grid: {fileID: 0}

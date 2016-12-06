@@ -21,8 +21,9 @@ GameObject:
   - 4: {fileID: 4000010211260272}
   - 33: {fileID: 33000011663513094}
   - 23: {fileID: 23000012849749742}
+  - 114: {fileID: 114000013089848676}
   m_Layer: 0
-  m_Name: Fence
+  m_Name: Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4e8c129b2eff0234c995bd3bf7571100, type: 2}
+  - {fileID: 2100000, guid: 88b9bc67f54de284083f75e2e90dccab, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -76,4 +77,51 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010169673046}
-  m_Mesh: {fileID: 4300000, guid: 72c3dc0e471d95849b66e21eaae369b4, type: 3}
+  m_Mesh: {fileID: 4300000, guid: fb84ab8c7a42bbe41b00c43c13a14d89, type: 3}
+--- !u!114 &114000013089848676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010169673046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e955728d55c397b40a43271edc47763a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Direction: 2
+  X: 0
+  Y: 0
+  Z: 0
+  Placeable: 0
+  PlaceMultiple: 0
+  OccupiedOffsets:
+  - {x: 1, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: 3, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 2, y: 1, z: 0}
+  - {x: 3, y: 1, z: 0}
+  - {x: 0, y: 2, z: 0}
+  - {x: 1, y: 2, z: 0}
+  - {x: 2, y: 2, z: 0}
+  - {x: 3, y: 2, z: 0}
+  - {x: 0, y: 3, z: 0}
+  - {x: 1, y: 3, z: 0}
+  - {x: 2, y: 3, z: 0}
+  - {x: 3, y: 3, z: 0}
+  - {x: 0, y: 4, z: 0}
+  - {x: 1, y: 4, z: 0}
+  - {x: 2, y: 4, z: 0}
+  - {x: 3, y: 4, z: 0}
+  - {x: 0, y: 5, z: 0}
+  - {x: 1, y: 5, z: 0}
+  - {x: 2, y: 5, z: 0}
+  - {x: 3, y: 5, z: 0}
+  - {x: 1, y: 6, z: 0}
+  - {x: 2, y: 6, z: 0}
+  - {x: 1, y: 7, z: 0}
+  - {x: 2, y: 7, z: 0}
+  Owner: 0
+  Grid: {fileID: 0}

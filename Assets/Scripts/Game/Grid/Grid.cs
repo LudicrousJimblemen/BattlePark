@@ -11,7 +11,7 @@ namespace BattlePark {
 		public LayerMask VerticalConstrainRaycastLayerMask;
 	
 		public GridObjects Objects = new GridObjects();
-		public List<GridRegion> Regions = new List<GridRegion>();
+		public List<Park> Parks = new List<Park>();
 	
 		public int GridSizeX = 16;
 		public int GridSizeZ = 16;
@@ -19,7 +19,10 @@ namespace BattlePark {
 		public float GridStepXZ = 1f;
 		public float GridStepY = 0.5f;
 		
+		public GridSummoner GridSummoner;
+		
 		public GameObject FencePrefab;
+		public GameObject GatePrefab;
 		
 		private Client client;
 		
@@ -71,74 +74,94 @@ namespace BattlePark {
 		}
 	
 		public bool ValidRegion(Vector3 position, long id) {
-			return Regions.Any(x => x.Inside(ToGridSpace(position)) && x.Valid(id));
+			return Parks.First(park => park.Owner == id).Regions.Any(region => region.Inside(ToGridSpace(position)));
 		}
 		
 		private void OnServerStartGame(ServerStartGameNetMessage message) {
 			switch (message.Ids.Count) {
 				case 1:
 					GenerateMesh(message.GridSize, message.GridSize);
-					Regions.Add(new GridRegion(1, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[0]));
+					Parks.Add(new Park(1, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[0]));
 					break;
 				case 2:
 					GenerateMesh(message.GridSize * 2, message.GridSize);
-					Regions.Add(new GridRegion(1, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[0]));
-					Regions.Add(new GridRegion(1 + message.GridSize, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[1]));
+					Parks.Add(new Park(1, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[0]));
+					Parks.Add(new Park(1 + message.GridSize, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[1]));
 					break;
 				case 4:
 					GenerateMesh(message.GridSize * 2, message.GridSize * 2);
-					Regions.Add(new GridRegion(1, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[0]));
-					Regions.Add(new GridRegion(1 + message.GridSize, 1, message.GridSize - 2, message.GridSize - 2, message.Ids[1]));
-					Regions.Add(new GridRegion(1, 1 + message.GridSize, message.GridSize - 2, message.GridSize - 2, message.Ids[2]));
-					Regions.Add(new GridRegion(1 + message.GridSize, 1 + message.GridSize - 2, message.GridSize - 2, message.GridSize, message.Ids[3]));
+					Parks.Add(new Park(
+						1,
+						1,
+						message.GridSize - 2,
+						message.GridSize - 2,
+					message.Ids[0]));
+					Parks.Add(new Park(
+						1 + message.GridSize,
+						1,
+						message.GridSize - 2,
+						message.GridSize - 2,
+					message.Ids[1]));
+					Parks.Add(new Park(
+						1,
+						1 + message.GridSize,
+						message.GridSize - 2,
+						message.GridSize - 2,
+					message.Ids[2]));
+					Parks.Add(new Park(
+						1 + message.GridSize,
+						1 + message.GridSize,
+						message.GridSize - 2,
+						message.GridSize - 2,
+					message.Ids[3]));
 					break;
 			}
 			
-			foreach (var region in Regions) {
+			foreach (var park in Parks) {
+				GridRegion region = park.Regions.First();
+				
 				for (int i = 0; i < region.Width; i++) {
-					Instantiate(
-						FencePrefab,
-						new Vector3(
-							(region.X + i) * GridStepXZ,
-							0,
-							region.Z * GridStepXZ - 1
-						) + new Vector3(0.5f, 0, 0.5f),
-						Quaternion.Euler(-90f, 0, 0)
-					);
-					Instantiate(
-						FencePrefab,
-						new Vector3(
-							(region.X + i) * GridStepXZ,
-							0,
-							region.Z * GridStepXZ + region.Length
-						) + new Vector3(0.5f, 0, 0.5f),
-						Quaternion.Euler(-90f, 180f, 0)
-					);
+					if (i < Mathf.RoundToInt(region.Width / 2f) - 2 || i >= Mathf.RoundToInt(region.Width / 2f) + 2) {
+						Fence southFence = GridSummoner.SummonGridObject(FencePrefab, park.Owner).GetComponent<Fence>();
+						southFence.X = region.X + i;
+						southFence.Y = 0;
+						southFence.Z = region.Z;
+						southFence.Direction = Direction.South;
+						southFence.UpdatePosition();
+					}
+					
+					Fence northFence = GridSummoner.SummonGridObject(FencePrefab, park.Owner).GetComponent<Fence>();
+					northFence.X = region.X + i;
+					northFence.Y = 0;
+					northFence.Z = region.Z + region.Length - 1;
+					northFence.Direction = Direction.North;
+					northFence.UpdatePosition();
 				}
 				for (int i = 0; i < region.Length; i++) {
-					Instantiate(
-						FencePrefab,
-						new Vector3(
-							region.X * GridStepXZ - 1,
-							0,
-							(region.Z + i) * GridStepXZ
-						) + new Vector3(0.5f, 0, 0.5f),
-						Quaternion.Euler(-90f, 90f, 0)
-					);
-					Instantiate(
-						FencePrefab,
-						new Vector3(
-							region.X * GridStepXZ + region.Length,
-							0,
-							(region.Z + i) * GridStepXZ
-						) + new Vector3(0.5f, 0, 0.5f),
-						Quaternion.Euler(-90f, -90f, 0)
-					);
+					Fence westFence = GridSummoner.SummonGridObject(FencePrefab, park.Owner).GetComponent<Fence>();
+					westFence.X = region.X;
+					westFence.Y = 0;
+					westFence.Z = region.Z + i;
+					westFence.Direction = Direction.West;
+					westFence.UpdatePosition();
+					
+					Fence eastFence = GridSummoner.SummonGridObject(FencePrefab, park.Owner).GetComponent<Fence>();
+					eastFence.X = region.X + region.Length - 1;
+					eastFence.Y = 0;
+					eastFence.Z = region.Z + i;
+					eastFence.Direction = Direction.East;
+					eastFence.UpdatePosition();
 				}
+				
+				Gate gate = GridSummoner.SummonGridObject(GatePrefab, park.Owner).GetComponent<Gate>();
+				gate.X = region.X + Mathf.RoundToInt(region.Width / 2f) - 2;
+				gate.Y = 0;
+				gate.Z = region.Z - 1;
+				gate.UpdatePosition();
 			}
 			
 			GridOverlay gridOverlay = FindObjectOfType<GridOverlay>();
-			GridRegion ownRegion = Regions.FirstOrDefault(x => x.Owner == client.GetUniqueId());
+			GridRegion ownRegion = Parks.First(park => park.Owner == client.GetUniqueId()).Regions.First();
 			gridOverlay.GridSizeX = ownRegion.Width;
 			gridOverlay.GridSizeZ = ownRegion.Length;
 			gridOverlay.StartX = ownRegion.X;
@@ -146,16 +169,12 @@ namespace BattlePark {
 		}
 
 		private void OnDrawGizmos() {
-			foreach (var region in Regions) {
-				if (region.Owner == -1) {
-					Gizmos.color = Color.grey;
-				} else if (region.Owner == 0) {
-					Gizmos.color = Color.white;
-				} else {
-					UnityEngine.Random.InitState(region.Owner.GetHashCode());
+			foreach (var park in Parks) {
+				foreach (var region in park.Regions) {
+					UnityEngine.Random.InitState(park.Owner.GetHashCode());
 					Gizmos.color = UnityEngine.Random.ColorHSV(0, 1f, 1f, 1f, 1f, 1f, 1f, 1f);
+					Gizmos.DrawCube(region.GetCenter(this), new Vector3(region.Width, 0.1f, region.Length));
 				}
-				Gizmos.DrawCube(region.GetCenter(this), new Vector3(region.Width, 0.1f, region.Length));
 			}
 		}
 	}

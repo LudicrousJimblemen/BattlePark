@@ -8,29 +8,11 @@ namespace BattlePark {
 		public int Width;
 		public int Length;
 	
-		public long Owner;
-	
-		public GridRegion(int x, int z, int width, int length, long owner) {
+		public GridRegion(int x, int z, int width, int length) {
 			this.X = x;
 			this.Z = z;
 			this.Width = width;
 			this.Length = length;
-			this.Owner = owner;
-		}
-	
-		public void SetOwner(long playerId) {
-			Owner = playerId;
-		}
-	
-		public bool Valid(long id) {
-			switch (Owner) {
-				case -1:
-					return false;
-				case 0: 
-					return true;
-				default:
-					return id == Owner;
-			}
 		}
 	
 		public bool Inside(Vector3 position) {
