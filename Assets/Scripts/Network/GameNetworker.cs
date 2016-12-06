@@ -11,16 +11,44 @@ namespace BattlePark.Menu {
 		
 		private Client client;
 		
+		private void AddListeners() {
+			client.CreateListener<ServerStartGameNetMessage>(OnServerStartGame);
+			client.CreateListener<ServerEndGameNetMessage>(OnServerEndGame);
+		}
+		
+		private void RemoveListeners() {
+			client.RemoveListener<ServerStartGameNetMessage>(OnServerStartGame);
+			client.RemoveListener<ServerEndGameNetMessage>(OnServerEndGame);
+		}
+		
 		private void Awake() {
 			client = FindObjectOfType<Client>();
 			
-			client.CreateListener<ServerStartGameNetMessage>(OnServerStartGame);
+			AddListeners();
 			
 			client.SendMessage<ClientGameReadyNetMessage>(new ClientGameReadyNetMessage());
 		}
 		
+		private void OnApplicationQuit() {
+			client.SendMessage<ClientDisconnectNetMessage>(new ClientDisconnectNetMessage());
+			client.Close();
+		}
+		
 		private void OnServerStartGame(ServerStartGameNetMessage message) {
 			StartCoroutine(GUI.FadeGraphic(GUI.Fade, 0, 60f, Color.black, Color.clear));
+		}
+		
+		private void OnServerEndGame(ServerEndGameNetMessage message) {
+			client.SendMessage<ClientDisconnectNetMessage>(new ClientDisconnectNetMessage());
+			
+			RemoveListeners();
+			
+			client.Close();
+			
+			
+			StartCoroutine(GUI.FadeGraphic(GUI.Fade, 0, 60f, Color.clear, Color.white, false, () => {
+				UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScreen");
+			}));
 		}
 	}
 }

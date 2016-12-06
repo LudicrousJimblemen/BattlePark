@@ -10,11 +10,11 @@
 	"titleScreen.username":"Username",
 	"titleScreen.clientJoin":"JOIN GAME",
 	
-	"error.notFound":"No server was found at the specified IP.",
-	"error.wrongVersion":"Your game version ({1}) does not match with the server's game version ({2}).",
-	"error.emptyUsername":"Your username must not be empty.",
-	"error.duplicateUsername":"A user with your username ('{0}') already exists.",
-	"error.roomFull":"The room is full.",
+	"networkError.notFound":"No server was found at the specified IP.",
+	"networkError.wrongVersion":"Your game version ({1}) does not match with the server's game version ({2}).",
+	"networkError.emptyUsername":"Your username must not be empty.",
+	"networkError.duplicateUsername":"A user with your username ('{0}') already exists.",
+	"networkError.roomFull":"The room is full.",
 	
 	"lobby.leave":"LEAVE",
 	"lobby.ready":"READY",
@@ -22,5 +22,15 @@
 	
 	"chat.chatMessage": "<{0}> {1}",
 	"chat.userJoined": "{0} joined.",
-	"chat.userLeft": "{0} left."
+	"chat.userLeft": "{0} left.",
+	
+	"game.win": "{0} wins!",
+	
+	"stats.guest": "Unique guests: ",
+	"stats.bought": "{0} count: ",
+	
+	"gridObjects.Gate":"Gate",
+	"gridObjects.Fence":"Fence",
+	"gridObjects.Path":"Path",
+	"gridObjects.Sculpture":"Sculpture"
 }

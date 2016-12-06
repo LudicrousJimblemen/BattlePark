@@ -41,6 +41,8 @@ namespace BattlePark {
 
 		public void Close() {
 			client.Disconnect(String.Empty);
+			
+			Destroy(gameObject);
 		}
 
 		public long GetUniqueId() {
@@ -97,7 +99,7 @@ namespace BattlePark {
 								try {
 									disconnectionMessage = JsonConvert.DeserializeObject<NetMessage>(msg.ReadString(), serializerSettings);
 								} catch (Exception) {
-									disconnectionMessage = new ServerDenialNetMessage { Reason = "error.notFound" };
+									disconnectionMessage = new ServerDenialNetMessage { Reason = "networkError.notFound" };
 								}
 								
 								ReceiveMessage<ServerDenialNetMessage>((ServerDenialNetMessage)disconnectionMessage);

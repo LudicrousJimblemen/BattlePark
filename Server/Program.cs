@@ -27,6 +27,8 @@ namespace BattlePark.Server {
 		private static JsonSerializerSettings serializerSettings;
 
 		private static List<GameUser> users = new List<GameUser>();
+		
+		public static bool InGame;
 
 		private static void Main(string[] args) {
 			for (int i = 0; i < args.Length; i++) {
@@ -69,6 +71,8 @@ namespace BattlePark.Server {
 			while (!shouldExit) {
 				NetIncomingMessage msg;
 				while ((msg = server.ReadMessage()) != null) {
+					UpdateTitle();
+					
 					switch (msg.MessageType) {
 						case NetIncomingMessageType.DebugMessage:
 						case NetIncomingMessageType.VerboseDebugMessage:
@@ -100,7 +104,7 @@ namespace BattlePark.Server {
 							} else if (users.Select(x => x.Username).Contains(castedMsg.Username)) {
 								denialReason = "error.duplicateUsername";
 								Log(String.Format("User '{0}' ({1}) denied because of duplicate username.", castedMsg.Username, ip));
-							} else if (users.Count >= serverConfig.UserCount) {
+							} else if (users.Count >= serverConfig.UserCount || InGame) {
 								denialReason = "error.roomFull";
 								Log(String.Format("User '{0}' ({1}) denied because of a full room.", castedMsg.Username, ip));
 							}
@@ -131,7 +135,6 @@ namespace BattlePark.Server {
 								SendToAll(new ServerUserUpdateNetMessage { Users = users });
 								
 								Log(String.Format("User '{0}' ({1}) approved.", castedMsg.Username, ip));
-								UpdateTitle();
 							}
 
 							break;
@@ -146,8 +149,8 @@ namespace BattlePark.Server {
 	
 							#region Casting
 							
-							if (netMessage is ClientApprovalNetMessage) { //should never happen
-								//ClientApprovalCallback(netMessage, msg.SenderConnection);
+							if (netMessage is ClientDisconnectNetMessage) {
+								ClientDisconnectCallback((ClientDisconnectNetMessage)netMessage, msg.SenderConnection);
 								break;
 							}
 							
@@ -215,11 +218,25 @@ namespace BattlePark.Server {
 		
 		#region Callbacks
 		
-		public static void ClientRequestPlayersCallback(ClientRequestPlayersNetMessage message, NetConnection sender) {
-			var outgoing = server.CreateMessage();
-			outgoing.Write(JsonConvert.SerializeObject(new ServerUserUpdateNetMessage { Users = users }, serializerSettings));
+		public static void ClientDisconnectCallback(ClientDisconnectNetMessage message, NetConnection sender) {
+			SendToAll(new ServerUserLeaveNetMessage { User = GetUser(sender.RemoteUniqueIdentifier) });
 			
-			sender.SendMessage(outgoing, NetDeliveryMethod.ReliableOrdered, 0);
+			Log(String.Format("User '{0}' left.", GetUser(sender.RemoteUniqueIdentifier).Username));
+			
+			users.Remove(GetUser(sender.RemoteUniqueIdentifier));
+			
+			SendToAll(new ServerUserUpdateNetMessage { Users = users });
+			
+			if (InGame && users.Count <= 1) {
+				if (users.Count > 0) {
+					SendToAll(new ServerEndGameNetMessage { Winner = GetUser(users.First().Id) });
+				}
+				InGame = false;
+			}
+		}
+		
+		public static void ClientRequestPlayersCallback(ClientRequestPlayersNetMessage message, NetConnection sender) {
+			SendToAll(new ServerUserUpdateNetMessage { Users = users });
 			
 			Log(String.Format("User '{0}' requests player list.", GetUser(sender.RemoteUniqueIdentifier).Username));
 		}
@@ -244,6 +261,7 @@ namespace BattlePark.Server {
 			
 			if (users.Count == serverConfig.UserCount) {
 				if (users.All(x => x.LobbyReady)) {
+					InGame = true;
 					SendToAll(new ServerInitializeGameNetMessage());
 					Log(String.Format("All users are ready, sent lobby start message."));
 				}
