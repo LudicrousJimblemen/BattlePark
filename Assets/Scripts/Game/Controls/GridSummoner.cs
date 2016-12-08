@@ -4,12 +4,15 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 using BattlePark.Core;
+using BattlePark.Menu;
 
 namespace BattlePark {
 	public class GridSummoner : MonoBehaviour {
 		public List<GameObject> GridObjects;
 		
 		public List<string> Hotbar;
+		
+		public GameGUI GUI;
 		
 		public GridOverlay GridOverlay;
 		public GameObject VerticalConstraint;
@@ -22,6 +25,10 @@ namespace BattlePark {
 			client = FindObjectOfType<Client>();
 			
 			client.CreateListener<ServerGridObjectPlacedNetMessage>(OnServerGridObjectPlaced);
+			
+			GUI.PathsButton.onClick.AddListener(() => {
+				currentPlaceholder = SummonGridObjectPlaceholder("Path").GetComponent<GridPlaceholder>();
+			});
 		}
 		
 		private void Update() {
@@ -32,7 +39,6 @@ namespace BattlePark {
 					}
 					
 					currentPlaceholder = SummonGridObjectPlaceholder(Hotbar[i]).GetComponent<GridPlaceholder>();
-					currentPlaceholder.name = Hotbar[i];
 				}
 			}
 			
@@ -73,15 +79,21 @@ namespace BattlePark {
 		}
 		
 		public GameObject SummonGridObjectPlaceholder(string gridObjectName) {
-			return SummonGridObjectPlaceholder(GridObjects.First(x => x.name == gridObjectName));
+			GameObject returned = SummonGridObjectPlaceholder(GridObjects.First(x => x.name == gridObjectName));
+			returned.name = gridObjectName;
+			return returned;
 		}
 		
 		public GameObject SummonGridObjectPlaceholder(GameObject gridObject) {
-			return (GameObject)Instantiate(gridObject);
+			GameObject returned = (GameObject)Instantiate(gridObject);
+			returned.name = gridObject.name;
+			return returned;
 		}
 		
 		public GameObject SummonGridObject(string gridObjectName, long userId) {
 			GameObject newObject = SummonGridObjectPlaceholder(gridObjectName);
+			newObject.name = gridObjectName;
+			
 			GridObject newGridObject = newObject.GetComponent<GridObject>();
 			Destroy(newObject.GetComponent<GridPlaceholder>());
 			newGridObject.Grid = FindObjectOfType<Grid>();
@@ -91,6 +103,8 @@ namespace BattlePark {
 		
 		public GameObject SummonGridObject(GameObject gridObject, long userId) {
 			GameObject newObject = SummonGridObjectPlaceholder(gridObject);
+			newObject.name = gridObject.name;
+			
 			GridObject newGridObject = newObject.GetComponent<GridObject>();
 			Destroy(newObject.GetComponent<GridPlaceholder>());
 			newGridObject.Grid = FindObjectOfType<Grid>();

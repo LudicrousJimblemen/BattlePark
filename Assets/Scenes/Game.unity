@@ -125,6 +125,7 @@ MonoBehaviour:
   Hotbar:
   - Path
   - Sculpture
+  GUI: {fileID: 952732587}
   GridOverlay: {fileID: 952732586}
   VerticalConstraint: {fileID: 291123410}
 --- !u!4 &61629325
@@ -604,6 +605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Fade: {fileID: 1109582481}
+  PathsButton: {fileID: 290934872}
 --- !u!1 &956166281
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,8 @@ namespace BattlePark.Menu {
 	public class GameGUI : MonoBehaviour {
 		public Image Fade;
 	
+		public Button PathsButton;
+		
 		private bool inAnimation;
 	
 		private void Awake() {
