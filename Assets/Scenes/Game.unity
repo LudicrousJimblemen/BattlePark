@@ -180,10 +180,10 @@ MonoBehaviour:
   GridSizeZ: 16
   GridStepXZ: 1
   GridStepY: 0.5
+  GridSummoner: {fileID: 61629324}
   FencePrefab: {fileID: 1000010169673046, guid: 5f38330ed82754c4eb67b3aa9986dbd0,
     type: 2}
   GatePrefab: {fileID: 1000010169673046, guid: 04d9d56a2d60eb141a06a2965baeb379, type: 2}
-  GridSummoner: {fileID: 61629324}
 --- !u!23 &194769802
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 720, y: 810}
+  m_ReferenceResolution: {x: 1280, y: 720}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
