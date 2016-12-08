@@ -96,16 +96,16 @@ namespace BattlePark.Server {
 							string denialReason = String.Empty;
 							
 							if (castedMsg.Version != serverConfig.Version) {
-								denialReason = "error.wrongVersion";
+								denialReason = "networkError.wrongVersion";
 								Log(String.Format("User '{0}' ({1}) denied because of wrong version. ({2})", castedMsg.Username, ip, castedMsg.Version));
 							} else if (String.IsNullOrEmpty(castedMsg.Username)) {
-								denialReason = "error.emptyUsername";
+								denialReason = "networkError.emptyUsername";
 								Log(String.Format("User '{0}' ({1}) denied because of empty username.", castedMsg.Username, ip));
 							} else if (users.Select(x => x.Username).Contains(castedMsg.Username)) {
-								denialReason = "error.duplicateUsername";
+								denialReason = "networkError.duplicateUsername";
 								Log(String.Format("User '{0}' ({1}) denied because of duplicate username.", castedMsg.Username, ip));
 							} else if (users.Count >= serverConfig.UserCount || InGame) {
-								denialReason = "error.roomFull";
+								denialReason = "networkError.roomFull";
 								Log(String.Format("User '{0}' ({1}) denied because of a full room.", castedMsg.Username, ip));
 							}
 							

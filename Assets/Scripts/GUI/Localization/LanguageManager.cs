@@ -24,9 +24,14 @@ namespace BattlePark {
 			}
 		
 			TextAsset language = (TextAsset)Resources.Load("Language/" + Language);
-			string text = "ERROR";
+			string text;
 			JsonConvert.DeserializeObject<Dictionary<string, string>>(language.text).TryGetValue(key, out text);
-			return text;
+			if (text != null) {
+				return text;
+			} else {
+				Debug.LogError(String.Format("Error localizing string '{0}' in language '{1}'", key, language));
+				return "ERROR";
+			}
 		}
 	}
 }
