@@ -20,8 +20,8 @@ namespace BattlePark.Menu {
 		public WindowResizerType Type;
 		public RectTransform Target;
 		
-		public Vector2 MinimumDimmensions;
-		public Vector2 MaximumDimmensions;
+		public Vector2 MinimumDimensions;
+		public Vector2 MaximumDimensions;
     
 		private EventTrigger eventTrigger;
     
@@ -72,24 +72,49 @@ namespace BattlePark.Menu {
 					throw new ArgumentOutOfRangeException();
 			}
 			if (horizontalEdge != null) {
-				if (horizontalEdge == RectTransform.Edge.Right)
-					Target.SetInsetAndSizeFromParentEdge((RectTransform.Edge)horizontalEdge, 
-						Screen.width - Target.position.x - Target.pivot.x * Target.rect.width,
-						Mathf.Clamp(Target.rect.width - data.delta.x, MinimumDimmensions.x, MaximumDimmensions.x));
-				else
-					Target.SetInsetAndSizeFromParentEdge((RectTransform.Edge)horizontalEdge, 
-						Target.position.x - Target.pivot.x * Target.rect.width, 
-						Mathf.Clamp(Target.rect.width + data.delta.x, MinimumDimmensions.x, MaximumDimmensions.x));
+				float deltaPivot = Target.pivot.x;
+				
+				if (horizontalEdge == RectTransform.Edge.Left) {
+					Target.pivot = new Vector2(0f, Target.pivot.y);
+					deltaPivot -= Target.pivot.x;
+					
+					Target.sizeDelta += new Vector2(data.delta.x, 0f);
+				} else {
+					Target.pivot = new Vector2(1f, Target.pivot.y);
+					deltaPivot -= Target.pivot.x;
+					
+					Target.sizeDelta -= new Vector2(data.delta.x, 0f);
+				}
+				Target.position += new Vector3(Target.rect.width * deltaPivot * -0.5f, 0f, 0f);
 			}
 			if (verticalEdge != null) {
-				if (verticalEdge == RectTransform.Edge.Top)
-					Target.SetInsetAndSizeFromParentEdge((RectTransform.Edge)verticalEdge, 
-						Screen.height - Target.position.y - Target.pivot.y * Target.rect.height, 
-						Mathf.Clamp(Target.rect.height - data.delta.y, MinimumDimmensions.y, MaximumDimmensions.y));
-				else
-					Target.SetInsetAndSizeFromParentEdge((RectTransform.Edge)verticalEdge, 
-						Target.position.y - Target.pivot.y * Target.rect.height, 
-						Mathf.Clamp(Target.rect.height + data.delta.y, MinimumDimmensions.y, MaximumDimmensions.y));
+				float deltaPivot = Target.pivot.y;
+				
+				if (verticalEdge == RectTransform.Edge.Bottom) {
+					Target.pivot = new Vector2(Target.pivot.x, 0f);
+					deltaPivot -= Target.pivot.y;
+					
+					Target.sizeDelta += new Vector2(0f, data.delta.y * 2);
+				} else {
+					Target.pivot = new Vector2(Target.pivot.x, 1f);
+					deltaPivot -= Target.pivot.y;
+					
+					Target.sizeDelta -= new Vector2(0f, data.delta.y * 2);
+				}
+				Target.position += new Vector3(0f, Target.rect.height * deltaPivot * -0.5f, 0f);
+			}
+			
+			if (Target.sizeDelta.x < MinimumDimensions.x) {
+				Target.sizeDelta = new Vector2(MinimumDimensions.x, Target.sizeDelta.y);
+			}
+			if (Target.sizeDelta.x > MaximumDimensions.x) {
+				Target.sizeDelta = new Vector2(MaximumDimensions.x, Target.sizeDelta.y);
+			}
+			if (Target.sizeDelta.y < MinimumDimensions.y) {
+				Target.sizeDelta = new Vector2(Target.sizeDelta.x, MinimumDimensions.y);
+			}
+			if (Target.sizeDelta.y > MaximumDimensions.y) {
+				Target.sizeDelta = new Vector2(Target.sizeDelta.x, MaximumDimensions.y);
 			}
 		}
 	}
