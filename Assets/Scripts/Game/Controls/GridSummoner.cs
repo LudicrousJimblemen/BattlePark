@@ -9,6 +9,10 @@ using BattlePark.Menu;
 namespace BattlePark {
 	public class GridSummoner : MonoBehaviour {
 		public List<GameObject> GridObjects;
+		public GameObject PlaceholderCameraPrefab;
+		
+		[Range(0f, 50f)]
+		public float PlaceholderCameraDistance = 6;
 		
 		public List<string> Hotbar;
 		
@@ -20,8 +24,15 @@ namespace BattlePark {
 		private Client client;
 		
 		private GridPlaceholder currentPlaceholder;
+		private Camera currentPlaceholderCamera;
 		
-		private void Awake() {
+		private float orthographicRotation;
+		private float orthographicdistance;
+		
+		private void Awake() {	
+			orthographicRotation = Mathf.Atan(1f / (float)Math.Sqrt(2));
+			orthographicdistance = Mathf.Sqrt(2 * Mathf.Pow(PlaceholderCameraDistance, 2)) * Mathf.Tan(orthographicRotation);
+		
 			client = FindObjectOfType<Client>();
 			
 			client.CreateListener<ServerGridObjectPlacedNetMessage>(OnServerGridObjectPlaced);
@@ -34,10 +45,6 @@ namespace BattlePark {
 		private void Update() {
 			for (int i = 0; i < Hotbar.Count; i++) {
 				if (Input.GetKeyDown(KeyCode.Alpha1 + i)) {
-					if (currentPlaceholder != null) {
-						Destroy(currentPlaceholder.gameObject);
-					}
-					
 					currentPlaceholder = SummonGridObjectPlaceholder(Hotbar[i]).GetComponent<GridPlaceholder>();
 				}
 			}
@@ -70,43 +77,64 @@ namespace BattlePark {
 					currentPlaceholder.Rotate(1);
 				}
 				
+				if (currentPlaceholderCamera != null) {
+					currentPlaceholderCamera.transform.rotation = Quaternion.Euler(Mathf.Rad2Deg * orthographicRotation, 45f, 0f);
+					currentPlaceholderCamera.transform.position = 
+						currentPlaceholder.transform.position + new Vector3(
+							-PlaceholderCameraDistance,
+							orthographicdistance + (currentPlaceholder.Height() / 2f),
+							-PlaceholderCameraDistance
+						);
+				}
+				
 				if (Input.GetMouseButtonDown(0)) {
 					if (currentPlaceholder.PlaceObject()) {
 						currentPlaceholder = null;
+						Destroy(currentPlaceholderCamera.gameObject);
 					}
 				}
 			}
 		}
 		
-		public GameObject SummonGridObjectPlaceholder(string gridObjectName) {
-			GameObject returned = SummonGridObjectPlaceholder(GridObjects.First(x => x.name == gridObjectName));
-			returned.name = gridObjectName;
-			return returned;
+		public GameObject SummonGridObjectPlaceholder(string gridObjectName, bool summonCamera = true) {
+			return SummonGridObjectPlaceholder(GridObjects.First(x => x.name == gridObjectName), summonCamera);
 		}
 		
-		public GameObject SummonGridObjectPlaceholder(GameObject gridObject) {
+		public GameObject SummonGridObjectPlaceholder(GameObject gridObject, bool summonCamera = true) {
+			if (currentPlaceholder != null) {
+				Destroy(currentPlaceholder.gameObject);
+			}
+			
 			GameObject returned = (GameObject)Instantiate(gridObject);
 			returned.name = gridObject.name;
+			returned.layer = LayerMask.NameToLayer("CurrentGridPlaceholder");
+			
+			if (currentPlaceholderCamera == null && summonCamera) {
+				currentPlaceholderCamera = Instantiate(PlaceholderCameraPrefab).GetComponent<Camera>();
+			}
+			
 			return returned;
 		}
 		
 		public GameObject SummonGridObject(string gridObjectName, long userId) {
-			GameObject newObject = SummonGridObjectPlaceholder(gridObjectName);
+			GameObject newObject = SummonGridObjectPlaceholder(gridObjectName, false);
 			newObject.name = gridObjectName;
 			
 			GridObject newGridObject = newObject.GetComponent<GridObject>();
 			Destroy(newObject.GetComponent<GridPlaceholder>());
+			newObject.layer = LayerMask.NameToLayer("GridObject");
 			newGridObject.Grid = FindObjectOfType<Grid>();
 			newGridObject.Owner = userId;
 			return newObject;
 		}
 		
 		public GameObject SummonGridObject(GameObject gridObject, long userId) {
-			GameObject newObject = SummonGridObjectPlaceholder(gridObject);
+			GameObject newObject = SummonGridObjectPlaceholder(gridObject, false);
 			newObject.name = gridObject.name;
 			
 			GridObject newGridObject = newObject.GetComponent<GridObject>();
 			Destroy(newObject.GetComponent<GridPlaceholder>());
+			newObject.layer = LayerMask.NameToLayer("GridObject");
 			newGridObject.Grid = FindObjectOfType<Grid>();
 			newGridObject.Owner = userId;
 			return newObject;

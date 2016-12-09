@@ -16,7 +16,7 @@ TagManager:
   - GridObject
   - VerticalConstraint
   - Buildable
-  - 
+  - CurrentGridPlaceholder
   - 
   - 
   - 

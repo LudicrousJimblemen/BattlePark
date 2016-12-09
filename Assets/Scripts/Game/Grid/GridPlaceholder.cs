@@ -13,7 +13,7 @@ namespace BattlePark {
 		private GridObject gridObject;
 	
 		private void Awake() {
-			camera = FindObjectOfType<Camera>();
+			camera = Camera.main;
 			client = FindObjectOfType<Client>();
 			grid = FindObjectOfType<Grid>();
 			gridObject = FindObjectOfType<GridObject>();
@@ -81,6 +81,14 @@ namespace BattlePark {
 			
 			Destroy(gameObject);
 			return true;
+		}
+		
+		public float Height() {
+			if (gridObject.OccupiedOffsets != null && gridObject.OccupiedOffsets.Any()) {
+				return gridObject.OccupiedOffsets.OrderBy(offset => offset.y).First().y;
+			} else {
+				return 1f;
+			}
 		}
 	}
 }
