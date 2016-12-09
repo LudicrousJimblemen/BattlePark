@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
+using BattlePark;
 using BattlePark.Core;
 using BattlePark.Menu;
 
@@ -38,14 +39,14 @@ namespace BattlePark {
 			client.CreateListener<ServerGridObjectPlacedNetMessage>(OnServerGridObjectPlaced);
 			
 			GUI.PathsButton.onClick.AddListener(() => {
-				currentPlaceholder = SummonGridObjectPlaceholder("Path").GetComponent<GridPlaceholder>();
+				currentPlaceholder = SummonGridObjectPlaceholder("Path", true, true).GetComponent<GridPlaceholder>();
 			});
 		}
 		
 		private void Update() {
 			for (int i = 0; i < Hotbar.Count; i++) {
 				if (Input.GetKeyDown(KeyCode.Alpha1 + i)) {
-					currentPlaceholder = SummonGridObjectPlaceholder(Hotbar[i]).GetComponent<GridPlaceholder>();
+					currentPlaceholder = SummonGridObjectPlaceholder(Hotbar[i], true, true).GetComponent<GridPlaceholder>();
 				}
 			}
 			
@@ -96,8 +97,11 @@ namespace BattlePark {
 			}
 		}
 		
-		public GameObject SummonGridObjectPlaceholder(string gridObjectName, bool summonCamera = true) {
-			return SummonGridObjectPlaceholder(GridObjects.First(x => x.name == gridObjectName), summonCamera);
+		public GameObject SummonGridObjectPlaceholder(string gridObjectName, bool summonCamera = true, bool playerSummoned = false) {
+			GameObject obj = SummonGridObjectPlaceholder(GridObjects.First(x => x.name == gridObjectName),summonCamera);
+			if(playerSummoned)
+				FindObjectOfType<WindowManager>().CreateWindow(obj.GetComponent<GridPlaceholder>().Properties,obj.name);
+			return obj;
 		}
 		
 		public GameObject SummonGridObjectPlaceholder(GameObject gridObject, bool summonCamera = true) {
@@ -112,7 +116,6 @@ namespace BattlePark {
 			if (currentPlaceholderCamera == null && summonCamera) {
 				currentPlaceholderCamera = Instantiate(PlaceholderCameraPrefab).GetComponent<Camera>();
 			}
-			
 			return returned;
 		}
 		

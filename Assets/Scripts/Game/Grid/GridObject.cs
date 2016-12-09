@@ -20,6 +20,8 @@ namespace BattlePark {
 		public bool Placeable;
 		public bool PlaceMultiple;
 		public Vector3[] OccupiedOffsets = { Vector3.zero };
+
+		public GridObjectProperty[] Properties = {};
 		#endregion
 	
 		public long Owner;

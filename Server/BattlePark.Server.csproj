@@ -76,9 +76,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Assembly-CSharp.csproj">
-      <Project>{fd3bf9ec-be71-cab8-e859-35897c3a8bff}</Project>
-      <Name>BattlePark</Name>
+    <ProjectReference Include="..\BattlePark.CSharp.csproj">
+      <Project>{40fc4378-4103-8a05-0025-08cdb94a3348}</Project>
+      <Name>BattlePark.CSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

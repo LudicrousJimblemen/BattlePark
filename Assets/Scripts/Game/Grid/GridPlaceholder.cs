@@ -11,12 +11,23 @@ namespace BattlePark {
 		
 		private Grid grid;
 		private GridObject gridObject;
+
+		public GridObjectProperty[] Properties {
+			get {
+				return gridObject.Properties;
+			}
+		}
+
+		private PropertyWindow Window;
 	
 		private void Awake() {
 			camera = Camera.main;
 			client = FindObjectOfType<Client>();
 			grid = FindObjectOfType<Grid>();
-			gridObject = FindObjectOfType<GridObject>();
+			gridObject = GetComponent<GridObject>();
+			if(name != "Fence" &&
+				name != "Gate")
+				Window = FindObjectOfType<WindowManager>().CreateWindow(Properties,name);
 		}
 	
 		public void Snap() {
@@ -78,7 +89,7 @@ namespace BattlePark {
 			if (gridObject.PlaceMultiple) {
 				return false;
 			}
-			
+			Window.OnClose();
 			Destroy(gameObject);
 			return true;
 		}
