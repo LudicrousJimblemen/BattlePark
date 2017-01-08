@@ -115,7 +115,7 @@ namespace BattlePark.Menu {
 			ClientUsernameInputField.text = returnedName;
 		}
 	
-		
+		/*
 		public void FindIP() {
 			try {
 				IPHostEntry host;
@@ -130,5 +130,6 @@ namespace BattlePark.Menu {
 				ClientIpInputField.text = "127.0.0.1";
 			}
 		}
+		*/
 	}
 }

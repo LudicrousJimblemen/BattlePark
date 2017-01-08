@@ -12,7 +12,7 @@ namespace BattlePark.Menu {
 		private void Awake() {
 			client = FindObjectOfType<Client>();
 			
-			GUI.FindIP();
+			//GUI.FindIP();
 			
 			GUI.StartClientButton.onClick.AddListener(() => {
 				StartCoroutine(GUI.AnimatePanel(GUI.ClientPanel, 1));
