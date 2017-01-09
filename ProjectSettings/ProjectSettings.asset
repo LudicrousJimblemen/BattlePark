@@ -521,7 +521,7 @@ PlayerSettings:
   XboxOne::VR::enabledDevices: []
   iOS::VR::enabledDevices: []
   tvOS::VR::enabledDevices: []
-  cloudProjectId: 1bb6950e-4b89-48c7-b45c-575524daf5c7
-  projectName: Battle Park (1)
+  cloudProjectId: 8f96d387-0a1d-4310-b226-2c9a7da4ff8c
+  projectName: Battle Park
   organizationId: jimblemen
   cloudEnabled: 0
