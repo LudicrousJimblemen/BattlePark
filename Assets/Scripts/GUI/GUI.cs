@@ -10,14 +10,13 @@ public class GUI : MonoBehaviour {
 	
 	private bool inAnimation;
 	
-	[HideInInspector]
-	public Graphic CurrentPanel;
+	protected Graphic currentPanel;
 
-	private void Awake() {
+	protected virtual void Awake() {
 		FadeGraphic(Fade, 0, 60f, FadeFrom, new Color(FadeFrom.r, FadeFrom.g, FadeFrom.b, 0));
 	}
 
-	private void Update() {
+	protected virtual void Update() {
 		Fade.raycastTarget = inAnimation;
 	}
 
@@ -25,8 +24,8 @@ public class GUI : MonoBehaviour {
 		StartCoroutine(FadeGraphicCoroutine(graphic, delay, duration, fromColor, toColor, disableRaycast, callback));
 	}
 	private IEnumerator FadeGraphicCoroutine(Graphic graphic, float delay, float duration, Color fromColor, Color toColor, bool disableRaycast, Action callback) {
+		inAnimation = true;
 		for (int i = 0; i < duration + delay; i++) {
-			inAnimation = true;
 			graphic.color = Color.Lerp(fromColor, toColor, Mathf.SmoothStep(0f, 1f, (i - delay) / duration));
 			yield return null;
 		}
@@ -50,16 +49,16 @@ public class GUI : MonoBehaviour {
 				Vector3.zero,
 				Mathf.SmoothStep(0, 1f, Mathf.SmoothStep(0, 1f, i / 70f))
 			);
-			CurrentPanel.rectTransform.localPosition = Vector3.Lerp(
+			currentPanel.rectTransform.localPosition = Vector3.Lerp(
 				Vector3.zero,
-				new Vector3(CurrentPanel.rectTransform.rect.width * -fromDirection, 0, 0),
+				new Vector3(currentPanel.rectTransform.rect.width * -fromDirection, 0, 0),
 				Mathf.SmoothStep(0, 1f, Mathf.SmoothStep(0, 1f, i / 70f))
 			);
 			yield return null;
 		}
 	
-		CurrentPanel.gameObject.SetActive(false);
-		CurrentPanel = to;
+		currentPanel.gameObject.SetActive(false);
+		currentPanel = to;
 		inAnimation = false;
 	}
 }

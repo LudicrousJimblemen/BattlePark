@@ -2,13 +2,13 @@
 	"gameInfo.name": "Battle Park",
 	"gameInfo.language": "English",
 
-	"titleScreen.startClient":"START CLIENT",
 	"titleScreen.exit":"EXIT",
 	"titleScreen.back":"BACK",
-	"titleScreen.port":"Port",
-	"titleScreen.ip":"IP",
+	"titleScreen.createGame":"CREATE GAME",
+	"titleScreen.findGame":"FIND GAME",
 	"titleScreen.username":"Username",
-	"titleScreen.clientJoin":"JOIN GAME",
+	"titleScreen.roomName":"Room Name",
+	"titleScreen.createRoom":"CREATE ROOM",
 	
 	"networkError.notFound":"No server was found at the specified IP.",
 	"networkError.wrongVersion":"Your game version ({1}) does not match with the server's game version ({2}).",

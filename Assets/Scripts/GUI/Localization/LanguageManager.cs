@@ -4,8 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace BattlePark
-{
+namespace BattlePark {
 	public static class LanguageManager {
 		public static string Language {
 			get {

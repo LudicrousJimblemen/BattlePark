@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -45,40 +45,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AppConfig.cs" />
-     <Compile Include="Assets\Scripts\AppVersion.cs" />
-     <Compile Include="Assets\Scripts\Controls\CameraPan.cs" />
-     <Compile Include="Assets\Scripts\DraggablePanel.cs" />
-     <Compile Include="Assets\Scripts\EventSystemChecker.cs" />
-     <Compile Include="Assets\Scripts\GUI\GUI.cs" />
-     <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
-     <Compile Include="Assets\Scripts\GUI\LobbyRagdoll.cs" />
-     <Compile Include="Assets\Scripts\GUI\Localization\LanguageManager.cs" />
-     <Compile Include="Assets\Scripts\GUI\Localization\TextLocalizer.cs" />
-     <Compile Include="Assets\Scripts\GUI\Window.cs" />
-     <Compile Include="Assets\Scripts\GUI\WindowResizer.cs" />
-     <Compile Include="Assets\Scripts\GridOverlay.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyCountdownPanel.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyHook.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyInfoPanel.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyManager.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyPlayer.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyPlayerList.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyServerEntry.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyServerList.cs" />
-     <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
-     <None Include="Assets\Fonts\OFL.txt" />
-     <None Include="Assets\Resources\Language\jp.txt" />
-     <None Include="Assets\Resources\Language\en.txt" />
- <Reference Include="UnityEngine.UI">
- <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/s-asengupta/Documents/GitHub/BattlePark/Assets/Assemblies/Newtonsoft.Json.dll</HintPath>
- </Reference>
+    <Compile Include="Assets\Scripts\AppConfig.cs" />
+    <Compile Include="Assets\Scripts\AppVersion.cs" />
+    <Compile Include="Assets\Scripts\Controls\CameraPan.cs" />
+    <Compile Include="Assets\Scripts\DraggablePanel.cs" />
+    <Compile Include="Assets\Scripts\EventSystemChecker.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUI.cs" />
+    <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
+    <Compile Include="Assets\Scripts\GUI\LobbyRagdoll.cs" />
+    <Compile Include="Assets\Scripts\GUI\Localization\LanguageManager.cs" />
+    <Compile Include="Assets\Scripts\GUI\Localization\TextLocalizer.cs" />
+    <Compile Include="Assets\Scripts\GUI\Window.cs" />
+    <Compile Include="Assets\Scripts\GUI\WindowResizer.cs" />
+    <Compile Include="Assets\Scripts\GridOverlay.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyHook.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyManager.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyPlayer.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyPlayerList.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyServerEntry.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyServerList.cs" />
+    <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
+    <None Include="Assets\Fonts\OFL.txt" />
+    <None Include="Assets\Resources\Language\jp.txt" />
+    <None Include="Assets\Resources\Language\en.txt" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:/Users/s-asengupta/Documents/GitHub/BattlePark/Assets/Assemblies/Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -88,5 +87,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>

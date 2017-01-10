@@ -26,7 +26,11 @@ public class LobbyGUI : GUI {
 	[Header("FindGamePanel")]
 	public Button FindGameBackButton;
 	
-	private void Awake() {
+	protected override void Awake() {
+		base.Awake();
+		
+		currentPanel = MainPanel;
+		
 		CreateGameButton.onClick.AddListener(() => AnimatePanel(CreateGamePanel, 1));
 		FindGameButton.onClick.AddListener(() => AnimatePanel(FindGamePanel, 1));
 		ExitButton.onClick.AddListener(Application.Quit);
@@ -37,10 +41,10 @@ public class LobbyGUI : GUI {
 		});
 		CreateGameRoomNameInputField.onEndEdit.AddListener(input => {
 			if (Input.GetKeyDown(KeyCode.Return)) {
-                LobbyManager.s_Singleton.CreateRoom(input);
-            }
+				LobbyManager.Instance.CreateRoom(input);
+			}
 		});
-		CreateGameCreateRoomButton.onClick.AddListener(() => LobbyManager.s_Singleton.CreateRoom(CreateGameRoomNameInputField.text));
+		CreateGameCreateRoomButton.onClick.AddListener(() => LobbyManager.Instance.CreateRoom(CreateGameRoomNameInputField.text));
 		
 		FindGameBackButton.onClick.AddListener(() => {
 			CreateGameUsernameInputField.text = GenerateUsername();
@@ -56,6 +60,9 @@ public class LobbyGUI : GUI {
 		
 		//stop server
 		//	StopServer();
+		
+		//lobby ready
+		//	SendReadyToBeginMessage();
 	}
 	
 	public static string GenerateUsername() {
