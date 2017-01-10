@@ -90,6 +90,8 @@
     <Compile Include="Assets\Scripts\Core\NetMessages\ServerUserJoinNetMessage.cs" />
     <Compile Include="Assets\Scripts\Core\NetMessages\ServerUserLeaveNetMessage.cs" />
     <Compile Include="Assets\Scripts\Core\NetMessages\ServerUserUpdateNetMessage.cs" />
+    <Compile Include="Assets\Scripts\DraggablePanel.cs" />
+    <Compile Include="Assets\Scripts\EventSystemChecker.cs" />
     <Compile Include="Assets\Scripts\GUI\GameGUI.cs" />
     <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
     <Compile Include="Assets\Scripts\GUI\Localization\LanguageManager.cs" />
@@ -121,6 +123,16 @@
     <Compile Include="Assets\Scripts\Game\MenuBackground\LobbyRagdoll.cs" />
     <Compile Include="Assets\Scripts\Game\MenuBackground\TitleScreenBackground.cs" />
     <Compile Include="Assets\Scripts\Game\Park.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyCountdownPanel.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyHook.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyInfoPanel.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyMainMenu.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyManager.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyPlayer.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyPlayerList.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyServerEntry.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyServerList.cs" />
+    <Compile Include="Assets\Scripts\Lobby\LobbyTopPanel.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Network\GameNetworker.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyNetworker.cs" />

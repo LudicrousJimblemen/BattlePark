@@ -348,7 +348,7 @@ GameObject:
   - 114: {fileID: 257351102}
   - 114: {fileID: 257351101}
   m_Layer: 0
-  m_Name: Networker
+  m_Name: NetworkManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

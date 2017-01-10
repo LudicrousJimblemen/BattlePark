@@ -4,33 +4,37 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace BattlePark {
+namespace BattlePark
+{
 	public static class LanguageManager {
-		public static string Language = String.Empty;
-	
-		public static string GetString(string key) {
-			if (Language == string.Empty) {
+		public static string Language {
+			get {
 				switch (Application.systemLanguage) {
 					case SystemLanguage.English:
-						Language = "en";
-						break;
+						return "en";
 					case SystemLanguage.Japanese:
-						Language = "jp";
-						break;
+						return "jp";
 					default:
-						Language = "en";
-						break;
+						return "en";
 				}
 			}
+		}
+	
+		public static string GetString(string key, string language = null) {
+			if (language == null) {
+				language = Language;
+			}
 		
-			TextAsset language = (TextAsset)Resources.Load("Language/" + Language);
-			string text;
-			JsonConvert.DeserializeObject<Dictionary<string, string>>(language.text).TryGetValue(key, out text);
-			if (text != null) {
-				return text;
+			TextAsset asset = (TextAsset)(TextAsset)Resources.Load("Language/" + Language);
+			
+			string localized;
+			JsonConvert.DeserializeObject<Dictionary<string, string>>(asset.text).TryGetValue(key, out localized);
+			
+			if (localized != null) {
+				return localized;
 			} else {
 				Debug.LogError(String.Format("Error localizing string '{0}' in language '{1}'", key, language));
-				return "ERROR";
+				return key;
 			}
 		}
 	}
