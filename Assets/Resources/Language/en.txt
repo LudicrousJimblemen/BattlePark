@@ -9,12 +9,7 @@
 	"titleScreen.username":"Username",
 	"titleScreen.roomName":"Room Name",
 	"titleScreen.createRoom":"CREATE ROOM",
-	
-	"networkError.notFound":"No server was found at the specified IP.",
-	"networkError.wrongVersion":"Your game version ({1}) does not match with the server's game version ({2}).",
-	"networkError.emptyUsername":"Your username must not be empty.",
-	"networkError.duplicateUsername":"A user with your username ('{0}') already exists.",
-	"networkError.roomFull":"The room is full.",
+	"titleScreen.noMatchesFound":"No matches found.",
 	
 	"lobby.leave":"LEAVE",
 	"lobby.ready":"READY",

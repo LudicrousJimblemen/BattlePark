@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
@@ -6,21 +7,20 @@ using UnityEngine.Networking.Types;
 using System.Collections;
 
 public class LobbyServerEntry : MonoBehaviour {
-    public Text serverInfoText;
-    public Text slotInfo;
-    public Button joinButton;
-
-	public void Populate(MatchInfoSnapshot match, LobbyManager lobbyManager) {
-        NetworkID networkID = match.networkId;
-
-        joinButton.onClick.RemoveAllListeners();
-        joinButton.onClick.AddListener(() => JoinMatch(networkID, lobbyManager));
+	public void NoneFound() {
+		GetComponentInChildren<Text>().text = LanguageManager.GetString("titleScreen.noMatchesFound");
+		GetComponent<Button>().interactable = false;
+	}
+	
+	public void Populate(MatchInfoSnapshot match) {
+		GetComponentInChildren<Text>().text = String.Format("{0} - <i>({1}/{2})</i>", match.name, match.currentSize, match.maxSize);
+        //joinhandler
     }
 
-    void JoinMatch(NetworkID networkID, LobbyManager lobbyManager) {
-		lobbyManager.matchMaker.JoinMatch(networkID, "", "", "", 0, 0, lobbyManager.OnMatchJoined);
+    private void JoinMatch(NetworkID networkID) {
+		LobbyManager.Instance.matchMaker.JoinMatch(networkID, "", "", "", 0, 0, LobbyManager.Instance.OnMatchJoined);
 		//lobbyManager.backDelegate = lobbyManager.StopClientClbk;
-        lobbyManager._isMatchmaking = true;
+        LobbyManager.Instance.IsMatchmaking = true;
         //lobbyManager.DisplayIsConnecting();
     }
 }
