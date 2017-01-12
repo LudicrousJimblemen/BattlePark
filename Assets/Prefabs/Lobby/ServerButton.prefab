@@ -11,9 +11,8 @@ GameObject:
   - 222: {fileID: 22209220}
   - 114: {fileID: 11437134}
   - 114: {fileID: 114000013823795700}
-  - 114: {fileID: 11446726}
   m_Layer: 5
-  m_Name: ServerInfoEntry
+  m_Name: ServerButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,20 +45,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11446726
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 104980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abd4c2a2c71a1214da4f39391c1a8122, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverInfoText: {fileID: 0}
-  slotInfo: {fileID: 0}
-  joinButton: {fileID: 0}
 --- !u!222 &22209220
 CanvasRenderer:
   m_ObjectHideFlags: 1

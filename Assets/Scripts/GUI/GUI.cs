@@ -13,20 +13,21 @@ public class GUI : MonoBehaviour {
 	protected Graphic currentPanel;
 
 	protected virtual void Awake() {
-		FadeGraphic(Fade, 0, 60f, FadeFrom, new Color(FadeFrom.r, FadeFrom.g, FadeFrom.b, 0));
+		FadeGraphic(Fade, 0, 60, FadeFrom, 0);
 	}
 
 	protected virtual void Update() {
 		Fade.raycastTarget = inAnimation;
 	}
 
-	public void FadeGraphic(Graphic graphic, float delay, float duration, Color fromColor, Color toColor, bool disableRaycast = false, Action callback = null) {
-		StartCoroutine(FadeGraphicCoroutine(graphic, delay, duration, fromColor, toColor, disableRaycast, callback));
+	public void FadeGraphic(Graphic graphic, int delay, int duration, Color fromColor, float toAlpha, bool disableRaycast = false, Action callback = null) {
+		StartCoroutine(FadeGraphicCoroutine(graphic, delay, duration, fromColor, toAlpha, disableRaycast, callback));
 	}
-	private IEnumerator FadeGraphicCoroutine(Graphic graphic, float delay, float duration, Color fromColor, Color toColor, bool disableRaycast, Action callback) {
+	private IEnumerator FadeGraphicCoroutine(Graphic graphic, int delay, int duration, Color fromColor, float toAlpha, bool disableRaycast, Action callback) {
 		inAnimation = true;
+		Color toColor = new Color(fromColor.r, fromColor.g, fromColor.b, toAlpha);
 		for (int i = 0; i < duration + delay; i++) {
-			graphic.color = Color.Lerp(fromColor, toColor, Mathf.SmoothStep(0f, 1f, (i - delay) / duration));
+			graphic.color = Color.Lerp(fromColor, toColor, Mathf.SmoothStep(0f, 1f, (i - (float)delay) / (float)duration));
 			yield return null;
 		}
 		inAnimation = disableRaycast;

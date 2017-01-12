@@ -49,7 +49,6 @@
      <Compile Include="Assets\Scripts\AppVersion.cs" />
      <Compile Include="Assets\Scripts\Controls\CameraPan.cs" />
      <Compile Include="Assets\Scripts\DraggablePanel.cs" />
-     <Compile Include="Assets\Scripts\EventSystemChecker.cs" />
      <Compile Include="Assets\Scripts\GUI\GUI.cs" />
      <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
      <Compile Include="Assets\Scripts\GUI\Localization\LanguageManager.cs" />
@@ -57,11 +56,7 @@
      <Compile Include="Assets\Scripts\GUI\Window.cs" />
      <Compile Include="Assets\Scripts\GUI\WindowResizer.cs" />
      <Compile Include="Assets\Scripts\GridOverlay.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyInfoPanel.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyManager.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyPlayer.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyServerEntry.cs" />
-     <Compile Include="Assets\Scripts\Lobby\LobbyServerList.cs" />
+     <Compile Include="Assets\Scripts\Network\Client.cs" />
      <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
      <None Include="Assets\Fonts\OFL.txt" />
      <None Include="Assets\Resources\Language\jp.txt" />
