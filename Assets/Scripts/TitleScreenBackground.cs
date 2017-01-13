@@ -25,7 +25,7 @@ namespace BattlePark.Menu {
 		private Quaternion leftLegRotation;
 		private Quaternion rightLegRotation;
 		private Quaternion bodyRotation;
-	
+		
 		private void Update() {
 			if (timer <= 130) {
 				transform.position = Vector3.Lerp(

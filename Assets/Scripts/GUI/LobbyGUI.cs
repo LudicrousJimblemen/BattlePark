@@ -43,14 +43,34 @@ public class LobbyGUI : GUI {
 		
 		currentPanel = MainPanel;
 		
-		CreateGameButton.onClick.AddListener(() => AnimatePanel(CreateGamePanel, 1));
-		FindGameButton.onClick.AddListener(PopulateServerList);
+		CreateGameButton.onClick.AddListener(() => {
+			Client.Instance.StartMatchMaker();
+	    	AnimatePanel(CreateGamePanel, 1);
+	    	string CurrentUsername = GenerateUsername();
+	    	CreateGameUsernameInputField.text = CurrentUsername;
+	    	CreateGameRoomNameInputField.text = CurrentUsername + "\'s Shitty Default Room";
+	    });
+		FindGameButton.onClick.AddListener(() => {
+			Client.Instance.StartMatchMaker();
+       		PopulateServerList();
+        	string CurrentUsername = GenerateUsername();
+        	FindGameUsernameInputField.text = CurrentUsername;
+        });
 		ExitButton.onClick.AddListener(Application.Quit);
 		
 		CreateGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
 		CreateGameCreateRoomButton.onClick.AddListener(CreateMatch);
 		
 		FindGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
+		
+		LobbyLeaveButton.onClick.AddListener(() => {
+			NetworkManager.singleton.matchMaker.DestroyMatch(
+	 			Client.Instance.currentNetID,
+	 			0,
+	 			Client.Instance.OnDestroyMatch
+	 		);
+			AnimatePanel(MainPanel, 1);
+		});
 	}
 	
 	private void PopulateServerList() {
@@ -124,13 +144,19 @@ public class LobbyGUI : GUI {
 		for (int i = 0; i < 14; i++) {
 			if (i != 7) {
 				float chance = UnityEngine.Random.value;
+				bool upper = (i == 0 || returnedName[i-1].Equals(' '));
+				string source;
 				if (type == 0) {
-					returnedName += consonants.ElementAt(UnityEngine.Random.Range(0, consonants.Length));
+					source = consonants;
+					if (upper) source = source.ToUpper();
+					returnedName += source.ElementAt(UnityEngine.Random.Range(0, consonants.Length));
 					if (chance <= 0.5) {
 						type = 1;
 					}
 				} else {
-					returnedName += vowels.ElementAt(UnityEngine.Random.Range(0, vowels.Length));
+					source = vowels;
+					if (upper) source = source.ToUpper();
+					returnedName += source.ElementAt(UnityEngine.Random.Range(0, vowels.Length));
 					if (chance <= 0.6) {
 						type = 0;
 					}

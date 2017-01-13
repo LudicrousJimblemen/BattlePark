@@ -11,6 +11,8 @@ public class Client : MonoBehaviour {
 	
 	[HideInInspector]
 	public bool IsHost;
+	[HideInInspector]
+	public NetworkID currentNetID;
 	
 	private void Awake() {
 		if (FindObjectsOfType<Client>().Length > 1) {
@@ -20,14 +22,18 @@ public class Client : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 		Instance = this;
 		//print (NetworkManager.singleton == null);
-		StartCoroutine(WaitForNetworkManager());
+		//StartCoroutine(WaitForNetworkManager());
+	}
+	
+	public void StartMatchMaker() {
+		NetworkManager.singleton.StartMatchMaker();
 	}
 	
 	IEnumerator WaitForNetworkManager () {
 		while (NetworkManager.singleton == null) {
 			yield return new WaitForEndOfFrame();
 		}
-		NetworkManager.singleton.StartMatchMaker();
+		//NetworkManager.singleton.StartMatchMaker();
 	}
 	
 	public void CreateMatch(string roomName, uint size, NetworkMatch.DataResponseDelegate<MatchInfo> callback) {
@@ -45,6 +51,7 @@ public class Client : MonoBehaviour {
 				if (success) {
 					NetworkServer.Listen(matchInfo, 6666);
 					NetworkManager.singleton.StartHost(matchInfo);
+					currentNetID = matchInfo.networkId;
 				}
 				callback(success, extendedInfo, matchInfo);
 			});
@@ -73,8 +80,14 @@ public class Client : MonoBehaviour {
 				IsHost = success;
 				if (success) {
 					NetworkManager.singleton.StartClient(matchInfo);
+					currentNetID = matchInfo.networkId;
 				}
 				callback(success, extendedInfo, matchInfo);
 			});
+	}
+	public void OnDestroyMatch (bool success, string extendedInfo) {
+		NetworkManager.singleton.StopMatchMaker();
+		if (IsHost) NetworkManager.singleton.StopHost();
+		else NetworkManager.singleton.StopClient();
 	}
 }
