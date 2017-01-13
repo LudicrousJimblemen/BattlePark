@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692534, g: 0.49678725, b: 0.57508564, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692534, g: 0.49678725, b: 0.5750856, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1029,6 +1029,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!1 &553284008 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100012, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+  m_PrefabInternal: {fileID: 991510761}
+--- !u!1 &583771216 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100028, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+  m_PrefabInternal: {fileID: 991510761}
 --- !u!1 &619352430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,8 +1385,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 872632176}
-  - 114: {fileID: 872632175}
   - 114: {fileID: 872632177}
+  - 114: {fileID: 872632175}
   m_Layer: 0
   m_Name: Client
   m_TagString: Untagged
@@ -1430,13 +1438,13 @@ MonoBehaviour:
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
-  m_LogLevel: 2
+  m_LogLevel: 0
   m_PlayerPrefab: {fileID: 1000011681753154, guid: 305f3d31258bed64fb537aa65d3e2051,
     type: 2}
   m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: 
-  m_OnlineScene: 
+  m_OfflineScene: TitleScreen
+  m_OnlineScene: Game
   m_SpawnPrefabs: []
   m_CustomConfig: 0
   m_MaxConnections: 4
@@ -1640,6 +1648,52 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 990292166}
+--- !u!1001 &991510761
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1 &1068025163
 GameObject:
   m_ObjectHideFlags: 0
@@ -3100,18 +3154,18 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1646828967}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8659b5a7fc3b5a443a7fe69a0faf9313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CameraRotationSpeed: 0.25
   PersonRotationTimerMultiple: 3
-  LeftLeg: {fileID: 0}
-  RightLeg: {fileID: 0}
-  Body: {fileID: 0}
+  LeftLeg: {fileID: 553284008}
+  RightLeg: {fileID: 1972291503}
+  Body: {fileID: 583771216}
   PlaneSpeed: 0.1
-  Plane: {fileID: 0}
+  Plane: {fileID: 1424955255}
 --- !u!1 &1659195184
 GameObject:
   m_ObjectHideFlags: 0
@@ -3698,6 +3752,10 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1932325293}
+--- !u!1 &1972291503 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100024, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+  m_PrefabInternal: {fileID: 991510761}
 --- !u!1 &2016346204
 GameObject:
   m_ObjectHideFlags: 0

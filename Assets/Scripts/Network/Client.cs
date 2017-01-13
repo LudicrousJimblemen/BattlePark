@@ -18,7 +18,7 @@ public class Client : MonoBehaviour {
 		
 		DontDestroyOnLoad(gameObject);
 		Instance = this;
-		
+		print (NetworkManager.singleton == null);
 		NetworkManager.singleton.StartMatchMaker();
 	}
 	
