@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -18,7 +19,14 @@ public class Client : MonoBehaviour {
 		
 		DontDestroyOnLoad(gameObject);
 		Instance = this;
-		print (NetworkManager.singleton == null);
+		//print (NetworkManager.singleton == null);
+		StartCoroutine(WaitForNetworkManager());
+	}
+	
+	IEnumerator WaitForNetworkManager () {
+		while (NetworkManager.singleton == null) {
+			yield return new WaitForEndOfFrame();
+		}
 		NetworkManager.singleton.StartMatchMaker();
 	}
 	
