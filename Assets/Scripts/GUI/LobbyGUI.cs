@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.Types;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LobbyGUI : GUI {
+	public static LobbyGUI Instance;
+	
 	[Header("Panels")]
 	public Graphic MainPanel;
 	public Graphic CreateGamePanel;
@@ -38,8 +42,12 @@ public class LobbyGUI : GUI {
 	[Header("Prefabs")]
 	public GameObject ServerButtonPrefab;
 	
-	protected override void Awake() {
-		base.Awake();
+	[HideInInspector]
+	public LobbyPlayer LocalPlayer;
+	
+	public void LoadMain () {
+		SwitchPanel (MainPanel);
+		FadeGraphic(Fade, 0, 60, FadeFrom, 0);
 		
 		currentPanel = MainPanel;
 		
@@ -64,13 +72,31 @@ public class LobbyGUI : GUI {
 		FindGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
 		
 		LobbyLeaveButton.onClick.AddListener(() => {
-			NetworkManager.singleton.matchMaker.DestroyMatch(
-	 			Client.Instance.currentNetID,
-	 			0,
-	 			Client.Instance.OnDestroyMatch
-	 		);
-			AnimatePanel(MainPanel, 1);
+			NetworkManager.singleton.matchMaker.DropConnection (
+	     		Client.Instance.matchInfo.networkId,
+				Client.Instance.matchInfo.nodeId,
+	     		0,
+	     		Client.Instance.OnDropConnection
+	     	);
 		});
+		
+		LobbyReadyButton.onClick.AddListener(() => {
+			if (Client.Instance.localPlayer == null) return;
+			bool ready = Client.Instance.localPlayer.ToggleReady ();
+			LobbyReadyButton.GetComponentInChildren<Text>().text = ready ? "Unready" : "Ready";
+		});
+	}
+	
+	protected override void Awake() {
+		if (FindObjectsOfType<LobbyGUI> ().Count () > 1) {
+			Destroy(gameObject);
+			return;
+		}
+		DontDestroyOnLoad (gameObject);
+		Instance = this;
+		base.Awake ();
+		currentPanel = MainPanel;
+		LoadMain ();
 	}
 	
 	private void PopulateServerList() {
@@ -105,7 +131,7 @@ public class LobbyGUI : GUI {
 				}
 	     		    
 				for (int i = 0; i < FindGamePanel.transform.childCount; i++) {
-					((RectTransform)FindGamePanel.transform.GetChild(i).transform).localPosition += new Vector3(
+					((RectTransform)FindGamePanel.transform.GetChild(i).transform).localPosition = new Vector3(
 						0,
 						(-50 * i) + (25 * (FindGamePanel.transform.childCount - 1)),
 						0);
@@ -167,5 +193,10 @@ public class LobbyGUI : GUI {
 		}
 		
 		return returnedName;
+	}
+	public void FadeToWhite (Action callback = null) {
+		Color transparentFadeFrom = FadeFrom;
+		transparentFadeFrom.a = 0;
+		FadeGraphic (Fade, 0, 60, transparentFadeFrom, 1, false, callback);
 	}
 }

@@ -57,6 +57,8 @@
      <Compile Include="Assets\Scripts\GUI\WindowResizer.cs" />
      <Compile Include="Assets\Scripts\GridOverlay.cs" />
      <Compile Include="Assets\Scripts\Network\Client.cs" />
+     <Compile Include="Assets\Scripts\Network\LobbyPlayer.cs" />
+     <Compile Include="Assets\Scripts\Network\original\Client.cs" />
      <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
      <None Include="Assets\Fonts\OFL.txt" />
      <None Include="Assets\Resources\Language\jp.txt" />

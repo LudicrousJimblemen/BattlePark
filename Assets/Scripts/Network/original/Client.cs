@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,24 +7,29 @@ using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
 
-public class Client : NetworkLobbyManager {
+public class Client : MonoBehaviour {
 	public static Client Instance;
 	
 	[HideInInspector]
 	public bool IsHost;
-	
-	public LobbyPlayer localPlayer;
+	[HideInInspector]
+	public NetworkID currentNetID;
+	[HideInInspector]
+	public bool Ready;
 	
 	private void Awake() {
 		if (FindObjectsOfType<Client>().Length > 1) {
 			Destroy(gameObject);
-			return;
 		}
 		
 		DontDestroyOnLoad(gameObject);
 		Instance = this;
 		//print (NetworkManager.singleton == null);
 		//StartCoroutine(WaitForNetworkManager());
+	}
+	
+	public void StartMatchMaker() {
+		NetworkManager.singleton.StartMatchMaker();
 	}
 	
 	IEnumerator WaitForNetworkManager () {
@@ -34,7 +40,7 @@ public class Client : NetworkLobbyManager {
 	}
 	
 	public void CreateMatch(string roomName, uint size, NetworkMatch.DataResponseDelegate<MatchInfo> callback) {
-		base.matchMaker.CreateMatch(
+		NetworkManager.singleton.matchMaker.CreateMatch(
 			roomName,
 			size,
 			true,
@@ -47,14 +53,15 @@ public class Client : NetworkLobbyManager {
 				IsHost = success;
 				if (success) {
 					NetworkServer.Listen(matchInfo, 6666);
-					StartHost(matchInfo);
+					NetworkManager.singleton.StartHost(matchInfo);
+					currentNetID = matchInfo.networkId;
 				}
 				callback(success, extendedInfo, matchInfo);
 			});
 	}
 	
 	public void ListMatches(int maxResults, NetworkMatch.DataResponseDelegate<List<MatchInfoSnapshot>> callback) {
-		matchMaker.ListMatches(
+		NetworkManager.singleton.matchMaker.ListMatches(
 			0,
 			maxResults,
 			String.Empty,
@@ -65,7 +72,7 @@ public class Client : NetworkLobbyManager {
 	}
 	
 	public void JoinMatch(NetworkID id, NetworkMatch.DataResponseDelegate<MatchInfo> callback) {
-		matchMaker.JoinMatch(
+		NetworkManager.singleton.matchMaker.JoinMatch(
 			id,
 			String.Empty,
 			String.Empty,
@@ -73,30 +80,21 @@ public class Client : NetworkLobbyManager {
 			0,
 			0,
 			(success, extendedInfo, matchInfo) => {
-				IsHost = false;
+				IsHost = success;
 				if (success) {
-					StartClient(matchInfo);
+					NetworkManager.singleton.StartClient(matchInfo);
+					currentNetID = matchInfo.networkId;
 				}
 				callback(success, extendedInfo, matchInfo);
 			});
 	}
-	public override void OnDropConnection (bool success, string extendedInfo) {
-		LobbyGUI.Instance.FadeToWhite (DropConnection);
-	}
-	void DropConnection () {
-		StopMatchMaker();
-		Network.Disconnect ();
-		if (IsHost) StopHost (); else StopClient ();
-		if (localPlayer != null) {
-			localPlayer.RemovePlayer ();
-			Destroy (localPlayer.gameObject);
-		}
-		LobbyGUI.Instance.LoadMain ();
-	}
-	public override void OnLobbyServerPlayersReady () {
-		
+	public void OnDestroyMatch (bool success, string extendedInfo) {
+		NetworkManager.singleton.StopMatchMaker();
+		if (IsHost) NetworkManager.singleton.StopHost();
+		else NetworkManager.singleton.StopClient();
 	}
 	public void StartGame () {
 		if (!IsHost) return;
 	}
 }
+*/

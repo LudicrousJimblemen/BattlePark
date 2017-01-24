@@ -13,7 +13,7 @@ public class GUI : MonoBehaviour {
 	protected Graphic currentPanel;
 
 	protected virtual void Awake() {
-		FadeGraphic(Fade, 0, 60, FadeFrom, 0);
+		//FadeGraphic(Fade, 0, 60, FadeFrom, 0);
 	}
 
 	protected virtual void Update() {
@@ -57,9 +57,15 @@ public class GUI : MonoBehaviour {
 			);
 			yield return null;
 		}
-	
+		
 		currentPanel.gameObject.SetActive(false);
 		currentPanel = to;
 		inAnimation = false;
+	}
+	public void SwitchPanel(Graphic to) {
+		currentPanel.gameObject.SetActive(false);
+		to.rectTransform.localPosition = Vector3.zero;
+		to.gameObject.SetActive (true);
+		currentPanel = to;
 	}
 }
