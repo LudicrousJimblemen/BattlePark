@@ -85,7 +85,6 @@ public class Client : NetworkLobbyManager {
 	}
 	void DropConnection () {
 		StopMatchMaker();
-		Network.Disconnect ();
 		if (IsHost) StopHost (); else StopClient ();
 		if (localPlayer != null) {
 			localPlayer.RemovePlayer ();
@@ -94,9 +93,25 @@ public class Client : NetworkLobbyManager {
 		LobbyGUI.Instance.LoadMain ();
 	}
 	public override void OnLobbyServerPlayersReady () {
-		
+		print ("mate, we're shipshape");
+		StartCoroutine(StartGame());
 	}
-	public void StartGame () {
-		if (!IsHost) return;
+	
+	IEnumerator StartGame () {
+		for (int i = 0; i < lobbySlots.Length; i++) {
+			if (lobbySlots[i] == null) break;
+			((LobbyPlayer)lobbySlots[i]).RpcPrepareReady();
+		}
+		yield return new WaitForSeconds (2.0f);
+		ServerChangeScene(playScene);
+	}
+	
+	//called every time a player loads the game scene
+	//use this to pass stuff from the lobbyplayer to the game player
+	public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer) {
+		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer> ();
+		Player game = gamePlayer.GetComponent<Player> ();
+		game.Username = lobby.Username;
+		return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer, gamePlayer);
 	}
 }

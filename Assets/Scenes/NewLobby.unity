@@ -684,6 +684,7 @@ MonoBehaviour:
   LobbyUsersPanelText: {fileID: 1670378241}
   ServerButtonPrefab: {fileID: 104980, guid: 9a1af8c2b03c38c43a3e9c2b43db4483, type: 2}
   LocalPlayer: {fileID: 0}
+  Username: 
 --- !u!1 &333485006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,7 +1415,8 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 1000010353424726, guid: 75d227fe0777f9d43b8f2492285b9fda,
+    type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
   m_OfflineScene: NewLobby
@@ -1465,7 +1467,7 @@ MonoBehaviour:
   m_ShowLobbyGUI: 0
   m_MaxPlayers: 4
   m_MaxPlayersPerConnection: 1
-  m_MinPlayers: 2
+  m_MinPlayers: 1
   m_LobbyPlayerPrefab: {fileID: 114000013421822666, guid: fd5911aee270ebc44b8e0f8ef525c049,
     type: 2}
   m_GamePlayerPrefab: {fileID: 1000010353424726, guid: 75d227fe0777f9d43b8f2492285b9fda,

@@ -3,6 +3,10 @@ using UnityEngine.Networking;
 using System.Collections;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
+	
+	[SyncVar]
+	public string Username;
+	
 	//insert stuff to pass to the real player here
 	/// <summary>
 	/// Toggles the ready state of the player
@@ -23,10 +27,16 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 		if (!isLocalPlayer) return;
 		print ("wow");
 		Client.Instance.localPlayer = this;
+		LobbyGUI.Instance.LobbyReadyButton.interactable = true;
+		Username = LobbyGUI.Instance.Username;
 	}
 	public override void OnClientExitLobby () {
 		//base.OnClientExitLobby ();
 		//print ("exit ass");
 		//SendNotReadyToBeginMessage ();
+	}
+	[ClientRpc]
+	public void RpcPrepareReady () {
+		LobbyGUI.Instance.FadeToWhite ();
 	}
 }

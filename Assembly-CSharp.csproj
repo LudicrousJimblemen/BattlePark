@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\AppConfig.cs" />
      <Compile Include="Assets\Scripts\AppVersion.cs" />
      <Compile Include="Assets\Scripts\Controls\CameraPan.cs" />
+     <Compile Include="Assets\Scripts\Controls\NetworkCameraPan.cs" />
      <Compile Include="Assets\Scripts\DraggablePanel.cs" />
      <Compile Include="Assets\Scripts\GUI\GUI.cs" />
      <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
@@ -58,6 +59,7 @@
      <Compile Include="Assets\Scripts\GridOverlay.cs" />
      <Compile Include="Assets\Scripts\Network\Client.cs" />
      <Compile Include="Assets\Scripts\Network\LobbyPlayer.cs" />
+     <Compile Include="Assets\Scripts\Network\Player.cs" />
      <Compile Include="Assets\Scripts\Network\original\Client.cs" />
      <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
      <None Include="Assets\Fonts\OFL.txt" />

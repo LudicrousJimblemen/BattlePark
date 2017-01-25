@@ -44,25 +44,27 @@ public class LobbyGUI : GUI {
 	
 	[HideInInspector]
 	public LobbyPlayer LocalPlayer;
+	[HideInInspector]
+	public string Username;
 	
 	public void LoadMain () {
 		SwitchPanel (MainPanel);
 		FadeGraphic(Fade, 0, 60, FadeFrom, 0);
 		
-		currentPanel = MainPanel;
+		//currentPanel = MainPanel;
 		
 		CreateGameButton.onClick.AddListener(() => {
 			Client.Instance.StartMatchMaker();
 	    	AnimatePanel(CreateGamePanel, 1);
-	    	string CurrentUsername = GenerateUsername();
-	    	CreateGameUsernameInputField.text = CurrentUsername;
-	    	CreateGameRoomNameInputField.text = CurrentUsername + "\'s Shitty Default Room";
+	    	Username = GenerateUsername();
+	    	CreateGameUsernameInputField.text = Username;
+	    	CreateGameRoomNameInputField.text = Username + "\'s Shitty Default Room";
 	    });
 		FindGameButton.onClick.AddListener(() => {
 			Client.Instance.StartMatchMaker();
        		PopulateServerList();
-        	string CurrentUsername = GenerateUsername();
-        	FindGameUsernameInputField.text = CurrentUsername;
+        	Username = GenerateUsername();
+        	FindGameUsernameInputField.text = Username;
         });
 		ExitButton.onClick.AddListener(Application.Quit);
 		
@@ -79,7 +81,7 @@ public class LobbyGUI : GUI {
 	     		Client.Instance.OnDropConnection
 	     	);
 		});
-		
+		LobbyReadyButton.interactable = false;
 		LobbyReadyButton.onClick.AddListener(() => {
 			if (Client.Instance.localPlayer == null) return;
 			bool ready = Client.Instance.localPlayer.ToggleReady ();
@@ -92,7 +94,6 @@ public class LobbyGUI : GUI {
 			Destroy(gameObject);
 			return;
 		}
-		DontDestroyOnLoad (gameObject);
 		Instance = this;
 		base.Awake ();
 		currentPanel = MainPanel;

@@ -38,6 +38,7 @@ public class GUI : MonoBehaviour {
 	}
 
 	public void AnimatePanel(Graphic to, int fromDirection) {
+		if (currentPanel == to) return;
 		StartCoroutine(AnimatePanelCoroutine(to, fromDirection));
 	}
 	private IEnumerator AnimatePanelCoroutine(Graphic to, int fromDirection) {
@@ -63,6 +64,7 @@ public class GUI : MonoBehaviour {
 		inAnimation = false;
 	}
 	public void SwitchPanel(Graphic to) {
+		if (currentPanel == to) return;
 		currentPanel.gameObject.SetActive(false);
 		to.rectTransform.localPosition = Vector3.zero;
 		to.gameObject.SetActive (true);
