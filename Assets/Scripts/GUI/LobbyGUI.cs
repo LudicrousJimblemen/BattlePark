@@ -58,7 +58,7 @@ public class LobbyGUI : GUI {
 	    	AnimatePanel(CreateGamePanel, 1);
 	    	Username = GenerateUsername();
 	    	CreateGameUsernameInputField.text = Username;
-	    	CreateGameRoomNameInputField.text = Username + "\'s Shitty Default Room";
+	    	CreateGameRoomNameInputField.text = Username + "\'s Cool Default Room";
 	    });
 		FindGameButton.onClick.AddListener(() => {
 			Client.Instance.StartMatchMaker();
