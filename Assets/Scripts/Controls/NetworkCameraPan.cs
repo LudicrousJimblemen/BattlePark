@@ -66,4 +66,8 @@ public class NetworkCameraPan : NetworkBehaviour {
 			transform.eulerAngles.z
 		);
 	}
+	
+	void OnDrawGizmos () {
+		Gizmos.DrawSphere (PivotPoint, 0.5f);
+	}
 }

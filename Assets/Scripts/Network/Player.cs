@@ -9,6 +9,8 @@ public class Player : NetworkBehaviour {
 	
 	void Start () {
 		if (!isLocalPlayer) return;
+		Camera.main.transform.position = transform.position;
+		Camera.main.transform.rotation = transform.rotation;
 		Camera.main.transform.SetParent (transform);
 	}
 	

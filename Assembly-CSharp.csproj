@@ -56,6 +56,11 @@
      <Compile Include="Assets\Scripts\GUI\Localization\TextLocalizer.cs" />
      <Compile Include="Assets\Scripts\GUI\Window.cs" />
      <Compile Include="Assets\Scripts\GUI\WindowResizer.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\Direction.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\Grid.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridObject.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridObjects.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridRegion.cs" />
      <Compile Include="Assets\Scripts\GridOverlay.cs" />
      <Compile Include="Assets\Scripts\Network\Client.cs" />
      <Compile Include="Assets\Scripts\Network\LobbyPlayer.cs" />
