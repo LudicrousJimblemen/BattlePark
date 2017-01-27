@@ -41,7 +41,7 @@ public class GridObjects : MonoBehaviour {
 		} else {
 			foreach (var item in dictionary.Values) {
 				foreach (var offset in item.RotatedOffsets()) {
-					if (item.GridPosition() + offset == location) {
+					if (item.GridPosition + offset == location) {
 						return item;
 					}
 				}

@@ -4,16 +4,12 @@ using System.Collections;
 public abstract class GridObject : MonoBehaviour {
 	#region Data Variables
 	public Direction Direction;
-	
+	public Vector3 GridPosition;
+
 	public abstract bool PlaceMultiple { get; set; }
-	public abstract Vector3[] OccupiedOffsets { 
-		get {
-			return new [] { Vector3.zero};
-		}
-		set;
-	}
+	public abstract Vector3[] OccupiedOffsets { get; set; }
 	#endregion
-	
+
 	public Grid Grid;
 
 	public virtual void OnPlaced() { }
@@ -21,15 +17,11 @@ public abstract class GridObject : MonoBehaviour {
 
 	public void UpdatePosition() {
 		transform.position = new Vector3 {
-			x = X * Grid.GridStepXZ + 0.5f,
-			y = Y * Grid.GridStepY,
-			z = Z * Grid.GridStepXZ + 0.5f
+			x = GridPosition.x * Grid.GridStepXZ + 0.5f,
+			y = GridPosition.y * Grid.GridStepY,
+			z = GridPosition.z * Grid.GridStepXZ + 0.5f
 		};
-		transform.rotation = Quaternion.Euler(-90, 0, (int)Direction * 90);
-	}
-
-	public Vector3 GridPosition() {
-		return new Vector3(X, Y, Z);
+		transform.rotation = Quaternion.Euler(-90,0,(int)Direction * 90);
 	}
 
 	public Vector3[] RotatedOffsets() {
@@ -42,32 +34,32 @@ public abstract class GridObject : MonoBehaviour {
 		//	multiply x and z by -1
 		//West
 		//	x becomes -z, z becomes -x
-		switch (Direction) {
+		switch(Direction) {
 			case Direction.East:
-				for (int i = 0; i < OccupiedOffsets.Length; i++) {
-					ReturnList[i] = new Vector3 {
-						x = OccupiedOffsets[i].z,
-						y = OccupiedOffsets[i].y,
-						z = -OccupiedOffsets[i].x,
-					};
+				for(int i = 0; i < OccupiedOffsets.Length; i++) {
+					ReturnList[i] = new Vector3(
+						OccupiedOffsets[i].z,
+						OccupiedOffsets[i].y,
+						-OccupiedOffsets[i].x
+					);
 				}
 				return ReturnList;
 			case Direction.North:
-				for (int i = 0; i < OccupiedOffsets.Length; i++) {
-					ReturnList[i] = new Vector3 {
-						x = -OccupiedOffsets[i].x,
-						y = OccupiedOffsets[i].y,
-						z = -OccupiedOffsets[i].z,
-					};
+				for(int i = 0; i < OccupiedOffsets.Length; i++) {
+					ReturnList[i] = new Vector3(
+						-OccupiedOffsets[i].x,
+						OccupiedOffsets[i].y,
+						-OccupiedOffsets[i].z
+					);
 				}
 				break;
 			case Direction.West:
-				for (int i = 0; i < OccupiedOffsets.Length; i++) {
-					ReturnList[i] = new Vector3 {
-						x = -OccupiedOffsets[i].z,
-						y = OccupiedOffsets[i].y,
-						z = OccupiedOffsets[i].x,
-					};
+				for(int i = 0; i < OccupiedOffsets.Length; i++) {
+					ReturnList[i] = new Vector3(
+						-OccupiedOffsets[i].z,
+						OccupiedOffsets[i].y,
+						OccupiedOffsets[i].x
+					);
 				}
 				break;
 			case Direction.South:
