@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//TODO 1 wide border around all parks for gate and fences
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,8 @@ public class Grid : MonoBehaviour {
 	public GridObjects Objects = new GridObjects(); //should not yet work
 	public List<GridRegion> Regions = new List<GridRegion>();
 
-	public int GridSizeX = 2;
-	public int GridSizeZ = 2;
+	public int GridSizeX = 81;
+	public int GridSizeZ = 81;
 
 	public float GridStepXZ = 1f;
 	public float GridStepY = 0.5f;
@@ -22,26 +24,33 @@ public class Grid : MonoBehaviour {
 
 	public Material ParkMat;
 	public Material PathMat;
+	public Material BordMat;
 
+	
+	
+	Vector3[] borderVx;
+	
+	
 	public void Start() {
-		GenerateMesh(GridSizeX,GridSizeZ,2); //temp
+		GenerateMesh(GridSizeX,GridSizeZ,4); //temp
 	}
 
-	public void GenerateMesh(int xSize, int zSize, int parks, float checkerboardWidth = 4) {
+	public void GenerateMesh(int xSize, int zSize, int parks, float checkerboardWidth = 3) {
+		if (parks != 2 && parks != 4) parks = 2;
 		Vector3[] parkCenters = new Vector3[parks];
 		float px, pz;
 		int pathVertexCount = 0;
 		switch(parks) {
 			case 2:
-				px = ((float)xSize + PathWidth) / 2f * GridStepXZ;
+				px = (((float)xSize + PathWidth) / 2f + 1f) * GridStepXZ;
 				pz = 0;
 				parkCenters[0] = new Vector3(-px,0,pz);
 				parkCenters[1] = new Vector3(px,0,-pz);
 				pathVertexCount = 4;
 				break;
 			case 4:
-				px = ((float)xSize + PathWidth) / 2f * GridStepXZ;
-				pz = ((float)zSize + PathWidth) / 2f * GridStepXZ;
+				px = (((float)xSize + PathWidth) / 2f + 1f) * GridStepXZ;
+				pz = (((float)zSize + PathWidth) / 2f + 1f) * GridStepXZ;
 				parkCenters[0] = new Vector3(-px,0,pz);
 				parkCenters[1] = new Vector3(px,0,pz);
 				parkCenters[2] = new Vector3(px,0,-pz);
@@ -63,11 +72,13 @@ public class Grid : MonoBehaviour {
 		meshFilter.mesh = new Mesh();
 		meshFilter.mesh.name = "Grid";
 	
-		Vector3[] vertices = new Vector3[(xSize + 1) * (zSize + 1) * parks + pathVertexCount + 1];
+		Vector3[] vertices = new Vector3[(xSize + 1) * (zSize + 1) * parks + pathVertexCount + 12 * parks + 1];
 		Vector2[] uv = new Vector2[vertices.Length];
-		meshFilter.mesh.subMeshCount = parks + 1;
+		meshFilter.mesh.subMeshCount = parks + 2;
+		
+		//parks
 		for(int p = 0; p < parks; p++) {
-			Vector3 start = (parkCenters[p] - new Vector3(xSize / 2,0,zSize / 2));
+			Vector3 start = (parkCenters[p] - new Vector3(xSize / 2f,0,zSize / 2f));
 			print(start);
 			for(int i = 0, z = 0; z <= zSize; z++) {
 				for(int x = 0; x <= xSize; x++, i++) {
@@ -76,17 +87,18 @@ public class Grid : MonoBehaviour {
                 }
 			}
 		}
-
+		
+		//paths
 		int pvc = (xSize + 1) * (zSize + 1) * parks; //park vertex count
 		print(pvc);
-		float inDist = PathWidth / 2;
-		float outDistX = PathWidth / 2 + xSize;
-		float outDistZ = PathWidth / 2 + zSize;
+		float inDist = (PathWidth / 2f) * GridStepXZ;
+		float outDistX = (PathWidth / 2f + xSize + 2) * GridStepXZ;
+		float outDistZ = (PathWidth / 2f + zSize + 2) * GridStepXZ;
 		if(pathVertexCount == 4) {
-			vertices[pvc] = new Vector3(-inDist,0,-zSize / 2);
-			vertices[pvc + 1] = new Vector3(inDist,0,-zSize / 2);
-			vertices[pvc + 2] = new Vector3(-inDist,0,zSize / 2);
-			vertices[pvc + 3] = new Vector3(inDist,0,zSize / 2);
+			vertices[pvc] = new Vector3(-inDist,0,-zSize / 2f - 1f);
+			vertices[pvc + 1] = new Vector3(inDist,0,-zSize / 2f - 1f);
+			vertices[pvc + 2] = new Vector3(-inDist,0,zSize / 2f + 1f);
+			vertices[pvc + 3] = new Vector3(inDist,0,zSize / 2f + 1f);
 		} else if (pathVertexCount == 12) {
 			vertices[pvc] = new Vector3(-inDist,0,-outDistZ);
 			vertices[pvc + 1] = new Vector3(inDist,0,-outDistZ);
@@ -102,8 +114,43 @@ public class Grid : MonoBehaviour {
 			vertices[pvc + 11] = new Vector3(inDist,0,outDistZ);
 		}
 		for(int i = 0; i < pathVertexCount; i++) {
-			uv[pvc + i] = new Vector2((vertices[pvc + i].x + PathWidth / checkerboardWidth * 2) * (1f / checkerboardWidth) * 0.5f,
-									  (vertices[pvc + i].z + PathWidth / checkerboardWidth * 2) * (1f / checkerboardWidth) * 0.5f);
+			uv[pvc + i] = new Vector2((vertices[pvc + i].x) * (1f / checkerboardWidth) * 0.5f,
+									  (vertices[pvc + i].z) * (1f / checkerboardWidth) * 0.5f);
+		}
+		//border
+		int pvcb = pvc + pathVertexCount;
+		float inDistX = xSize / 2f;
+		float inDistZ = zSize / 2f;
+		outDistX = xSize / 2f + 1f;
+		outDistZ = zSize / 2f + 1f;
+		print (pvcb);
+		for (int b = 0; b < parks; b ++) {
+			vertices[pvcb + 12 * b] = new Vector3 (-outDistX,0,-outDistZ) + parkCenters[b];
+			vertices[pvcb + 12 * b + 1] = new Vector3 (outDistX,0,-outDistZ) + parkCenters[b];
+			vertices[pvcb + 12 * b + 2] = new Vector3 (outDistX,0,outDistZ) + parkCenters[b];
+			vertices[pvcb + 12 * b + 3] = new Vector3 (-outDistX,0,outDistZ) + parkCenters[b];
+			
+			vertices[pvcb + 12 * b + 4] = new Vector3 (-inDistX,0,-inDistZ) + parkCenters[b];
+			vertices[pvcb + 12 * b + 5] = new Vector3 (inDistX,0,-inDistZ) + parkCenters[b];
+			vertices[pvcb + 12 * b + 6] = new Vector3 (inDistX,0,inDistZ) + parkCenters[b];
+			vertices[pvcb + 12 * b + 7] = new Vector3 (-inDistX,0,inDistZ) + parkCenters[b];
+			
+			vertices[pvcb + 12 * b + 8] = new Vector3 (0,0,-outDistZ) + parkCenters[b];
+			vertices[pvcb + 12 * b + 9] = new Vector3 (outDistX,0,0) + parkCenters[b];
+			vertices[pvcb + 12 * b + 10] = new Vector3 (0,0,outDistZ) + parkCenters[b];
+			vertices[pvcb + 12 * b + 11] = new Vector3 (-outDistX,0,0) + parkCenters[b];
+		}
+		float totalXSize = xSize * 2f + PathWidth + 4f;
+		float totalZSize = zSize * 2f + PathWidth + 4f;
+		Vector3 bottomLeftCorner = new Vector3 (-xSize + PathWidth / 2f + 2f, 0, -zSize + PathWidth / 2f + 2f);
+		for (int i = 0; i < parks * 12; i ++) {
+			uv[pvcb + i] = new Vector2 ((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
+			                            (vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
+		}
+		print (vertices.Length);
+		borderVx = new Vector3[vertices.Length - pvcb];
+		for (int i = 0; i < borderVx.Length; i ++) {
+			borderVx[i] = vertices[pvcb + i];
 		}
 		meshFilter.mesh.vertices = vertices;
 		meshFilter.mesh.uv = uv;
@@ -147,18 +194,55 @@ public class Grid : MonoBehaviour {
 			}
 		}
 		meshFilter.mesh.SetTriangles(pathTri,parks);
+		int[] borderTri = new int[36 * parks];
+		for (int i = 0; i < parks; i ++) {
+			int ind = i*36;
+			for (int s = 0; s < 3; s ++) { //first three sides of the border
+				borderTri[ind + 9 * s] = s + pvcb + i * 12;
+				borderTri[ind + 9 * s + 1] = 
+					borderTri[ind + 9 * s + 3] = s + pvcb + 4 + i * 12;
+				borderTri[ind + 9 * s + 2] = 
+					borderTri[ind + 9 * s + 5] = 
+					borderTri[ind + 9 * s + 8] = s + pvcb + 8 + i * 12;
+				borderTri[ind + 9 * s + 4] = 
+					borderTri[ind + 9 * s + 6] = s + pvcb + 5 + i * 12;
+				borderTri[ind + 9 * s + 7] = s + pvcb + 1 + i * 12;
+			}
+			//last side
+			borderTri[ind + 27] = 3 + pvcb + i * 12;
+			borderTri[ind + 27 + 1] = 
+				borderTri[ind + 27 + 3] = 3 + pvcb + 4 + i * 12;
+			borderTri[ind + 27 + 2] = 
+				borderTri[ind + 27 + 5] = 
+				borderTri[ind + 27 + 8] = 3 + pvcb + 8 + i * 12;
+			borderTri[ind + 27 + 4] = 
+				borderTri[ind + 27 + 6] = 3 + pvcb + 1 + i * 12;
+			borderTri[ind + 27 + 7] = pvcb + i * 12;
+		}
+		meshFilter.mesh.SetTriangles (borderTri, parks + 1);
+		
 		meshFilter.mesh.RecalculateNormals();
 
-		Material[] materials = new Material[parks + 1];
-		for(int i = 0; i < materials.Length - 1; i++) {
+		Material[] materials = new Material[parks + 2];
+		for(int i = 0; i < materials.Length - 2; i++) {
 			print("wow");
 			materials[i] = ParkMat;
 		}
-		materials[materials.Length - 1] = PathMat;
+		materials[materials.Length - 2] = PathMat;
+		materials[materials.Length - 1] = BordMat;
 
 		meshRenderer.materials = materials;
 
 		GetComponent<MeshCollider>().sharedMesh = meshFilter.mesh;
+	}
+	
+	void OnDrawGizmos () {
+		if (borderVx != null) {
+			for (int i = 0; i < borderVx.Length; i ++) {
+				Gizmos.DrawSphere (borderVx[i], 0.1f);
+				UnityEditor.Handles.Label (borderVx[i], i.ToString ());
+			}
+		}
 	}
 	
 	public Vector3 ToGridSpace(Vector3 position) {
