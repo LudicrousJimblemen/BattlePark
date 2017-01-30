@@ -26,42 +26,51 @@ namespace BattlePark {
 		public float MinimumPivotY = -2f;
 
 		private Vector3 PivotPoint = Vector3.zero;
-	
+
 		void LateUpdate() {
 			//Stores the normalized direction of the camera with the y set to 0
 			Vector3 flatForward = transform.forward;
 			flatForward.y = 0;
 			flatForward.Normalize();
-		
+
 			Vector3 difference = Vector3.zero;
-			if (Enabled) {
+			if(Enabled) {
 				//Stores a vector with the combined inputs of all 6 cartesian directions
 				difference = MovementSpeed * (flatForward * Input.GetAxis("Vertical") +
-				Vector3.Cross(flatForward, Vector3.up).normalized * -Input.GetAxis("Horizontal") +
+				Vector3.Cross(flatForward,Vector3.up).normalized * -Input.GetAxis("Horizontal") +
 				Vector3.up * Input.GetAxis("Up/Down"));
 			}
-		
-			//Stops difference from taking the pivotpoint below minimum
-			if (PivotPoint.y + difference.y < MinimumPivotY) {
-				difference.y = 0; 
-			}
-		
 			//Applies difference vector to transform and pivot
 			transform.position += difference;
-			PivotPoint += difference;
-		
-			//Control rotation around the y axis		
-			if (Enabled) {
-				transform.RotateAround(PivotPoint, Vector3.up, Input.GetAxis("Rotate") * RotationSpeed);
+			if(transform.position.y < MinimumPivotY)
+				transform.position = new Vector3(transform.position.x,MinimumPivotY,transform.position.z);
+			//Control rotation around the y axis
+			PivotPoint = GetPivot();
+			if(Enabled) {
+				transform.RotateAround(PivotPoint,Vector3.up,Input.GetAxis("Rotate") * RotationSpeed);
 			}
-		
+
 			//Rotate around the local x axis of camera going through the pivot, based on the height of the camera
 			//ie: Rotate downwards harsher at higher elevations
 			transform.rotation = Quaternion.Euler(
-				Mathf.Lerp(FlatAngle, TiltAngle, Mathf.SmoothStep(0f, 1f, (transform.position.y - FlatHeight) / (TiltHeight - FlatHeight))),
+				Mathf.Lerp(FlatAngle,TiltAngle,Mathf.SmoothStep(0f,1f,(transform.position.y - FlatHeight) / (TiltHeight - FlatHeight))),
 				transform.eulerAngles.y,
 				transform.eulerAngles.z
 			);
+		}
+		void OnDrawGizmos() {
+			Gizmos.DrawSphere(PivotPoint,1);
+		}
+		Vector3 GetPivot() {
+			float angle = Mathf.Acos(Vector3.Dot(Vector3.down,transform.forward)); //angle between down and forwards directions
+			print(angle);
+			float y = transform.position.y;
+			float flatDistToPivot = angle * y / (Mathf.PI / 2 - angle);
+			Vector3 flatForward = transform.forward;
+			flatForward.y = 0;
+			Vector3 flatPos = transform.position;
+			flatPos.y = 0;
+			return flatPos + flatForward.normalized * flatDistToPivot;
 		}
 	}
 }
