@@ -47,6 +47,7 @@ public class NetworkCameraPan : NetworkBehaviour {
 		transform.position += difference;
 		if(transform.position.y < MinimumPivotY)
 			transform.position = new Vector3(transform.position.x,MinimumPivotY,transform.position.z);
+		print(transform.position);
 		//Control rotation around the y axis
 		PivotPoint = GetPivot();
 		if(Enabled) {
@@ -63,13 +64,16 @@ public class NetworkCameraPan : NetworkBehaviour {
 	}
 	Vector3 GetPivot() {
 		float angle = Mathf.Acos(Vector3.Dot(Vector3.down,transform.forward)); //angle between down and forwards directions
-		print(angle);
+		if(Mathf.PI / 2 - angle == 0)
+			return Vector3.zero;
+		//print(angle);
 		float y = transform.position.y;
 		float flatDistToPivot = angle * y / (Mathf.PI / 2 - angle);
 		Vector3 flatForward = transform.forward;
 		flatForward.y = 0;
 		Vector3 flatPos = transform.position;
 		flatPos.y = 0;
+		print(flatDistToPivot);
 		return flatPos + flatForward.normalized * flatDistToPivot;
 	}
 }

@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 			return;
 		for (int i = 0; i < ParkCenters.Length; i++) {
 			Gizmos.DrawSphere(ParkCenters[i],0.25f);
-			UnityEditor.Handles.Label(ParkCenters[i],(i + 1).ToString());
+			//UnityEditor.Handles.Label(ParkCenters[i],(i + 1).ToString());
 		}
 	}
 }

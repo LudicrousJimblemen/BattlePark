@@ -91,47 +91,48 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &17382625
-GameObject:
+--- !u!1001 &435647159
+Prefab:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 17382627}
-  - component: {fileID: 17382626}
-  m_Layer: 0
-  m_Name: Game Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &17382626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 17382625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5538da8c145b740448ea8111a98506a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ParkCenters: []
---- !u!4 &17382627
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 17382625}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4711448260696822, guid: 97d87894d7d94bc4ebbdffabbaeafe50, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711448260696822, guid: 97d87894d7d94bc4ebbdffabbaeafe50, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711448260696822, guid: 97d87894d7d94bc4ebbdffabbaeafe50, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711448260696822, guid: 97d87894d7d94bc4ebbdffabbaeafe50, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711448260696822, guid: 97d87894d7d94bc4ebbdffabbaeafe50, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711448260696822, guid: 97d87894d7d94bc4ebbdffabbaeafe50, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711448260696822, guid: 97d87894d7d94bc4ebbdffabbaeafe50, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4711448260696822, guid: 97d87894d7d94bc4ebbdffabbaeafe50, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 97d87894d7d94bc4ebbdffabbaeafe50, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &709416210
 Prefab:
   m_ObjectHideFlags: 0
@@ -171,16 +172,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114618802316008808, guid: 721957ef6d0ff814e9c30dfe5221e580,
-        type: 2}
-      propertyPath: RaycastLayerMask.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
-    - target: {fileID: 114618802316008808, guid: 721957ef6d0ff814e9c30dfe5221e580,
-        type: 2}
-      propertyPath: VerticalConstraintRaycastLayerMask.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 721957ef6d0ff814e9c30dfe5221e580, type: 2}
   m_IsPrefabParent: 0
@@ -196,6 +187,7 @@ GameObject:
   - component: {fileID: 793069423}
   - component: {fileID: 793069422}
   - component: {fileID: 793069421}
+  - component: {fileID: 793069426}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -271,6 +263,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &793069426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 793069420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3214a9e9f96a8ec41b8a2b1c9e665bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enabled: 1
+  MovementSpeed: 1
+  RotationSpeed: 4
+  TiltHeight: 36
+  FlatHeight: 3
+  TiltAngle: 45
+  FlatAngle: 20
+  MinimumPivotY: 5
 --- !u!1 &800614538
 GameObject:
   m_ObjectHideFlags: 0
