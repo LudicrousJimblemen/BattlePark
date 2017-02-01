@@ -4,6 +4,8 @@ using System.Collections;
 
 public class Player : NetworkBehaviour {
 	
+	public GameObject w;
+	
 	[SyncVar]
 	public string Username;
 	
@@ -14,7 +16,9 @@ public class Player : NetworkBehaviour {
 		Camera.main.transform.SetParent (transform);
 	}
 	
-	void Update () {
-	
+	[Command]
+	public void CmdPlaceObject (Vector3 Position, Quaternion Rotation) {
+		w = Instantiate (w, Position, Rotation) as GameObject;
+		NetworkServer.SpawnWithClientAuthority (w, gameObject);
 	}
 }

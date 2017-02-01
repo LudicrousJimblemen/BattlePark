@@ -47,7 +47,6 @@ public class NetworkCameraPan : NetworkBehaviour {
 		transform.position += difference;
 		if(transform.position.y < MinimumPivotY)
 			transform.position = new Vector3(transform.position.x,MinimumPivotY,transform.position.z);
-		print(transform.position);
 		//Control rotation around the y axis
 		PivotPoint = GetPivot();
 		if(Enabled) {
@@ -73,7 +72,6 @@ public class NetworkCameraPan : NetworkBehaviour {
 		flatForward.y = 0;
 		Vector3 flatPos = transform.position;
 		flatPos.y = 0;
-		print(flatDistToPivot);
 		return flatPos + flatForward.normalized * flatDistToPivot;
 	}
 }

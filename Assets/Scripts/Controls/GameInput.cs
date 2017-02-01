@@ -40,6 +40,10 @@ public class GameInput : MonoBehaviour {
 			VerticalConstraint.position = corrected;
 			VerticalConstraint.rotation = Quaternion.LookRotation(correctedCam - corrected) * Quaternion.Euler(90,0,0);
 		}
+		if (Input.GetMouseButtonDown (0) && mousePosition != null) {
+			print ("clik");
+			GetComponent<Player> ().CmdPlaceObject (mousePosition ?? default (Vector3), Quaternion.identity);
+		}
 	}
 	void OnDrawGizmos () {
 		Gizmos.DrawSphere(mousePosition ?? default(Vector3), 0.1f); //if null, return default; else, return vector
