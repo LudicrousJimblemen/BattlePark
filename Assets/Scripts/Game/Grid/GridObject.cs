@@ -10,17 +10,11 @@ public abstract class GridObject : MonoBehaviour {
 	public abstract Vector3[] OccupiedOffsets { get; set; }
 	#endregion
 
-	public Grid Grid;
-
 	public virtual void OnPlaced() { }
 	public virtual void OnDemolished() { }
 
 	public void UpdatePosition() {
-		transform.position = new Vector3 {
-			x = GridPosition.x * Grid.GridStepXZ + 0.5f,
-			y = GridPosition.y * Grid.GridStepY,
-			z = GridPosition.z * Grid.GridStepXZ + 0.5f
-		};
+		//transform.position = Grid.Instance.SnapToGrid (GridPosition, )
 		transform.rotation = Quaternion.Euler(-90,0,(int)Direction * 90);
 	}
 

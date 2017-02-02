@@ -105,14 +105,38 @@ public class Client : NetworkLobbyManager {
 		yield return new WaitForSeconds (2.0f);
 		ServerChangeScene(playScene);
 	}
-	
+
 	//called every time a player loads the game scene
 	//use this to pass stuff from the lobbyplayer to the game player
-	public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer) {
-		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer> ();
-		Player game = gamePlayer.GetComponent<Player> ();
+	public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer,GameObject gamePlayer) {
+		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
+		Player game = gamePlayer.GetComponent<Player>();
 		game.Username = lobby.Username;
-		
-		return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer, gamePlayer);
+
+		gamePlayer.name = game.Username;
+
+		return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer,gamePlayer);
+	}
+
+	short highestPlayerNum = 0;
+
+	public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn,short playerControllerId) {
+		GameObject playerObj;
+
+		// get start position from base class
+		// copied pretty much verbatim from the base networkmanager class
+		// because the virtual version of this literally returns null. nothing but null.
+		// and the thing that calls it handles that by saying "yup that's good run this right 'ere"
+		// so here it is
+		Transform startPos = GetStartPosition();
+		if(startPos != null) {
+			playerObj = (GameObject)Instantiate(gamePlayerPrefab,startPos.position,startPos.rotation);
+		} else {
+			playerObj = (GameObject)Instantiate(gamePlayerPrefab,Vector3.zero,Quaternion.identity);
+		}
+
+		Player player = playerObj.GetComponent<Player>();
+		player.Initialize(++highestPlayerNum);
+		return playerObj;
 	}
 }

@@ -54,7 +54,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a963b4a75a6973b44964223c5e305423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  w: {fileID: 1312206916300366, guid: 4e5de33305ab83a479ce6cd383915c50, type: 2}
+  GridObjects:
+  - {fileID: 0}
   Username: 
 --- !u!114 &114000012384173982
 MonoBehaviour:

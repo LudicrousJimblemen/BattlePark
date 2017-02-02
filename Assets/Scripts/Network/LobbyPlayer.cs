@@ -6,8 +6,9 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	
 	[SyncVar]
 	public string Username;
-	
+
 	//insert stuff to pass to the real player here
+
 	/// <summary>
 	/// Toggles the ready state of the player
 	/// </summary>
@@ -25,16 +26,18 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	}
 	public override void OnStartLocalPlayer () {
 		if (!isLocalPlayer) return;
-		print ("wow");
 		Client.Instance.localPlayer = this;
 		LobbyGUI.Instance.LobbyReadyButton.interactable = true;
-		Username = LobbyGUI.Instance.Username;
+		CmdUpdateInfo(LobbyGUI.Instance.Username);
 	}
-	public override void OnClientExitLobby () {
-		//base.OnClientExitLobby ();
-		//print ("exit ass");
-		//SendNotReadyToBeginMessage ();
+
+	//use for other stuff to update
+	//right now only updates username
+	[Command] 
+	public void CmdUpdateInfo (string username) {
+		Username = username;
 	}
+
 	[ClientRpc]
 	public void RpcPrepareReady () {
 		LobbyGUI.Instance.FadeToWhite ();

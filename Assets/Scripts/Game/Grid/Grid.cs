@@ -86,7 +86,7 @@ public class Grid : MonoBehaviour {
 		//parks
 		for(int p = 0; p < parks; p++) {
 			Vector3 start = (parkCenters[p] - new Vector3(xSize / 2f,0,zSize / 2f));
-			print(start);
+			//print(start);
 			for(int i = 0, z = 0; z <= zSize; z++) {
 				for(int x = 0; x <= xSize; x++, i++) {
 					vertices[i + (xSize + 1) * (zSize + 1) * p] = new Vector3(x + start.x,0,z + start.z);
@@ -97,7 +97,7 @@ public class Grid : MonoBehaviour {
 
 		//paths
 		int pvc = (xSize + 1) * (zSize + 1) * parks; //park vertex count
-		print(pvc);
+		//print(pvc);
 		float inDist = (PathWidth / 2f) * GridStepXZ;
 		float outDistX = (PathWidth / 2f + xSize + 2) * GridStepXZ;
 		float outDistZ = (PathWidth / 2f + zSize + 2) * GridStepXZ;
@@ -130,7 +130,7 @@ public class Grid : MonoBehaviour {
 		float inDistZ = zSize / 2f;
 		outDistX = xSize / 2f + 1f;
 		outDistZ = zSize / 2f + 1f;
-		print(pvcb);
+		//print(pvcb);
 		for(int b = 0; b < parks; b++) {
 			vertices[pvcb + 12 * b] = new Vector3(-outDistX,0,-outDistZ) + parkCenters[b];
 			vertices[pvcb + 12 * b + 1] = new Vector3(outDistX,0,-outDistZ) + parkCenters[b];
@@ -154,7 +154,7 @@ public class Grid : MonoBehaviour {
 			uv[pvcb + i] = new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
 										(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
 		}
-		print(vertices.Length);
+		//print(vertices.Length);
 		meshFilter.mesh.vertices = vertices;
 		meshFilter.mesh.uv = uv;
 		for(int sub = 0; sub < parks; sub++) {
@@ -167,7 +167,7 @@ public class Grid : MonoBehaviour {
 					triangles[ti + 5] = vi + (xSize + 1) * (zSize + 1) * sub + xSize + 2;
 				}
 			}
-			print(sub);
+			//print(sub);
 			meshFilter.mesh.SetTriangles(triangles,sub);
 		}
 		int[] pathTri = new int[(pathVertexCount - 2) * 3];
@@ -228,7 +228,7 @@ public class Grid : MonoBehaviour {
 
 		Material[] materials = new Material[parks + 2];
 		for(int i = 0; i < materials.Length - 2; i++) {
-			print("wow");
+			//print("wow");
 			materials[i] = ParkMat;
 		}
 		materials[materials.Length - 2] = PathMat;
