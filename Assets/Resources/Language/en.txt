@@ -11,8 +11,10 @@
 	"titleScreen.createRoom":"CREATE ROOM",
 	"titleScreen.noMatchesFound":"No matches found.",
 	
+	"lobby.defaultRoomName":"{0}'s Cool Room",
 	"lobby.leave":"LEAVE",
 	"lobby.ready":"READY",
+	"lobby.unready":"UNREADY",
 	"lobby.chat":"Chat...",
 	
 	"chat.chatMessage": "<{0}> {1}",

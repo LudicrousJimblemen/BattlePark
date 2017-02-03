@@ -18,6 +18,7 @@
 	
 	"lobby.leave":"ゲームを退出する",
 	"lobby.ready":"準備完了",
+	"lobby.unready":"UNREADY",
 	"lobby.chat":"チャット...",
 	
 	"chat.chatMessage": "<{0}> {1}",

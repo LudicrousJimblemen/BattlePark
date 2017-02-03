@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Networking.Types;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class LobbyGUI : GUI {
 	public static LobbyGUI Instance;
@@ -47,25 +43,25 @@ public class LobbyGUI : GUI {
 	[HideInInspector]
 	public string Username;
 	
-	public void LoadMain () {
-		SwitchPanel (MainPanel);
+	public void LoadMain() {
+		SwitchPanel(MainPanel);
 		FadeGraphic(Fade, 0, 60, FadeFrom, 0);
 		
 		//currentPanel = MainPanel;
 		
 		CreateGameButton.onClick.AddListener(() => {
 			Client.Instance.StartMatchMaker();
-	    	AnimatePanel(CreateGamePanel, 1);
-	    	Username = GenerateUsername();
-	    	CreateGameUsernameInputField.text = Username;
-	    	CreateGameRoomNameInputField.text = Username + "\'s Cool Default Room";
-	    });
+			AnimatePanel(CreateGamePanel, 1);
+			Username = GenerateUsername();
+			CreateGameUsernameInputField.text = Username;
+			CreateGameRoomNameInputField.text = String.Format(LanguageManager.GetString("lobby.defaultRoomName"), Username);
+		});
 		FindGameButton.onClick.AddListener(() => {
 			Client.Instance.StartMatchMaker();
-       		PopulateServerList();
-        	Username = GenerateUsername();
-        	FindGameUsernameInputField.text = Username;
-        });
+			PopulateServerList();
+			Username = GenerateUsername();
+			FindGameUsernameInputField.text = Username;
+		});
 		ExitButton.onClick.AddListener(Application.Quit);
 		
 		CreateGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
@@ -73,36 +69,37 @@ public class LobbyGUI : GUI {
 		
 		FindGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
 		
-		LobbyLeaveButton.onClick.AddListener(() => {
-			NetworkManager.singleton.matchMaker.DropConnection (
-	     		Client.Instance.matchInfo.networkId,
-				Client.Instance.matchInfo.nodeId,
-	     		0,
-	     		Client.Instance.OnDropConnection
-	     	);
-		});
+		LobbyLeaveButton.onClick.AddListener(() => 
+			NetworkManager.singleton.matchMaker.DropConnection(
+			Client.Instance.matchInfo.networkId,
+			Client.Instance.matchInfo.nodeId,
+			0,
+			Client.Instance.OnDropConnection
+		)
+		);
 		LobbyReadyButton.interactable = false;
 		LobbyReadyButton.onClick.AddListener(() => {
-			if (Client.Instance.localPlayer == null) return;
-			bool ready = Client.Instance.localPlayer.ToggleReady ();
-			LobbyReadyButton.GetComponentInChildren<Text>().text = ready ? "Unready" : "Ready";
+			if (Client.Instance.localPlayer == null)
+				return;
+			bool ready = Client.Instance.localPlayer.ToggleReady();
+			LobbyReadyButton.GetComponentInChildren<Text>().text = LanguageManager.GetString(ready ? "lobby.ready" : "lobby.unready");
 		});
 	}
 	
 	protected override void Awake() {
-		if (FindObjectsOfType<LobbyGUI> ().Count () > 1) {
+		if (FindObjectsOfType<LobbyGUI>().Count() > 1) {
 			Destroy(gameObject);
 			return;
 		}
 		Instance = this;
-		base.Awake ();
+		base.Awake();
 		currentPanel = MainPanel;
-		LoadMain ();
+		LoadMain();
 	}
 	
 	private void PopulateServerList() {
 		Client.Instance.ListMatches(6, (listSuccess, listExtendedInfo, matches) => {
-		    if (listSuccess) {
+			if (listSuccess) {
 				for (int i = 2; i < FindGamePanel.transform.childCount; i++) {
 					Destroy(FindGamePanel.transform.GetChild(i).gameObject);
 				}
@@ -118,15 +115,15 @@ public class LobbyGUI : GUI {
 						newButton.GetComponentInChildren<Text>().text = String.Format("{0} - <i>({1}/{2})</i>", match.name, match.currentSize, match.maxSize);
 						newButton.transform.SetParent(FindGamePanel.transform, false);
 						newButton.GetComponent<Button>().onClick.AddListener(() => {
-						    FadeGraphic(Fade, 0, 20, Color.clear, 0.3f, true);
-						    Client.Instance.JoinMatch(match.networkId, (joinSuccess, joinExtendedInfo, matchInfo) => {
-						    	FadeGraphic(Fade, 0, 20, Fade.color, 0, true);
-						    	if (joinSuccess) {
-						    		AnimatePanel(LobbyPanel, 1);
-						    	} else {
-						    		AnimatePanel(MainPanel, -1);
-						    	}
-						    });
+							FadeGraphic(Fade, 0, 20, Color.clear, 0.3f, true);
+							Client.Instance.JoinMatch(match.networkId, (joinSuccess, joinExtendedInfo, matchInfo) => {
+								FadeGraphic(Fade, 0, 20, Fade.color, 0, true);
+								if (joinSuccess) {
+									AnimatePanel(LobbyPanel, 1);
+								} else {
+									AnimatePanel(MainPanel, -1);
+								}
+							});
 						});
 					}
 				}
@@ -145,7 +142,7 @@ public class LobbyGUI : GUI {
 	
 	private void CreateMatch() {
 		Client.Instance.CreateMatch(CreateGameRoomNameInputField.text, 4, (success, extendedInfo, matchInfo) => {
-		    if (success) {
+			if (success) {
 				AnimatePanel(LobbyPanel, 1);
 			}
 		});
@@ -171,18 +168,20 @@ public class LobbyGUI : GUI {
 		for (int i = 0; i < 14; i++) {
 			if (i != 7) {
 				float chance = UnityEngine.Random.value;
-				bool upper = (i == 0 || returnedName[i-1].Equals(' '));
+				bool upper = (i == 0 || returnedName[i - 1].Equals(' '));
 				string source;
 				if (type == 0) {
 					source = consonants;
-					if (upper) source = source.ToUpper();
+					if (upper)
+						source = source.ToUpper();
 					returnedName += source.ElementAt(UnityEngine.Random.Range(0, consonants.Length));
 					if (chance <= 0.5) {
 						type = 1;
 					}
 				} else {
 					source = vowels;
-					if (upper) source = source.ToUpper();
+					if (upper)
+						source = source.ToUpper();
 					returnedName += source.ElementAt(UnityEngine.Random.Range(0, vowels.Length));
 					if (chance <= 0.6) {
 						type = 0;
@@ -195,9 +194,11 @@ public class LobbyGUI : GUI {
 		
 		return returnedName;
 	}
-	public void FadeToWhite (Action callback = null) {
+	
+	// this is trash - please remove it and replace with the regular FadeGraphic function
+	public void FadeToWhite(Action callback = null) {
 		Color transparentFadeFrom = FadeFrom;
 		transparentFadeFrom.a = 0;
-		FadeGraphic (Fade, 0, 60, transparentFadeFrom, 1, false, callback);
+		FadeGraphic(Fade, 0, 60, transparentFadeFrom, 1, false, callback);
 	}
 }

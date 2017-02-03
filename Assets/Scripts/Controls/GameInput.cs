@@ -1,11 +1,9 @@
-﻿/* Class for generic input handling; everything input-related outside of gui goes here
- *
- * Please do not make other classes recognize inputs; thanks, future me (us)
-*/
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Controls input, and is the only class that recognizes input.
+/// Any other class that recognizes input is illegal and should be wholly and immediately annihilated.
+/// </summary>
 public class GameInput : MonoBehaviour {
 
 	public Transform VerticalConstraint;
@@ -15,7 +13,7 @@ public class GameInput : MonoBehaviour {
 	#endregion
 
 	void Awake () {
-		VerticalConstraint = Instantiate(VerticalConstraint,transform);
+		VerticalConstraint = Instantiate(VerticalConstraint, transform);
 		VerticalConstraint.gameObject.SetActive(false);
 	}
 

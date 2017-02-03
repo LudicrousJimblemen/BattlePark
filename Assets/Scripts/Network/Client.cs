@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
+using UnityEngine.Networking.Types;
 
 public class Client : NetworkLobbyManager {
 	public static Client Instance;
@@ -13,6 +13,8 @@ public class Client : NetworkLobbyManager {
 	public bool IsHost;
 	
 	public LobbyPlayer localPlayer;
+
+	private short highestPlayerNum;
 	
 	private void Awake() {
 		if (FindObjectsOfType<Client>().Length > 1) {
@@ -26,7 +28,7 @@ public class Client : NetworkLobbyManager {
 		//StartCoroutine(WaitForNetworkManager());
 	}
 	
-	IEnumerator WaitForNetworkManager () {
+	private IEnumerator WaitForNetworkManager() {
 		while (NetworkManager.singleton == null) {
 			yield return new WaitForEndOfFrame();
 		}
@@ -80,47 +82,54 @@ public class Client : NetworkLobbyManager {
 				callback(success, extendedInfo, matchInfo);
 			});
 	}
-	public override void OnDropConnection (bool success, string extendedInfo) {
-		LobbyGUI.Instance.FadeToWhite (DropConnection);
-	}
-	void DropConnection () {
+	
+	private void DropConnection() {
 		StopMatchMaker();
-		if (IsHost) StopHost (); else StopClient ();
-		if (localPlayer != null) {
-			localPlayer.RemovePlayer ();
-			Destroy (localPlayer.gameObject);
+		if (IsHost) {
+			StopHost();
+		} else {
+			StopClient();
 		}
-		LobbyGUI.Instance.LoadMain ();
+		
+		if (localPlayer != null) {
+			localPlayer.RemovePlayer();
+			Destroy(localPlayer.gameObject);
+		}
+		LobbyGUI.Instance.LoadMain();
 	}
-	public override void OnLobbyServerPlayersReady () {
-		print ("mate, we're shipshape");
+	
+	private IEnumerator StartGame() {
+		for (int i = 0; i < lobbySlots.Length; i++) {
+			if (lobbySlots[i] == null)
+				break;
+			((LobbyPlayer)lobbySlots[i]).RpcPrepareReady();
+		}
+		yield return new WaitForSeconds(2.0f);
+		ServerChangeScene(playScene);
+	}
+	
+	public override void OnLobbyServerPlayersReady() {
+		print("mate, we're shipshape");
 		StartCoroutine(StartGame());
 	}
 	
-	IEnumerator StartGame () {
-		for (int i = 0; i < lobbySlots.Length; i++) {
-			if (lobbySlots[i] == null) break;
-			((LobbyPlayer)lobbySlots[i]).RpcPrepareReady();
-		}
-		yield return new WaitForSeconds (2.0f);
-		ServerChangeScene(playScene);
+	public override void OnDropConnection(bool success, string extendedInfo) {
+		LobbyGUI.Instance.FadeToWhite(DropConnection);
 	}
 
 	//called every time a player loads the game scene
 	//use this to pass stuff from the lobbyplayer to the game player
-	public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer,GameObject gamePlayer) {
+	public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer) {
 		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
 		Player game = gamePlayer.GetComponent<Player>();
 		game.Username = lobby.Username;
 
 		gamePlayer.name = game.Username;
 
-		return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer,gamePlayer);
+		return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer, gamePlayer);
 	}
 
-	short highestPlayerNum = 0;
-
-	public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn,short playerControllerId) {
+	public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId) {
 		GameObject playerObj;
 
 		// get start position from base class
@@ -129,10 +138,10 @@ public class Client : NetworkLobbyManager {
 		// and the thing that calls it handles that by saying "yup that's good run this right 'ere"
 		// so here it is
 		Transform startPos = GetStartPosition();
-		if(startPos != null) {
-			playerObj = (GameObject)Instantiate(gamePlayerPrefab,startPos.position,startPos.rotation);
+		if (startPos != null) {
+			playerObj = (GameObject)Instantiate(gamePlayerPrefab, startPos.position, startPos.rotation);
 		} else {
-			playerObj = (GameObject)Instantiate(gamePlayerPrefab,Vector3.zero,Quaternion.identity);
+			playerObj = (GameObject)Instantiate(gamePlayerPrefab, Vector3.zero, Quaternion.identity);
 		}
 
 		Player player = playerObj.GetComponent<Player>();
