@@ -1,36 +1,33 @@
-﻿using UnityEngine;
-using System.Collections;
- 
- 
+﻿using System;
+using UnityEngine;
+
 namespace BattlePark {
 	public class GridOverlay : MonoBehaviour {
 		public bool ShowGrid = true;
-	
+		
+		[Range(1, Single.PositiveInfinity)]
 		public int GridSizeX = 2;
+		[Range(1, Single.PositiveInfinity)]
 		public int GridSizeZ = 2;
  
+		[Range(1, Single.PositiveInfinity)]
 		public float MainStep = 1;
  
-		public float StartX = 0f;
-		public float StartZ = 0f;
- 
-		private Material lineMaterial;
+		public float StartX;
+		public float StartZ;
  
 		public  Color mainColor = new Color(0f, 0f, 0f, 42f / 255f);
  
+		private Material lineMaterial;
+ 
 		void CreateLineMaterial() {
 			if (!lineMaterial) {
-				// Unity has a built-in shader that is useful for drawing
-				// simple colored things.
 				var shader = Shader.Find("Hidden/Internal-Colored");
 				lineMaterial = new Material(shader);
 				lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-				// Turn on alpha blending
 				lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
 				lineMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-				// Turn backface culling off
 				lineMaterial.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
-				// Turn off depth writes
 				lineMaterial.SetInt("_ZWrite", 0);
 			}
 		}
@@ -38,20 +35,17 @@ namespace BattlePark {
 		void OnPostRender() {
 			if (ShowGrid) {
 				CreateLineMaterial();
-				// set the current material
 				lineMaterial.SetPass(0);
 	 
 				GL.Begin(GL.LINES);
 	 
 				GL.Color(mainColor);
 	
-				//X axis lines
 				for (float i = 0; i <= GridSizeZ; i += MainStep) {
 					GL.Vertex3(StartX, 0, StartZ + i);
 					GL.Vertex3(StartX + GridSizeX, 0, StartZ + i);
 				}
 	
-				//Z axis lines
 				for (float i = 0; i <= GridSizeX; i += MainStep) {
 					GL.Vertex3(StartX + i, 0, StartZ);
 					GL.Vertex3(StartX + i, 0, StartZ + GridSizeZ);

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public struct GridRegion {
-	public int X;
-	public int Z;
-	public int Width;
-	public int Length;
+	public int X { get; set; }
+	public int Z { get; set; }
+	public int Width { get; set; }
+	public int Length { get; set; }
 
 	public long Owner;
 
@@ -15,10 +14,6 @@ public struct GridRegion {
 		this.Width = width;
 		this.Length = length;
 		this.Owner = owner;
-	}
-
-	public void SetOwner(long playerId) {
-		Owner = playerId;
 	}
 
 	public bool Valid(long id) {

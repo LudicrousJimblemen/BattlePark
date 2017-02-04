@@ -2,13 +2,14 @@
 	"gameInfo.name": "バトルパーク",
 	"gameInfo.language": "日本語",
 
-	"titleScreen.startClient":"クライエントを始める",
 	"titleScreen.exit":"ゲームを閉じる",
 	"titleScreen.back":"戻る",
-	"titleScreen.port":"ポート",
-	"titleScreen.ip":"IP",
+	"titleScreen.createGame":"CREATE GAME",
+	"titleScreen.findGame":"FIND GAME",
 	"titleScreen.username":"ユーザーネーム",
-	"titleScreen.clientJoin":"ゲームに参加する",
+	"titleScreen.roomName":"Room Name",
+	"titleScreen.createRoom":"CREATE ROOM",
+	"titleScreen.noMatchesFound":"No matches found.",
 	
 	"networkError.notFound":"このIPではサーバーが見つかりません。",
 	"networkError.wrongVersion":"あなたのゲームバージョン({1})はサーバーのゲームバージョン({2})と統一しません。",
@@ -16,6 +17,7 @@
 	"networkError.duplicateUsername":"このユーザーネーム('{0}')はもう使われています。",
 	"networkError.roomFull":"このルームは満タンです。",
 	
+	"lobby.defaultRoomName":"{0}'s Cool Room",
 	"lobby.leave":"ゲームを退出する",
 	"lobby.ready":"準備完了",
 	"lobby.unready":"UNREADY",

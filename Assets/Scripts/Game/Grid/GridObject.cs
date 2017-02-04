@@ -3,8 +3,8 @@ using System.Collections;
 
 public abstract class GridObject : MonoBehaviour {
 	#region Data Variables
-	public Direction Direction;
-	public Vector3 GridPosition;
+	public Direction Direction { get; set; }
+	public Vector3 GridPosition { get; set; }
 
 	public abstract bool PlaceMultiple { get; set; }
 	public abstract Vector3[] OccupiedOffsets { get; set; }

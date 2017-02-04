@@ -3,9 +3,8 @@ using UnityEngine.Networking;
 using System.Collections;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
-	
 	[SyncVar]
-	public string Username;
+	public string Username { get; set; }
 
 	//insert stuff to pass to the real player here
 
@@ -15,17 +14,23 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	/// <returns>
 	/// Returns the ready state after toggling, false if it's not the local player
 	/// </returns>
-	public bool ToggleReady () {
-		if (!isLocalPlayer) return false;
+	public bool ToggleReady() {
+		if (!isLocalPlayer) {
+			return false;
+		}
+		
 		readyToBegin = !readyToBegin;
-		if (readyToBegin) 
-			SendReadyToBeginMessage ();
-		else 
-			SendNotReadyToBeginMessage ();
+		if (readyToBegin) {
+			SendReadyToBeginMessage();
+		} else {
+			SendNotReadyToBeginMessage();
+		}
 		return readyToBegin;
 	}
-	public override void OnStartLocalPlayer () {
-		if (!isLocalPlayer) return;
+	public override void OnStartLocalPlayer() {
+		if (!isLocalPlayer) {
+			return;
+		}
 		Client.Instance.localPlayer = this;
 		LobbyGUI.Instance.LobbyReadyButton.interactable = true;
 		CmdUpdateInfo(LobbyGUI.Instance.Username);
@@ -34,12 +39,13 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	//use for other stuff to update
 	//right now only updates username
 	[Command] 
-	public void CmdUpdateInfo (string username) {
+	public void CmdUpdateInfo(string username) {
 		Username = username;
 	}
 
 	[ClientRpc]
-	public void RpcPrepareReady () {
-		LobbyGUI.Instance.FadeToWhite ();
+	public void RpcPrepareReady() {
+		//TODO remove this garbage
+		LobbyGUI.Instance.FadeToWhite();
 	}
 }

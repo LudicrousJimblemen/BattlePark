@@ -18,26 +18,16 @@ namespace BattlePark.Core {
 			}
 			
 			if (obj is AppVersion) {
-				return Equals((AppVersion)obj); // use Equals method below
+				return Equals((AppVersion)obj);
 			}
 			
 			return false;
 		}
 		
 		public bool Equals(AppVersion other) {
-			// add comparisions for all members here
-			return
-				this.Major == other.Major &&
-			this.Minor == other.Minor &&
-			this.Patch == other.Patch;
-		}
-		
-		public override int GetHashCode() {
-			// combine the hash codes of all members here (e.g. with XOR operator ^)
-			return
-				this.Major.GetHashCode() ^
-			this.Minor.GetHashCode() ^
-			this.Patch.GetHashCode();
+			return this.Major == other.Major &&
+				this.Minor == other.Minor &&
+				this.Patch == other.Patch;
 		}
 		
 		public static bool operator ==(AppVersion left, AppVersion right) {

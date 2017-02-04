@@ -92,7 +92,7 @@ public class LobbyGUI : GUI {
 			return;
 		}
 		Instance = this;
-		base.Awake();
+		
 		currentPanel = MainPanel;
 		LoadMain();
 	}

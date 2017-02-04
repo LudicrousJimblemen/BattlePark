@@ -12,10 +12,6 @@ public class GUI : MonoBehaviour {
 	
 	protected Graphic currentPanel;
 
-	protected virtual void Awake() {
-		//FadeGraphic(Fade, 0, 60, FadeFrom, 0);
-	}
-
 	protected virtual void Update() {
 		Fade.raycastTarget = inAnimation;
 	}
@@ -38,8 +34,9 @@ public class GUI : MonoBehaviour {
 	}
 
 	public void AnimatePanel(Graphic to, int fromDirection) {
-		if (currentPanel == to) return;
-		StartCoroutine(AnimatePanelCoroutine(to, fromDirection));
+		if (currentPanel != to) {
+			StartCoroutine(AnimatePanelCoroutine(to, fromDirection));
+		}
 	}
 	private IEnumerator AnimatePanelCoroutine(Graphic to, int fromDirection) {
 		inAnimation = true;
@@ -64,10 +61,11 @@ public class GUI : MonoBehaviour {
 		inAnimation = false;
 	}
 	public void SwitchPanel(Graphic to) {
-		if (currentPanel == to) return;
-		currentPanel.gameObject.SetActive(false);
-		to.rectTransform.localPosition = Vector3.zero;
-		to.gameObject.SetActive (true);
-		currentPanel = to;
+		if (currentPanel != to) {
+			currentPanel.gameObject.SetActive(false);
+			to.rectTransform.localPosition = Vector3.zero;
+			to.gameObject.SetActive(true);
+			currentPanel = to;
+		}
 	}
 }
