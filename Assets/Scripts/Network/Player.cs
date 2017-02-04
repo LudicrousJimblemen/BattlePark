@@ -6,9 +6,9 @@ public class Player : NetworkBehaviour {
 	public GridObject[] GridObjects;
 	
 	[SyncVar]
-	public string Username { get; set; }
+	public string Username;
 
-	public int PlayerNumber { get; private set; }
+	public int PlayerNumber { get; set; }
 	
 	private void Start() {
 		if (!isLocalPlayer) {

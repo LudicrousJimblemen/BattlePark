@@ -4,15 +4,15 @@ using System.Collections;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
 	[SyncVar]
-	public string Username { get; set; }
+	public string Username;
 
 	//insert stuff to pass to the real player here
 
 	/// <summary>
-	/// Toggles the ready state of the player
+	/// Toggles the ready state of the player.
 	/// </summary>
 	/// <returns>
-	/// Returns the ready state after toggling, false if it's not the local player
+	/// The ready state after toggling, or false if it's not the local player.
 	/// </returns>
 	public bool ToggleReady() {
 		if (!isLocalPlayer) {

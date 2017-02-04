@@ -86,7 +86,7 @@ public class LobbyGUI : GUI {
 		});
 	}
 	
-	protected override void Awake() {
+	protected void Awake() {
 		if (FindObjectsOfType<LobbyGUI>().Count() > 1) {
 			Destroy(gameObject);
 			return;

@@ -30,6 +30,10 @@ namespace BattlePark.Core {
 				this.Patch == other.Patch;
 		}
 		
+		public override int GetHashCode() {
+			return Major.GetHashCode() ^ Minor.GetHashCode() ^ Patch.GetHashCode();
+		}
+		
 		public static bool operator ==(AppVersion left, AppVersion right) {
 			return left.Equals(right);
 		}

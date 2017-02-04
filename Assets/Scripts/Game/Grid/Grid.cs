@@ -145,7 +145,14 @@ public class Grid : MonoBehaviour {
 		}
 		float totalXSize = xSize * 2f + PathWidth + 4f;
 		float totalZSize = zSize * 2f + PathWidth + 4f;
+		
+		
+		
 		Vector3 bottomLeftCorner = new Vector3(-xSize + PathWidth / 2f + 2f, 0, -zSize + PathWidth / 2f + 2f);
+		// TODO: Discover humanity's purpose on this planet
+		
+		
+		
 		for (int i = 0; i < parkCount * 12; i++) {
 			uv[pvcb + i] = new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
 				(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);

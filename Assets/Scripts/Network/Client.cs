@@ -145,7 +145,7 @@ public class Client : NetworkLobbyManager {
 		}
 
 		Player player = playerObj.GetComponent<Player>();
-		player.Initialize(++highestPlayerNum);
+		player.PlayerNumber = ++highestPlayerNum;
 		return playerObj;
 	}
 }
