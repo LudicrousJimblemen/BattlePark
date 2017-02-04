@@ -252,7 +252,7 @@ public class Grid : MonoBehaviour {
 	/// <param name="playerNum">Player number of the targeted park, between 1 and 4 (inclusive).</param>
 	/// <returns>The snapped position.</returns>
 	public Vector3 SnapToGrid(Vector3 position, int playerNum) {
-		if (playerNum != 2 && playerNum != 4) {
+		if (playerNum < 1 || playerNum > 4) {
 			throw new System.ArgumentOutOfRangeException("playerNum");
 		}
 		
