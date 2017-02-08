@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
-public class GridObjects : MonoBehaviour {
+public class GridObjects : IEnumerable {
 	private Dictionary<Vector3, GridObject> dictionary = new Dictionary<Vector3, GridObject>();
 	
 	public int Count { get { return dictionary.Count; } }
+	
+	public IEnumerator GetEnumerator() {
+		return dictionary.GetEnumerator();
+	}
 
 	public void Add(Vector3 position, GridObject gridObject) {
 		dictionary.Add(position, gridObject);
@@ -24,9 +29,9 @@ public class GridObjects : MonoBehaviour {
 		GridObject foundObject;
 		if (dictionary.TryGetValue(location, out foundObject)) {
 			return foundObject;
-		} else {
-			return null;
 		}
+		
+		return null;
 	}
 
 	/// <summary>
@@ -78,13 +83,13 @@ public class GridObjects : MonoBehaviour {
 		if (OccupiedIn(location)) {
 			return true;
 		}
-	
+		
 		foreach (var offset in offsets) {
 			if (OccupiedIn(location + offset)) {
 				return true;
 			}
 		}
-	
+		
 		return false;
 	}
 
@@ -99,7 +104,7 @@ public class GridObjects : MonoBehaviour {
 			objects.Add(ObjectAt(location + new Vector3(0, 0, 1)));
 		if (OccupiedAt(location + new Vector3(0, 0, -1)))
 			objects.Add(ObjectAt(location + new Vector3(0, 0, -1)));
-	
+		
 		if (corners) {
 			if (OccupiedAt(location + new Vector3(1, 0, 1)))
 				objects.Add(ObjectAt(location + new Vector3(1, 0, 1)));
@@ -110,7 +115,7 @@ public class GridObjects : MonoBehaviour {
 			if (OccupiedAt(location + new Vector3(-1, 0, 1)))
 				objects.Add(ObjectAt(location + new Vector3(-1, 0, 1)));
 		}
-	
+		
 		return objects;
 	}
 }
