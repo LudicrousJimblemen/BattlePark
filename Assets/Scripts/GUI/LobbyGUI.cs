@@ -141,7 +141,7 @@ public class LobbyGUI : GUI {
 	}
 	
 	private void CreateMatch() {
-		Client.Instance.CreateMatch(CreateGameRoomNameInputField.text, 4, (success, extendedInfo, matchInfo) => {
+		Client.Instance.CreateMatch(CreateGameRoomNameInputField.text, 2, (success, extendedInfo, matchInfo) => {
 			if (success) {
 				AnimatePanel(LobbyPanel, 1);
 			}
@@ -196,9 +196,10 @@ public class LobbyGUI : GUI {
 	}
 	
 	// this is trash - please remove it and replace with the regular FadeGraphic function
+	// FadeGraphic(Fade, 0 60, new Color(1f, 1f, 1f, 0f), 1f, false, callback)
 	public void FadeToWhite(Action callback = null) {
 		Color transparentFadeFrom = FadeFrom;
 		transparentFadeFrom.a = 0;
-		FadeGraphic(Fade, 0, 60, transparentFadeFrom, 1, false, callback);
+		FadeGraphic(Fade, 0, 60, transparentFadeFrom, 1f, false, callback);
 	}
 }

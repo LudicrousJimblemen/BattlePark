@@ -109,7 +109,6 @@ public class Client : NetworkLobbyManager {
 	}
 	
 	public override void OnLobbyServerPlayersReady() {
-		print("mate, we're shipshape");
 		StartCoroutine(StartGame());
 	}
 	

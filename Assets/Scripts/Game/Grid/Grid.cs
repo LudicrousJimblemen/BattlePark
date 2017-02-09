@@ -41,46 +41,37 @@ public class Grid : MonoBehaviour {
 		GameManager.Instance.ParkCenters = parkCenters;
 	}
 
-	public void GenerateMesh(int xSize, int zSize, int parkCount, float checkerboardWidth = 3) {
-		if (parkCount != 2 && parkCount != 4) {
-			throw new System.ArgumentOutOfRangeException("parkCount");
+	public void GenerateMesh(int xSize, int zSize, float checkerboardWidth = 3) {
+		if (xSize <= 0) {
+			throw new System.ArgumentOutOfRangeException("xSize");
+		} else if (zSize <= 0) {
+			throw new System.ArgumentOutOfRangeException("zSize");
+		} else if (checkerboardWidth <= 0) {
+			throw new System.ArgumentOutOfRangeException("checkerboardWidth");
 		}
 		
-		parkCenters = new Vector3[parkCount];
+		parkCenters = new Vector3[2];
 		
 		float px, pz;
 		int pathVertexCount = 0;
 		
-		// no default case is needed - any nonstandard values are DESTROYED above
-		switch (parkCount) {
-			case 2:
-				px = (((float)xSize + PathWidth) / 2f + 1f) * GridStepXZ;
-				pz = 0;
-				parkCenters[0] = new Vector3(-px, 0, pz);
-				parkCenters[1] = new Vector3(px, 0, -pz);
-				pathVertexCount = 4;
-				break;
-			case 4:
-				px = (((float)xSize + PathWidth) / 2f + 1f) * GridStepXZ;
-				pz = (((float)zSize + PathWidth) / 2f + 1f) * GridStepXZ;
-				parkCenters[0] = new Vector3(-px, 0, pz);
-				parkCenters[1] = new Vector3(px, 0, pz);
-				parkCenters[2] = new Vector3(px, 0, -pz);
-				parkCenters[3] = new Vector3(-px, 0, -pz);
-				pathVertexCount = 12;
-				break;
-		}
+		px = (((float)xSize + PathWidth) / 2f + 1f) * GridStepXZ;
+		pz = 0;
+		parkCenters[0] = new Vector3(-px, 0, pz);
+		parkCenters[1] = new Vector3(px, 0, -pz);
+		pathVertexCount = 4;
+		
 		MeshFilter meshFilter = GetComponent<MeshFilter>();
 		MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
 
 		meshFilter.mesh = new Mesh();
 		meshFilter.mesh.name = "Grid";
 
-		Vector3[] vertices = new Vector3[(xSize + 1) * (zSize + 1) * parkCount + pathVertexCount + 12 * parkCount + 1];
+		Vector3[] vertices = new Vector3[(xSize + 1) * (zSize + 1) * 2 + pathVertexCount + 12 * 2 + 1];
 		Vector2[] uv = new Vector2[vertices.Length];
-		meshFilter.mesh.subMeshCount = parkCount + 2;
+		meshFilter.mesh.subMeshCount = 2 + 2;
 
-		for (int p = 0; p < parkCount; p++) {
+		for (int p = 0; p < 2; p++) {
 			Vector3 start = (parkCenters[p] - new Vector3(xSize / 2f, 0, zSize / 2f));
 			for (int i = 0, z = 0; z <= zSize; z++) {
 				for (int x = 0; x <= xSize; x++, i++) {
@@ -91,29 +82,16 @@ public class Grid : MonoBehaviour {
 		}
 
 		#region Paths
-		int parkVertexCount = (xSize + 1) * (zSize + 1) * parkCount;
+		int parkVertexCount = (xSize + 1) * (zSize + 1) * 2;
 		float inDist = (PathWidth / 2f) * GridStepXZ;
 		float outDistX = (PathWidth / 2f + xSize + 2) * GridStepXZ;
 		float outDistZ = (PathWidth / 2f + zSize + 2) * GridStepXZ;
-		if (pathVertexCount == 4) {
-			vertices[parkVertexCount] = new Vector3(-inDist, 0, -zSize / 2f - 1f);
-			vertices[parkVertexCount + 1] = new Vector3(inDist, 0, -zSize / 2f - 1f);
-			vertices[parkVertexCount + 2] = new Vector3(-inDist, 0, zSize / 2f + 1f);
-			vertices[parkVertexCount + 3] = new Vector3(inDist, 0, zSize / 2f + 1f);
-		} else if (pathVertexCount == 12) {
-			vertices[parkVertexCount] = new Vector3(-inDist, 0, -outDistZ);
-			vertices[parkVertexCount + 1] = new Vector3(inDist, 0, -outDistZ);
-			vertices[parkVertexCount + 2] = new Vector3(-outDistX, 0, -inDist);
-			vertices[parkVertexCount + 3] = new Vector3(-inDist, 0, -inDist);
-			vertices[parkVertexCount + 4] = new Vector3(inDist, 0, -inDist);
-			vertices[parkVertexCount + 5] = new Vector3(outDistX, 0, -inDist);
-			vertices[parkVertexCount + 6] = new Vector3(-outDistX, 0, inDist);
-			vertices[parkVertexCount + 7] = new Vector3(-inDist, 0, inDist);
-			vertices[parkVertexCount + 8] = new Vector3(inDist, 0, inDist);
-			vertices[parkVertexCount + 9] = new Vector3(outDistX, 0, inDist);
-			vertices[parkVertexCount + 10] = new Vector3(-inDist, 0, outDistZ);
-			vertices[parkVertexCount + 11] = new Vector3(inDist, 0, outDistZ);
-		}
+		
+		vertices[parkVertexCount] = new Vector3(-inDist, 0, -zSize / 2f - 1f);
+		vertices[parkVertexCount + 1] = new Vector3(inDist, 0, -zSize / 2f - 1f);
+		vertices[parkVertexCount + 2] = new Vector3(-inDist, 0, zSize / 2f + 1f);
+		vertices[parkVertexCount + 3] = new Vector3(inDist, 0, zSize / 2f + 1f);
+		
 		for (int i = 0; i < pathVertexCount; i++) {
 			uv[parkVertexCount + i] = new Vector2((vertices[parkVertexCount + i].x) * (1f / checkerboardWidth) * 0.5f,
 				(vertices[parkVertexCount + i].z) * (1f / checkerboardWidth) * 0.5f);
@@ -127,7 +105,7 @@ public class Grid : MonoBehaviour {
 		outDistX = xSize / 2f + 1f;
 		outDistZ = zSize / 2f + 1f;
 		//print(pvcb);
-		for (int b = 0; b < parkCount; b++) {
+		for (int b = 0; b < 2; b++) {
 			vertices[pvcb + 12 * b] = new Vector3(-outDistX, 0, -outDistZ) + parkCenters[b];
 			vertices[pvcb + 12 * b + 1] = new Vector3(outDistX, 0, -outDistZ) + parkCenters[b];
 			vertices[pvcb + 12 * b + 2] = new Vector3(outDistX, 0, outDistZ) + parkCenters[b];
@@ -146,21 +124,14 @@ public class Grid : MonoBehaviour {
 		float totalXSize = xSize * 2f + PathWidth + 4f;
 		float totalZSize = zSize * 2f + PathWidth + 4f;
 		
-		
-		
-		Vector3 bottomLeftCorner = new Vector3(-xSize + PathWidth / 2f + 2f, 0, -zSize + PathWidth / 2f + 2f);
-		// TODO: Discover humanity's purpose on this planet
-		
-		
-		
-		for (int i = 0; i < parkCount * 12; i++) {
+		for (int i = 0; i < 2 * 12; i++) {
 			uv[pvcb + i] = new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
 				(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
 		}
 		//print(vertices.Length);
 		meshFilter.mesh.vertices = vertices;
 		meshFilter.mesh.uv = uv;
-		for (int sub = 0; sub < parkCount; sub++) {
+		for (int sub = 0; sub < 2; sub++) {
 			int[] triangles = new int[xSize * zSize * 6];
 			for (int ti = 0, vi = 0, z = 0; z < zSize; z++, vi++) {
 				for (int x = 0; x < xSize; x++, ti += 6, vi++) {
@@ -199,9 +170,9 @@ public class Grid : MonoBehaviour {
 				pathTri[pti + 4] = pt + 2 + parkVertexCount;
 			}
 		}
-		meshFilter.mesh.SetTriangles(pathTri, parkCount);
-		int[] borderTri = new int[36 * parkCount];
-		for (int i = 0; i < parkCount; i++) {
+		meshFilter.mesh.SetTriangles(pathTri, 2);
+		int[] borderTri = new int[36 * 2];
+		for (int i = 0; i < 2; i++) {
 			int ind = i * 36;
 			for (int s = 0; s < 3; s++) { //first three sides of the border
 				borderTri[ind + 9 * s] = s + pvcb + i * 12;
@@ -217,11 +188,11 @@ public class Grid : MonoBehaviour {
 			borderTri[ind + 27 + 4] = borderTri[ind + 27 + 6] = 3 + pvcb + 1 + i * 12;
 			borderTri[ind + 27 + 7] = pvcb + i * 12;
 		}
-		meshFilter.mesh.SetTriangles(borderTri, parkCount + 1);
+		meshFilter.mesh.SetTriangles(borderTri, 2 + 1);
 		meshFilter.mesh.RecalculateNormals();
 		#endregion
 		
-		Material[] materials = new Material[parkCount + 2];
+		Material[] materials = new Material[2 + 2];
 		for (int i = 0; i < materials.Length - 2; i++) {
 			materials[i] = ParkMaterial;
 		}
@@ -252,7 +223,7 @@ public class Grid : MonoBehaviour {
 	/// <param name="playerNum">Player number of the targeted park, between 1 and 4 (inclusive).</param>
 	/// <returns>The snapped position.</returns>
 	public Vector3 SnapToGrid(Vector3 position, int playerNum) {
-		if (playerNum < 1 || playerNum > 4) {
+		if (playerNum < 1 || playerNum > 2) {
 			throw new System.ArgumentOutOfRangeException("playerNum");
 		}
 		
