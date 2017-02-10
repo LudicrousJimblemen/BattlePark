@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 using System.Linq;
 
 public class Player : NetworkBehaviour {
-	//"hotbar"
+	// "hotbar"
 	public GridObject[] GridObjects;
 	
 	[SyncVar]
@@ -24,8 +24,8 @@ public class Player : NetworkBehaviour {
 		Camera.main.transform.SetParent(transform);
 		print(PlayerNumber);
 		
-		//set hotbar
-		//just like last time, TODO make it dynamic
+		// set hotbar
+		// just like last time, TODO make it dynamic
 		GridObjects[0] = GameManager.Instance.Objects[0];
 	}
 	

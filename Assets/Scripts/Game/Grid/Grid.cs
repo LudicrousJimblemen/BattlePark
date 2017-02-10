@@ -1,4 +1,4 @@
-﻿//TODO 1 wide border around all parkCount for gate and fences
+﻿// TODO 1 wide border around all parkCount for gate and fences
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ public class Grid : MonoBehaviour {
 	public LayerMask VerticalConstraintRaycastLayerMask;
 
 	public GridObjects Objects = new GridObjects();
-	//should not yet work
+	// should not yet work
 	public List<GridRegion> Regions = new List<GridRegion>();
 
 	public int GridSizeX = 81;
@@ -104,7 +104,7 @@ public class Grid : MonoBehaviour {
 		float inDistZ = zSize / 2f;
 		outDistX = xSize / 2f + 1f;
 		outDistZ = zSize / 2f + 1f;
-		//print(pvcb);
+		// print(pvcb);
 		for (int b = 0; b < 2; b++) {
 			vertices[pvcb + 12 * b] = new Vector3(-outDistX, 0, -outDistZ) + parkCenters[b];
 			vertices[pvcb + 12 * b + 1] = new Vector3(outDistX, 0, -outDistZ) + parkCenters[b];
@@ -128,7 +128,7 @@ public class Grid : MonoBehaviour {
 			uv[pvcb + i] = new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
 				(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
 		}
-		//print(vertices.Length);
+		// print(vertices.Length);
 		meshFilter.mesh.vertices = vertices;
 		meshFilter.mesh.uv = uv;
 		for (int sub = 0; sub < 2; sub++) {
@@ -141,7 +141,7 @@ public class Grid : MonoBehaviour {
 					triangles[ti + 5] = vi + (xSize + 1) * (zSize + 1) * sub + xSize + 2;
 				}
 			}
-			//print(sub);
+			// print(sub);
 			meshFilter.mesh.SetTriangles(triangles, sub);
 		}
 		int[] pathTri = new int[(pathVertexCount - 2) * 3];
@@ -174,14 +174,14 @@ public class Grid : MonoBehaviour {
 		int[] borderTri = new int[36 * 2];
 		for (int i = 0; i < 2; i++) {
 			int ind = i * 36;
-			for (int s = 0; s < 3; s++) { //first three sides of the border
+			for (int s = 0; s < 3; s++) { // first three sides of the border
 				borderTri[ind + 9 * s] = s + pvcb + i * 12;
 				borderTri[ind + 9 * s + 1] = borderTri[ind + 9 * s + 3] = s + pvcb + 4 + i * 12;
 				borderTri[ind + 9 * s + 2] = borderTri[ind + 9 * s + 5] = borderTri[ind + 9 * s + 8] = s + pvcb + 8 + i * 12;
 				borderTri[ind + 9 * s + 4] = borderTri[ind + 9 * s + 6] = s + pvcb + 5 + i * 12;
 				borderTri[ind + 9 * s + 7] = s + pvcb + 1 + i * 12;
 			}
-			//last side
+			// last side
 			borderTri[ind + 27] = 3 + pvcb + i * 12;
 			borderTri[ind + 27 + 1] = borderTri[ind + 27 + 3] = 3 + pvcb + 4 + i * 12;
 			borderTri[ind + 27 + 2] = borderTri[ind + 27 + 5] = borderTri[ind + 27 + 8] = 3 + pvcb + 8 + i * 12;

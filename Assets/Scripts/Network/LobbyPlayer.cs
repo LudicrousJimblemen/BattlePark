@@ -6,7 +6,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	[SyncVar]
 	public string Username;
 
-	//insert stuff to pass to the real player here
+	// insert stuff to pass to the real player here
 
 	/// <summary>
 	/// Toggles the ready state of the player.
@@ -36,8 +36,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 		CmdUpdateInfo(LobbyGUI.Instance.Username);
 	}
 
-	//use for other stuff to update
-	//right now only updates username
+	// use for other stuff to update
+	// right now only updates username
 	[Command] 
 	public void CmdUpdateInfo(string username) {
 		Username = username;
@@ -45,7 +45,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
 	[ClientRpc]
 	public void RpcPrepareReady() {
-		//TODO remove this garbage
+		// TODO remove this garbage
 		LobbyGUI.Instance.FadeToWhite();
 	}
 }
