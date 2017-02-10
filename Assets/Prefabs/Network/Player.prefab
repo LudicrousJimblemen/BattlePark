@@ -57,6 +57,7 @@ MonoBehaviour:
   GridObjects:
   - {fileID: 0}
   Username: 
+  selectedObjectIndex: 0
 --- !u!114 &114000012384173982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -75,7 +76,7 @@ MonoBehaviour:
   FlatHeight: 3
   TiltAngle: 45
   FlatAngle: 20
-  MinimumPivotY: -2
+  MinimumPivotY: 0
 --- !u!114 &114000012927802720
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -26,7 +26,7 @@ public class NetworkCameraPan : NetworkBehaviour {
 	public float FlatAngle = 20f;
 
 	[Range(-5,10)]
-	public float MinimumPivotY = -2f;
+	public float MinimumPivotY = 3f;
 
 	private Vector3 PivotPoint = Vector3.zero;
 

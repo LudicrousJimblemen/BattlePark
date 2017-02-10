@@ -55,12 +55,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 348f8661a3884b24ab2f23d46b6e2fc1, type: 2}
-  - {fileID: 2100000, guid: 348f8661a3884b24ab2f23d46b6e2fc1, type: 2}
-  - {fileID: 2100000, guid: 348f8661a3884b24ab2f23d46b6e2fc1, type: 2}
-  - {fileID: 2100000, guid: 348f8661a3884b24ab2f23d46b6e2fc1, type: 2}
-  - {fileID: 2100000, guid: 977f1a9c14889724ca6d74291d422e36, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,12 +111,11 @@ MonoBehaviour:
   VerticalConstraintRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  Objects: {fileID: 0}
   GridSizeX: 81
   GridSizeZ: 81
   GridStepXZ: 1
   GridStepY: 0.5
   PathWidth: 4
-  ParkMat: {fileID: 2100000, guid: 348f8661a3884b24ab2f23d46b6e2fc1, type: 2}
-  PathMat: {fileID: 2100000, guid: 977f1a9c14889724ca6d74291d422e36, type: 2}
-  BordMat: {fileID: 2100000, guid: d5b2d43d5fd1daa4eac9cb25d1a27209, type: 2}
+  ParkMaterial: {fileID: 2100000, guid: 348f8661a3884b24ab2f23d46b6e2fc1, type: 2}
+  PathMaterial: {fileID: 2100000, guid: 977f1a9c14889724ca6d74291d422e36, type: 2}
+  BordMaterial: {fileID: 2100000, guid: d5b2d43d5fd1daa4eac9cb25d1a27209, type: 2}

@@ -10,6 +10,8 @@ public class GameInput : MonoBehaviour {
 	#region Debug
 	Vector3? mousePosition = null;
 	#endregion
+	
+	int direction;
 
 	void Awake() {
 		VerticalConstraint = Instantiate(VerticalConstraint, transform);
@@ -17,6 +19,19 @@ public class GameInput : MonoBehaviour {
 	}
 
 	void Update() {
+		for (int i = 0; i < 9; i++) {
+			if (Input.GetKeyDown(KeyCode.Alpha1 + i)) {
+				GetComponent<Player> ().selectedObjectIndex = i;
+				break;
+			}
+		}
+		if (Input.GetKeyDown (KeyCode.R)) {
+			direction ++;
+			if (direction > 3) {
+				direction = 0;
+			}
+			GetComponent<Player> ().selectedObjectDirection = direction;
+		}
 		bool verticalConstraint = Input.GetKey(KeyCode.LeftControl);
 		VerticalConstraint.gameObject.SetActive(verticalConstraint);
 		RaycastHit hit;
@@ -39,7 +54,7 @@ public class GameInput : MonoBehaviour {
 		}
 		if (Input.GetMouseButtonDown(0) && mousePosition != null) {
 			print("clik");
-			GetComponent<Player>().CmdPlaceObject(mousePosition ?? default (Vector3), Quaternion.identity);
+			GetComponent<Player>().CmdPlaceObject(mousePosition ?? default (Vector3));
 		}
 	}
 	void OnDrawGizmos() {

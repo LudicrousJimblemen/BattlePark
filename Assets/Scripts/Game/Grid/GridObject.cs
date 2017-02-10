@@ -6,15 +6,21 @@ public abstract class GridObject : MonoBehaviour {
 	public Direction Direction { get; set; }
 	public Vector3 GridPosition { get; set; }
 
-	public abstract bool PlaceMultiple { get; set; }
-	public abstract Vector3[] OccupiedOffsets { get; set; }
+	public abstract bool PlaceMultiple { get; }
+	public abstract Vector3[] OccupiedOffsets { get; }
 	#endregion
+	
+	public void Start () {
+		OnPlaced ();
+	}
 
-	public virtual void OnPlaced() { }
+	public virtual void OnPlaced() { 
+		UpdatePosition ();
+	}
 	public virtual void OnDemolished() { }
 
 	public void UpdatePosition() {
-		//transform.position = Grid.Instance.SnapToGrid (GridPosition, )
+		transform.position = Grid.Instance.SnapToGrid (GridPosition);
 		transform.rotation = Quaternion.Euler(-90,0,(int)Direction * 90);
 	}
 
@@ -37,7 +43,7 @@ public abstract class GridObject : MonoBehaviour {
 						-OccupiedOffsets[i].x
 					);
 				}
-				return ReturnList;
+				break;
 			case Direction.North:
 				for(int i = 0; i < OccupiedOffsets.Length; i++) {
 					ReturnList[i] = new Vector3(

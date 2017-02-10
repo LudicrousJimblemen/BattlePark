@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 	public static GameManager Instance;
 	
 	public Vector3[] ParkCenters;
+	
+	public GridObject[] Objects;
 
 	void Awake () {
 		if(FindObjectsOfType<GameManager>().Length > 1) {
@@ -13,14 +15,5 @@ public class GameManager : MonoBehaviour {
 			return;
 		}
 		Instance = this;
-	}
-
-	void OnDrawGizmos () {
-		if(ParkCenters == null)
-			return;
-		for (int i = 0; i < ParkCenters.Length; i++) {
-			Gizmos.DrawSphere(ParkCenters[i],0.25f);
-			//UnityEditor.Handles.Label(ParkCenters[i],(i + 1).ToString());
-		}
 	}
 }

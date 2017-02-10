@@ -220,9 +220,9 @@ public class Grid : MonoBehaviour {
 	/// Snaps a position to the grid depending on which player is acting.
 	/// </summary>
 	/// <param name="position">Input position.</param>
-	/// <param name="playerNum">Player number of the targeted park, between 1 and 4 (inclusive).</param>
+	/// <param name="playerNum">Player number of the targeted park, either 1 or 2.</param>
 	/// <returns>The snapped position.</returns>
-	public Vector3 SnapToGrid(Vector3 position, int playerNum) {
+	public Vector3 SnapToGrid(Vector3 position, int playerNum = 1) {
 		if (playerNum < 1 || playerNum > 2) {
 			throw new System.ArgumentOutOfRangeException("playerNum");
 		}

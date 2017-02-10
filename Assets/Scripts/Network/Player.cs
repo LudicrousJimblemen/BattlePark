@@ -7,6 +7,9 @@ public class Player : NetworkBehaviour {
 	
 	[SyncVar]
 	public string Username;
+	
+	public int selectedObjectIndex;
+	public int selectedObjectDirection;
 
 	public int PlayerNumber { get; set; }
 	
@@ -21,8 +24,12 @@ public class Player : NetworkBehaviour {
 	}
 	
 	[Command]
-	public void CmdPlaceObject(Vector3 position, Quaternion rotation) {
-		GameObject newObject = Instantiate(GridObjects[0].gameObject, position, rotation) as GameObject;
+	public void CmdPlaceObject(Vector3 position) {
+		if (GameManager.Instance.Objects[selectedObjectIndex] == null) 
+			return;
+		GameObject newObject = Instantiate(GameManager.Instance.Objects[selectedObjectIndex].gameObject) as GameObject;
+		newObject.GetComponent<GridObject> ().GridPosition = position;
+		newObject.GetComponent<GridObject> ().Direction = (Direction) selectedObjectDirection;
 		NetworkServer.SpawnWithClientAuthority(newObject, gameObject);
 	}
 }
