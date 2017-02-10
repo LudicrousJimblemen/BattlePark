@@ -73,6 +73,7 @@
      <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
      <None Include="Assets\Fonts\OFL.txt" />
      <None Include="Assets\Resources\Language\jp.txt" />
+     <None Include="Assets\Shaders\Hologram.shader" />
      <None Include="Assets\Resources\Language\en.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Users/s-ssoetomo/Desktop/unity/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
