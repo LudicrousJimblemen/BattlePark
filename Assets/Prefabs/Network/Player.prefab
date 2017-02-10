@@ -57,7 +57,6 @@ MonoBehaviour:
   GridObjects:
   - {fileID: 0}
   Username: 
-  selectedObjectIndex: 0
 --- !u!114 &114000012384173982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,7 +75,7 @@ MonoBehaviour:
   FlatHeight: 3
   TiltAngle: 45
   FlatAngle: 20
-  MinimumPivotY: 0
+  MinimumPivotY: 3
 --- !u!114 &114000012927802720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,4 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VerticalConstraint: {fileID: 4104399536791432, guid: 9b0e506fd2536a245827d21cef7d6f2d,
+    type: 2}
+  Placeholder: {fileID: 33633144559159830, guid: 2027468ba1c520b47b490071c7c7d8e8,
     type: 2}

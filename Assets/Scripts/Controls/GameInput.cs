@@ -6,32 +6,44 @@
 /// </summary>
 public class GameInput : MonoBehaviour {
 	public Transform VerticalConstraint;
+	public MeshFilter Placeholder;
 
 	#region Debug
 	Vector3? mousePosition = null;
 	#endregion
 	
+	Player player;
+	
+	int hotbarIndex = -1;
 	int direction;
 
 	void Awake() {
 		VerticalConstraint = Instantiate(VerticalConstraint, transform);
 		VerticalConstraint.gameObject.SetActive(false);
+		Placeholder = Instantiate(Placeholder) as MeshFilter;
+		player = GetComponent<Player> ();
 	}
 
 	void Update() {
+		if (!player.isLocalPlayer) 
+			return;
 		for (int i = 0; i < 9; i++) {
 			if (Input.GetKeyDown(KeyCode.Alpha1 + i)) {
-				GetComponent<Player> ().selectedObjectIndex = i;
+				hotbarIndex = i;
+				Placeholder.mesh = player.GridObjects[i].GetComponent<MeshFilter> ().sharedMesh;
 				break;
 			}
+		}
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			hotbarIndex = -1;
 		}
 		if (Input.GetKeyDown (KeyCode.R)) {
 			direction ++;
 			if (direction > 3) {
 				direction = 0;
 			}
-			GetComponent<Player> ().selectedObjectDirection = direction;
 		}
+		Placeholder.gameObject.SetActive (hotbarIndex != -1);
 		bool verticalConstraint = Input.GetKey(KeyCode.LeftControl);
 		VerticalConstraint.gameObject.SetActive(verticalConstraint);
 		RaycastHit hit;
@@ -52,9 +64,19 @@ public class GameInput : MonoBehaviour {
 			VerticalConstraint.position = corrected;
 			VerticalConstraint.rotation = Quaternion.LookRotation(correctedCam - corrected) * Quaternion.Euler(90, 0, 0);
 		}
-		if (Input.GetMouseButtonDown(0) && mousePosition != null) {
+		if (mousePosition != null) {
+			Placeholder.transform.position = mousePosition ?? Vector3.zero;
+			Placeholder.transform.rotation = Quaternion.Euler(-90,0,(int)direction * 90);
+		} else {
+			Placeholder.gameObject.SetActive (false);
+		}
+		if (Input.GetMouseButtonDown(0)) {
 			print("clik");
-			GetComponent<Player>().CmdPlaceObject(mousePosition ?? default (Vector3));
+			if (mousePosition != null && hotbarIndex != -1) {
+				GetComponent<Player>().CmdPlaceObject(hotbarIndex, mousePosition ?? Vector3.zero, direction);
+				if (!player.GridObjects[hotbarIndex].PlaceMultiple)
+					hotbarIndex = -1;
+			}
 		}
 	}
 	void OnDrawGizmos() {
