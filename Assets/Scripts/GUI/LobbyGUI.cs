@@ -82,7 +82,7 @@ public class LobbyGUI : GUI {
 			if (Client.Instance.localPlayer == null)
 				return;
 			bool ready = Client.Instance.localPlayer.ToggleReady();
-			LobbyReadyButton.GetComponentInChildren<Text>().text = LanguageManager.GetString(ready ? "lobby.ready" : "lobby.unready");
+			LobbyReadyButton.GetComponentInChildren<Text>().text = LanguageManager.GetString(ready ? "lobby.unready" : "lobby.ready");
 		});
 	}
 	
