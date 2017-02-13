@@ -1423,7 +1423,7 @@ MonoBehaviour:
   m_OfflineScene: NewLobby
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 1312206916300366, guid: 4e5de33305ab83a479ce6cd383915c50, type: 2}
+  - {fileID: 1000010169673046, guid: 4123fa853a5ad1d4aa3fa2791a7138a8, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
