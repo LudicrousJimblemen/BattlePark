@@ -16,7 +16,7 @@ namespace BattlePark {
 		public float StartX;
 		public float StartZ;
  
-		public  Color mainColor = new Color(0f, 0f, 0f, 42f / 255f);
+		public Color mainColor = new Color(0f, 0f, 0f, 42f / 255f);
  
 		private Material lineMaterial;
  
