@@ -124,7 +124,7 @@ public class Client : NetworkLobbyManager {
 		Player game = gamePlayer.GetComponent<Player>();
 		game.Username = lobby.Username;
 
-		gamePlayer.name = game.Username;
+		//gamePlayer.name = game.Username;
 
 		return base.OnLobbyServerSceneLoadedForPlayer(lobbyPlayer, gamePlayer);
 	}
