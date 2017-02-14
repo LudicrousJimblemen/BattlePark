@@ -18,10 +18,12 @@ public class GameInput : MonoBehaviour {
 	int direction;
 
 	void Awake() {
+		player = GetComponent<Player> ();
+		if (!player.isLocalPlayer)
+			return;
 		VerticalConstraint = Instantiate(VerticalConstraint, transform);
 		VerticalConstraint.gameObject.SetActive(false);
 		Placeholder = Instantiate(Placeholder) as MeshFilter;
-		player = GetComponent<Player> ();
 	}
 
 	void Update() {
@@ -71,9 +73,10 @@ public class GameInput : MonoBehaviour {
 			Placeholder.gameObject.SetActive (false);
 		}
 		if (Input.GetMouseButtonDown(0)) {
-			print("clik");
+			print (hotbarIndex);
+			print (mousePosition.ToString ());
 			if (mousePosition != null && hotbarIndex != -1) {
-				GetComponent<Player>().CmdPlaceObject(hotbarIndex, mousePosition ?? Vector3.zero, direction);
+				player.CmdPlaceObject(hotbarIndex, mousePosition ?? Vector3.zero, direction);
 				if (!player.GridObjects[hotbarIndex].PlaceMultiple)
 					hotbarIndex = -1;
 			}

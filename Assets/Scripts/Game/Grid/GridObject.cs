@@ -14,15 +14,15 @@ public abstract class GridObject : MonoBehaviour {
 		OnPlaced();
 	}
 
-	public virtual void OnPlaced() { 
-		UpdatePosition();
+	public virtual void OnPlaced() { }
+	public virtual void OnDemolished() { }
+
+	public Vector3 GetPosition() {
+		return Grid.Instance.SnapToGrid (GridPosition);
 	}
 	
-	public virtual void OnDemolished() {}
-	
-	public void UpdatePosition() {
-		transform.position = Grid.Instance.SnapToGrid(GridPosition);
-		transform.rotation = Quaternion.Euler(-90, 0, (int)Direction * 90);
+	public Quaternion GetRotation() {
+		return Quaternion.Euler(-90,0,(int)Direction * 90);
 	}
 
 	public Vector3[] RotatedOffsets() {

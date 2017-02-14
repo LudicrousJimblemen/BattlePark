@@ -10,10 +10,15 @@ public class Player : NetworkBehaviour {
 	// "hotbar"
 	public GridObject[] GridObjects;
 	
-	[SyncVar]
+	[SyncVar (hook = "UpdateUsername")]
 	public string Username;
-
-	public int PlayerNumber { get; set; }
+	private void UpdateUsername (string newUsername) {
+		Username = newUsername;
+		name = newUsername;
+	}
+	
+	[SyncVar]
+	public int PlayerNumber;
 	
 	private void Start() {
 		if (!isLocalPlayer) {
@@ -28,14 +33,23 @@ public class Player : NetworkBehaviour {
 		// just like last time, TODO make it dynamic
 		GridObjects[0] = GameManager.Instance.Objects[0];
 	}
+	private void Update() {
+		name = Username;
+	}
 	
 	[Command]
 	public void CmdPlaceObject(int hotbarIndex, Vector3 position, int direction) {
 		if (GridObjects[hotbarIndex] == null) 
 			return;
-		GameObject newObject = Instantiate(GridObjects[hotbarIndex].gameObject) as GameObject;
-		newObject.GetComponent<GridObject> ().GridPosition = position;
-		newObject.GetComponent<GridObject> ().Direction = (Direction) direction;
-		NetworkServer.SpawnWithClientAuthority(newObject, gameObject);
+		GameObject newObject = Instantiate(GridObjects[hotbarIndex].gameObject,
+		                                   Grid.Instance.SnapToGrid (position),
+		                                   Quaternion.Euler(-90,0,direction * 90)
+		                                   ) as GameObject;
+		print (newObject.name);
+		GridObject obj = newObject.GetComponent<GridObject> ();
+		obj.GridPosition = position;
+		obj.Direction = (Direction) direction;
+		obj.OnPlaced ();
+		NetworkServer.Spawn(newObject);
 	}
 }
