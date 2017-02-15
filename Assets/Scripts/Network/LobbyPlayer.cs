@@ -27,6 +27,14 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 		}
 		return readyToBegin;
 	}
+	
+	/// <summary>
+	/// Chats.
+	/// </summary>
+	public void Chat(string message) {
+		CmdSendChat(Username, message);
+	}
+	
 	public override void OnStartLocalPlayer() {
 		if (!isLocalPlayer) {
 			return;
@@ -34,6 +42,16 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 		Client.Instance.localPlayer = this;
 		LobbyGUI.Instance.LobbyReadyButton.interactable = true;
 		CmdUpdateInfo(LobbyGUI.Instance.Username);
+	}
+	
+	[Command]
+	public void CmdSendChat(string username, string message) {
+		RpcSendChat(username, message);
+	}
+	
+	[ClientRpc]
+	public void RpcSendChat(string username, string message) {
+		LobbyGUI.Instance.AddChat(username, message);
 	}
 
 	// use for other stuff to update

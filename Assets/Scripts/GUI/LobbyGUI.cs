@@ -84,6 +84,12 @@ public class LobbyGUI : GUI {
 			bool ready = Client.Instance.localPlayer.ToggleReady();
 			LobbyReadyButton.GetComponentInChildren<Text>().text = LanguageManager.GetString(ready ? "lobby.unready" : "lobby.ready");
 		});
+		LobbyChatInputField.onEndEdit.AddListener(input => {
+			if (Input.GetKey(KeyCode.Return)) {
+      			Client.Instance.localPlayer.Chat(input);
+      			LobbyChatInputField.text = String.Empty;
+      	    }
+		});
 	}
 	
 	protected void Awake() {
@@ -157,6 +163,10 @@ public class LobbyGUI : GUI {
 		*/
 		
 		LobbyUsersPanelText.text = output;
+	}
+	
+	public void AddChat(string username, string message) {
+		LobbyChatPanelText.text += String.Format("\n<{0}> {1}", username, message);
 	}
 	
 	public static string GenerateUsername() {
