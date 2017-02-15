@@ -105,7 +105,7 @@ Material:
       second: 0.02
     - first:
         name: _RimPower
-      second: 0.5
+      second: 1.5
     - first:
         name: _RimWidth
       second: 1.07

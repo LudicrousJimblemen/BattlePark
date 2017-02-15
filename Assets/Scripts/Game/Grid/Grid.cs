@@ -35,7 +35,7 @@ public class Grid : MonoBehaviour {
 			return;
 		}
 		Instance = this;
-		GenerateMesh(GridSizeX, GridSizeZ, 2); // tempborary
+		GenerateMesh(GridSizeX, GridSizeZ, 3); // tempborary
 	}
 	public void Start() {
 		GameManager.Instance.ParkCenters = parkCenters;

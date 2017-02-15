@@ -4,6 +4,7 @@ using System.Collections;
 
 public abstract class GridObject : NetworkBehaviour {
 	#region Data Variables
+	
 	public Direction Direction { get; set; }
 	public Vector3 GridPosition { get; set; }
 
@@ -15,7 +16,9 @@ public abstract class GridObject : NetworkBehaviour {
 		OnPlaced();
 	}
 
-	public virtual void OnPlaced() { }
+	public virtual void OnPlaced() { 
+		Grid.Instance.Objects.Add (GetPosition(), this);
+	}
 	public virtual void OnDemolished() { }
 
 	public Vector3 GetPosition() {
