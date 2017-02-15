@@ -31,7 +31,7 @@
 				o.Albedo = _InnerColor.rgb;
 				o.Alpha = _InnerColor.a;
 				half rim = 1.0 - saturate(dot(normalize(IN.viewDir), o.Normal));
-				o.Emission = (_RimColor.rgb + (sin(_Time.w * 3) + 1) / 5) * pow(rim, _RimPower + _SinTime.w);
+				o.Emission = (_RimColor.rgb + (sin(_Time.w / 10) + 1) / 5) * pow(rim, _RimPower + _SinTime.w);
 			}
 		ENDCG
 	} 
