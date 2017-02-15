@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public abstract class GridObject : MonoBehaviour {
+public abstract class GridObject : NetworkBehaviour {
 	#region Data Variables
 	public Direction Direction { get; set; }
 	public Vector3 GridPosition { get; set; }
