@@ -7,8 +7,8 @@
 	SubShader {
 		Tags { "Queue"="Transparent" "RenderType"="Transparent" "IgnoreProjector"="True" }
 		
-		Cull Back
 		Blend One One
+		Cull Back
 		
 		CGPROGRAM
 			#pragma surface surf Unlit 
@@ -31,7 +31,7 @@
 				o.Albedo = _InnerColor.rgb;
 				o.Alpha = _InnerColor.a;
 				half rim = 1.0 - saturate(dot(normalize(IN.viewDir), o.Normal));
-				o.Emission = _RimColor.rgb * pow(rim, _RimPower);
+				o.Emission = (_RimColor.rgb + (sin(_Time.w * 3) + 1) / 5) * pow(rim, _RimPower);
 			}
 		ENDCG
 	} 
