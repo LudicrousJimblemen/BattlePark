@@ -7,14 +7,9 @@ using UnityEngine.Networking;
 using System.Linq;
 
 public class Player : NetworkBehaviour {
-<<<<<<< HEAD
 	//"hotbar"
 	//list of indices relating to objects in the gamemanager's list of objects
 	public int[] ObjectIndices;
-=======
-	// "hotbar"
-	public GridObject[] GridObjects;
->>>>>>> 1838133ed76141fc662d2226c69fd3619a3d61b0
 	
 	[SyncVar (hook = "UpdateUsername")]
 	public string Username;
