@@ -17,7 +17,7 @@ public class GameInput : MonoBehaviour {
 	int hotbarIndex = -1;
 	int direction;
 
-	void Awake() {
+	void Start() {
 		player = GetComponent<Player> ();
 		if (!player.isLocalPlayer)
 			return;
@@ -31,8 +31,11 @@ public class GameInput : MonoBehaviour {
 			return;
 		for (int i = 0; i < 9; i++) {
 			if (Input.GetKeyDown(KeyCode.Alpha1 + i)) {
+				//print (player.ObjectIndices[0]);
+				if (player.ObjectIndices[i] == -1) 
+					continue;
 				hotbarIndex = i;
-				Placeholder.mesh = player.GridObjects[i].GetComponent<MeshFilter> ().sharedMesh;
+				Placeholder.mesh = GameManager.Instance.Objects[player.ObjectIndices[i]].GetComponent<MeshFilter> ().sharedMesh;
 				break;
 			}
 		}
@@ -40,9 +43,12 @@ public class GameInput : MonoBehaviour {
 			hotbarIndex = -1;
 		}
 		if (Input.GetKeyDown (KeyCode.R)) {
-			direction ++;
+			int counter = Input.GetKey(KeyCode.LeftShift) ? -1 : 1;
+			direction += counter;
 			if (direction > 3) {
 				direction = 0;
+			} else if (direction < 0) {
+				direction = 3;
 			}
 		}
 		Placeholder.gameObject.SetActive (hotbarIndex != -1);
@@ -67,17 +73,18 @@ public class GameInput : MonoBehaviour {
 			VerticalConstraint.rotation = Quaternion.LookRotation(correctedCam - corrected) * Quaternion.Euler(90, 0, 0);
 		}
 		if (mousePosition != null) {
-			Placeholder.transform.position = mousePosition ?? Vector3.zero;
+			Placeholder.transform.position = mousePosition.Value;
 			Placeholder.transform.rotation = Quaternion.Euler(-90,0,(int)direction * 90);
 		} else {
 			Placeholder.gameObject.SetActive (false);
 		}
 		if (Input.GetMouseButtonDown(0)) {
-			print (hotbarIndex);
-			print (mousePosition.ToString ());
+			//print (hotbarIndex);
+			//print (mousePosition.ToString ());
 			if (mousePosition != null && hotbarIndex != -1) {
-				player.CmdPlaceObject(hotbarIndex, mousePosition ?? Vector3.zero, direction);
-				if (!player.GridObjects[hotbarIndex].PlaceMultiple)
+				//print ("cool");
+				player.PlaceObject(hotbarIndex, mousePosition, direction);
+				if (!GameManager.Instance.Objects[player.ObjectIndices[hotbarIndex]].PlaceMultiple)
 					hotbarIndex = -1;
 			}
 		}
