@@ -47,7 +47,7 @@ public class LobbyGUI : GUI {
 		SwitchPanel(MainPanel);
 		FadeGraphic(Fade, 0, 60, FadeFrom, 0);
 		
-		//currentPanel = MainPanel;
+		// currentPanel = MainPanel;
 		
 		CreateGameButton.onClick.AddListener(() => {
 			Client.Instance.StartMatchMaker();

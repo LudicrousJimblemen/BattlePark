@@ -11,8 +11,8 @@ public abstract class GridObject : NetworkBehaviour {
 	public abstract Vector3[] OccupiedOffsets { get; }
 	#endregion
 	
-	public void Start () {
-		OnPlaced ();
+	public void Start() {
+		OnPlaced();
 	}
 
 	public virtual void OnPlaced() { }
@@ -28,17 +28,17 @@ public abstract class GridObject : NetworkBehaviour {
 
 	public Vector3[] RotatedOffsets() {
 		Vector3[] ReturnList = new Vector3[OccupiedOffsets.Length];
-		//Default is south
-		//	multiply x and z by 1
-		//East
-		//	x becomes z, z become x
-		//North
-		//	multiply x and z by -1
-		//West
-		//	x becomes -z, z becomes -x
-		switch(Direction) {
+		// Default is south
+		// 	multiply x and z by 1
+		// East
+		// 	x becomes z, z become x
+		// North
+		// 	multiply x and z by -1
+		// West
+		// 	x becomes -z, z becomes -x
+		switch (Direction) {
 			case Direction.East:
-				for(int i = 0; i < OccupiedOffsets.Length; i++) {
+				for (int i = 0; i < OccupiedOffsets.Length; i++) {
 					ReturnList[i] = new Vector3(
 						OccupiedOffsets[i].z,
 						OccupiedOffsets[i].y,
@@ -47,7 +47,7 @@ public abstract class GridObject : NetworkBehaviour {
 				}
 				break;
 			case Direction.North:
-				for(int i = 0; i < OccupiedOffsets.Length; i++) {
+				for (int i = 0; i < OccupiedOffsets.Length; i++) {
 					ReturnList[i] = new Vector3(
 						-OccupiedOffsets[i].x,
 						OccupiedOffsets[i].y,
@@ -56,7 +56,7 @@ public abstract class GridObject : NetworkBehaviour {
 				}
 				break;
 			case Direction.West:
-				for(int i = 0; i < OccupiedOffsets.Length; i++) {
+				for (int i = 0; i < OccupiedOffsets.Length; i++) {
 					ReturnList[i] = new Vector3(
 						-OccupiedOffsets[i].z,
 						OccupiedOffsets[i].y,

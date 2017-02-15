@@ -104,8 +104,11 @@ Material:
         name: _Parallax
       second: 0.02
     - first:
-        name: _Shininess
-      second: 0.64
+        name: _RimPower
+      second: 0.5
+    - first:
+        name: _RimWidth
+      second: 1.07
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -124,13 +127,13 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0, g: 0.5862069, b: 1, a: 0.15686275}
-    - first:
-        name: _Emission
-      second: {r: 0, g: 0, b: 0, a: 0}
+      second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
-        name: _SpecColor
-      second: {r: 0.2205882, g: 0.9354969, b: 1, a: 0.297}
+        name: _InnerColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _RimColor
+      second: {r: 0, g: 0.21379304, b: 1, a: 1}

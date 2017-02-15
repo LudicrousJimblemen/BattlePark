@@ -7,9 +7,14 @@ using UnityEngine.Networking;
 using System.Linq;
 
 public class Player : NetworkBehaviour {
+<<<<<<< HEAD
 	//"hotbar"
 	//list of indices relating to objects in the gamemanager's list of objects
 	public int[] ObjectIndices;
+=======
+	// "hotbar"
+	public GridObject[] GridObjects;
+>>>>>>> 1838133ed76141fc662d2226c69fd3619a3d61b0
 	
 	[SyncVar (hook = "UpdateUsername")]
 	public string Username;
@@ -29,14 +34,14 @@ public class Player : NetworkBehaviour {
 		Camera.main.transform.SetParent(transform);
 		print("PlayerNumber: " + PlayerNumber);
 		
-		//set hotbar
-		//just like last time, TODO make it dynamic
+		// set hotbar
+		// just like last time, TODO make it dynamic
 		ObjectIndices = new int[9];
 		ObjectIndices[0] = 0;
 		
-		//for everything not defined; increment initial value upon adding a new hotbar thing
-		//temporarily, of course
-		//totally won't make it into the final game
+		// for everything not defined; increment initial value upon adding a new hotbar thing
+		// temporarily, of course
+		// totally won't make it into the final game
 		for (int i = 1; i < ObjectIndices.Length; i ++) {
 			ObjectIndices[i] = -1;
 		}

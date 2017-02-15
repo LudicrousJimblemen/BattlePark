@@ -24,15 +24,15 @@ public class Client : NetworkLobbyManager {
 		
 		DontDestroyOnLoad(gameObject);
 		Instance = this;
-		//print (NetworkManager.singleton == null);
-		//StartCoroutine(WaitForNetworkManager());
+		// print (NetworkManager.singleton == null);
+		// StartCoroutine(WaitForNetworkManager());
 	}
 	
 	private IEnumerator WaitForNetworkManager() {
 		while (NetworkManager.singleton == null) {
 			yield return new WaitForEndOfFrame();
 		}
-		//NetworkManager.singleton.StartMatchMaker();
+		// NetworkManager.singleton.StartMatchMaker();
 	}
 	
 	public void CreateMatch(string roomName, uint size, NetworkMatch.DataResponseDelegate<MatchInfo> callback) {
@@ -117,8 +117,8 @@ public class Client : NetworkLobbyManager {
 		LobbyGUI.Instance.FadeToWhite(DropConnection);
 	}
 
-	//called every time a player loads the game scene
-	//use this to pass stuff from the lobbyplayer to the game player
+	// called every time a player loads the game scene
+	// use this to pass stuff from the lobbyplayer to the game player
 	public override bool OnLobbyServerSceneLoadedForPlayer(GameObject lobbyPlayer, GameObject gamePlayer) {
 		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
 		Player game = gamePlayer.GetComponent<Player>();

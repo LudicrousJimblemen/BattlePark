@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
 	
 	public GridObject[] Objects;
 
-	void Awake () {
+	void Awake() {
 		if(FindObjectsOfType<GameManager>().Length > 1) {
 			Destroy(gameObject);
 			return;
