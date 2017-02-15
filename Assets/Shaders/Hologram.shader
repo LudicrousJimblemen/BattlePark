@@ -1,15 +1,14 @@
-﻿Shader "Custom/Hologram" 
-{
+﻿Shader "Custom/Hologram" {
 	Properties {
-		_InnerColor ("Inner Color", Color) = (1.0, 1.0, 1.0, 1.0)
-		_RimColor ("Rim Color", Color) = (0.0, 0.0, 0.0, 0.0)
+		_InnerColor ("Inner Color", Color) = (0.0, 0.0, 0.0, 1.0)
+		_RimColor ("Rim Color", Color) = (1.0, 1.0, 1.0, 0.0)
 		_RimPower ("Rim Power", Range(0.0, 16.0)) = 3.0
 	}
 	SubShader {
-		Tags { "Queue" = "Transparent" }
+		Tags { "Queue"="Transparent" "RenderType"="Transparent" "IgnoreProjector"="True" }
 		
 		Cull Back
-		Blend SrcAlpha OneMinusSrcAlpha
+		Blend One One
 		
 		CGPROGRAM
 			#pragma surface surf Unlit 
