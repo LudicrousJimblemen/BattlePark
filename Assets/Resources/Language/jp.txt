@@ -31,6 +31,11 @@
 	
 	"stats.guest": "Unique guests: ",
 	"stats.bought": "{0} count: ",
+
+	"person.thoughts.wantFood.mild": "I kinda feel like having some {0}.",
+	"person.thoughts.wantFood.normal": "I want to eat some {0}.",
+	"person.thoughts.wantFood.strong": "I really want to eat some {0}.",
+	"person.thoughts.wantFood.ludicrous": "I am positively craving some {0}!",
 	
 	"gridObjects.Gate":"Gate",
 	"gridObjects.Fence":"Fence",
