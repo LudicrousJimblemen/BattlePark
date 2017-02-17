@@ -83,7 +83,7 @@ public abstract class GridObject : NetworkBehaviour {
 		foreach (Vector3 offset in RotatedOffsets ()) {
 			Gizmos.DrawSphere(offset + GridPosition,0.1f);
 		}
-		UnityEditor.Handles.color = Color.white;
-		UnityEditor.Handles.Label(GridPosition + Vector3.up * 2,((int)Direction).ToString());
+		//UnityEditor.Handles.color = Color.white;
+		//UnityEditor.Handles.Label(GridPosition + Vector3.up * 2,((int)Direction).ToString());
 	}
 }

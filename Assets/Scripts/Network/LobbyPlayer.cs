@@ -22,8 +22,10 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 		readyToBegin = !readyToBegin;
 		if (readyToBegin) {
 			SendReadyToBeginMessage();
+			LogChat(string.Format(LanguageManager.GetString("chat.userReadied"),Username),LogType.Ready);
 		} else {
 			SendNotReadyToBeginMessage();
+			LogChat(string.Format(LanguageManager.GetString("chat.userUnreadied"),Username),LogType.Unready);
 		}
 		return readyToBegin;
 	}
@@ -32,7 +34,35 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	/// Chats.
 	/// </summary>
 	public void Chat(string message) {
-		CmdSendChat(Username, message);
+		CmdSendChat(string.Format("<<color=#e0e0e0ff>{0}</color>> ",Username) + message);
+	}
+
+	public enum LogType {
+		Join,
+		Leave,
+		Ready,
+		Unready
+	}
+	public void LogChat(string message, LogType logType) {
+		string color; // a hex color, or a predefined color
+		switch(logType){
+			case LogType.Join:
+				color = "lightblue";
+				break;
+			case LogType.Leave:
+				color = "lightblue";
+				break;
+			case LogType.Ready:
+				color = "orange";
+				break;
+			case LogType.Unready:
+				color = "orange";
+				break;
+			default:
+				color = "white";
+				break;
+		}
+		CmdSendChat(string.Format ("<color={0}>{1}</color>", color, message));
 	}
 	
 	public override void OnStartLocalPlayer() {
@@ -45,13 +75,14 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	}
 	
 	[Command]
-	public void CmdSendChat(string username, string message) {
-		RpcSendChat(username, message);
+	public void CmdSendChat(string message) {
+		RpcSendChat(message);
 	}
 	
 	[ClientRpc]
-	public void RpcSendChat(string username, string message) {
-		LobbyGUI.Instance.AddChat(username, message);
+	public void RpcSendChat(string message) {
+		LobbyGUI.Instance.AddChat(message);
+		print(message);
 	}
 
 	// use for other stuff to update
@@ -59,6 +90,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	[Command] 
 	public void CmdUpdateInfo(string username) {
 		Username = username;
+		LogChat(string.Format(LanguageManager.GetString("chat.userJoined"),Username),LogType.Join);
 	}
 
 	[ClientRpc]

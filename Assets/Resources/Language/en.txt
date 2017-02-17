@@ -18,6 +18,8 @@
 	"lobby.chat":"Chat...",
 	
 	"chat.chatMessage": "<{0}> {1}",
+	"chat.userReadied": "{0} has readied.",
+	"chat.userUnreadied": "{0} has unreadied.",
 	"chat.userJoined": "{0} joined.",
 	"chat.userLeft": "{0} left.",
 	

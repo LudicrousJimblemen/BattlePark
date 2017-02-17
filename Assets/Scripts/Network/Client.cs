@@ -114,6 +114,7 @@ public class Client : NetworkLobbyManager {
 	}
 	
 	public override void OnDropConnection(bool success, string extendedInfo) {
+		localPlayer.LogChat(string.Format(LanguageManager.GetString("chat.userLeft"),localPlayer.Username),LobbyPlayer.LogType.Leave);
 		LobbyGUI.Instance.FadeToWhite(DropConnection);
 	}
 
