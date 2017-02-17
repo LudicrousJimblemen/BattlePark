@@ -24,6 +24,8 @@
 	"lobby.chat":"チャット...",
 	
 	"chat.chatMessage": "<{0}> {1}",
+	"chat.userReadied": "{0} has readied.",
+	"chat.userUnreadied": "{0} has unreadied.",
 	"chat.userJoined": "{0} がログインしました。",
 	"chat.userLeft": "{0} がログアウトしました。",
 	

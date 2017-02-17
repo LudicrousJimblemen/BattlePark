@@ -154,19 +154,24 @@ public class LobbyGUI : GUI {
 		});
 	}
 	
-	public void UpdatefghsdfText() {
+	protected override void Update() {
+		base.Update();
 		string output = String.Empty;
-		/*
-		foreach (var player in lobbyPlayers) {
-			output += String.Format("<color=#{0}>{1}</color>\n", player.readyToBegin? "ffffffff" : "ccccccff", player.Username);
-		}
-		*/
-		
+		for (int i = 0; i < Client.Instance.lobbySlots.Length; i ++) {
+			NetworkLobbyPlayer player = Client.Instance.lobbySlots[i];
+			if(player == null)
+				continue;
+			output += String.Format("<color=#{0}>{1}</color>\n",player.readyToBegin ? "ffffffff" : "ccccccff",player.GetComponent<LobbyPlayer>().Username);
+		}		
 		LobbyUsersPanelText.text = output;
 	}
 	
-	public void AddChat(string username, string message) {
-		LobbyChatPanelText.text += String.Format("\n<{0}> {1}", username, message);
+	public void AddChat(string message) {
+		string text = "";
+		if(LobbyChatPanelText.text != "")
+			text += "\n";
+		text += message;
+        LobbyChatPanelText.text += text;
 	}
 	
 	// this is trash - please remove it and replace with the regular FadeGraphic function
