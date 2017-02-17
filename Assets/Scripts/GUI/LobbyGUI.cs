@@ -52,14 +52,14 @@ public class LobbyGUI : GUI {
 		CreateGameButton.onClick.AddListener(() => {
 			Client.Instance.StartMatchMaker();
 			AnimatePanel(CreateGamePanel, 1);
-			Username = GenerateUsername();
+			Username = "Player";
 			CreateGameUsernameInputField.text = Username;
 			CreateGameRoomNameInputField.text = String.Format(LanguageManager.GetString("lobby.defaultRoomName"), Username);
 		});
 		FindGameButton.onClick.AddListener(() => {
 			Client.Instance.StartMatchMaker();
 			PopulateServerList();
-			Username = GenerateUsername();
+			Username = "Player";
 			FindGameUsernameInputField.text = Username;
 		});
 		ExitButton.onClick.AddListener(Application.Quit);
@@ -167,42 +167,6 @@ public class LobbyGUI : GUI {
 	
 	public void AddChat(string username, string message) {
 		LobbyChatPanelText.text += String.Format("\n<{0}> {1}", username, message);
-	}
-	
-	public static string GenerateUsername() {
-		const string consonants = "bbbbbbbbbbbbbbbbbbbbbbbcdffgghjklmnppppppppppppppppppppppqrsssstvwxzzzz";
-		const string vowels = "aaeeiiiiiooooooooooouuuuuuuuuuuuuy";
-		int type = Mathf.RoundToInt(UnityEngine.Random.Range(0, 1));
-
-		string returnedName = String.Empty;
-		for (int i = 0; i < 14; i++) {
-			if (i != 7) {
-				float chance = UnityEngine.Random.value;
-				bool upper = (i == 0 || returnedName[i - 1].Equals(' '));
-				string source;
-				if (type == 0) {
-					source = consonants;
-					if (upper)
-						source = source.ToUpper();
-					returnedName += source.ElementAt(UnityEngine.Random.Range(0, consonants.Length));
-					if (chance <= 0.5) {
-						type = 1;
-					}
-				} else {
-					source = vowels;
-					if (upper)
-						source = source.ToUpper();
-					returnedName += source.ElementAt(UnityEngine.Random.Range(0, vowels.Length));
-					if (chance <= 0.6) {
-						type = 0;
-					}
-				}
-			} else {
-				returnedName += " ";
-			}
-		}
-		
-		return returnedName;
 	}
 	
 	// this is trash - please remove it and replace with the regular FadeGraphic function
