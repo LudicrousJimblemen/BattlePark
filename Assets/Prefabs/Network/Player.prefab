@@ -54,9 +54,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a963b4a75a6973b44964223c5e305423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridObjects:
-  - {fileID: 0}
+  ObjectIndices: 
   Username: 
+  PlayerNumber: 0
 --- !u!114 &114000012384173982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,3 +123,5 @@ MonoBehaviour:
     type: 2}
   Placeholder: {fileID: 33633144559159830, guid: 2027468ba1c520b47b490071c7c7d8e8,
     type: 2}
+  ValidColor: {r: 0, g: 0, b: 1, a: 1}
+  InvalidColor: {r: 1, g: 0, b: 0, a: 1}

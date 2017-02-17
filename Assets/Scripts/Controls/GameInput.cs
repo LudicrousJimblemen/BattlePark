@@ -17,6 +17,9 @@ public class GameInput : MonoBehaviour {
 	int hotbarIndex = -1;
 	int direction;
 
+	public Color ValidColor = Color.blue;
+	public Color InvalidColor = Color.red;
+
 	void Start() {
 		player = GetComponent<Player> ();
 		if (!player.isLocalPlayer)
@@ -69,6 +72,7 @@ public class GameInput : MonoBehaviour {
 				mousePosition = Grid.Instance.SnapToGrid(verticalConstraint ? constraintPos : hit.point, 1);
 			} else {
 				mousePosition = null;
+				Placeholder.gameObject.SetActive(false);
 			}
 			if (!verticalConstraint) {
 				Vector3 corrected = mousePosition ?? Vector3.zero;
@@ -78,12 +82,13 @@ public class GameInput : MonoBehaviour {
 				VerticalConstraint.position = corrected;
 				VerticalConstraint.rotation = Quaternion.LookRotation(correctedCam - corrected) * Quaternion.Euler(90, 0, 0);
 			}
-			if (mousePosition != null) {
+			if(mousePosition != null) {
 				Placeholder.transform.position = mousePosition.Value;
 				Placeholder.transform.rotation = Quaternion.Euler(-90,0,(int)direction * 90);
 			} else {
-				Placeholder.gameObject.SetActive (false);
+				Placeholder.gameObject.SetActive(false);
 			}
+			Placeholder.GetComponent<MeshRenderer>().material.SetColor("_RimColor",Grid.Instance.Objects.WillIntersect(mousePosition.Value,placeholderOffsets) ? InvalidColor : ValidColor);
 			if (Input.GetMouseButtonDown(0)) {
 				//print (hotbarIndex);
 				//print (mousePosition.ToString ());
