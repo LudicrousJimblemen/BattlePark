@@ -236,6 +236,10 @@ public class Grid : MonoBehaviour {
 		return snapped;
 	}
 
+	public bool CheckIfValid (Vector3 location, Vector3[] offsets) {
+		return Objects.WillIntersect(location, offsets); // TODO add logic
+	}
+
 	void OnDrawGizmos() {
 		foreach (KeyValuePair<Vector3, GridObject> entry in Objects) {
 			foreach (Vector3 offset in entry.Value.RotatedOffsets ()) {

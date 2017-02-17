@@ -88,7 +88,7 @@ public class GameInput : MonoBehaviour {
 			} else {
 				Placeholder.gameObject.SetActive(false);
 			}
-			Placeholder.GetComponent<MeshRenderer>().material.SetColor("_RimColor",Grid.Instance.Objects.WillIntersect(mousePosition.Value,placeholderOffsets) ? InvalidColor : ValidColor);
+			Placeholder.GetComponent<MeshRenderer>().material.SetColor("_RimColor",Grid.Instance.CheckIfValid(mousePosition.Value,placeholderOffsets) ? InvalidColor : ValidColor);
 			if (Input.GetMouseButtonDown(0)) {
 				//print (hotbarIndex);
 				//print (mousePosition.ToString ());
