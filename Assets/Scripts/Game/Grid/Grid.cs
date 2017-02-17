@@ -1,4 +1,5 @@
 ﻿// TODO 1 wide border around all parkCount for gate and fences
+// you TODID that already, dummy
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -67,6 +68,9 @@ public class Grid : MonoBehaviour {
 		meshFilter.mesh = new Mesh();
 		meshFilter.mesh.name = "Grid";
 
+		// please keep your hands and arms inside the vehicle at all times
+		// enjoy the ride
+
 		Vector3[] vertices = new Vector3[(xSize + 1) * (zSize + 1) * 2 + pathVertexCount + 12 * 2 + 1];
 		Vector2[] uv = new Vector2[vertices.Length];
 		meshFilter.mesh.subMeshCount = 2 + 2;
@@ -104,7 +108,6 @@ public class Grid : MonoBehaviour {
 		float inDistZ = zSize / 2f;
 		outDistX = xSize / 2f + 1f;
 		outDistZ = zSize / 2f + 1f;
-		// print(pvcb);
 		for (int b = 0; b < 2; b++) {
 			vertices[pvcb + 12 * b] = new Vector3(-outDistX, 0, -outDistZ) + parkCenters[b];
 			vertices[pvcb + 12 * b + 1] = new Vector3(outDistX, 0, -outDistZ) + parkCenters[b];
@@ -128,7 +131,6 @@ public class Grid : MonoBehaviour {
 			uv[pvcb + i] = new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
 				(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
 		}
-		// print(vertices.Length);
 		meshFilter.mesh.vertices = vertices;
 		meshFilter.mesh.uv = uv;
 		for (int sub = 0; sub < 2; sub++) {
@@ -141,7 +143,6 @@ public class Grid : MonoBehaviour {
 					triangles[ti + 5] = vi + (xSize + 1) * (zSize + 1) * sub + xSize + 2;
 				}
 			}
-			// print(sub);
 			meshFilter.mesh.SetTriangles(triangles, sub);
 		}
 		int[] pathTri = new int[(pathVertexCount - 2) * 3];
@@ -233,5 +234,13 @@ public class Grid : MonoBehaviour {
 		snapped.y = Mathf.Clamp(Mathf.Floor(snapped.y / GridStepY) * GridStepY, 0, Mathf.Infinity);
 		snapped.z = Mathf.Floor((snapped.z + 0.5f) / GridStepXZ) * GridStepXZ + center.z;
 		return snapped;
+	}
+
+	void OnDrawGizmos() {
+		foreach (KeyValuePair<Vector3, GridObject> entry in Objects) {
+			foreach (Vector3 offset in entry.Value.RotatedOffsets ()) {
+				Gizmos.DrawSphere(offset + entry.Key,0.1f);
+			}
+		}
 	}
 }

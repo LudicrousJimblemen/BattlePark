@@ -30,8 +30,11 @@ public abstract class GridObject : NetworkBehaviour {
 	}
 
 	public Vector3[] RotatedOffsets() {
+		return RotatedOffsets(Direction);
+	}
+	public Vector3[] RotatedOffsets(Direction direction) {
 		Vector3[] ReturnList = new Vector3[OccupiedOffsets.Length];
-		// Default is south
+		// Default is north
 		// 	multiply x and z by 1
 		// East
 		// 	x becomes z, z become x
@@ -39,7 +42,7 @@ public abstract class GridObject : NetworkBehaviour {
 		// 	multiply x and z by -1
 		// West
 		// 	x becomes -z, z becomes -x
-		switch (Direction) {
+		switch (direction) {
 			case Direction.East:
 				for (int i = 0; i < OccupiedOffsets.Length; i++) {
 					ReturnList[i] = new Vector3(
@@ -49,7 +52,7 @@ public abstract class GridObject : NetworkBehaviour {
 					);
 				}
 				break;
-			case Direction.North:
+			case Direction.South:
 				for (int i = 0; i < OccupiedOffsets.Length; i++) {
 					ReturnList[i] = new Vector3(
 						-OccupiedOffsets[i].x,
@@ -67,12 +70,20 @@ public abstract class GridObject : NetworkBehaviour {
 					);
 				}
 				break;
-			case Direction.South:
+			case Direction.North:
 				ReturnList = OccupiedOffsets;
 				break;
 			default:
 				return null;
 		}
 		return ReturnList;
+	}
+
+	private void OnDrawGizmos() {
+		foreach (Vector3 offset in RotatedOffsets ()) {
+			Gizmos.DrawSphere(offset + GridPosition,0.1f);
+		}
+		UnityEditor.Handles.color = Color.white;
+		UnityEditor.Handles.Label(GridPosition + Vector3.up * 2,((int)Direction).ToString());
 	}
 }
