@@ -6,6 +6,21 @@ using System.Linq;
 
 public class Person : MonoBehaviour {
 	public string Name = GenerateUsername();
+	
+	/// <summary>
+	/// Represents how much money a person has in cents.
+	/// </summary>
+	[Range(0, Int32.MaxValue)]
+	public int Money = UnityEngine.Random.Range(2000, 10001);
+
+	[Range(0, 100)]
+	public int Hunger = UnityEngine.Random.Range(0, 21);
+	[Range(0, 100)]
+	public int Thirst = UnityEngine.Random.Range(0, 16);
+	[Range(0, 100)]
+	public int Nausea = UnityEngine.Random.Range(0, 3);
+	[Range(0, 100)]
+	public int John = UnityEngine.Random.Range(0, 11);
 
 	public List<Thought> Thoughts = new List<Thought>();
 
