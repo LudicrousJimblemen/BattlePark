@@ -66,9 +66,15 @@ public class LobbyGUI : GUI {
 		
 		CreateGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
 		CreateGameCreateRoomButton.onClick.AddListener(CreateMatch);
-		
+		CreateGameUsernameInputField.onEndEdit.AddListener(input => {
+			Username = input;
+		});
+
 		FindGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
-		
+		FindGameUsernameInputField.onEndEdit.AddListener(input => {
+			Username = input;
+		});
+
 		LobbyLeaveButton.onClick.AddListener(() => 
 			NetworkManager.singleton.matchMaker.DropConnection(
 			Client.Instance.matchInfo.networkId,
