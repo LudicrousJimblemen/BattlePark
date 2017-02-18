@@ -136,8 +136,9 @@ public class Grid : MonoBehaviour {
 		float totalZSize = zSize * 2f + PathWidth + 4f;
 		
 		for (int i = 0; i < 2 * 12; i++) {
-			uv[pvcb + i] = new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
-				(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
+			uv[pvcb + i] = new Vector2(vertices[pvcb + i].x,vertices[pvcb + i].z);
+				//new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
+				//(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
 		}
 		meshFilter.mesh.vertices = vertices;
 		meshFilter.mesh.uv = uv;
