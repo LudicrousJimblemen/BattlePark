@@ -28,7 +28,10 @@ public class Grid : MonoBehaviour {
 	public Material PathMaterial;
 	public Material BordMaterial;
 
+	public GameObject Gate;
+
 	private Vector3[] parkCenters;
+	private Vector3[] parkGates;
 
 	public void Awake() {
 		if (FindObjectsOfType<Grid>().Length > 1) {
@@ -53,6 +56,7 @@ public class Grid : MonoBehaviour {
 		}
 		
 		parkCenters = new Vector3[2];
+		parkGates = new Vector3[2];
 		
 		float px, pz;
 		int pathVertexCount = 0;
@@ -61,6 +65,9 @@ public class Grid : MonoBehaviour {
 		pz = 0;
 		parkCenters[0] = new Vector3(-px, 0, pz);
 		parkCenters[1] = new Vector3(px, 0, -pz);
+		float gw = (PathWidth + 1f) / 2f * GridStepXZ;
+		parkGates[0] = new Vector3(-gw,0,0);
+		parkGates[1] = new Vector3(gw,0,0);
 		pathVertexCount = 4;
 		
 		MeshFilter meshFilter = GetComponent<MeshFilter>();
@@ -204,6 +211,9 @@ public class Grid : MonoBehaviour {
 		meshRenderer.materials = materials;
 
 		GetComponent<MeshCollider>().sharedMesh = meshFilter.mesh;
+		for (int g = 0; g < 2; g ++) {
+			Instantiate(Gate,parkGates[g],Quaternion.Euler(-90,0,(1 + g * 2) * 90),transform);
+		}
 	}
 
 	public void AddRegions () {

@@ -119,3 +119,4 @@ MonoBehaviour:
   ParkMaterial: {fileID: 2100000, guid: 348f8661a3884b24ab2f23d46b6e2fc1, type: 2}
   PathMaterial: {fileID: 2100000, guid: 977f1a9c14889724ca6d74291d422e36, type: 2}
   BordMaterial: {fileID: 2100000, guid: d5b2d43d5fd1daa4eac9cb25d1a27209, type: 2}
+  Gate: {fileID: 1403130875566778, guid: 642abfc410e915645918252a3c1ee510, type: 2}
