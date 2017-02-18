@@ -4,6 +4,7 @@ public class GridPath : GridObject {
 	
 	// set this to whatever
 	public override bool PlaceMultiple { get { return 
+		true; 
 	}}
 	
 	// set this to whatever

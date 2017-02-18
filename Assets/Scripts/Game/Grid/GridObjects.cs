@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,14 @@ public class GridObjects : IEnumerable {
 		}
 		
 		return false;
+	}
+	/// <summary>
+	/// Tests if there exists any object at any height of an x/z coordinate
+	/// </summary>
+	/// <param name="location">The position to test, y value automagically ignored</param>
+	/// <returns>True if the test is true, yeah</returns>
+	public bool HasVerticalClearance (Vector3 location) {
+		throw new NotImplementedException();
 	}
 
 	public List<GridObject> AdjacentObjects(Vector3 location, bool corners = false) {

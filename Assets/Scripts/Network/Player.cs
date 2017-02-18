@@ -32,13 +32,8 @@ public class Player : NetworkBehaviour {
 		// set hotbar
 		// just like last time, TODO make it dynamic
 		ObjectIndices = new int[9];
-		ObjectIndices[0] = 0;
-
-		// for everything not defined; increment initial value upon adding a new hotbar thing
-		// temporarily, of course
-		// totally won't make it into the final game
-		for(int i = 1; i < ObjectIndices.Length; i++) {
-			ObjectIndices[i] = -1;
+		for(int i = 0; i < 9; i++) {
+			ObjectIndices[i] = GameManager.Instance.Objects[i] == null ? -1 : i;
 		}
 	}
 	private void Update() {
@@ -46,7 +41,7 @@ public class Player : NetworkBehaviour {
 	}
 
 	public void PlaceObject(int hotbarIndex,Vector3? position,int direction) {
-		if(position == null || ObjectIndices[hotbarIndex] == -1 || Grid.Instance.Objects.WillIntersect(position.Value,GameManager.Instance.Objects[ObjectIndices[hotbarIndex]].RotatedOffsets((Direction)direction)))
+		if(position == null || ObjectIndices[hotbarIndex] == -1 || !Grid.Instance.IsValid(position.Value,GameManager.Instance.Objects[ObjectIndices[hotbarIndex]].RotatedOffsets((Direction)direction), PlayerNumber))
 			return;
 		// boy it sure is a good thing that return is on a new line
 		// really breaks up that one-liner into sizeable chunks
