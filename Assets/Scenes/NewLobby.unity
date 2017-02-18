@@ -1540,6 +1540,7 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1000010169673046, guid: 4123fa853a5ad1d4aa3fa2791a7138a8, type: 2}
+  - {fileID: 1202308574564032, guid: 2412b5c8568621a448688496227007b6, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -1815,6 +1816,18 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
   m_IsPrefabParent: 0

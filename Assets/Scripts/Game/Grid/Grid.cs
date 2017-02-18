@@ -1,4 +1,4 @@
-﻿// TODO 1 wide border around all parkCount for gate and fences
+﻿// TODO 1 wide border around all parks for gate and fences
 // you TODID that already, dummy
 
 using UnityEngine;
@@ -37,6 +37,7 @@ public class Grid : MonoBehaviour {
 		}
 		Instance = this;
 		GenerateMesh(GridSizeX, GridSizeZ, 3); // tempborary
+		AddRegions();
 	}
 	public void Start() {
 		GameManager.Instance.ParkCenters = parkCenters;
@@ -205,6 +206,13 @@ public class Grid : MonoBehaviour {
 		GetComponent<MeshCollider>().sharedMesh = meshFilter.mesh;
 	}
 
+	public void AddRegions () {
+		for (int i = 0; i < 2; i ++) {
+			Vector3 negativeCorner = new Vector3(parkCenters[i].x - GridSizeX / 2f,0,parkCenters[i].z - GridSizeZ / 2f);
+			Regions.Add(new GridRegion(negativeCorner.x,negativeCorner.z,GridSizeX,GridSizeZ,i + 1));
+		}
+	}
+
 	public Vector3 ToGridSpace(Vector3 position) {
 		return new Vector3 {
 			x = Mathf.RoundToInt((position.x - 0.5f) / GridStepXZ),
@@ -213,8 +221,8 @@ public class Grid : MonoBehaviour {
 		};
 	}
 
-	public bool ValidRegion(Vector3 position, long id) {
-		return Regions.Any(x => x.Inside(ToGridSpace(position)) && x.Valid(id));
+	public bool ValidRegion(Vector3 location, Vector3[] offsets, long id) {
+		return Regions.Any(x => x.Inside(location, offsets) && x.Valid(id));
 	}
 
 	/// <summary>
@@ -236,8 +244,16 @@ public class Grid : MonoBehaviour {
 		return snapped;
 	}
 
-	public bool CheckIfValid (Vector3 location, Vector3[] offsets) {
-		return Objects.WillIntersect(location, offsets); // TODO add logic
+
+
+	public bool IsValid (Vector3 location, Vector3[] offsets, int playerNumber) {
+		/*
+		if(Objects.WillIntersect(location,offsets))
+			print("invalid: will intersect existing object");
+		if(!ValidRegion(location,offsets,playerNumber))
+			print("invalid: not entirely in valid region");
+		*/
+		return !Objects.WillIntersect(location, offsets) && ValidRegion (location, offsets, playerNumber); // TODO add logic
 	}
 
 	void OnDrawGizmos() {
@@ -245,6 +261,17 @@ public class Grid : MonoBehaviour {
 			foreach (Vector3 offset in entry.Value.RotatedOffsets ()) {
 				Gizmos.DrawSphere(offset + entry.Key,0.1f);
 			}
+		}
+		foreach(var region in Regions) {
+			if(region.Owner == -1) {
+				Gizmos.color = Color.grey;
+			} else if(region.Owner == 0) {
+				Gizmos.color = Color.white;
+			} else {
+				UnityEngine.Random.InitState(region.Owner.GetHashCode());
+				Gizmos.color = UnityEngine.Random.ColorHSV(0,1f,1f,1f,1f,1f,1f,1f);
+			}
+			Gizmos.DrawCube(region.GetCenter(this),new Vector3(region.Width,0.1f,region.Length));
 		}
 	}
 }

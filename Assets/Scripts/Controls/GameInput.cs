@@ -88,16 +88,16 @@ public class GameInput : MonoBehaviour {
 			} else {
 				Placeholder.gameObject.SetActive(false);
 			}
-			Placeholder.GetComponent<MeshRenderer>().material.SetColor("_RimColor",Grid.Instance.CheckIfValid(mousePosition.Value,placeholderOffsets) ? InvalidColor : ValidColor);
+			bool valid = mousePosition != null && Grid.Instance.IsValid(mousePosition.Value,placeholderOffsets,player.PlayerNumber);
+			Placeholder.GetComponent<MeshRenderer>().material.SetColor("_RimColor", valid ? ValidColor : InvalidColor);
 			if (Input.GetMouseButtonDown(0)) {
-				//print (hotbarIndex);
-				//print (mousePosition.ToString ());
-				if (mousePosition != null && hotbarIndex != -1) {
-					//print ("cool");
-					player.PlaceObject(hotbarIndex, mousePosition, direction);
-					if(!GameManager.Instance.Objects[player.ObjectIndices[hotbarIndex]].PlaceMultiple) {
-						hotbarIndex = -1;
-						placeholderOffsets = new Vector3[] { Vector3.zero };
+				if (valid) {
+					if(mousePosition != null && hotbarIndex != -1) {
+						player.PlaceObject(hotbarIndex,mousePosition,direction);
+						if(!GameManager.Instance.Objects[player.ObjectIndices[hotbarIndex]].PlaceMultiple) {
+							hotbarIndex = -1;
+							placeholderOffsets = new Vector3[] { Vector3.zero };
+						}
 					}
 				}
 			}
