@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 public class GridSculpture : GridObject {
-	public override bool PlaceMultiple { get { return false; } }
 	public override Vector3[] OccupiedOffsets {	get { return new[] {
 		Vector3.zero,
 		new Vector3 (0,0,1),

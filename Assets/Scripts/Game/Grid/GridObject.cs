@@ -8,10 +8,16 @@ public abstract class GridObject : NetworkBehaviour {
 	public Direction Direction { get; set; }
 	public Vector3 GridPosition { get; set; }
 
-	public abstract bool PlaceMultiple { get; }
 	public abstract Vector3[] OccupiedOffsets { get; }
+
+	public virtual bool PlaceMultiple { get { return 
+		false;
+	}}
+	public virtual bool CanRotate { get { return 
+		true;
+	}}
 	#endregion
-	
+
 	public void Start() {
 		OnPlaced();
 	}

@@ -51,7 +51,7 @@ public class GameInput : MonoBehaviour {
 		}
 		Placeholder.gameObject.SetActive (hotbarIndex != -1);
 		if(hotbarIndex != -1) {
-			if (Input.GetKeyDown (KeyCode.R)) {
+			if (Input.GetKeyDown (KeyCode.R) && placeholderGridObj.CanRotate) {
 				int counter = Input.GetKey(KeyCode.LeftShift) ? -1 : 1;
 				direction += counter;
 				if (direction > 3) {
