@@ -53,9 +53,9 @@ public struct GridRegion {
 
 	public Vector3 GetCenter(Grid grid) {
 		return new Vector3 {
-			x = (X * grid.GridStepXZ) + Width / 2f,
+			x = X + Width / 2f,
 			y = 0,
-			z = (Z * grid.GridStepXZ) + Length / 2f
+			z = Z + Length / 2f
 		};
 	}
 }

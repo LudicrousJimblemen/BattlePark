@@ -136,7 +136,7 @@ public class Grid : MonoBehaviour {
 		//float totalZSize = zSize * 2f + PathWidth + 4f;
 		
 		for (int i = 0; i < 2 * 12; i++) {
-			uv[pvcb + i] = new Vector2(vertices[pvcb + i].x,vertices[pvcb + i].z);
+			uv[pvcb + i] = new Vector2(vertices[pvcb + i].x,vertices[pvcb + i].z) / GridStepXZ;
 				//new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
 				//(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
 		}
@@ -219,7 +219,7 @@ public class Grid : MonoBehaviour {
 
 	public void AddRegions () {
 		for (int i = 0; i < 2; i ++) {
-			Vector3 negativeCorner = new Vector3(parkCenters[i].x / GridStepXZ - GridSizeX / 2f,0,parkCenters[i].z / GridStepXZ - GridSizeZ / 2f);
+			Vector3 negativeCorner = new Vector3(parkCenters[i].x - GridSizeX * GridStepXZ / 2f,0,parkCenters[i].z - GridSizeZ * GridStepXZ / 2f);
 			Regions.Add(new GridRegion(negativeCorner.x,negativeCorner.z,GridSizeX * GridStepXZ,GridSizeZ * GridStepXZ,i + 1));
 		}
 	}
