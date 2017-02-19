@@ -249,12 +249,9 @@ public class Grid : MonoBehaviour {
 		
 		Vector3 center = GameManager.Instance.ParkCenters[playerNum - 1];
 		Vector3 snapped = position - center;
-		snapped.x = Mathf.Floor((snapped.x + 0.5f * GridStepXZ) / GridStepXZ) * GridStepXZ + center.x;
+		snapped.x = Mathf.Floor(snapped.x / GridStepXZ + 0.5f) * GridStepXZ + center.x;
 		snapped.y = Mathf.Clamp(Mathf.Floor(snapped.y / GridStepY) * GridStepY, 0, Mathf.Infinity);
-		snapped.z = Mathf.Floor((snapped.z + 0.5f * GridStepXZ) / GridStepXZ) * GridStepXZ + center.z;
-		//snapped.x = Mathf.Floor((snapped.x + 0.5f) / GridStepXZ) * GridStepXZ + center.x;
-		//snapped.y = Mathf.Clamp(Mathf.Floor(snapped.y / GridStepY) * GridStepY, 0, Mathf.Infinity);
-		//snapped.z = Mathf.Floor((snapped.z + 0.5f) / GridStepXZ) * GridStepXZ + center.z;
+		snapped.z = Mathf.Floor(snapped.z / GridStepXZ + 0.5f) * GridStepXZ + center.z;
 		return snapped;
 	}
 
