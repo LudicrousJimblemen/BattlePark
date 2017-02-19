@@ -46,21 +46,21 @@ namespace BattlePark.GUI {
 	
 		public void LoadMain() {
 			SwitchPanel(MainPanel);
-			FadeGraphic(Fade, 0, 60, FadeFrom, 0);
+			FadeGraphic(Fade, 0, 1, FadeFrom, 0);
 		
 			// currentPanel = MainPanel;
 		
 			CreateGameButton.onClick.AddListener(() => {
 				Client.Instance.StartMatchMaker();
 				AnimatePanel(CreateGamePanel, 1);
-				Username = "Player";
+				Username = PlayerPrefs.GetString("Username", "Player");
 				CreateGameUsernameInputField.text = Username;
 				CreateGameRoomNameInputField.text = String.Format(LanguageManager.GetString("lobby.defaultRoomName"), Username);
 			});
 			FindGameButton.onClick.AddListener(() => {
 				Client.Instance.StartMatchMaker();
 				PopulateServerList();
-				Username = "Player";
+				Username = PlayerPrefs.GetString("Username","Player");
 				FindGameUsernameInputField.text = Username;
 			});
 			ExitButton.onClick.AddListener(Application.Quit);
@@ -69,11 +69,13 @@ namespace BattlePark.GUI {
 			CreateGameCreateRoomButton.onClick.AddListener(CreateMatch);
 			CreateGameUsernameInputField.onEndEdit.AddListener(input => {
 				Username = input;
+				PlayerPrefs.SetString("Username",Username);
 			});
 
 			FindGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
 			FindGameUsernameInputField.onEndEdit.AddListener(input => {
 				Username = input;
+				PlayerPrefs.SetString("Username",Username);
 			});
 
 			LobbyLeaveButton.onClick.AddListener(() => 
@@ -128,9 +130,9 @@ namespace BattlePark.GUI {
 							newButton.GetComponentInChildren<Text>().text = String.Format("{0} - <i>({1}/{2})</i>", match.name, match.currentSize, match.maxSize);
 							newButton.transform.SetParent(FindGamePanel.transform, false);
 							newButton.GetComponent<Button>().onClick.AddListener(() => {
-								FadeGraphic(Fade, 0, 20, Color.clear, 0.3f, true);
+								FadeGraphic(Fade, 0, 1, Color.clear, 0.3f, true);
 								Client.Instance.JoinMatch(match.networkId, (joinSuccess, joinExtendedInfo, matchInfo) => {
-									FadeGraphic(Fade, 0, 20, Fade.color, 0, true);
+									FadeGraphic(Fade, 0, 1, Fade.color, 0, true);
 									if (joinSuccess) {
 										AnimatePanel(LobbyPanel, 1);
 									} else {
@@ -186,7 +188,7 @@ namespace BattlePark.GUI {
 		public void FadeToWhite(Action callback = null) {
 			Color transparentFadeFrom = FadeFrom;
 			transparentFadeFrom.a = 0;
-			FadeGraphic(Fade, 0, 60, transparentFadeFrom, 1f, false, callback);
+			FadeGraphic(Fade, 0, 1, transparentFadeFrom, 1f, false, callback);
 		}
 	}
 }

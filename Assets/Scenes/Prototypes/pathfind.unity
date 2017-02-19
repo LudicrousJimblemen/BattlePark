@@ -91,6 +91,27 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &676225449 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100016, guid: f1e2c5b779708964185b504731a1b9c3, type: 3}
+  m_PrefabInternal: {fileID: 1102494309}
+--- !u!114 &676225450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 676225449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6faf5c12eef7777479e5575863ae507b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Bzmuopo Uobbpb
+  Money: 5905
+  Hunger: 20
+  Thirst: 0
+  Nausea: 1
+  John: 5
 --- !u!1 &935480939
 GameObject:
   m_ObjectHideFlags: 0
