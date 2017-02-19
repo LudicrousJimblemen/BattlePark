@@ -20,7 +20,15 @@ public class Person : MonoBehaviour {
 	[Range(0, 100f)]
 	public float Nausea = UnityEngine.Random.Range(0, 3f);
 	[Range(0, 100f)]
-	public float John = UnityEngine.Random.Range(0, 11f);
+	public float Bathroomosity = UnityEngine.Random.Range(0, 11f);
+
+	[Range(0, 100f)]
+	public float Happiness = UnityEngine.Random.Range(50f, 100f);
+	[Range(0, 100f)]
+	public float Anger = UnityEngine.Random.Range(0, 5f);
+
+	[Range(0, 100f)]
+	public float Suspicion = UnityEngine.Random.Range(0, 2f);
 
 	public List<Thought> Thoughts = new List<Thought>();
 
