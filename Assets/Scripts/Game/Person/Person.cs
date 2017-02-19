@@ -13,14 +13,14 @@ public class Person : MonoBehaviour {
 	[Range(0, Int32.MaxValue)]
 	public int Money = UnityEngine.Random.Range(2000, 10001);
 
-	[Range(0, 100)]
-	public int Hunger = UnityEngine.Random.Range(0, 21);
-	[Range(0, 100)]
-	public int Thirst = UnityEngine.Random.Range(0, 16);
-	[Range(0, 100)]
-	public int Nausea = UnityEngine.Random.Range(0, 3);
-	[Range(0, 100)]
-	public int John = UnityEngine.Random.Range(0, 11);
+	[Range(0, 100f)]
+	public float Hunger = UnityEngine.Random.Range(0, 21f);
+	[Range(0, 100f)]
+	public float Thirst = UnityEngine.Random.Range(0, 16f);
+	[Range(0, 100f)]
+	public float Nausea = UnityEngine.Random.Range(0, 3f);
+	[Range(0, 100f)]
+	public float John = UnityEngine.Random.Range(0, 11f);
 
 	public List<Thought> Thoughts = new List<Thought>();
 
