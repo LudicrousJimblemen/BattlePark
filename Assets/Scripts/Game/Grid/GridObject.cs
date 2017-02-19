@@ -82,6 +82,9 @@ public abstract class GridObject : NetworkBehaviour {
 			default:
 				return null;
 		}
+		for(int i = 0; i < OccupiedOffsets.Length; i++) {
+			ReturnList[i] *= Grid.Instance.GridStepXZ;
+		}
 		return ReturnList;
 	}
 

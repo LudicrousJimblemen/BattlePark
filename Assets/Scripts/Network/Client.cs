@@ -95,7 +95,7 @@ public class Client : NetworkLobbyManager {
 			localPlayer.RemovePlayer();
 			Destroy(localPlayer.gameObject);
 		}
-		LobbyGUI.Instance.LoadMain();
+		BattlePark.GUI.LobbyGUI.Instance.LoadMain();
 	}
 	
 	private IEnumerator StartGame() {
@@ -115,7 +115,7 @@ public class Client : NetworkLobbyManager {
 	
 	public override void OnDropConnection(bool success, string extendedInfo) {
 		localPlayer.LogChat(string.Format(LanguageManager.GetString("chat.userLeft"),localPlayer.Username),LobbyPlayer.LogType.Leave);
-		LobbyGUI.Instance.FadeToWhite(DropConnection);
+		BattlePark.GUI.LobbyGUI.Instance.FadeToWhite(DropConnection);
 	}
 
 	// called every time a player loads the game scene

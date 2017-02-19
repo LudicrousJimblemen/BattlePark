@@ -70,8 +70,8 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 			return;
 		}
 		Client.Instance.localPlayer = this;
-		LobbyGUI.Instance.LobbyReadyButton.interactable = true;
-		CmdUpdateInfo(LobbyGUI.Instance.Username);
+		BattlePark.GUI.LobbyGUI.Instance.LobbyReadyButton.interactable = true;
+		CmdUpdateInfo(BattlePark.GUI.LobbyGUI.Instance.Username);
 	}
 	
 	[Command]
@@ -81,7 +81,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	
 	[ClientRpc]
 	public void RpcSendChat(string message) {
-		LobbyGUI.Instance.AddChat(message);
+		BattlePark.GUI.LobbyGUI.Instance.AddChat(message);
 		print(message);
 	}
 
@@ -96,6 +96,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	[ClientRpc]
 	public void RpcPrepareReady() {
 		// TODO remove this garbage
-		LobbyGUI.Instance.FadeToWhite();
+		BattlePark.GUI.LobbyGUI.Instance.FadeToWhite();
 	}
 }

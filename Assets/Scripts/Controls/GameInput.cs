@@ -11,7 +11,8 @@ public class GameInput : MonoBehaviour {
 	private Vector3[] placeholderOffsets;
 	
 	Vector3? mousePosition = null;
-	
+	Vector3 rawMouse;
+
 	Player player;
 	
 	int hotbarIndex = -1;
@@ -69,7 +70,9 @@ public class GameInput : MonoBehaviour {
 				if (VerticalConstraint) {
 					constraintPos.y = hit.point.y;
 				}
-				mousePosition = Grid.Instance.SnapToGrid(verticalConstraint ? constraintPos : hit.point, 1);
+				mousePosition = verticalConstraint ? constraintPos : hit.point;
+				rawMouse = mousePosition.Value;
+				mousePosition = Grid.Instance.SnapToGrid(mousePosition.Value, player.PlayerNumber);
 			} else {
 				mousePosition = null;
 				Placeholder.gameObject.SetActive(false);
@@ -110,5 +113,7 @@ public class GameInput : MonoBehaviour {
 				Gizmos.DrawSphere(offset + mousePosition.Value,0.2f);
 			}
 		}
+		Gizmos.color = Color.cyan;
+		Gizmos.DrawSphere(rawMouse,0.2f);
 	}
 }

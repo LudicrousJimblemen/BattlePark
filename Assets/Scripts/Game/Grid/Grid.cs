@@ -61,11 +61,11 @@ public class Grid : MonoBehaviour {
 		float px, pz;
 		int pathVertexCount = 0;
 		
-		px = (((float)xSize + PathWidth) / 2f + 1f) * GridStepXZ;
+		px = ((float)xSize + PathWidth) / 2f * GridStepXZ + 1f;
 		pz = 0;
 		parkCenters[0] = new Vector3(-px, 0, pz);
 		parkCenters[1] = new Vector3(px, 0, -pz);
-		float gw = (PathWidth + 1f) / 2f * GridStepXZ;
+		float gw = PathWidth / 2f * GridStepXZ + 0.5f;
 		parkGates[0] = new Vector3(-gw,0,0);
 		parkGates[1] = new Vector3(gw,0,0);
 		pathVertexCount = 4;
@@ -84,10 +84,10 @@ public class Grid : MonoBehaviour {
 		meshFilter.mesh.subMeshCount = 2 + 2;
 
 		for (int p = 0; p < 2; p++) {
-			Vector3 start = (parkCenters[p] - new Vector3(xSize / 2f, 0, zSize / 2f));
+			Vector3 start = (parkCenters[p] - new Vector3(xSize / 2f * GridStepXZ, 0, zSize / 2f * GridStepXZ));
 			for (int i = 0, z = 0; z <= zSize; z++) {
 				for (int x = 0; x <= xSize; x++, i++) {
-					vertices[i + (xSize + 1) * (zSize + 1) * p] = new Vector3(x + start.x, 0, z + start.z);
+					vertices[i + (xSize + 1) * (zSize + 1) * p] = new Vector3(x * GridStepXZ + start.x, 0,z * GridStepXZ + start.z);
 					uv[i + (xSize + 1) * (zSize + 1) * p] = new Vector2((float)x * (1f / checkerboardWidth) * 0.5f, (float)z * (1f / checkerboardWidth) * 0.5f);
 				}
 			}
@@ -96,13 +96,13 @@ public class Grid : MonoBehaviour {
 		#region Paths
 		int parkVertexCount = (xSize + 1) * (zSize + 1) * 2;
 		float inDist = (PathWidth / 2f) * GridStepXZ;
-		float outDistX = (PathWidth / 2f + xSize + 2) * GridStepXZ;
-		float outDistZ = (PathWidth / 2f + zSize + 2) * GridStepXZ;
-		
-		vertices[parkVertexCount] = new Vector3(-inDist, 0, -zSize / 2f - 1f);
-		vertices[parkVertexCount + 1] = new Vector3(inDist, 0, -zSize / 2f - 1f);
-		vertices[parkVertexCount + 2] = new Vector3(-inDist, 0, zSize / 2f + 1f);
-		vertices[parkVertexCount + 3] = new Vector3(inDist, 0, zSize / 2f + 1f);
+		float outDistX = (PathWidth / 2f + xSize) * GridStepXZ + 2;
+		float outDistZ = (PathWidth / 2f + zSize) * GridStepXZ + 2;
+
+		vertices[parkVertexCount] = new Vector3(-inDist,0,(-zSize / 2f) * GridStepXZ - 1f);
+		vertices[parkVertexCount + 1] = new Vector3(inDist,0,(-zSize / 2f) * GridStepXZ - 1f);
+		vertices[parkVertexCount + 2] = new Vector3(-inDist,0,(zSize / 2f) * GridStepXZ + 1f);
+		vertices[parkVertexCount + 3] = new Vector3(inDist,0,(zSize / 2f) * GridStepXZ + 1f);
 		
 		for (int i = 0; i < pathVertexCount; i++) {
 			uv[parkVertexCount + i] = new Vector2((vertices[parkVertexCount + i].x) * (1f / checkerboardWidth) * 0.5f,
@@ -112,10 +112,10 @@ public class Grid : MonoBehaviour {
 		
 		#region Border
 		int pvcb = parkVertexCount + pathVertexCount;
-		float inDistX = xSize / 2f;
-		float inDistZ = zSize / 2f;
-		outDistX = xSize / 2f + 1f;
-		outDistZ = zSize / 2f + 1f;
+		float inDistX = xSize / 2f * GridStepXZ;
+		float inDistZ = zSize / 2f * GridStepXZ;
+		outDistX = xSize / 2f * GridStepXZ + 1f;
+		outDistZ = zSize / 2f * GridStepXZ + 1f;
 		for (int b = 0; b < 2; b++) {
 			vertices[pvcb + 12 * b] = new Vector3(-outDistX, 0, -outDistZ) + parkCenters[b];
 			vertices[pvcb + 12 * b + 1] = new Vector3(outDistX, 0, -outDistZ) + parkCenters[b];
@@ -132,8 +132,8 @@ public class Grid : MonoBehaviour {
 			vertices[pvcb + 12 * b + 10] = new Vector3(0, 0, outDistZ) + parkCenters[b];
 			vertices[pvcb + 12 * b + 11] = new Vector3(-outDistX, 0, 0) + parkCenters[b];
 		}
-		float totalXSize = xSize * 2f + PathWidth + 4f;
-		float totalZSize = zSize * 2f + PathWidth + 4f;
+		//float totalXSize = xSize * 2f + PathWidth + 4f;
+		//float totalZSize = zSize * 2f + PathWidth + 4f;
 		
 		for (int i = 0; i < 2 * 12; i++) {
 			uv[pvcb + i] = new Vector2(vertices[pvcb + i].x,vertices[pvcb + i].z);
@@ -219,8 +219,8 @@ public class Grid : MonoBehaviour {
 
 	public void AddRegions () {
 		for (int i = 0; i < 2; i ++) {
-			Vector3 negativeCorner = new Vector3(parkCenters[i].x - GridSizeX / 2f,0,parkCenters[i].z - GridSizeZ / 2f);
-			Regions.Add(new GridRegion(negativeCorner.x,negativeCorner.z,GridSizeX,GridSizeZ,i + 1));
+			Vector3 negativeCorner = new Vector3(parkCenters[i].x / GridStepXZ - GridSizeX / 2f,0,parkCenters[i].z / GridStepXZ - GridSizeZ / 2f);
+			Regions.Add(new GridRegion(negativeCorner.x,negativeCorner.z,GridSizeX * GridStepXZ,GridSizeZ * GridStepXZ,i + 1));
 		}
 	}
 
@@ -249,9 +249,12 @@ public class Grid : MonoBehaviour {
 		
 		Vector3 center = GameManager.Instance.ParkCenters[playerNum - 1];
 		Vector3 snapped = position - center;
-		snapped.x = Mathf.Floor((snapped.x + 0.5f) / GridStepXZ) * GridStepXZ + center.x;
+		snapped.x = Mathf.Floor((snapped.x + 0.5f * GridStepXZ) / GridStepXZ) * GridStepXZ + center.x;
 		snapped.y = Mathf.Clamp(Mathf.Floor(snapped.y / GridStepY) * GridStepY, 0, Mathf.Infinity);
-		snapped.z = Mathf.Floor((snapped.z + 0.5f) / GridStepXZ) * GridStepXZ + center.z;
+		snapped.z = Mathf.Floor((snapped.z + 0.5f * GridStepXZ) / GridStepXZ) * GridStepXZ + center.z;
+		//snapped.x = Mathf.Floor((snapped.x + 0.5f) / GridStepXZ) * GridStepXZ + center.x;
+		//snapped.y = Mathf.Clamp(Mathf.Floor(snapped.y / GridStepY) * GridStepY, 0, Mathf.Infinity);
+		//snapped.z = Mathf.Floor((snapped.z + 0.5f) / GridStepXZ) * GridStepXZ + center.z;
 		return snapped;
 	}
 
