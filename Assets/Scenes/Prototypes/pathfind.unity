@@ -106,12 +106,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6faf5c12eef7777479e5575863ae507b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Bzmuopo Uobbpb
-  Money: 5905
-  Hunger: 20
-  Thirst: 0
-  Nausea: 1
-  John: 5
+  properties:
+  - Key: name
+  - Key: money
+  - Key: hunger
+  - Key: thirst
+  - Key: nausea
+  - Key: bathroomosity
+  - Key: happiness
+  - Key: anger
+  - Key: suspicion
 --- !u!1 &935480939
 GameObject:
   m_ObjectHideFlags: 0

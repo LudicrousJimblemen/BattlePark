@@ -5,30 +5,66 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Person : MonoBehaviour {
-	public string Name = GenerateUsername();
-	
-	/// <summary>
-	/// Represents how much money a person has in cents.
-	/// </summary>
-	[Range(0, Int32.MaxValue)]
-	public int Money = UnityEngine.Random.Range(2000, 10001);
+	[HideInInspector]
+	public PersonProperty[] properties = new PersonProperty[] {
+			new PersonProperty("name",			"default",			typeof(string)),
+			// Represents how much money a person has in cents
+			new PersonProperty("money",			0,			typeof(int),		0,      int.MaxValue),
+			new PersonProperty("hunger",		0,			typeof(float)),
+			new PersonProperty("thirst",		0,			typeof(float)),
+			new PersonProperty("nausea",		0,			typeof(float)),
+			new PersonProperty("bathroomosity",	0,			typeof(float)),
+			new PersonProperty("happiness",		100,		typeof(float)),
+			new PersonProperty("anger",			0,			typeof(float)),
+			new PersonProperty("suspicion",		0,          typeof(float))
+		};
 
-	[Range(0, 100f)]
-	public float Hunger = UnityEngine.Random.Range(0, 21f);
-	[Range(0, 100f)]
-	public float Thirst = UnityEngine.Random.Range(0, 16f);
-	[Range(0, 100f)]
-	public float Nausea = UnityEngine.Random.Range(0, 3f);
-	[Range(0, 100f)]
-	public float Bathroomosity = UnityEngine.Random.Range(0, 11f);
 
-	[Range(0, 100f)]
-	public float Happiness = UnityEngine.Random.Range(50f, 100f);
-	[Range(0, 100f)]
-	public float Anger = UnityEngine.Random.Range(0, 5f);
+	// re-roll properties
+	public void reroll() {
+		SetProperty("name",GenerateUsername());
+		SetProperty("money",UnityEngine.Random.Range(2000,10001));
+		SetProperty("hunger",UnityEngine.Random.Range(0,21f));
+		SetProperty("thirst",UnityEngine.Random.Range(0,16f));
+		SetProperty("nausea",UnityEngine.Random.Range(0,3f));
+		SetProperty("bathroomosity",UnityEngine.Random.Range(0,11f));
+		SetProperty("happiness",UnityEngine.Random.Range(50f,100f));
+		SetProperty("anger",UnityEngine.Random.Range(0,5f));
+		SetProperty("suspicion",UnityEngine.Random.Range(0,2));
+	}
 
-	[Range(0, 100f)]
-	public float Suspicion = UnityEngine.Random.Range(0, 2f);
+	private void Awake () {
+		reroll();
+	}
+
+	private void Reset () {
+		reroll();
+	}
+
+	public object GetProperty(string key) {
+		for (int i = 0; i < properties.Length; i ++) {
+			//Debug.Log(properties[i].Key + ", " + key.ToLower());
+			if(properties[i].Key == key.ToLower()) {
+				return properties[i].Value;
+			}
+		}
+		return null;
+		//throw new ArgumentException("Property does not exist with given key");
+	}
+	public void SetProperty(string key, object value) {
+		print(properties.Length);
+		for(int i = 0; i < properties.Length; i++) {
+			//Debug.Log(properties[i].Key + ", " + key.ToLower());
+			if(properties[i].Key == key.ToLower()) {
+				/*
+				if(properties[i].Value.GetType() != value.GetType())
+					throw new ArgumentException("Invalid type of value");
+				*/
+				properties[i].Value = value;
+			}
+		}
+		//throw new ArgumentException("Property does not exist with given key");
+	}
 
 	public List<Thought> Thoughts = new List<Thought>();
 
