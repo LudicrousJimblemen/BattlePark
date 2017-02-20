@@ -54,22 +54,22 @@ public class Grid : MonoBehaviour {
 		} else if (checkerboardWidth <= 0) {
 			throw new System.ArgumentOutOfRangeException("checkerboardWidth");
 		}
-		
+
 		parkCenters = new Vector3[2];
 		parkGates = new Vector3[2];
-		
+
 		float px, pz;
 		int pathVertexCount = 0;
-		
-		px = ((float)xSize + PathWidth) / 2f * GridStepXZ + 1f;
+
+		px = ((float) xSize + PathWidth) / 2f * GridStepXZ + 1f;
 		pz = 0;
 		parkCenters[0] = new Vector3(-px, 0, pz);
 		parkCenters[1] = new Vector3(px, 0, -pz);
 		float gw = PathWidth / 2f * GridStepXZ + 0.5f;
-		parkGates[0] = new Vector3(-gw,0,0);
-		parkGates[1] = new Vector3(gw,0,0);
+		parkGates[0] = new Vector3(-gw, 0, 0);
+		parkGates[1] = new Vector3(gw, 0, 0);
 		pathVertexCount = 4;
-		
+
 		MeshFilter meshFilter = GetComponent<MeshFilter>();
 		MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
 
@@ -87,8 +87,8 @@ public class Grid : MonoBehaviour {
 			Vector3 start = (parkCenters[p] - new Vector3(xSize / 2f * GridStepXZ, 0, zSize / 2f * GridStepXZ));
 			for (int i = 0, z = 0; z <= zSize; z++) {
 				for (int x = 0; x <= xSize; x++, i++) {
-					vertices[i + (xSize + 1) * (zSize + 1) * p] = new Vector3(x * GridStepXZ + start.x, 0,z * GridStepXZ + start.z);
-					uv[i + (xSize + 1) * (zSize + 1) * p] = new Vector2((float)x * (1f / checkerboardWidth) * 0.5f, (float)z * (1f / checkerboardWidth) * 0.5f);
+					vertices[i + (xSize + 1) * (zSize + 1) * p] = new Vector3(x * GridStepXZ + start.x, 0, z * GridStepXZ + start.z);
+					uv[i + (xSize + 1) * (zSize + 1) * p] = new Vector2((float) x * (1f / checkerboardWidth) * 0.5f, (float) z * (1f / checkerboardWidth) * 0.5f);
 				}
 			}
 		}
@@ -99,17 +99,17 @@ public class Grid : MonoBehaviour {
 		float outDistX = (PathWidth / 2f + xSize) * GridStepXZ + 2;
 		float outDistZ = (PathWidth / 2f + zSize) * GridStepXZ + 2;
 
-		vertices[parkVertexCount] = new Vector3(-inDist,0,(-zSize / 2f) * GridStepXZ - 1f);
-		vertices[parkVertexCount + 1] = new Vector3(inDist,0,(-zSize / 2f) * GridStepXZ - 1f);
-		vertices[parkVertexCount + 2] = new Vector3(-inDist,0,(zSize / 2f) * GridStepXZ + 1f);
-		vertices[parkVertexCount + 3] = new Vector3(inDist,0,(zSize / 2f) * GridStepXZ + 1f);
-		
+		vertices[parkVertexCount] = new Vector3(-inDist, 0, (-zSize / 2f) * GridStepXZ - 1f);
+		vertices[parkVertexCount + 1] = new Vector3(inDist, 0, (-zSize / 2f) * GridStepXZ - 1f);
+		vertices[parkVertexCount + 2] = new Vector3(-inDist, 0, (zSize / 2f) * GridStepXZ + 1f);
+		vertices[parkVertexCount + 3] = new Vector3(inDist, 0, (zSize / 2f) * GridStepXZ + 1f);
+
 		for (int i = 0; i < pathVertexCount; i++) {
 			uv[parkVertexCount + i] = new Vector2((vertices[parkVertexCount + i].x) * (1f / checkerboardWidth) * 0.5f,
 				(vertices[parkVertexCount + i].z) * (1f / checkerboardWidth) * 0.5f);
 		}
 		#endregion
-		
+
 		#region Border
 		int pvcb = parkVertexCount + pathVertexCount;
 		float inDistX = xSize / 2f * GridStepXZ;
@@ -134,11 +134,11 @@ public class Grid : MonoBehaviour {
 		}
 		//float totalXSize = xSize * 2f + PathWidth + 4f;
 		//float totalZSize = zSize * 2f + PathWidth + 4f;
-		
+
 		for (int i = 0; i < 2 * 12; i++) {
-			uv[pvcb + i] = new Vector2(vertices[pvcb + i].x,vertices[pvcb + i].z) / GridStepXZ;
-				//new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
-				//(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
+			uv[pvcb + i] = new Vector2(vertices[pvcb + i].x, vertices[pvcb + i].z) / GridStepXZ;
+			//new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
+			//(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
 		}
 		meshFilter.mesh.vertices = vertices;
 		meshFilter.mesh.uv = uv;
@@ -201,7 +201,7 @@ public class Grid : MonoBehaviour {
 		meshFilter.mesh.SetTriangles(borderTri, 2 + 1);
 		meshFilter.mesh.RecalculateNormals();
 		#endregion
-		
+
 		Material[] materials = new Material[2 + 2];
 		for (int i = 0; i < materials.Length - 2; i++) {
 			materials[i] = ParkMaterial;
@@ -212,15 +212,15 @@ public class Grid : MonoBehaviour {
 		meshRenderer.materials = materials;
 
 		GetComponent<MeshCollider>().sharedMesh = meshFilter.mesh;
-		for (int g = 0; g < 2; g ++) {
-			Instantiate(Gate,parkGates[g],Quaternion.Euler(-90,0,(1 + g * 2) * 90),transform);
+		for (int g = 0; g < 2; g++) {
+			Instantiate(Gate, parkGates[g], Quaternion.Euler(-90, 0, (1 + g * 2) * 90), transform);
 		}
 	}
 
-	public void AddRegions () {
-		for (int i = 0; i < 2; i ++) {
-			Vector3 negativeCorner = new Vector3(parkCenters[i].x - GridSizeX * GridStepXZ / 2f,0,parkCenters[i].z - GridSizeZ * GridStepXZ / 2f);
-			Regions.Add(new GridRegion(negativeCorner.x,negativeCorner.z,GridSizeX * GridStepXZ,GridSizeZ * GridStepXZ,i + 1));
+	public void AddRegions() {
+		for (int i = 0; i < 2; i++) {
+			Vector3 negativeCorner = new Vector3(parkCenters[i].x - GridSizeX * GridStepXZ / 2f, 0, parkCenters[i].z - GridSizeZ * GridStepXZ / 2f);
+			Regions.Add(new GridRegion(negativeCorner.x, negativeCorner.z, GridSizeX * GridStepXZ, GridSizeZ * GridStepXZ, i + 1));
 		}
 	}
 
@@ -246,7 +246,7 @@ public class Grid : MonoBehaviour {
 		if (playerNum < 1 || playerNum > 2) {
 			throw new System.ArgumentOutOfRangeException("playerNum");
 		}
-		
+
 		Vector3 center = GameManager.Instance.ParkCenters[playerNum - 1];
 		Vector3 snapped = position - center;
 		snapped.x = Mathf.Floor(snapped.x / GridStepXZ + 0.5f) * GridStepXZ + center.x;
@@ -257,32 +257,33 @@ public class Grid : MonoBehaviour {
 
 
 
-	public bool IsValid (Vector3 location, Vector3[] offsets, int playerNumber) {
+	public bool IsValid(Vector3 location, Vector3[] offsets, int playerNumber) {
 		/*
 		if(Objects.WillIntersect(location,offsets))
 			print("invalid: will intersect existing object");
 		if(!ValidRegion(location,offsets,playerNumber))
 			print("invalid: not entirely in valid region");
 		*/
-		return !Objects.WillIntersect(location, offsets) && ValidRegion (location, offsets, playerNumber); // TODO add logic
+		return !Objects.WillIntersect(location, offsets) &
+			ValidRegion(location, offsets, playerNumber); // TODO add logic
 	}
 
 	void OnDrawGizmos() {
 		foreach (KeyValuePair<Vector3, GridObject> entry in Objects) {
-			foreach (Vector3 offset in entry.Value.RotatedOffsets ()) {
-				Gizmos.DrawSphere(offset + entry.Key,0.1f);
+			foreach (Vector3 offset in entry.Value.RotatedOffsets()) {
+				Gizmos.DrawSphere(offset + entry.Key, 0.1f);
 			}
 		}
-		foreach(var region in Regions) {
-			if(region.Owner == -1) {
+		foreach (var region in Regions) {
+			if (region.Owner == -1) {
 				Gizmos.color = Color.grey;
-			} else if(region.Owner == 0) {
+			} else if (region.Owner == 0) {
 				Gizmos.color = Color.white;
 			} else {
-				UnityEngine.Random.InitState(region.Owner.GetHashCode());
-				Gizmos.color = UnityEngine.Random.ColorHSV(0,1f,1f,1f,1f,1f,1f,1f);
+				Random.InitState(region.Owner.GetHashCode());
+				Gizmos.color = Random.ColorHSV(0, 1f, 1f, 1f, 1f, 1f, 1f, 1f);
 			}
-			Gizmos.DrawCube(region.GetCenter(this),new Vector3(region.Width,0.1f,region.Length));
+			Gizmos.DrawCube(region.GetCenter(this), new Vector3(region.Width, 0.1f, region.Length));
 		}
 	}
 }

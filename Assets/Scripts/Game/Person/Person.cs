@@ -14,13 +14,13 @@ public class Person : MonoBehaviour {
 	public int Money = UnityEngine.Random.Range(2000, 10001);
 
 	[Range(0, 100f)]
-	public float Hunger = UnityEngine.Random.Range(0, 21f);
+	public float Hunger = UnityEngine.Random.Range(0, 20f);
 	[Range(0, 100f)]
-	public float Thirst = UnityEngine.Random.Range(0, 16f);
+	public float Thirst = UnityEngine.Random.Range(0, 15f);
 	[Range(0, 100f)]
-	public float Nausea = UnityEngine.Random.Range(0, 3f);
+	public float Nausea = UnityEngine.Random.Range(0, 2f);
 	[Range(0, 100f)]
-	public float Bathroomosity = UnityEngine.Random.Range(0, 11f);
+	public float Bathroomosity = UnityEngine.Random.Range(0, 10f);
 
 	[Range(0, 100f)]
 	public float Happiness = UnityEngine.Random.Range(50f, 100f);
@@ -28,7 +28,7 @@ public class Person : MonoBehaviour {
 	public float Anger = UnityEngine.Random.Range(0, 5f);
 
 	[Range(0, 100f)]
-	public float Suspicion = UnityEngine.Random.Range(0, 2f);
+	public float Suspicion = UnityEngine.Random.Range(0, 1f);
 
 	public List<Thought> Thoughts = new List<Thought>();
 
