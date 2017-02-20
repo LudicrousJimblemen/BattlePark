@@ -72,5 +72,6 @@ public class Player : NetworkBehaviour {
 	public void CmdSpawnPerson (Vector3 position) {
 		GameObject person = Instantiate(GameManager.Instance.PersonObj,position,Quaternion.identity) as GameObject;
 		NetworkServer.Spawn(person);
+		person.GetComponent<AIPath>().target = FindObjectOfType<AstarPath>().transform;
 	}
 }

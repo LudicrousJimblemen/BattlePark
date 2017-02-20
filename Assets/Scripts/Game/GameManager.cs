@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject[] PlayerObjectParents = new GameObject[2];
 	public GameObject PersonObj;
+	public GameObject PathNode;
 
 	public GridObject[] Objects;
 	public List<Person> Guests;

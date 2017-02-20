@@ -225,11 +225,13 @@ public class Grid : MonoBehaviour {
 	public void AddSpecial() {
 		for(int g = 0; g < 2; g++) {
 			Instantiate(Gate,parkGates[g],Quaternion.Euler(-90,0,(1 + g * 2) * 90),transform);
-			GridObject path = Instantiate(GameManager.Instance.Objects.First(x => x.GetType() == typeof(GridPath)),
-				parkGates[g] + (g * 2 - 1) * (0.5f + GridStepXZ / 2f) * Vector3.right,
+			for(int i = 0; i < (int)GridSizeX / 2; i++) {
+				GridObject path = Instantiate(GameManager.Instance.Objects.First(x => x.GetType() == typeof(GridPath)),
+				parkGates[g] + (g * 2 - 1) * (0.5f + GridStepXZ / 2f + GridStepXZ * i) * Vector3.right,
 				Quaternion.Euler(-90,0,0),
 				GameManager.Instance.PlayerObjectParents[g].transform);
-			path.Owner = g + 1;
+				path.Owner = g + 1;
+			}
 		}
 	}
 
