@@ -40,6 +40,7 @@ public class Grid : MonoBehaviour {
 		}
 		Instance = this;
 		GenerateMesh(GridSizeX, GridSizeZ, 3); // tempborary
+		AddSpecial();
 		AddRegions();
 	}
 	public void Start() {
@@ -212,15 +213,23 @@ public class Grid : MonoBehaviour {
 		meshRenderer.materials = materials;
 
 		GetComponent<MeshCollider>().sharedMesh = meshFilter.mesh;
-		for (int g = 0; g < 2; g++) {
-			Instantiate(Gate, parkGates[g], Quaternion.Euler(-90, 0, (1 + g * 2) * 90), transform);
-		}
 	}
 
 	public void AddRegions() {
 		for (int i = 0; i < 2; i++) {
 			Vector3 negativeCorner = new Vector3(parkCenters[i].x - GridSizeX * GridStepXZ / 2f, 0, parkCenters[i].z - GridSizeZ * GridStepXZ / 2f);
 			Regions.Add(new GridRegion(negativeCorner.x, negativeCorner.z, GridSizeX * GridStepXZ, GridSizeZ * GridStepXZ, i + 1));
+		}
+	}
+
+	public void AddSpecial() {
+		for(int g = 0; g < 2; g++) {
+			Instantiate(Gate,parkGates[g],Quaternion.Euler(-90,0,(1 + g * 2) * 90),transform);
+			GridObject path = Instantiate(GameManager.Instance.Objects.First(x => x.GetType() == typeof(GridPath)),
+				parkGates[g] + (g * 2 - 1) * (0.5f + GridStepXZ / 2f) * Vector3.right,
+				Quaternion.Euler(-90,0,0),
+				GameManager.Instance.PlayerObjectParents[g].transform);
+			path.Owner = g + 1;
 		}
 	}
 
@@ -244,7 +253,7 @@ public class Grid : MonoBehaviour {
 	/// <returns>The snapped position.</returns>
 	public Vector3 SnapToGrid(Vector3 position, int playerNum = 1) {
 		if (playerNum < 1 || playerNum > 2) {
-			throw new System.ArgumentOutOfRangeException("playerNum");
+			throw new System.ArgumentOutOfRangeException("playerNum: " + playerNum);
 		}
 
 		Vector3 center = GameManager.Instance.ParkCenters[playerNum - 1];

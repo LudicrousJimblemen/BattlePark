@@ -13,6 +13,8 @@ public abstract class GridObject : NetworkBehaviour {
 	public virtual bool PlaceMultiple { get { return false; } }
 	public virtual bool CanRotate { get { return true; } }
 
+	public int Owner;
+
 	#endregion
 
 	public void Start() {
@@ -25,7 +27,7 @@ public abstract class GridObject : NetworkBehaviour {
 	public virtual void OnDemolished() { }
 
 	public Vector3 GetPosition() {
-		return Grid.Instance.SnapToGrid(GridPosition);
+		return Grid.Instance.SnapToGrid(transform.position, Owner);
 	}
 
 	public Quaternion GetRotation() {
@@ -83,6 +85,10 @@ public abstract class GridObject : NetworkBehaviour {
 			ReturnList[i] *= Grid.Instance.GridStepXZ;
 		}
 		return ReturnList;
+	}
+
+	public virtual bool Valid (Vector3 position, Direction direction, int player) {
+		return Grid.Instance.IsValid(position,RotatedOffsets(direction),player);
 	}
 
 	private void OnDrawGizmos() {

@@ -41,13 +41,17 @@ public class Player : NetworkBehaviour {
 	}
 
 	public void PlaceObject(int hotbarIndex,Vector3? position,int direction) {
-		if(position == null || ObjectIndices[hotbarIndex] == -1 || !Grid.Instance.IsValid(position.Value,GameManager.Instance.Objects[ObjectIndices[hotbarIndex]].RotatedOffsets((Direction)direction), PlayerNumber))
+		if(position == null || ObjectIndices[hotbarIndex] == -1 || !getObject(hotbarIndex).Valid (position.Value, (Direction)direction, PlayerNumber))
 			return;
 		// boy it sure is a good thing that return is on a new line
 		// really breaks up that one-liner into sizeable chunks
 		print (hotbarIndex);
         CmdPlaceObject (ObjectIndices[hotbarIndex], position.Value, direction, PlayerNumber);
 	}
+
+	public GridObject getObject (int hotbarIndex) {
+		return GameManager.Instance.Objects[ObjectIndices[hotbarIndex]];
+    }
 	
 	[Command]
 	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
@@ -60,6 +64,7 @@ public class Player : NetworkBehaviour {
 		GridObject obj = newObject.GetComponent<GridObject> ();
 		obj.GridPosition = position;
 		obj.Direction = (Direction) direction;
+		obj.Owner = playerNumber;
 		NetworkServer.Spawn(newObject);
 	}
 

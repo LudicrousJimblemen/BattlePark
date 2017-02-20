@@ -105,24 +105,26 @@ public class GridObjects : IEnumerable {
 	public List<GridObject> AdjacentObjects(Vector3 location, bool corners = false) {
 		List<GridObject> objects = new List<GridObject>();
 
-		if (OccupiedAt(location + new Vector3(1, 0, 0)))
-			objects.Add(ObjectAt(location + new Vector3(1, 0, 0)));
-		if (OccupiedAt(location + new Vector3(-1, 0, 0)))
-			objects.Add(ObjectAt(location + new Vector3(-1, 0, 0)));
-		if (OccupiedAt(location + new Vector3(0, 0, 1)))
-			objects.Add(ObjectAt(location + new Vector3(0, 0, 1)));
-		if (OccupiedAt(location + new Vector3(0, 0, -1)))
-			objects.Add(ObjectAt(location + new Vector3(0, 0, -1)));
+		float step = Grid.Instance.GridStepXZ;
+
+		if (OccupiedAt(location + new Vector3(1, 0, 0) * step))
+			objects.Add(ObjectAt(location + new Vector3(1, 0, 0) * step));
+		if (OccupiedAt(location + new Vector3(-1, 0, 0) * step))
+			objects.Add(ObjectAt(location + new Vector3(-1, 0, 0) * step));
+		if (OccupiedAt(location + new Vector3(0, 0, 1) * step))
+			objects.Add(ObjectAt(location + new Vector3(0, 0, 1) * step));
+		if (OccupiedAt(location + new Vector3(0, 0, -1) * step))
+			objects.Add(ObjectAt(location + new Vector3(0, 0, -1) * step));
 		
 		if (corners) {
-			if (OccupiedAt(location + new Vector3(1, 0, 1)))
-				objects.Add(ObjectAt(location + new Vector3(1, 0, 1)));
-			if (OccupiedAt(location + new Vector3(-1, 0, -1)))
-				objects.Add(ObjectAt(location + new Vector3(-1, 0, -1)));
-			if (OccupiedAt(location + new Vector3(1, 0, -1)))
-				objects.Add(ObjectAt(location + new Vector3(1, 0, -1)));
-			if (OccupiedAt(location + new Vector3(-1, 0, 1)))
-				objects.Add(ObjectAt(location + new Vector3(-1, 0, 1)));
+			if (OccupiedAt(location + new Vector3(1, 0, 1) * step))
+				objects.Add(ObjectAt(location + new Vector3(1, 0, 1) * step));
+			if (OccupiedAt(location + new Vector3(-1, 0, -1) * step))
+				objects.Add(ObjectAt(location + new Vector3(-1, 0, -1) * step));
+			if (OccupiedAt(location + new Vector3(1, 0, -1) * step))
+				objects.Add(ObjectAt(location + new Vector3(1, 0, -1) * step));
+			if (OccupiedAt(location + new Vector3(-1, 0, 1) * step))
+				objects.Add(ObjectAt(location + new Vector3(-1, 0, 1) * step));
 		}
 		
 		return objects;
