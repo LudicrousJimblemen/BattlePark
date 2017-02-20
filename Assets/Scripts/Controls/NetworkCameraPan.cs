@@ -8,9 +8,9 @@ using System.Collections;
 public class NetworkCameraPan : NetworkBehaviour {
 	public bool Enabled = true;
 
-	[Range(0, 8)]
+	[Range(0, 80)]
 	public float MovementSpeed = 1f;
-	[Range(0, 10)]
+	[Range(0, 160)]
 	public float RotationSpeed = 4f;
 
 	[Range(0, 50)]
@@ -37,7 +37,7 @@ public class NetworkCameraPan : NetworkBehaviour {
 		Vector3 difference = Vector3.zero;
 		if (Enabled) {
 			// Stores a vector with the combined inputs of all 6 cartesian directions
-			difference = MovementSpeed * (flatForward * Input.GetAxis("Vertical") +
+			difference = MovementSpeed * Time.deltaTime * (flatForward * Input.GetAxis("Vertical") +
 			Vector3.Cross(flatForward, Vector3.up).normalized * -Input.GetAxis("Horizontal") +
 			Vector3.up * Input.GetAxis("Up/Down"));
 		}
@@ -48,7 +48,7 @@ public class NetworkCameraPan : NetworkBehaviour {
 		// Control rotation around the y axis
 		PivotPoint = GetPivot();
 		if (Enabled) {
-			transform.RotateAround(PivotPoint, Vector3.up, Input.GetAxis("Rotate") * RotationSpeed);
+			transform.RotateAround(PivotPoint, Vector3.up, Input.GetAxis("Rotate") * RotationSpeed * Time.deltaTime);
 		}
 
 		// Rotate around the local x axis of camera going through the pivot, based on the height of the camera

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 		Instance = this;
 	}
 
+	/*
 	private void OnGUI() {
 		string text = String.Empty;
 		foreach (var person in Guests) {
@@ -34,4 +35,5 @@ public class GameManager : MonoBehaviour {
 		}
 		UnityEngine.GUI.Label(new Rect(5, 5, 666, 666), text);
 	}
+	*/
 }

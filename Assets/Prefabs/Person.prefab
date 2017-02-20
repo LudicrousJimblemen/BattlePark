@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 95334856744788818}
   - component: {fileID: 114262431309738036}
   - component: {fileID: 143672410393856820}
+  - component: {fileID: 114689473236430210}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -477,16 +478,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6faf5c12eef7777479e5575863ae507b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  properties:
-  - Key: name
-  - Key: money
-  - Key: hunger
-  - Key: thirst
-  - Key: nausea
-  - Key: bathroomosity
-  - Key: happiness
-  - Key: anger
-  - Key: suspicion
+  Name: Bfpfopp Oubizp
+  Money: 8712
+  Hunger: 18.707695
+  Thirst: 2.4445171
+  Nausea: 0.48661232
+  Bathroomosity: 0.8778143
+  Happiness: 77.45175
+  Anger: 4.7607603
+  Suspicion: 0.14601815
+--- !u!114 &114689473236430210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1790509387394768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 125
+    i1: 172
+    i2: 177
+    i3: 163
+    i4: 214
+    i5: 7
+    i6: 84
+    i7: 20
+    i8: 11
+    i9: 143
+    i10: 80
+    i11: 174
+    i12: 88
+    i13: 235
+    i14: 81
+    i15: 10
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0
 --- !u!137 &137910743661418152
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
