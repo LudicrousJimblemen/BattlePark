@@ -104,6 +104,9 @@ public class GameInput : MonoBehaviour {
 					}
 				}
 			}
+			if (Input.GetMouseButton(1)) {
+				player.CmdSpawnPerson(mousePosition.Value);
+			}
 		}
 	}
 	void OnDrawGizmos() {

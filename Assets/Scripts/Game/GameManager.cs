@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	public Vector3[] ParkCenters;
 
 	public GameObject[] PlayerObjectParents = new GameObject[2];
+	public GameObject PersonObj;
 
 	public GridObject[] Objects;
 	public List<Person> Guests;

@@ -1,24 +1,25 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Person : MonoBehaviour {
+public class Person : NetworkBehaviour {
 	[HideInInspector]
-	public PersonProperty[] properties = new PersonProperty[] {
-			new PersonProperty("name","default",typeof(string)),
-			// Represents how much money a person has in cents
-			new PersonProperty("money",0,typeof(int),0,int.MaxValue),
-			new PersonProperty("hunger",0,typeof(float)),
-			new PersonProperty("thirst",0,typeof(float)),
-			new PersonProperty("nausea",0,typeof(float)),
-			new PersonProperty("bathroomosity",0,typeof(float)),
-			new PersonProperty("happiness",100,typeof(float)),
-			new PersonProperty("anger",0,typeof(float)),
-			new PersonProperty("suspicion",0,typeof(float))
-		};
-
+	[SyncVar]
+	public SyncListStruct<PersonProperty> properties = new SyncListStruct<PersonProperty>() {
+		new PersonProperty("name","default",typeof(string)),
+		// Represents how much money a person has in cents
+		new PersonProperty("money",0,typeof(int),0,int.MaxValue),
+		new PersonProperty("hunger",0,typeof(float)),
+		new PersonProperty("thirst",0,typeof(float)),
+		new PersonProperty("nausea",0,typeof(float)),
+		new PersonProperty("bathroomosity",0,typeof(float)),
+		new PersonProperty("happiness",100,typeof(float)),
+		new PersonProperty("anger",0,typeof(float)),
+		new PersonProperty("suspicion",0,typeof(float))
+	};
 
 	// re-roll properties
 	public void reroll() {
@@ -38,7 +39,7 @@ public class Person : MonoBehaviour {
 	}
 
 	public object GetProperty(string key) {
-		for(int i = 0; i < properties.Length; i++) {
+		for(int i = 0; i < properties.Count; i++) {
 			if(properties[i].Key == key.ToLower()) {
 				return properties[i].Value;
 			}
@@ -46,10 +47,11 @@ public class Person : MonoBehaviour {
 		return null;
 	}
 	public void SetProperty(string key,object value) {
-		print(properties.Length);
-		for(int i = 0; i < properties.Length; i++) {
+		print(properties.Count);
+		for(int i = 0; i < properties.Count; i++) {
 			if(properties[i].Key == key.ToLower()) {
-				properties[i].Value = value;
+				PersonProperty temp = properties[i];
+				properties.GetItem(i).Value = value;
 			}
 		}
 	}

@@ -62,4 +62,10 @@ public class Player : NetworkBehaviour {
 		obj.Direction = (Direction) direction;
 		NetworkServer.Spawn(newObject);
 	}
+
+	[Command]
+	public void CmdSpawnPerson (Vector3 position) {
+		GameObject person = Instantiate(GameManager.Instance.PersonObj,position,Quaternion.identity) as GameObject;
+		NetworkServer.Spawn(person);
+	}
 }
