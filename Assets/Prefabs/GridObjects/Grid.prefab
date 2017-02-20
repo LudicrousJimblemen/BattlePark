@@ -111,10 +111,10 @@ MonoBehaviour:
   VerticalConstraintRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  GridSizeX: 81
-  GridSizeZ: 81
-  GridStepXZ: 1
-  GridStepY: 0.5
+  GridSizeX: 27
+  GridSizeZ: 27
+  GridStepXZ: 3
+  GridStepY: 1.5
   PathWidth: 4
   ParkMaterial: {fileID: 2100000, guid: 348f8661a3884b24ab2f23d46b6e2fc1, type: 2}
   PathMaterial: {fileID: 2100000, guid: 977f1a9c14889724ca6d74291d422e36, type: 2}
