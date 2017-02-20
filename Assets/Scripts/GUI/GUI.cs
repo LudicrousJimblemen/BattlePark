@@ -17,14 +17,20 @@ namespace BattlePark.GUI {
 			Fade.raycastTarget = inAnimation;
 		}
 
-		public void FadeGraphic(Graphic graphic, int delay, int duration, Color fromColor, float toAlpha, bool disableRaycast = false, Action callback = null) {
+		/// <summary>
+		/// Fades a given graphic over time
+		/// </summary>
+		/// <param name="delay">delay before starting in seconds</param>
+		/// <param name="duration">duration in seconds</param>
+
+		public void FadeGraphic(Graphic graphic,float delay,float duration, Color fromColor, float toAlpha, bool disableRaycast = false, Action callback = null) {
 			StartCoroutine(FadeGraphicCoroutine(graphic, delay, duration, fromColor, toAlpha, disableRaycast, callback));
 		}
-		private IEnumerator FadeGraphicCoroutine(Graphic graphic, int delay, int duration, Color fromColor, float toAlpha, bool disableRaycast, Action callback) {
+		private IEnumerator FadeGraphicCoroutine(Graphic graphic, float delay, float duration, Color fromColor, float toAlpha, bool disableRaycast, Action callback) {
 			inAnimation = true;
 			Color toColor = new Color(fromColor.r, fromColor.g, fromColor.b, toAlpha);
-			for (int i = 0; i < duration + delay; i++) {
-				graphic.color = Color.Lerp(fromColor, toColor, Mathf.SmoothStep(0f, 1f, (i - (float)delay) / (float)duration));
+			for(float i = 0; i <= duration + delay; i += Time.deltaTime) {
+				graphic.color = Color.Lerp(fromColor, toColor, Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(i - delay) / duration));
 				yield return null;
 			}
 			inAnimation = disableRaycast;
@@ -43,16 +49,16 @@ namespace BattlePark.GUI {
 			inAnimation = true;
 			to.gameObject.SetActive(true);
 	
-			for (int i = 0; i < 70; i++) {
+			for (float i = 0; i <= 1; i+=Time.deltaTime) {
 				to.rectTransform.localPosition = Vector3.Lerp(
 					new Vector3(to.rectTransform.rect.width * fromDirection, 0, 0),
 					Vector3.zero,
-					Mathf.SmoothStep(0, 1f, Mathf.SmoothStep(0, 1f, i / 70f))
+					Mathf.SmoothStep(0, 1f, Mathf.SmoothStep(0, 1f, i))
 				);
 				currentPanel.rectTransform.localPosition = Vector3.Lerp(
 					Vector3.zero,
 					new Vector3(currentPanel.rectTransform.rect.width * -fromDirection, 0, 0),
-					Mathf.SmoothStep(0, 1f, Mathf.SmoothStep(0, 1f, i / 70f))
+					Mathf.SmoothStep(0, 1f, Mathf.SmoothStep(0, 1f, i))
 				);
 				yield return null;
 			}
