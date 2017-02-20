@@ -177,6 +177,7 @@
     <Compile Include="Assets\Scripts\Game\Person\PersonManager.cs" />
     <Compile Include="Assets\Scripts\Game\Person\PersonProperty.cs" />
     <Compile Include="Assets\Scripts\Game\Person\Thought.cs" />
+    <Compile Include="Assets\Scripts\Game\Person\ThoughtSyncList.cs" />
     <Compile Include="Assets\Scripts\Game\Person\dynamicobstacle.cs" />
     <Compile Include="Assets\Scripts\GridOverlay.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />

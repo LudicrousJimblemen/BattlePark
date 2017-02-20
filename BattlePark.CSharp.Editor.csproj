@@ -141,7 +141,6 @@
     <Compile Include="Assets\AstarPathfindingProject\Editor\ModifierEditors\RaycastModifierEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\ModifierEditors\SmoothModifierEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\SeekerEditor.cs" />
-    <Compile Include="Assets\Scripts\Editor\DisplayPersonProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh.shader" />
