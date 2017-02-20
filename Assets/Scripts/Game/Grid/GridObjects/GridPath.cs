@@ -7,15 +7,6 @@ public class GridPath : GridObject {
 		}
 	}
 
-	public override bool PlaceMultiple {
-		get {
-			return true;
-		}
-	}
-
-	public override bool CanRotate {
-		get {
-			return false;
-		}
-	}
+	public override bool PlaceMultiple { get { return true; } }
+	public override bool CanRotate { get { return false; } }
 }
