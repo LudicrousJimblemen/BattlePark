@@ -4,35 +4,32 @@ using System.Collections;
 
 public abstract class GridObject : NetworkBehaviour {
 	#region Data Variables
-	
+
 	public Direction Direction { get; set; }
 	public Vector3 GridPosition { get; set; }
 
 	public abstract Vector3[] OccupiedOffsets { get; }
 
-	public virtual bool PlaceMultiple { get { return 
-		false;
-	}}
-	public virtual bool CanRotate { get { return 
-		true;
-	}}
+	public virtual bool PlaceMultiple { get { return false; } }
+	public virtual bool CanRotate { get { return true; } }
+
 	#endregion
 
 	public void Start() {
 		OnPlaced();
 	}
 
-	public virtual void OnPlaced() { 
-		Grid.Instance.Objects.Add (GetPosition(), this);
+	public virtual void OnPlaced() {
+		Grid.Instance.Objects.Add(GetPosition(), this);
 	}
 	public virtual void OnDemolished() { }
 
 	public Vector3 GetPosition() {
-		return Grid.Instance.SnapToGrid (GridPosition);
+		return Grid.Instance.SnapToGrid(GridPosition);
 	}
-	
+
 	public Quaternion GetRotation() {
-		return Quaternion.Euler(-90,0,(int)Direction * 90);
+		return Quaternion.Euler(-90, 0, (int) Direction * 90);
 	}
 
 	public Vector3[] RotatedOffsets() {
@@ -82,15 +79,15 @@ public abstract class GridObject : NetworkBehaviour {
 			default:
 				return null;
 		}
-		for(int i = 0; i < OccupiedOffsets.Length; i++) {
+		for (int i = 0; i < OccupiedOffsets.Length; i++) {
 			ReturnList[i] *= Grid.Instance.GridStepXZ;
 		}
 		return ReturnList;
 	}
 
 	private void OnDrawGizmos() {
-		foreach (Vector3 offset in RotatedOffsets ()) {
-			Gizmos.DrawSphere(offset + GridPosition,0.1f);
+		foreach (Vector3 offset in RotatedOffsets()) {
+			Gizmos.DrawSphere(offset + GridPosition, 0.1f);
 		}
 		//UnityEditor.Handles.color = Color.white;
 		//UnityEditor.Handles.Label(GridPosition + Vector3.up * 2,((int)Direction).ToString());

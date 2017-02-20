@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour {
 	private void OnGUI() {
 		string text = String.Empty;
 		foreach (var person in Guests) {
-			text += person.GetProperty("name") + ":\n";
+			text += person.Name + ":\n";
 			foreach (var thought in person.Thoughts) {
 				Debug.Log(thought.ThoughtString);
 				text += "   \"" + String.Format(LanguageManager.GetString(thought.ThoughtString), thought.Parameters);

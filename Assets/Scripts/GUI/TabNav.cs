@@ -10,15 +10,15 @@ public class TabNav : MonoBehaviour {
 	}
 
 	public void Update() {
-		if(Input.GetKeyDown(KeyCode.Tab)) {
-			if(system.currentSelectedGameObject == null)
+		if (Input.GetKeyDown(KeyCode.Tab)) {
+			if (system.currentSelectedGameObject == null)
 				return;
 			Selectable next = system.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
-			if(next != null) {
+			if (next != null) {
 				InputField inputfield = next.GetComponent<InputField>();
-				if(inputfield != null)
+				if (inputfield != null)
 					inputfield.OnPointerClick(new PointerEventData(system));
-				system.SetSelectedGameObject(next.gameObject,new BaseEventData(system));
+				system.SetSelectedGameObject(next.gameObject, new BaseEventData(system));
 			}
 		}
 	}

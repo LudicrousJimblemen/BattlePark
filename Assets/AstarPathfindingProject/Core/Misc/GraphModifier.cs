@@ -37,7 +37,7 @@ namespace Pathfinding {
 			return ls;
 		}
 
-		public static void FindAllModifiers () {
+		public static void FindAllModifiers() {
 			var arr = FindObjectsOfType(typeof(GraphModifier)) as GraphModifier[];
 
 			for (int i = 0; i < arr.Length; i++) {
@@ -56,51 +56,51 @@ namespace Pathfinding {
 		}
 
 		/** Triggers an event for all active graph modifiers */
-		public static void TriggerEvent (GraphModifier.EventType type) {
+		public static void TriggerEvent(GraphModifier.EventType type) {
 			if (!Application.isPlaying) {
 				FindAllModifiers();
 			}
 
 			GraphModifier c = root;
 			switch (type) {
-			case EventType.PreScan:
-				while (c != null) { c.OnPreScan(); c = c.next; }
-				break;
-			case EventType.PostScan:
-				while (c != null) { c.OnPostScan(); c = c.next; }
-				break;
-			case EventType.LatePostScan:
-				while (c != null) { c.OnLatePostScan(); c = c.next; }
-				break;
-			case EventType.PreUpdate:
-				while (c != null) { c.OnGraphsPreUpdate(); c = c.next; }
-				break;
-			case EventType.PostUpdate:
-				while (c != null) { c.OnGraphsPostUpdate(); c = c.next; }
-				break;
-			case EventType.PostCacheLoad:
-				while (c != null) { c.OnPostCacheLoad(); c = c.next; }
-				break;
+				case EventType.PreScan:
+					while (c != null) { c.OnPreScan(); c = c.next; }
+					break;
+				case EventType.PostScan:
+					while (c != null) { c.OnPostScan(); c = c.next; }
+					break;
+				case EventType.LatePostScan:
+					while (c != null) { c.OnLatePostScan(); c = c.next; }
+					break;
+				case EventType.PreUpdate:
+					while (c != null) { c.OnGraphsPreUpdate(); c = c.next; }
+					break;
+				case EventType.PostUpdate:
+					while (c != null) { c.OnGraphsPostUpdate(); c = c.next; }
+					break;
+				case EventType.PostCacheLoad:
+					while (c != null) { c.OnPostCacheLoad(); c = c.next; }
+					break;
 			}
 		}
 
 		/** Adds this modifier to list of active modifiers */
-		protected virtual void OnEnable () {
+		protected virtual void OnEnable() {
 			RemoveFromLinkedList();
 			AddToLinkedList();
 			ConfigureUniqueID();
 		}
 
 		/** Removes this modifier from list of active modifiers */
-		protected virtual void OnDisable () {
+		protected virtual void OnDisable() {
 			RemoveFromLinkedList();
 		}
 
-		protected virtual void Awake () {
+		protected virtual void Awake() {
 			ConfigureUniqueID();
 		}
 
-		void ConfigureUniqueID () {
+		void ConfigureUniqueID() {
 			// Check if any other object is using the same uniqueID
 			// In that case this object may have been duplicated
 			GraphModifier usedBy;
@@ -112,7 +112,7 @@ namespace Pathfinding {
 			usedIDs[uniqueID] = this;
 		}
 
-		void AddToLinkedList () {
+		void AddToLinkedList() {
 			if (root == null) {
 				root = this;
 			} else {
@@ -122,7 +122,7 @@ namespace Pathfinding {
 			}
 		}
 
-		void RemoveFromLinkedList () {
+		void RemoveFromLinkedList() {
 			if (root == this) {
 				root = next;
 				if (root != null) root.prev = null;
@@ -134,7 +134,7 @@ namespace Pathfinding {
 			next = null;
 		}
 
-		protected virtual void OnDestroy () {
+		protected virtual void OnDestroy() {
 			usedIDs.Remove(uniqueID);
 		}
 
@@ -150,7 +150,7 @@ namespace Pathfinding {
 		 *
 		 * \see OnLatePostScan
 		 */
-		public virtual void OnPostScan () {}
+		public virtual void OnPostScan() { }
 
 		/** Called right before graphs are going to be scanned.
 		 *
@@ -163,30 +163,30 @@ namespace Pathfinding {
 		 *
 		 * \see OnLatePostScan
 		 * */
-		public virtual void OnPreScan () {}
+		public virtual void OnPreScan() { }
 
 		/** Called at the end of the scanning procedure.
 		 * This is the absolute last thing done by Scan.
 		 *
 		 */
-		public virtual void OnLatePostScan () {}
+		public virtual void OnLatePostScan() { }
 
 		/** Called after cached graphs have been loaded.
 		 * When using cached startup, this event is analogous to OnLatePostScan and implementing scripts
 		 * should do roughly the same thing for both events.
 		 */
-		public virtual void OnPostCacheLoad () {}
+		public virtual void OnPostCacheLoad() { }
 
 		/** Called before graphs are updated using GraphUpdateObjects */
-		public virtual void OnGraphsPreUpdate () {}
+		public virtual void OnGraphsPreUpdate() { }
 
 		/** Called after graphs have been updated using GraphUpdateObjects.
 		 * Eventual flood filling has been done */
-		public virtual void OnGraphsPostUpdate () {}
+		public virtual void OnGraphsPostUpdate() { }
 
-		void Reset () {
+		void Reset() {
 			// Create a new random 64 bit value (62 bit actually because we skip negative numbers, but that's still enough by a huge margin)
-			uniqueID = (ulong)Random.Range(0, int.MaxValue) | ((ulong)Random.Range(0, int.MaxValue) << 32);
+			uniqueID = (ulong) Random.Range(0, int.MaxValue) | ((ulong) Random.Range(0, int.MaxValue) << 32);
 			usedIDs[uniqueID] = this;
 		}
 	}

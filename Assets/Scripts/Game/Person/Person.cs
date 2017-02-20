@@ -5,88 +5,78 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Person : NetworkBehaviour {
-	[HideInInspector]
-	[SyncVar]
-	public SyncListStruct<PersonProperty> properties = new SyncListStruct<PersonProperty>() {
-		new PersonProperty("name","default",typeof(string)),
-		// Represents how much money a person has in cents
-		new PersonProperty("money",0,typeof(int),0,int.MaxValue),
-		new PersonProperty("hunger",0,typeof(float)),
-		new PersonProperty("thirst",0,typeof(float)),
-		new PersonProperty("nausea",0,typeof(float)),
-		new PersonProperty("bathroomosity",0,typeof(float)),
-		new PersonProperty("happiness",100,typeof(float)),
-		new PersonProperty("anger",0,typeof(float)),
-		new PersonProperty("suspicion",0,typeof(float))
-	};
+public class Person : MonoBehaviour {
+	public string Name = GenerateUsername();
+	
+	/// <summary>
+	/// Represents how much money a person has in cents.
+	/// </summary>
+	[Range(0, Int32.MaxValue)]
+	public int Money = 0; // flat broke
 
-	// re-roll properties
-	public void reroll() {
-		SetProperty("name",GenerateUsername());
-		SetProperty("money",UnityEngine.Random.Range(2000,10001));
-		SetProperty("hunger",UnityEngine.Random.Range(0,21f));
-		SetProperty("thirst",UnityEngine.Random.Range(0,16f));
-		SetProperty("nausea",UnityEngine.Random.Range(0,3f));
-		SetProperty("bathroomosity",UnityEngine.Random.Range(0,11f));
-		SetProperty("happiness",UnityEngine.Random.Range(50f,100f));
-		SetProperty("anger",UnityEngine.Random.Range(0,5f));
-		SetProperty("suspicion",UnityEngine.Random.Range(0,2));
-	}
+	[Range(0, 100f)]
+	public float Hunger = 0; // has no stomach, therefore doesn't feel hunger
+	[Range(0, 100f)]
+	public float Thirst = 0; // literally 100% water
+	[Range(0, 100f)]
+	public float Nausea = 0; // he's good, he puked before coming over
+	[Range(0, 100f)]
+	public float Bathroomosity = 0; // he made sure to take all the rest stops on the highway
 
-	private void Awake() {
-		reroll();
-	}
-
-	public object GetProperty(string key) {
-		for(int i = 0; i < properties.Count; i++) {
-			if(properties[i].Key == key.ToLower()) {
-				return properties[i].Value;
-			}
-		}
-		return null;
-	}
-	public void SetProperty(string key,object value) {
-		print(properties.Count);
-		for(int i = 0; i < properties.Count; i++) {
-			if(properties[i].Key == key.ToLower()) {
-				PersonProperty temp = properties[i];
-				properties.GetItem(i).Value = value;
-			}
-		}
-	}
+	[Range(0, 100f)]
+	public float Happiness = 100; // happiest man alive
+	[Range(0, 100f)]
+	public float Anger = 0; // see above
+	[Range(0, 100f)]
+	public float Suspicion = 0; // criminals don't exist, that's illegal
 
 	public List<Thought> Thoughts = new List<Thought>();
 
+	private void Awake () {
+		Reroll();
+	}
+
+	private void Reroll () {
+		Money = UnityEngine.Random.Range(2000,10001);
+		Hunger = UnityEngine.Random.Range(0,20f);
+		Thirst = UnityEngine.Random.Range(0,15f);
+		Nausea = UnityEngine.Random.Range(0, 2f);
+		Bathroomosity = UnityEngine.Random.Range(0,10f);
+
+		Happiness = UnityEngine.Random.Range(50f,100f);
+		Anger = UnityEngine.Random.Range(0,5f);
+		Suspicion = UnityEngine.Random.Range(0,1f);
+	}
+
 	private void Start() {
-		Thoughts.Add(new Thought("person.thoughts.wantFood.ludicrous","MINDBLOWING MACARONI"));
+		Thoughts.Add(new Thought("person.thoughts.wantFood.ludicrous", "MINDBLOWING MACARONI"));
 	}
 
 	private static string GenerateUsername() {
 		const string consonants = "bbbbbbbbbbbbbbbbbbbbbbbcdffgghjklmnppppppppppppppppppppppqrsssstvwxzzzz";
 		const string vowels = "aaeeiiiiiooooooooooouuuuuuuuuuuuuy";
-		int type = Mathf.RoundToInt(UnityEngine.Random.Range(0,1));
+		int type = Mathf.RoundToInt(UnityEngine.Random.Range(0, 1));
 
 		string returnedName = String.Empty;
-		for(int i = 0; i < 14; i++) {
-			if(i != 7) {
+		for (int i = 0; i < 14; i++) {
+			if (i != 7) {
 				float chance = UnityEngine.Random.value;
 				bool upper = (i == 0 || returnedName[i - 1].Equals(' '));
 				string source;
-				if(type == 0) {
+				if (type == 0) {
 					source = consonants;
-					if(upper)
+					if (upper)
 						source = source.ToUpper();
-					returnedName += source.ElementAt(UnityEngine.Random.Range(0,consonants.Length));
-					if(chance <= 0.5) {
+					returnedName += source.ElementAt(UnityEngine.Random.Range(0, consonants.Length));
+					if (chance <= 0.5) {
 						type = 1;
 					}
 				} else {
 					source = vowels;
-					if(upper)
+					if (upper)
 						source = source.ToUpper();
-					returnedName += source.ElementAt(UnityEngine.Random.Range(0,vowels.Length));
-					if(chance <= 0.6) {
+					returnedName += source.ElementAt(UnityEngine.Random.Range(0, vowels.Length));
+					if (chance <= 0.6) {
 						type = 0;
 					}
 				}
