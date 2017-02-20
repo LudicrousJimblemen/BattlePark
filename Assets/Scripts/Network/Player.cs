@@ -46,15 +46,17 @@ public class Player : NetworkBehaviour {
 		// boy it sure is a good thing that return is on a new line
 		// really breaks up that one-liner into sizeable chunks
 		print (hotbarIndex);
-        CmdPlaceObject (ObjectIndices[hotbarIndex], position.Value, direction);
+        CmdPlaceObject (ObjectIndices[hotbarIndex], position.Value, direction, PlayerNumber);
 	}
 	
 	[Command]
-	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction) {
+	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
 		GameObject newObject = Instantiate(GameManager.Instance.Objects[ObjIndex].gameObject,
-		                                   Grid.Instance.SnapToGrid (position),
-		                                   Quaternion.Euler(-90,0,direction * 90)
-		                                   ) as GameObject;
+										   Grid.Instance.SnapToGrid(position),
+										   Quaternion.Euler(-90,0,direction * 90),
+										   GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform
+										   ) as GameObject;
+		newObject.name = GameManager.Instance.Objects[ObjIndex].gameObject.name;
 		GridObject obj = newObject.GetComponent<GridObject> ();
 		obj.GridPosition = position;
 		obj.Direction = (Direction) direction;
