@@ -52,7 +52,7 @@ public class Player : NetworkBehaviour {
 	[Command]
 	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
 		GameObject newObject = Instantiate(GameManager.Instance.Objects[ObjIndex].gameObject,
-										   Grid.Instance.SnapToGrid(position),
+										   Grid.Instance.SnapToGrid(position, playerNumber),
 										   Quaternion.Euler(-90,0,direction * 90),
 										   GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform
 										   ) as GameObject;

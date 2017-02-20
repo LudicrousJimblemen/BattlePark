@@ -69,8 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enabled: 1
-  MovementSpeed: 1
-  RotationSpeed: 4
+  MovementSpeed: 40
+  RotationSpeed: 160
   TiltHeight: 36
   FlatHeight: 3
   TiltAngle: 45
