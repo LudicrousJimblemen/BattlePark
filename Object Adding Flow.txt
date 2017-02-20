@@ -1,0 +1,7 @@
+object creation
+ - must have script inheriting from gridobject
+ - must have network identity with no boxes checked
+ - might need network transform
+registration
+ - add object to list of objects in gamemanager
+ - add object to list of prefabs in client

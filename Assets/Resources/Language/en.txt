@@ -2,25 +2,24 @@
 	"gameInfo.name": "Battle Park",
 	"gameInfo.language": "English",
 
-	"titleScreen.startClient":"START CLIENT",
 	"titleScreen.exit":"EXIT",
 	"titleScreen.back":"BACK",
-	"titleScreen.port":"Port",
-	"titleScreen.ip":"IP",
+	"titleScreen.createGame":"CREATE GAME",
+	"titleScreen.findGame":"FIND GAME",
 	"titleScreen.username":"Username",
-	"titleScreen.clientJoin":"JOIN GAME",
+	"titleScreen.roomName":"Room Name",
+	"titleScreen.createRoom":"CREATE ROOM",
+	"titleScreen.noMatchesFound":"No matches found.",
 	
-	"networkError.notFound":"No server was found at the specified IP.",
-	"networkError.wrongVersion":"Your game version ({1}) does not match with the server's game version ({2}).",
-	"networkError.emptyUsername":"Your username must not be empty.",
-	"networkError.duplicateUsername":"A user with your username ('{0}') already exists.",
-	"networkError.roomFull":"The room is full.",
-	
+	"lobby.defaultRoomName":"{0}'s Cool Room",
 	"lobby.leave":"LEAVE",
 	"lobby.ready":"READY",
+	"lobby.unready":"UNREADY",
 	"lobby.chat":"Chat...",
 	
 	"chat.chatMessage": "<{0}> {1}",
+	"chat.userReadied": "{0} has readied.",
+	"chat.userUnreadied": "{0} has unreadied.",
 	"chat.userJoined": "{0} joined.",
 	"chat.userLeft": "{0} left.",
 	
@@ -28,6 +27,11 @@
 	
 	"stats.guest": "Unique guests: ",
 	"stats.bought": "{0} count: ",
+
+	"person.thoughts.wantFood.mild": "I kinda feel like having some {0}.",
+	"person.thoughts.wantFood.normal": "I want to eat some {0}.",
+	"person.thoughts.wantFood.strong": "I really want to eat some {0}.",
+	"person.thoughts.wantFood.ludicrous": "I am positively craving some {0}!",
 	
 	"gridObjects.Gate":"Gate",
 	"gridObjects.Fence":"Fence",

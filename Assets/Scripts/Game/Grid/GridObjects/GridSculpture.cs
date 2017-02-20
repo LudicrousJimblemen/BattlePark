@@ -1,0 +1,12 @@
+﻿using UnityEngine;
+
+public class GridSculpture : GridObject {
+	public override Vector3[] OccupiedOffsets {
+		get {
+			return new[] {
+				Vector3.zero,
+				new Vector3(0, 1, 0)
+			};
+		}
+	}
+}

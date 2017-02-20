@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6a6a0d89fe352ad4c893f603da696d26
+timeCreated: 1485535889
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Objects: {instanceID: 0}
+  - ParkMat: {fileID: 2100000, guid: 348f8661a3884b24ab2f23d46b6e2fc1, type: 2}
+  - PathMat: {fileID: 2100000, guid: 977f1a9c14889724ca6d74291d422e36, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
