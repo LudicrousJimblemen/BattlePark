@@ -51,6 +51,21 @@ public class GameInput : MonoBehaviour {
 			placeholderOffsets = new Vector3[] { Vector3.zero };
 		}
 		Placeholder.gameObject.SetActive(hotbarIndex != -1);
+		bool verticalConstraint = Input.GetKey(KeyCode.LeftControl);
+		VerticalConstraint.gameObject.SetActive(verticalConstraint);
+		RaycastHit hit;
+		if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit,Mathf.Infinity,verticalConstraint ? Grid.Instance.VerticalConstraintRaycastLayerMask : Grid.Instance.RaycastLayerMask)) {
+			Vector3 constraintPos = mousePosition ?? Vector3.zero;
+			if(VerticalConstraint) {
+				constraintPos.y = hit.point.y;
+			}
+			mousePosition = verticalConstraint ? constraintPos : hit.point;
+			rawMouse = mousePosition.Value;
+			mousePosition = Grid.Instance.SnapToGrid(mousePosition.Value,player.PlayerNumber);
+		} else {
+			mousePosition = null;
+			Placeholder.gameObject.SetActive(false);
+		}
 		if (hotbarIndex != -1) {
 			if (Input.GetKeyDown(KeyCode.R) && placeholderGridObject.CanRotate) {
 				int counter = Input.GetKey(KeyCode.LeftShift) ? -1 : 1;
@@ -61,21 +76,6 @@ public class GameInput : MonoBehaviour {
 					direction = 3;
 				}
 				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction) direction);
-			}
-			bool verticalConstraint = Input.GetKey(KeyCode.LeftControl);
-			VerticalConstraint.gameObject.SetActive(verticalConstraint);
-			RaycastHit hit;
-			if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, verticalConstraint ? Grid.Instance.VerticalConstraintRaycastLayerMask : Grid.Instance.RaycastLayerMask)) {
-				Vector3 constraintPos = mousePosition ?? Vector3.zero;
-				if (VerticalConstraint) {
-					constraintPos.y = hit.point.y;
-				}
-				mousePosition = verticalConstraint ? constraintPos : hit.point;
-				rawMouse = mousePosition.Value;
-				mousePosition = Grid.Instance.SnapToGrid(mousePosition.Value, player.PlayerNumber);
-			} else {
-				mousePosition = null;
-				Placeholder.gameObject.SetActive(false);
 			}
 			if (!verticalConstraint) {
 				Vector3 corrected = mousePosition ?? Vector3.zero;
@@ -104,9 +104,9 @@ public class GameInput : MonoBehaviour {
 					}
 				}
 			}
-			if (Input.GetMouseButton(1)) {
-				player.CmdSpawnPerson(mousePosition.Value);
-			}
+		}
+		if(Input.GetMouseButtonDown(1)) {
+			player.CmdSpawnPerson(rawMouse);
 		}
 	}
 

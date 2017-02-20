@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
 		foreach (var person in Guests) {
 			text += person.Name + ":\n";
 			foreach (var thought in person.Thoughts) {
-				Debug.Log(thought.ThoughtString);
+				//Debug.Log(thought.ThoughtString);
 				text += "   \"" + String.Format(LanguageManager.GetString(thought.ThoughtString), thought.Parameters);
 			}
 		}
