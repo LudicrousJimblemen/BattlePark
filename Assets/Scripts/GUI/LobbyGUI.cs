@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace BattlePark.GUI {
 	public class LobbyGUI : GUI {
@@ -94,10 +95,12 @@ namespace BattlePark.GUI {
 				LobbyReadyButton.GetComponentInChildren<Text>().text = LanguageManager.GetString(ready ? "lobby.unready" : "lobby.ready");
 			});
 			LobbyChatInputField.onEndEdit.AddListener(input => {
-				if (Input.GetKey(KeyCode.Return)) {
+				if (Input.GetKey(KeyCode.Return) && input != "") {
       				Client.Instance.localPlayer.Chat(input);
       				LobbyChatInputField.text = String.Empty;
       			}
+				EventSystem.current.SetSelectedGameObject(LobbyChatInputField.gameObject,null);
+				LobbyChatInputField.OnPointerClick(new PointerEventData(EventSystem.current));
 			});
 		}
 	
