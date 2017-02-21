@@ -8,8 +8,7 @@ public class GridSculpture : GridObject {
 		get {
 			return new[] {
 				Vector3.zero,
-				new Vector3(0, 1, 0),
-				new Vector3(0, 2, 0)
+				new Vector3(0, 1, 0)
 			};
 		}
 	}
