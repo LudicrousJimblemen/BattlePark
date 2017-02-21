@@ -10,6 +10,9 @@ public class GridMacaroniStall : GridVendor {
 	public override Vector3[] OccupiedOffsets {
 		get {
 			return new[] {
+				Vector3.zero,
+				new Vector3(0, 1, 0)
+				/*
 				new Vector3(-1, 0, -1),
 				new Vector3(1, 0, -1),
 				new Vector3(1, 0, -1),
@@ -37,6 +40,7 @@ public class GridMacaroniStall : GridVendor {
 				new Vector3(-1, 2, 1),
 				new Vector3(0, 2, 1),
 				new Vector3(1, 2, 1)
+				*/
 			};
 			// TODO add a hitbox utility to generate things like this
 			// this is just a 3x3 cube
