@@ -116,8 +116,8 @@ public class GridObjects : IEnumerable {
 		if (corners) {
 			objects[4] = (ObjectAt(location + new Vector3(1, 0, 1) * step)); // northeast
 			objects[5] = (ObjectAt(location + new Vector3(-1, 0, -1) * step)); // southwest
-			objects[6] = (ObjectAt(location + new Vector3(1, 0, -1) * step)); // northwest
-			objects[7] = (ObjectAt(location + new Vector3(-1, 0, 1) * step)); // southeast
+			objects[6] = (ObjectAt(location + new Vector3(1, 0, -1) * step)); // southeast
+			objects[7] = (ObjectAt(location + new Vector3(-1, 0, 1) * step)); // northwest
 		}
 		
 		return objects;

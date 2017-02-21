@@ -27,7 +27,7 @@ public class GridPath : GridObject {
 		base.OnPlaced();
 
 		UpdateMesh();
-		foreach (var gridObject in Grid.Instance.Objects.AdjacentObjects(this.GridPosition, true)) {
+		foreach (var gridObject in Grid.Instance.Objects.AdjacentObjects(GetPosition(), true)) {
 			// "as" keyword returns null if cast is invalid
 			GridPath path = gridObject as GridPath;
 			if (path != null) {
@@ -53,7 +53,7 @@ public class GridPath : GridObject {
 
 		CornerNorthEast.SetActive(adj[4] as GridPath != null);
 		CornerSouthWest.SetActive(adj[5] as GridPath != null);
-		CornerNorthWest.SetActive(adj[6] as GridPath != null);
-		CornerSouthEast.SetActive(adj[7] as GridPath != null);
+		CornerSouthEast.SetActive(adj[6] as GridPath != null);
+		CornerNorthWest.SetActive(adj[7] as GridPath != null);
 	}
 }
