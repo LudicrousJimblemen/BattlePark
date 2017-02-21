@@ -732,3 +732,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: 0
+  EdgeSouth: {fileID: 1929708128631386}
+  EdgeNorth: {fileID: 1599797682656810}
+  EdgeWest: {fileID: 1684622703623846}
+  EdgeEast: {fileID: 1387318156270062}
+  CornerSouthWest: {fileID: 1539978766341332}
+  CornerSouthEast: {fileID: 1954274411088122}
+  CornerNorthWest: {fileID: 1015372948013148}
+  CornerNorthEast: {fileID: 1336310751325998}
