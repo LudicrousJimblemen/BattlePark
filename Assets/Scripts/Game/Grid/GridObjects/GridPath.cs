@@ -21,8 +21,6 @@ public class GridPath : GridObject {
 	}
 
 	public override bool PlaceMultiple { get { return true; } }
-	public override bool CanRotate { get { return false; } }
-
 	public override void OnPlaced() {
 		base.OnPlaced();
 
@@ -35,14 +33,16 @@ public class GridPath : GridObject {
 			}
 		}
 		
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 2; j++) {
-				Vector3 nodePos = GetPosition() + new Vector3(-.75f, 0, -.75f) + new Vector3(i * 1.5f, 0, j * 1.5f);
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				Vector3 nodePos = GetPosition() + new Vector3(-1, 0, -1) + new Vector3(i, 0, j);
 				Instantiate(GameManager.Instance.PathNode, nodePos, Quaternion.identity, GameObject.FindGameObjectWithTag("PathNode").transform);
 			}
 		}
-		AstarPath.active.Scan();
+		AstarPath.active.Scan ();
 	}
+
+	public override bool CanRotate { get { return false; } }
 
 	public void UpdateMesh() {
 		GridObject[] adj = Grid.Instance.Objects.AdjacentObjects(GetPosition(),true);

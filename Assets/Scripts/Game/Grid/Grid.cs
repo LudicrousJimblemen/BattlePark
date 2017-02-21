@@ -1,6 +1,7 @@
 ﻿// TODO 1 wide border around all parks for gate and fences
 // you TODID that already, dummy
 
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +56,10 @@ public class Grid : MonoBehaviour {
 		} else if (checkerboardWidth <= 0) {
 			throw new System.ArgumentOutOfRangeException("checkerboardWidth");
 		}
-
+		StartCoroutine(generateMeshCoroutine(xSize, zSize, checkerboardWidth));
+	}
+	
+	private IEnumerator generateMeshCoroutine (int xSize, int zSize, float checkerboardWidth = 3) {
 		parkCenters = new Vector3[2];
 		parkGates = new Vector3[2];
 
@@ -70,7 +74,8 @@ public class Grid : MonoBehaviour {
 		parkGates[0] = new Vector3(-gw, 0, 0);
 		parkGates[1] = new Vector3(gw, 0, 0);
 		pathVertexCount = 4;
-
+		
+		yield return null;
 		MeshFilter meshFilter = GetComponent<MeshFilter>();
 		MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
 
@@ -92,6 +97,7 @@ public class Grid : MonoBehaviour {
 					uv[i + (xSize + 1) * (zSize + 1) * p] = new Vector2((float) x * (1f / checkerboardWidth) * 0.5f, (float) z * (1f / checkerboardWidth) * 0.5f);
 				}
 			}
+			yield return null;
 		}
 
 		#region Paths
@@ -109,6 +115,7 @@ public class Grid : MonoBehaviour {
 			uv[parkVertexCount + i] = new Vector2((vertices[parkVertexCount + i].x) * (1f / checkerboardWidth) * 0.5f,
 				(vertices[parkVertexCount + i].z) * (1f / checkerboardWidth) * 0.5f);
 		}
+		yield return null;
 		#endregion
 
 		#region Border
@@ -133,13 +140,9 @@ public class Grid : MonoBehaviour {
 			vertices[pvcb + 12 * b + 10] = new Vector3(0, 0, outDistZ) + parkCenters[b];
 			vertices[pvcb + 12 * b + 11] = new Vector3(-outDistX, 0, 0) + parkCenters[b];
 		}
-		//float totalXSize = xSize * 2f + PathWidth + 4f;
-		//float totalZSize = zSize * 2f + PathWidth + 4f;
-
+		yield return null;
 		for (int i = 0; i < 2 * 12; i++) {
 			uv[pvcb + i] = new Vector2(vertices[pvcb + i].x, vertices[pvcb + i].z) / GridStepXZ;
-			//new Vector2((vertices[pvcb + i].x + totalXSize / 2f) / totalXSize,
-			//(vertices[pvcb + i].z + totalZSize / 2f) / totalXSize);
 		}
 		meshFilter.mesh.vertices = vertices;
 		meshFilter.mesh.uv = uv;
@@ -155,6 +158,7 @@ public class Grid : MonoBehaviour {
 			}
 			meshFilter.mesh.SetTriangles(triangles, sub);
 		}
+		yield return null;
 		int[] pathTri = new int[(pathVertexCount - 2) * 3];
 		for (int pti = 0, pt = 0; pt < pathVertexCount - 2; pt += 2, pti += 6) {
 			if (pathVertexCount == 12) {
@@ -182,6 +186,7 @@ public class Grid : MonoBehaviour {
 			}
 		}
 		meshFilter.mesh.SetTriangles(pathTri, 2);
+		yield return null;
 		int[] borderTri = new int[36 * 2];
 		for (int i = 0; i < 2; i++) {
 			int ind = i * 36;
@@ -200,6 +205,7 @@ public class Grid : MonoBehaviour {
 			borderTri[ind + 27 + 7] = pvcb + i * 12;
 		}
 		meshFilter.mesh.SetTriangles(borderTri, 2 + 1);
+		yield return null;
 		meshFilter.mesh.RecalculateNormals();
 		#endregion
 
