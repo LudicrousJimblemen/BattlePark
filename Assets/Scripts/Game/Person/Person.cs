@@ -7,12 +7,12 @@ using System.Linq;
 
 public class Person : NetworkBehaviour {
 	public string Name = "greg"; // greg's world
-	
+
 	/// <summary>
 	/// Represents how much money a person has in cents.
 	/// </summary>
-	[SyncVar]
 	[Range(0, Int32.MaxValue)]
+	[SyncVar]
 	public int Money = 0; // flat broke
 
 	[Range(0, 100f)]
@@ -40,31 +40,31 @@ public class Person : NetworkBehaviour {
 
 	public ThoughtSyncList Thoughts = new ThoughtSyncList();
 
-	private void Awake () {
+	private void Awake() {
 		Reroll();
 	}
 
-	private void Reroll () {
+	private void Reroll() {
 		Name = GenerateName();
-        Money = UnityEngine.Random.Range(2000,10001);
-		Hunger = UnityEngine.Random.Range(0,20f);
-		Thirst = UnityEngine.Random.Range(0,15f);
+		Money = UnityEngine.Random.Range(2000, 10001);
+		Hunger = UnityEngine.Random.Range(0, 20f);
+		Thirst = UnityEngine.Random.Range(0, 15f);
 		Nausea = UnityEngine.Random.Range(0, 2f);
-		Bathroomosity = UnityEngine.Random.Range(0,10f);
+		Bathroomosity = UnityEngine.Random.Range(0, 10f);
 
-		Happiness = UnityEngine.Random.Range(50f,100f);
-		Anger = UnityEngine.Random.Range(0,5f);
-		Suspicion = UnityEngine.Random.Range(0,1f);
+		Happiness = UnityEngine.Random.Range(50f, 100f);
+		Anger = UnityEngine.Random.Range(0, 5f);
+		Suspicion = UnityEngine.Random.Range(0, 1f);
 	}
 
 	private void Start() {
 		GameManager.Instance.Guests.Add(this);
-		CmdThink("person.thoughts.wantFood.ludicrous","MINDBLOWING MACARONI");
+		CmdThink("person.thoughts.wantFood.ludicrous", "MINDBLOWING MACARONI");
 	}
 
 	[Command]
-	public void CmdThink (string thought, params string[] parameters) {
-		Thoughts.Add(new Thought(thought,parameters));
+	public void CmdThink(string thought, params string[] parameters) {
+		Thoughts.Add(new Thought(thought, parameters));
 	}
 
 	private static string GenerateName() {

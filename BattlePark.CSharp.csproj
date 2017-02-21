@@ -13,7 +13,8 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.5.1f1</UnityVersion>
@@ -175,7 +176,6 @@
     <Compile Include="Assets\Scripts\Game\Grid\GridRegion.cs" />
     <Compile Include="Assets\Scripts\Game\Person\Person.cs" />
     <Compile Include="Assets\Scripts\Game\Person\PersonManager.cs" />
-    <Compile Include="Assets\Scripts\Game\Person\PersonProperty.cs" />
     <Compile Include="Assets\Scripts\Game\Person\Thought.cs" />
     <Compile Include="Assets\Scripts\Game\Person\ThoughtSyncList.cs" />
     <Compile Include="Assets\Scripts\Game\Person\dynamicobstacle.cs" />

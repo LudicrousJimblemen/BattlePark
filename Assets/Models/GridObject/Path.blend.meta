@@ -6,11 +6,56 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: PathCenter
+    100004: PathCornerNorthEast
+    100006: PathCornerNorthWest
+    100008: PathCornerSouthEast
+    100010: PathCornerSouthWest
+    100012: PathEdgeEast
+    100014: PathEdgeNorth
+    100016: PathEdgeSouth
+    100018: PathEdgeWest
     400000: //RootNode
+    400002: PathCenter
+    400004: PathCornerNorthEast
+    400006: PathCornerNorthWest
+    400008: PathCornerSouthEast
+    400010: PathCornerSouthWest
+    400012: PathEdgeEast
+    400014: PathEdgeNorth
+    400016: PathEdgeSouth
+    400018: PathEdgeWest
     2300000: //RootNode
+    2300002: PathCenter
+    2300004: PathCornerNorthEast
+    2300006: PathCornerNorthWest
+    2300008: PathCornerSouthEast
+    2300010: PathCornerSouthWest
+    2300012: PathEdgeEast
+    2300014: PathEdgeNorth
+    2300016: PathEdgeSouth
+    2300018: PathEdgeWest
     3300000: //RootNode
+    3300002: PathCenter
+    3300004: PathCornerNorthEast
+    3300006: PathCornerNorthWest
+    3300008: PathCornerSouthEast
+    3300010: PathCornerSouthWest
+    3300012: PathEdgeEast
+    3300014: PathEdgeNorth
+    3300016: PathEdgeSouth
+    3300018: PathEdgeWest
     4300000: Plane
     4300002: Path
+    4300004: PathEdgeEast
+    4300006: PathEdgeWest
+    4300008: PathEdgeSouth
+    4300010: PathEdgeNorth
+    4300012: PathCornerNorthWest
+    4300014: PathCornerSouthWest
+    4300016: PathCornerSouthEast
+    4300018: PathCornerNorthEast
+    4300020: PathCenter
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -59,6 +104,7 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -69,7 +115,10 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   humanoidOversampling: 1

@@ -87,13 +87,13 @@ public abstract class GridObject : NetworkBehaviour {
 		return ReturnList;
 	}
 
-	public virtual bool Valid (Vector3 position, Direction direction, int player) {
-		return Grid.Instance.IsValid(position,RotatedOffsets(direction),player);
+	public virtual bool Valid(Vector3 position, Direction direction, int player) {
+		return Grid.Instance.IsValid(position, RotatedOffsets(direction), player);
 	}
 
 	private void OnDrawGizmos() {
 		foreach (Vector3 offset in RotatedOffsets()) {
-			Gizmos.DrawSphere(offset + GridPosition, 0.1f);
+			Gizmos.DrawCube(offset + GridPosition, new Vector3(1f, 0.5f, 1f));
 		}
 		//UnityEditor.Handles.color = Color.white;
 		//UnityEditor.Handles.Label(GridPosition + Vector3.up * 2,((int)Direction).ToString());
