@@ -46,11 +46,12 @@ public class GridPath : GridObject {
 
 	public void UpdateMesh() {
 		GridObject[] adj = Grid.Instance.Objects.AdjacentObjects(GetPosition(),true);
-		bool E, W, N, S;
-		E = adj[0] as GridPath != null;
-		W = adj[1] as GridPath != null;
-		N = adj[2] as GridPath != null;
-		S = adj[3] as GridPath != null;
+		
+		bool E = adj[0] as GridPath != null;
+		bool W = adj[1] as GridPath != null;
+		bool N = adj[2] as GridPath != null;
+		bool S = adj[3] as GridPath != null;
+		
 		EdgeEast.SetActive(E);
 		EdgeWest.SetActive(W);
 		EdgeNorth.SetActive(N);
