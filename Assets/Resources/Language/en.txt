@@ -31,7 +31,7 @@
 	"stats.guest": "Unique guests: ",
 	"stats.bought": "{0} count: ",
 
-	"person.thoughts": "Thoughts"
+	"person.thoughts": "Thoughts",
 
 	"person.stats.money": "Money: ",
 	"person.stats.hunger": "Hunger: ",
