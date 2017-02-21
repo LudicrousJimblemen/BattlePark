@@ -45,14 +45,15 @@ public class GridPath : GridObject {
 	}
 
 	public void UpdateMesh() {
-		EdgeSouth.SetActive(Grid.Instance.Objects.ObjectAt(this.GridPosition + new Vector3(0, 0, -1)) as GridPath != null);
-		EdgeNorth.SetActive(Grid.Instance.Objects.ObjectAt(this.GridPosition + new Vector3(0, 0, 1)) as GridPath != null);
-		EdgeWest.SetActive(Grid.Instance.Objects.ObjectAt(this.GridPosition + new Vector3(-1, 0, 0)) as GridPath != null);
-		EdgeEast.SetActive(Grid.Instance.Objects.ObjectAt(this.GridPosition + new Vector3(1, 0, 0)) as GridPath != null);
+		GridObject[] adj = Grid.Instance.Objects.AdjacentObjects(GetPosition(),true);
+        EdgeEast.SetActive(adj[0] as GridPath != null);
+		EdgeWest.SetActive(adj[1] as GridPath != null);
+		EdgeNorth.SetActive(adj[2] as GridPath != null);
+		EdgeSouth.SetActive(adj[3] as GridPath != null);
 
-		CornerSouthWest.SetActive(Grid.Instance.Objects.ObjectAt(this.GridPosition + new Vector3(-1, 0, -1)) as GridPath != null);
-		CornerSouthEast.SetActive(Grid.Instance.Objects.ObjectAt(this.GridPosition + new Vector3(1, 0, -1)) as GridPath != null);
-		CornerNorthWest.SetActive(Grid.Instance.Objects.ObjectAt(this.GridPosition + new Vector3(-1, 0, 1)) as GridPath != null);
-		CornerNorthEast.SetActive(Grid.Instance.Objects.ObjectAt(this.GridPosition + new Vector3(1, 0, 1)) as GridPath != null);
+		CornerNorthEast.SetActive(adj[4] as GridPath != null);
+		CornerSouthWest.SetActive(adj[5] as GridPath != null);
+		CornerNorthWest.SetActive(adj[6] as GridPath != null);
+		CornerSouthEast.SetActive(adj[7] as GridPath != null);
 	}
 }

@@ -102,29 +102,22 @@ public class GridObjects : IEnumerable {
 		throw new NotImplementedException();
 	}
 
-	public List<GridObject> AdjacentObjects(Vector3 location, bool corners = false) {
-		List<GridObject> objects = new List<GridObject>();
+	public GridObject[] AdjacentObjects(Vector3 location, bool corners = false) {
+		//List<GridObject> objects = new List<GridObject>();
+		GridObject[] objects = new GridObject[corners ? 8 : 4];
 
 		float step = Grid.Instance.GridStepXZ;
 
-		if (OccupiedAt(location + new Vector3(1, 0, 0) * step))
-			objects.Add(ObjectAt(location + new Vector3(1, 0, 0) * step));
-		if (OccupiedAt(location + new Vector3(-1, 0, 0) * step))
-			objects.Add(ObjectAt(location + new Vector3(-1, 0, 0) * step));
-		if (OccupiedAt(location + new Vector3(0, 0, 1) * step))
-			objects.Add(ObjectAt(location + new Vector3(0, 0, 1) * step));
-		if (OccupiedAt(location + new Vector3(0, 0, -1) * step))
-			objects.Add(ObjectAt(location + new Vector3(0, 0, -1) * step));
+		objects[0] = ObjectAt(location + new Vector3(1,0,0) * step); // east
+		objects[1] = ObjectAt(location + new Vector3(-1,0,0) * step); // west
+		objects[2] = ObjectAt(location + new Vector3(0,0,1) * step); // north
+		objects[3] = ObjectAt(location + new Vector3(0,0,-1) * step); // south
 		
 		if (corners) {
-			if (OccupiedAt(location + new Vector3(1, 0, 1) * step))
-				objects.Add(ObjectAt(location + new Vector3(1, 0, 1) * step));
-			if (OccupiedAt(location + new Vector3(-1, 0, -1) * step))
-				objects.Add(ObjectAt(location + new Vector3(-1, 0, -1) * step));
-			if (OccupiedAt(location + new Vector3(1, 0, -1) * step))
-				objects.Add(ObjectAt(location + new Vector3(1, 0, -1) * step));
-			if (OccupiedAt(location + new Vector3(-1, 0, 1) * step))
-				objects.Add(ObjectAt(location + new Vector3(-1, 0, 1) * step));
+			objects[4] = (ObjectAt(location + new Vector3(1, 0, 1) * step)); // northeast
+			objects[5] = (ObjectAt(location + new Vector3(-1, 0, -1) * step)); // southwest
+			objects[6] = (ObjectAt(location + new Vector3(1, 0, -1) * step)); // northwest
+			objects[7] = (ObjectAt(location + new Vector3(-1, 0, 1) * step)); // southeast
 		}
 		
 		return objects;
