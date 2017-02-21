@@ -107,18 +107,30 @@ public abstract class GridObject : NetworkBehaviour {
 				return null;
 		}
 		for (int i = 0; i < OccupiedOffsets.Length; i++) {
-			ReturnList[i] *= Grid.Instance.GridStepXZ;
+			ReturnList[i].x *= Grid.Instance.GridStepXZ;
+			ReturnList[i].z *= Grid.Instance.GridStepXZ;
+			ReturnList[i].y *= Grid.Instance.GridStepY;
 		}
 		return ReturnList;
 	}
-
-	public virtual bool Valid(Vector3 position, Direction direction, int player) {
-		return Grid.Instance.IsValid(position, RotatedOffsets(direction), player);
+	
+	public virtual bool Valid (Vector3 position, Direction direction, int player) {
+		Vector3[] offsets = RotatedOffsets(direction);
+		/*
+		for (int i = 0; i < offsets.Length; i ++) {
+			Vector3 offset = RotatedOffsets(direction)[i];
+			//offset.x *= Grid.Instance.GridStepXZ;
+			//offset.z *= Grid.Instance.GridStepXZ;
+			//offset.y *= Grid.Instance.GridStepY;
+		}
+		*/
+		return Grid.Instance.IsValid(position,offsets,player);
 	}
 
 	private void OnDrawGizmos() {
 		foreach (Vector3 offset in RotatedOffsets()) {
-			Gizmos.DrawCube(offset + GridPosition, new Vector3(1f, 0.5f, 1f));
+			Gizmos.DrawWireCube(offset + GetPosition(), new Vector3(Grid.Instance.GridStepXZ,Grid.Instance.GridStepY,Grid.Instance.GridStepXZ));
+			//UnityEditor.Handles.Label(offset + GetPosition(),(offset + GetPosition()).ToString());
 		}
 		//UnityEditor.Handles.color = Color.white;
 		//UnityEditor.Handles.Label(GridPosition + Vector3.up * 2,((int)Direction).ToString());
