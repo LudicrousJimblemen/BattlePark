@@ -22,7 +22,7 @@ public class Player : NetworkBehaviour {
 	public int PlayerNumber;
 
 	private void Start() {
-		if(!isLocalPlayer)
+		if (!isLocalPlayer)
 			return;
 		Camera.main.transform.position = transform.position;
 		Camera.main.transform.rotation = transform.rotation;
@@ -32,36 +32,33 @@ public class Player : NetworkBehaviour {
 		// set hotbar
 		// just like last time, TODO make it dynamic
 		ObjectIndices = new int[9];
-		for(int i = 0; i < 9; i++) {
+		for (int i = 0; i < 9; i++) {
 			ObjectIndices[i] = GameManager.Instance.Objects[i] == null ? -1 : i;
 		}
 	}
-	private void Update() {
-		name = Username;
-	}
 
-	public void PlaceObject(int hotbarIndex,Vector3? position,int direction) {
-		if(position == null || ObjectIndices[hotbarIndex] == -1 || !getObject(hotbarIndex).Valid (position.Value, (Direction)direction, PlayerNumber))
+	public void PlaceObject(int hotbarIndex, Vector3? position, int direction) {
+		if (position == null || ObjectIndices[hotbarIndex] == -1 || !getObject(hotbarIndex).Valid(position.Value, (Direction) direction, PlayerNumber))
 			return;
 		// boy it sure is a good thing that return is on a new line
 		// really breaks up that one-liner into sizeable chunks
-		print (hotbarIndex);
-        CmdPlaceObject (ObjectIndices[hotbarIndex], position.Value, direction, PlayerNumber);
+		print(hotbarIndex);
+		CmdPlaceObject(ObjectIndices[hotbarIndex], position.Value, direction, PlayerNumber);
 	}
 
-	public GridObject getObject (int hotbarIndex) {
+	public GridObject getObject(int hotbarIndex) {
 		return GameManager.Instance.Objects[ObjectIndices[hotbarIndex]];
-    }
-	
+	}
+
 	[Command]
 	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
 		GameObject newObject = Instantiate(GameManager.Instance.Objects[ObjIndex].gameObject,
 										   Grid.Instance.SnapToGrid(position, playerNumber),
-										   Quaternion.Euler(-90,0,direction * 90),
+										   Quaternion.Euler(-90, 0, direction * 90),
 										   GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform
 										   ) as GameObject;
 		newObject.name = GameManager.Instance.Objects[ObjIndex].gameObject.name;
-		GridObject obj = newObject.GetComponent<GridObject> ();
+		GridObject obj = newObject.GetComponent<GridObject>();
 		obj.GridPosition = position;
 		obj.Direction = (Direction) direction;
 		obj.Owner = playerNumber;
@@ -69,8 +66,8 @@ public class Player : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdSpawnPerson (Vector3 position) {
-		GameObject person = Instantiate(GameManager.Instance.PersonObj,position,Quaternion.identity) as GameObject;
+	public void CmdSpawnPerson(Vector3 position) {
+		GameObject person = Instantiate(GameManager.Instance.PersonObj, position, Quaternion.identity) as GameObject;
 		NetworkServer.Spawn(person);
 		person.GetComponent<AIPath>().target = FindObjectOfType<AstarPath>().transform;
 	}

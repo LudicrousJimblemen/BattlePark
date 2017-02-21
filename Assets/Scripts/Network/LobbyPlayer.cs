@@ -18,23 +18,23 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 		if (!isLocalPlayer) {
 			return false;
 		}
-		
+
 		readyToBegin = !readyToBegin;
 		if (readyToBegin) {
 			SendReadyToBeginMessage();
-			LogChat(string.Format(LanguageManager.GetString("chat.userReadied"),Username),LogType.Ready);
+			LogChat(string.Format(LanguageManager.GetString("chat.userReadied"), Username), LogType.Ready);
 		} else {
 			SendNotReadyToBeginMessage();
-			LogChat(string.Format(LanguageManager.GetString("chat.userUnreadied"),Username),LogType.Unready);
+			LogChat(string.Format(LanguageManager.GetString("chat.userUnreadied"), Username), LogType.Unready);
 		}
 		return readyToBegin;
 	}
-	
+
 	/// <summary>
 	/// Chats.
 	/// </summary>
 	public void Chat(string message) {
-		CmdSendChat(string.Format("<<color=#e0e0e0ff>{0}</color>> ",Username) + message);
+		CmdSendChat(string.Format("<<color=#e0e0e0ff>{0}</color>> ", Username) + message);
 	}
 
 	public enum LogType {
@@ -45,7 +45,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	}
 	public void LogChat(string message, LogType logType) {
 		string color; // a hex color, or a predefined color
-		switch(logType){
+		switch (logType) {
 			case LogType.Join:
 				color = "lightblue";
 				break;
@@ -62,9 +62,9 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 				color = "white";
 				break;
 		}
-		CmdSendChat(string.Format ("<color={0}>{1}</color>", color, message));
+		CmdSendChat(string.Format("<color={0}>{1}</color>", color, message));
 	}
-	
+
 	public override void OnStartLocalPlayer() {
 		if (!isLocalPlayer) {
 			return;
@@ -73,12 +73,12 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 		BattlePark.GUI.LobbyGUI.Instance.LobbyReadyButton.interactable = true;
 		CmdUpdateInfo(BattlePark.GUI.LobbyGUI.Instance.Username);
 	}
-	
+
 	[Command]
 	public void CmdSendChat(string message) {
 		RpcSendChat(message);
 	}
-	
+
 	[ClientRpc]
 	public void RpcSendChat(string message) {
 		BattlePark.GUI.LobbyGUI.Instance.AddChat(message);
@@ -87,10 +87,10 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
 	// use for other stuff to update
 	// right now only updates username
-	[Command] 
+	[Command]
 	public void CmdUpdateInfo(string username) {
 		Username = username;
-		LogChat(string.Format(LanguageManager.GetString("chat.userJoined"),Username),LogType.Join);
+		LogChat(string.Format(LanguageManager.GetString("chat.userJoined"), Username), LogType.Join);
 	}
 
 	[ClientRpc]
