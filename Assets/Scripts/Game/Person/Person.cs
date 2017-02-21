@@ -38,7 +38,7 @@ public class Person : NetworkBehaviour {
 	[SyncVar]
 	public float Suspicion = 0; // criminals don't exist, that's illegal
 
-	public SyncListStruct<Thought> Thoughts = new SyncListStruct<Thought>();
+	public ThoughtSyncList Thoughts = new ThoughtSyncList();
 
 	private void Awake() {
 		Reroll();
