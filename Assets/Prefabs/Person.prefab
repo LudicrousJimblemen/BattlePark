@@ -481,15 +481,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6faf5c12eef7777479e5575863ae507b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Bfpfopp Oubizp
-  Money: 8712
-  Hunger: 18.707695
-  Thirst: 2.4445171
-  Nausea: 0.48661232
-  Bathroomosity: 0.8778143
-  Happiness: 77.45175
-  Anger: 4.7607603
-  Suspicion: 0.14601815
+  Name: Greg
+  Money: 0
+  Hunger: 0
+  Thirst: 0
+  Nausea: 0
+  Bathroomosity: 0
+  Happiness: 100
+  Anger: 0
+  Suspicion: 0
 --- !u!114 &114379205470402786
 MonoBehaviour:
   m_ObjectHideFlags: 1
