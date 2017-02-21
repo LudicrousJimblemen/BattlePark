@@ -10,6 +10,8 @@ public abstract class GridObject : NetworkBehaviour {
 
 	public abstract Vector3[] OccupiedOffsets { get; }
 
+	public virtual int Cost { get { return 0; } }
+
 	public virtual bool PlaceMultiple { get { return false; } }
 	public virtual bool CanRotate { get { return true; } }
 

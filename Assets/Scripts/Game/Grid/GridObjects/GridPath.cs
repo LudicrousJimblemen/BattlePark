@@ -12,6 +12,8 @@ public class GridPath : GridObject {
 	public GameObject CornerNorthWest;
 	public GameObject CornerNorthEast;
 
+	public override int Cost { get { return 1000; } }
+
 	public override Vector3[] OccupiedOffsets {
 		get {
 			return new[] { Vector3.zero };

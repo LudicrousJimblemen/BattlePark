@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GridSculpture : GridObject {
+	public override int Cost { get { return 20000; } }
+
 	public override Vector3[] OccupiedOffsets {
 		get {
 			return new[] {
