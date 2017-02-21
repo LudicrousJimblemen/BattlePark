@@ -5,16 +5,39 @@ using System.Collections;
 public abstract class GridObject : NetworkBehaviour {
 	#region Data Variables
 
+	/// <summary>
+	/// Direction in which the grid object faces.
+	/// </summary>
 	public Direction Direction { get; set; }
+	/// <summary>
+	/// Position of the grid object in terms of grid coordinates.
+	/// </summary>
 	public Vector3 GridPosition { get; set; }
 
+	/// <summary>
+	/// Positions - relative to the origin - which the grid object occupies.
+	/// Used for validity checking when other objects are being placed.
+	/// </summary>
 	public abstract Vector3[] OccupiedOffsets { get; }
 
+	/// <summary>
+	/// Cost of the grid object, in cents.
+	/// </summary>
 	public virtual int Cost { get { return 0; } }
 
+	/// <summary>
+	/// If the grid object is often placed multiple times.
+	/// Used for objects like paths so that a user need not summon a placeholder multiple times.
+	/// </summary>
 	public virtual bool PlaceMultiple { get { return false; } }
+	/// <summary>
+	/// If the grid object is allowed to rotate when being placed.
+	/// </summary>
 	public virtual bool CanRotate { get { return true; } }
 
+	/// <summary>
+	/// The player number of the owner of this grid object.
+	/// </summary>
 	public int Owner;
 
 	#endregion
