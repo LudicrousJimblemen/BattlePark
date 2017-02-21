@@ -6,10 +6,10 @@ public abstract class VendorFood : VendorItem {
 	[Range(0, 100)]
 	public float Explosivosity;
 	
-	public abstract float Saltiness { get { return 0; } }
-	public abstract float Sourness { get { return 0; } }
-	public abstract float Sweetness { get { return 0; } }
-	public abstract float Bitterness { get { return 0; } }
-	public abstract float Juiciness { get { return 0; } }
-	public abstract float Spiciness { get { return 0; } }
+	public virtual float Saltiness { get { return 0; } }
+	public virtual float Sourness { get { return 0; } }
+	public virtual float Sweetness { get { return 0; } }
+	public virtual float Bitterness { get { return 0; } }
+	public virtual float Juiciness { get { return 0; } }
+	public virtual float Spiciness { get { return 0; } }
 }
