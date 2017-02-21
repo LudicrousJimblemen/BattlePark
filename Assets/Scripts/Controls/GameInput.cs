@@ -10,7 +10,7 @@ public class GameInput : MonoBehaviour {
 	private GridObject placeholderGridObject;
 	private Vector3[] placeholderOffsets;
 
-	Vector3? mousePosition = null;
+	Vector3? mousePosition;
 	Vector3 rawMouse;
 
 	Player player;
@@ -28,7 +28,7 @@ public class GameInput : MonoBehaviour {
 		VerticalConstraint = Instantiate(VerticalConstraint, transform);
 		VerticalConstraint.gameObject.SetActive(false);
 		Placeholder = Instantiate(Placeholder) as MeshFilter;
-		placeholderOffsets = new Vector3[] { Vector3.zero };
+		placeholderOffsets = new [] { Vector3.zero };
 	}
 
 	private void Update() {
@@ -42,7 +42,7 @@ public class GameInput : MonoBehaviour {
 				hotbarIndex = i;
 				placeholderGridObject = GameManager.Instance.Objects[player.ObjectIndices[i]];
 				Placeholder.mesh = placeholderGridObject.GetComponent<MeshFilter>().sharedMesh;
-				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction) direction);
+				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction)direction);
 				break;
 			}
 		}
@@ -54,14 +54,14 @@ public class GameInput : MonoBehaviour {
 		bool verticalConstraint = Input.GetKey(KeyCode.LeftControl);
 		VerticalConstraint.gameObject.SetActive(verticalConstraint);
 		RaycastHit hit;
-		if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit,Mathf.Infinity,verticalConstraint ? Grid.Instance.VerticalConstraintRaycastLayerMask : Grid.Instance.RaycastLayerMask)) {
+		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, verticalConstraint ? Grid.Instance.VerticalConstraintRaycastLayerMask : Grid.Instance.RaycastLayerMask)) {
 			Vector3 constraintPos = mousePosition ?? Vector3.zero;
-			if(VerticalConstraint) {
+			if (VerticalConstraint) {
 				constraintPos.y = hit.point.y;
 			}
 			mousePosition = verticalConstraint ? constraintPos : hit.point;
 			rawMouse = mousePosition.Value;
-			mousePosition = Grid.Instance.SnapToGrid(mousePosition.Value,player.PlayerNumber);
+			mousePosition = Grid.Instance.SnapToGrid(mousePosition.Value, player.PlayerNumber);
 		} else {
 			mousePosition = null;
 			Placeholder.gameObject.SetActive(false);
@@ -75,7 +75,7 @@ public class GameInput : MonoBehaviour {
 				} else if (direction < 0) {
 					direction = 3;
 				}
-				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction) direction);
+				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction)direction);
 			}
 			if (!verticalConstraint) {
 				Vector3 corrected = mousePosition ?? Vector3.zero;
@@ -87,11 +87,11 @@ public class GameInput : MonoBehaviour {
 			}
 			if (mousePosition != null) {
 				Placeholder.transform.position = mousePosition.Value;
-				Placeholder.transform.rotation = Quaternion.Euler(-90, 0, (int) direction * 90);
+				Placeholder.transform.rotation = Quaternion.Euler(-90, 0, (int)direction * 90);
 			} else {
 				Placeholder.gameObject.SetActive(false);
 			}
-			bool valid = mousePosition != null && player.getObject(hotbarIndex).Valid(mousePosition.Value,(Direction)direction,player.PlayerNumber);
+			bool valid = mousePosition != null && player.getObject(hotbarIndex).Valid(mousePosition.Value, (Direction)direction, player.PlayerNumber);
 			Placeholder.GetComponent<MeshRenderer>().material.SetColor("_RimColor", valid ? ValidColor : InvalidColor);
 			if (Input.GetMouseButtonDown(0)) {
 				if (valid) {
@@ -99,13 +99,13 @@ public class GameInput : MonoBehaviour {
 						player.PlaceObject(hotbarIndex, mousePosition, direction);
 						if (!GameManager.Instance.Objects[player.ObjectIndices[hotbarIndex]].PlaceMultiple) {
 							hotbarIndex = -1;
-							placeholderOffsets = new Vector3[] { Vector3.zero };
+							placeholderOffsets = new [] { Vector3.zero };
 						}
 					}
 				}
 			}
 		}
-		if(Input.GetMouseButtonDown(1)) {
+		if (Input.GetMouseButtonDown(1)) {
 			player.CmdSpawnPerson(rawMouse);
 		}
 	}
