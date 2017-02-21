@@ -6,7 +6,7 @@ public struct Thought {
 	public string[] Parameters { get; private set; }
 
 	public Thought(string thought, params string[] parameters) {
-		Time = DateTime.Today;
+		this.Time = DateTime.Today;
 		this.ThoughtString = thought;
 		this.Parameters = parameters;
 	}

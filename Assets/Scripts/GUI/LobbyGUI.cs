@@ -54,14 +54,14 @@ namespace BattlePark.GUI {
 			CreateGameButton.onClick.AddListener(() => {
 				Client.Instance.StartMatchMaker();
 				AnimatePanel(CreateGamePanel, 1);
-				Username = PlayerPrefs.GetString("Username", "Player");
+				Username = PlayerPrefs.GetString("username", "Player");
 				CreateGameUsernameInputField.text = Username;
 				CreateGameRoomNameInputField.text = String.Format(LanguageManager.GetString("lobby.defaultRoomName"), Username);
 			});
 			FindGameButton.onClick.AddListener(() => {
 				Client.Instance.StartMatchMaker();
 				PopulateServerList();
-				Username = PlayerPrefs.GetString("Username","Player");
+				Username = PlayerPrefs.GetString("username", "Player");
 				FindGameUsernameInputField.text = Username;
 			});
 			ExitButton.onClick.AddListener(Application.Quit);
@@ -70,13 +70,13 @@ namespace BattlePark.GUI {
 			CreateGameCreateRoomButton.onClick.AddListener(CreateMatch);
 			CreateGameUsernameInputField.onEndEdit.AddListener(input => {
 				Username = input;
-				PlayerPrefs.SetString("Username",Username);
+				PlayerPrefs.SetString("username", Username);
 			});
 
 			FindGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
 			FindGameUsernameInputField.onEndEdit.AddListener(input => {
 				Username = input;
-				PlayerPrefs.SetString("Username",Username);
+				PlayerPrefs.SetString("username", Username);
 			});
 
 			LobbyLeaveButton.onClick.AddListener(() => 
@@ -96,10 +96,10 @@ namespace BattlePark.GUI {
 			});
 			LobbyChatInputField.onEndEdit.AddListener(input => {
 				if (Input.GetKey(KeyCode.Return) && input != "") {
-      				Client.Instance.localPlayer.Chat(input);
-      				LobbyChatInputField.text = String.Empty;
-      			}
-				EventSystem.current.SetSelectedGameObject(LobbyChatInputField.gameObject,null);
+					Client.Instance.localPlayer.Chat(input);
+					LobbyChatInputField.text = String.Empty;
+				}
+				EventSystem.current.SetSelectedGameObject(LobbyChatInputField.gameObject, null);
 				LobbyChatInputField.OnPointerClick(new PointerEventData(EventSystem.current));
 			});
 		}
@@ -169,18 +169,18 @@ namespace BattlePark.GUI {
 		protected override void Update() {
 			base.Update();
 			string output = String.Empty;
-			for (int i = 0; i < Client.Instance.lobbySlots.Length; i ++) {
+			for (int i = 0; i < Client.Instance.lobbySlots.Length; i++) {
 				NetworkLobbyPlayer player = Client.Instance.lobbySlots[i];
-				if(player == null)
+				if (player == null)
 					continue;
-				output += String.Format("<color=#{0}>{1}</color>\n",player.readyToBegin ? "ffffffff" : "ccccccff",player.GetComponent<LobbyPlayer>().Username);
+				output += String.Format("<color=#{0}>{1}</color>\n", player.readyToBegin ? "ffffffff" : "ccccccff", player.GetComponent<LobbyPlayer>().Username);
 			}		
 			LobbyUsersPanelText.text = output;
 		}
 	
 		public void AddChat(string message) {
 			string text = "";
-			if(LobbyChatPanelText.text != "")
+			if (LobbyChatPanelText.text != "")
 				text += "\n";
 			text += message;
 			LobbyChatPanelText.text += text;

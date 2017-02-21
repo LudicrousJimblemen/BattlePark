@@ -98,7 +98,7 @@ public class GridObjects : IEnumerable {
 	/// </summary>
 	/// <param name="location">The position to test, y value automagically ignored</param>
 	/// <returns>True if the test is true, yeah</returns>
-	public bool HasVerticalClearance (Vector3 location) {
+	public bool HasVerticalClearance(Vector3 location) {
 		throw new NotImplementedException();
 	}
 
@@ -108,16 +108,16 @@ public class GridObjects : IEnumerable {
 
 		float step = Grid.Instance.GridStepXZ;
 
-		objects[0] = ObjectAt(location + new Vector3(1,0,0) * step); // east
-		objects[1] = ObjectAt(location + new Vector3(-1,0,0) * step); // west
-		objects[2] = ObjectAt(location + new Vector3(0,0,1) * step); // north
-		objects[3] = ObjectAt(location + new Vector3(0,0,-1) * step); // south
+		objects[0] = ObjectAt(location + new Vector3(-1, 0, 0) * step); // west
+		objects[1] = ObjectAt(location + new Vector3(1, 0, 0) * step); // east
+		objects[2] = ObjectAt(location + new Vector3(0, 0, -1) * step); // south
+		objects[3] = ObjectAt(location + new Vector3(0, 0, 1) * step); // north
 		
 		if (corners) {
-			objects[4] = (ObjectAt(location + new Vector3(1, 0, 1) * step)); // northeast
-			objects[5] = (ObjectAt(location + new Vector3(-1, 0, -1) * step)); // southwest
+			objects[4] = (ObjectAt(location + new Vector3(-1, 0, -1) * step)); // southwest
+			objects[5] = (ObjectAt(location + new Vector3(-1, 0, 1) * step)); // northwest
 			objects[6] = (ObjectAt(location + new Vector3(1, 0, -1) * step)); // southeast
-			objects[7] = (ObjectAt(location + new Vector3(-1, 0, 1) * step)); // northwest
+			objects[7] = (ObjectAt(location + new Vector3(1, 0, 1) * step)); // northeast
 		}
 		
 		return objects;

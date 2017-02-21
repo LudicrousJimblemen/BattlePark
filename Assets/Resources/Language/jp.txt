@@ -57,6 +57,8 @@
 	"!person.thoughts.wantToGoHome.strong": "I really want to go home.",
 	"!person.thoughts.wantToGoHome.ludicrous": "Please let me go home.",
 	
+	"!vendorItems.macaroni": "Macaroni",
+	
 	"!gridObjects.Gate":"Gate",
 	"!gridObjects.Fence":"Fence",
 	"!gridObjects.Path":"Path",

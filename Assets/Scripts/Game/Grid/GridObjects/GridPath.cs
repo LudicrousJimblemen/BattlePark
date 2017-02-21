@@ -45,21 +45,21 @@ public class GridPath : GridObject {
 	public override bool CanRotate { get { return false; } }
 
 	public void UpdateMesh() {
-		GridObject[] adj = Grid.Instance.Objects.AdjacentObjects(GetPosition(),true);
+		GridObject[] adj = Grid.Instance.Objects.AdjacentObjects(GetPosition(), true);
 		
-		bool E = adj[0] as GridPath != null;
-		bool W = adj[1] as GridPath != null;
-		bool N = adj[2] as GridPath != null;
-		bool S = adj[3] as GridPath != null;
+		bool W = adj[0] as GridPath != null;
+		bool E = adj[1] as GridPath != null;
+		bool S = adj[2] as GridPath != null;
+		bool N = adj[3] as GridPath != null;
 		
-		EdgeEast.SetActive(E);
 		EdgeWest.SetActive(W);
-		EdgeNorth.SetActive(N);
+		EdgeEast.SetActive(E);
 		EdgeSouth.SetActive(S);
+		EdgeNorth.SetActive(N);
 
-		CornerNorthEast.SetActive(adj[4] as GridPath != null && N && E);
-		CornerSouthWest.SetActive(adj[5] as GridPath != null && S && W);
+		CornerSouthWest.SetActive(adj[4] as GridPath != null && S && W);
+		CornerNorthWest.SetActive(adj[5] as GridPath != null && N && W);
 		CornerSouthEast.SetActive(adj[6] as GridPath != null && S && E);
-		CornerNorthWest.SetActive(adj[7] as GridPath != null && N && W);
+		CornerNorthEast.SetActive(adj[7] as GridPath != null && N && E);
 	}
 }
