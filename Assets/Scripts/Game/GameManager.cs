@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour {
 
 	public GridObject[] Objects;
 	public List<Person> Guests;
+	
+	// Discord is bad software because they denied our request to use Discord GameBridge.
+	public List<ChatMessage> Chat;
 
 	private void Awake() {
 		if(FindObjectsOfType<GameManager>().Length > 1) {

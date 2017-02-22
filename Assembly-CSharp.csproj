@@ -152,6 +152,7 @@
     <Compile Include="Assets\Scripts\Game\VendorItems\VendorFoods\VendorMacaroni.cs" />
     <Compile Include="Assets\Scripts\Game\VendorProduct.cs" />
     <Compile Include="Assets\Scripts\GridOverlay.cs" />
+    <Compile Include="Assets\Scripts\Network\ChatMessage.cs" />
     <Compile Include="Assets\Scripts\Network\Client.cs" />
     <Compile Include="Assets\Scripts\Network\LobbyPlayer.cs" />
     <Compile Include="Assets\Scripts\Network\Player.cs" />
