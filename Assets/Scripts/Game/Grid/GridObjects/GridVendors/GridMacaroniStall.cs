@@ -20,7 +20,7 @@ public class GridMacaroniStall : GridVendor {
 		base.OnPlaced();
 		
 		Products = new List<VendorProduct> {
-			new VendorProduct { Cost = 150, Explosivosity = 0, Item = new VendorMacaroni() }
+			new VendorProduct { Cost = 150, Item = new VendorMacaroni() }
 		};
 	}
 }
