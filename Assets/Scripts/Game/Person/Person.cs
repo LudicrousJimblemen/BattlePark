@@ -9,7 +9,7 @@ public class Person : NetworkBehaviour {
 	public string Name = "greg"; // greg's world
 
 	/// <summary>
-	/// Represents how much money a person has in dollarydoos.
+	/// Represents how much money a person has in cents.
 	/// </summary>
 	[Range(0, Int32.MaxValue)]
 	[SyncVar]
