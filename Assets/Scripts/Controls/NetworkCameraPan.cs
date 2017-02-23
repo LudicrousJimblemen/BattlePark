@@ -66,10 +66,8 @@ public class NetworkCameraPan : NetworkBehaviour {
 		// print(angle);
 		float y = transform.position.y;
 		float flatDistToPivot = angle * y / (Mathf.PI / 2 - angle);
-		Vector3 flatForward = transform.forward;
-		flatForward.y = 0;
-		Vector3 flatPos = transform.position;
-		flatPos.y = 0;
+		Vector3 flatForward = transform.forward.SetY(0);
+		Vector3 flatPos = transform.position.SetY(0);
 		return flatPos + flatForward.normalized * flatDistToPivot;
 	}
 }

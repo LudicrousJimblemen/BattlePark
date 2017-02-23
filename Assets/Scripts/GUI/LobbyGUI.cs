@@ -73,7 +73,13 @@ namespace BattlePark.GUI {
 				PlayerPrefs.SetString("username", Username);
 			});
 
-			FindGameBackButton.onClick.AddListener(() => AnimatePanel(MainPanel, -1));
+			FindGameBackButton.onClick.AddListener(() => {
+				for(int i = 2; i < FindGamePanel.transform.childCount; i++) {
+					Destroy(FindGamePanel.transform.GetChild(i).gameObject);
+				}
+				AnimatePanel(MainPanel,-1);
+
+            });
 			FindGameUsernameInputField.onEndEdit.AddListener(input => {
 				Username = input;
 				PlayerPrefs.SetString("username", Username);
@@ -117,11 +123,7 @@ namespace BattlePark.GUI {
 	
 		private void PopulateServerList() {
 			Client.Instance.ListMatches(6, (listSuccess, listExtendedInfo, matches) => {
-				if (listSuccess) {
-					for (int i = 2; i < FindGamePanel.transform.childCount; i++) {
-						Destroy(FindGamePanel.transform.GetChild(i).gameObject);
-					}
-					
+				if (listSuccess) {					
 					if (matches.Count == 0) {
 						GameObject notFound = (GameObject)Instantiate(ServerButtonPrefab);
 						notFound.GetComponentInChildren<Text>().text = LanguageManager.GetString("titleScreen.noMatchesFound");
