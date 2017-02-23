@@ -8,16 +8,19 @@ public static class Extensions {
 	public static Vector3 SetX(this Vector3 vec,float Value) {
 		Vector3 ret = vec;
 		ret.x = Value;
+		vec = ret;
 		return ret;
 	}
 	public static Vector3 SetY(this Vector3 vec,float Value) {
 		Vector3 ret = vec;
 		ret.y = Value;
+		vec = ret;
 		return ret;
 	}
 	public static Vector3 SetZ(this Vector3 vec,float Value) {
 		Vector3 ret = vec;
 		ret.z = Value;
+		vec = ret;
 		return ret;
 	}
 	#endregion
