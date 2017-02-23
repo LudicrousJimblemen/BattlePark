@@ -52,7 +52,6 @@ public class Person : NetworkBehaviour {
 
 	private void Start() {
 		GameManager.Instance.Guests.Add(this);
-		CmdDesire(DesireType.WantFood, typeof(VendorMacaroni));
 	}
 
 	private void Update() {
