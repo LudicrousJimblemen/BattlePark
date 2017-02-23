@@ -40,10 +40,26 @@ public class Person : NetworkBehaviour {
 
 	public ThoughtSyncList Thoughts = new ThoughtSyncList();
 
+	private Animator animator;
+	
+	private Vector3 previousLocation;
+	
 	private void Awake() {
+		animator = GetComponent<Animator>();
+		previousLocation = transform.position;
 		Reroll();
 	}
 
+	private void Start() {
+		GameManager.Instance.Guests.Add(this);
+		CmdThink("person.thoughts.wantFood.ludicrous", "MINDBLOWING MACARONI");
+	}
+
+	private void Update() {
+		animator.SetFloat("Speed", (transform.position - previousLocation).sqrMagnitude * 80);
+		previousLocation = transform.position;
+	}
+	
 	private void Reroll() {
 		Name = GenerateName();
 		Money = UnityEngine.Random.Range(2000, 10001);
@@ -55,11 +71,6 @@ public class Person : NetworkBehaviour {
 		Happiness = UnityEngine.Random.Range(50f, 100f);
 		Anger = UnityEngine.Random.Range(0, 5f);
 		Suspicion = UnityEngine.Random.Range(0, 1f);
-	}
-
-	private void Start() {
-		GameManager.Instance.Guests.Add(this);
-		CmdThink("person.thoughts.wantFood.ludicrous", "MINDBLOWING MACARONI");
 	}
 
 	[Command]
