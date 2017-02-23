@@ -48,8 +48,11 @@ public class GameInput : MonoBehaviour {
 		}
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			hotbarIndex = -1;
-			placeholderOffsets = new Vector3[] { Vector3.zero };
+			placeholderOffsets = new [] { Vector3.zero };
 		}
+		
+		GridOverlay.Instance.ShowGrid = hotbarIndex != -1;
+		
 		Placeholder.gameObject.SetActive(hotbarIndex != -1);
 		bool verticalConstraint = Input.GetKey(KeyCode.LeftControl);
 		VerticalConstraint.gameObject.SetActive(verticalConstraint);

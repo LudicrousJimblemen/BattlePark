@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Person : NetworkBehaviour {
-	public string Name = "greg"; // greg's world
+	public string Name = "Greg"; // greg's world
 
 	/// <summary>
 	/// Represents how much money a person has in cents.
@@ -28,12 +28,12 @@ public class Person : NetworkBehaviour {
 	[SyncVar]
 	public float Bathroomosity = 0; // he made sure to take all the rest stops on the highway
 
+	/// <summary>
+	/// 0 is very mad, and 100 is very glad.
+	/// </summary>
 	[Range(0, 100f)]
 	[SyncVar]
-	public float Happiness = 100; // happiest man alive
-	[Range(0, 100f)]
-	[SyncVar]
-	public float Anger = 0; // see above
+	public float Mood = 100; // happiest man alive
 	[Range(0, 100f)]
 	[SyncVar]
 	public float Suspicion = 0; // criminals don't exist, that's illegal
@@ -52,7 +52,7 @@ public class Person : NetworkBehaviour {
 
 	private void Start() {
 		GameManager.Instance.Guests.Add(this);
-		CmdThink("person.thoughts.wantFood.ludicrous", "MINDBLOWING MACARONI");
+		CmdDesire(DesireType.WantFood, typeof(VendorMacaroni));
 	}
 
 	private void Update() {
@@ -67,9 +67,7 @@ public class Person : NetworkBehaviour {
 		Thirst = UnityEngine.Random.Range(0, 15f);
 		Nausea = UnityEngine.Random.Range(0, 2f);
 		Bathroomosity = UnityEngine.Random.Range(0, 10f);
-
-		Happiness = UnityEngine.Random.Range(50f, 100f);
-		Anger = UnityEngine.Random.Range(0, 5f);
+		Mood = UnityEngine.Random.Range(50f, 100f);
 		Suspicion = UnityEngine.Random.Range(0, 1f);
 	}
 
