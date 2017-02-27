@@ -40,11 +40,12 @@ public class Grid : MonoBehaviour {
 			return;
 		}
 		Instance = this;
+	}
+	
+	public void Start() {
 		GenerateMesh(GridSizeX, GridSizeZ, 3); // tempborary
 		AddSpecial();
 		AddRegions();
-	}
-	public void Start() {
 		GameManager.Instance.ParkCenters = parkCenters;
 		GameManager.Instance.ParkGates = parkGates;
 	}
@@ -57,6 +58,11 @@ public class Grid : MonoBehaviour {
 		} else if (checkerboardWidth <= 0) {
 			throw new System.ArgumentOutOfRangeException("checkerboardWidth");
 		}
+		GridOverlay.Instance.StartX = -GridSizeX;
+		GridOverlay.Instance.StartZ = -GridSizeZ;
+		GridOverlay.Instance.GridSizeX = GridSizeX * 2;
+		GridOverlay.Instance.GridSizeZ = GridSizeZ * 2;
+		GridOverlay.Instance.MainStep = GridStepXZ;
 		StartCoroutine(generateMeshCoroutine(xSize, zSize, checkerboardWidth));
 	}
 	
