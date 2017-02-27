@@ -35,6 +35,9 @@ public class Player : NetworkBehaviour {
 		for (int i = 0; i < 9; i++) {
 			ObjectIndices[i] = GameManager.Instance.Objects[i] == null ? -1 : i;
 		}
+		for(int g = 0; g < 2; g++) {
+			ServerSpawnPaths(g, Grid.Instance.GridSizeX, Grid.Instance.GridStepXZ, GameManager.Instance.ParkGates);
+		}
 	}
 
 	public void PlaceObject(int hotbarIndex, Vector3? position, int direction) {
@@ -63,6 +66,17 @@ public class Player : NetworkBehaviour {
 		obj.Direction = (Direction) direction;
 		obj.Owner = playerNumber;
 		NetworkServer.Spawn(newObject);
+	}
+	[Server]
+	public void ServerSpawnPaths (int player, float sizeX, float step, Vector3[] parkGates) {
+		for(int i = 0; i < (int)sizeX / 2; i++) {
+			GridObject path = Instantiate(GameManager.Instance.Objects.First(x => x.GetType() == typeof(GridPath)),
+			parkGates[player] + (player * 2 - 1) * (0.5f + step / 2f + step * i) * Vector3.right,
+			Quaternion.Euler(-90,0,0),
+			GameManager.Instance.PlayerObjectParents[player].transform);
+			path.Owner = player + 1;
+			NetworkServer.Spawn(path.gameObject);
+		}
 	}
 
 	[Command]
