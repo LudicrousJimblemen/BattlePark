@@ -15,10 +15,10 @@ public struct GridRegion {
 		this.Length = length;
 		this.Owner = owner;
 	}
-	public GridRegion(Vector2 v1,Vector2 v2,long owner) {
+	public GridRegion(Vector2 v1, Vector2 v2, long owner) {
 		this.X = v1.x;
 		this.Z = v1.y;
-		this.Width = Mathf.Abs(v2.x-v1.x);
+		this.Width = Mathf.Abs(v2.x - v1.x);
 		this.Length = Mathf.Abs(v2.y - v1.y);
 		this.Owner = owner;
 	}
@@ -37,13 +37,13 @@ public struct GridRegion {
 	public bool Inside(Vector3 position) {
 		return position.x >= X && position.z >= Z && position.x < X + Width && position.z < Z + Length;
 	}
-	public bool Inside (Vector3 position, Vector3[] offsets) {
-		if(!Inside(position)) {
+	public bool Inside(Vector3 position, Vector3[] offsets) {
+		if (!Inside(position)) {
 			//Debug.Log("origin not within valid region");
 			return false;
 		}
-		for(int i = 0; i < offsets.Length; i++) {
-			if(!Inside(offsets[i] + position)) {
+		for (int i = 0; i < offsets.Length; i++) {
+			if (!Inside(offsets[i] + position)) {
 				//Debug.Log(string.Format("index {0} not within valid region",i.ToString()));
 				return false;
 			}
