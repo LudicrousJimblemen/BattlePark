@@ -4,7 +4,7 @@ This is a silly game about amusement parks, explosives, and the sale of ambiguou
 
 # How to Play
 
-To play a game, you must join a server and everyone in the server should be ready, at which point the game will start. From there, you can do essentially nothing useful or entertaining. A large majority of the effort in this project has gone into creating network code rather than focusing on the game itself, so the gameplay is rather lacking.
+There are two ways to get into the game. The first is to create a match, inputting your desired username and room name, and then waiting for others to join. The other is to find a game, inputting your desired username and selecting from a list of created, but not ready, games. From there you can place things. Nice.
 
 ## Camera Controls
 
@@ -19,20 +19,9 @@ To play a game, you must join a server and everyone in the server should be read
 
 ## Object Controls
 
-- <kbd>1</kbd> - summon a new path to place down
-- <kbd>2</kbd> - summon a new sculpture to place down
-- <kbd>Z</kbd> - rotates the currect object anti/counter-clockwise
-- <kbd>X</kbd> - rotates the current object clockwise
+- <kbd>1-9</kbd> - select the object in the same slot as the key, empty until added
+- <kbd>M1</kbd> - place the selected object
+- <kbd>M2</kbd> - spawn a person
+- <kbd>R</kbd> - rotates the current object clockwise
 - <kbd>ctrl</kbd> - allows the object to be placed in the air while held down
 - <kbd>esc</kbd> - cancels placement of the current object
-
-# Starting a server
-
-To start a server, one can simply run the server executable. By default, it hosts on port `6666`, and supports two players. By passing `-port` and `-usercount` as command-line arguments, you can change these values, like so:
-
-```bash
-C:\Users\SimulacrumGuy\Desktop\BattlePark\Server>BattlePark.Server.exe -port 9999 -usercount 4
-```
-
-- `-port` must be in between 0 and 65535.
-- `-usercount` must be 1, 2, or 4.
