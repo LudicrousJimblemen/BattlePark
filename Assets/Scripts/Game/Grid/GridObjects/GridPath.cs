@@ -33,9 +33,9 @@ public class GridPath : GridObject {
 			}
 		}
 		
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				Vector3 nodePos = GetPosition() + new Vector3(-1, 0, -1) + new Vector3(i, 0, j);
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				Vector3 nodePos = GetPosition() + new Vector3(-.75f, 0, -.75f) + new Vector3(1.5f*i, 0, 1.5f*j);
 				Instantiate(GameManager.Instance.PathNode, nodePos, Quaternion.identity, GameObject.FindGameObjectWithTag("PathNode").transform);
 			}
 		}
@@ -51,7 +51,7 @@ public class GridPath : GridObject {
 		bool E = adj[1] as GridPath != null;
 		bool S = adj[2] as GridPath != null;
 		bool N = adj[3] as GridPath != null;
-		
+
 		EdgeWest.SetActive(W);
 		EdgeEast.SetActive(E);
 		EdgeSouth.SetActive(S);

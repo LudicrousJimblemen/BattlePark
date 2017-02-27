@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 	public static GameManager Instance;
-	
 	public Vector3[] ParkCenters;
+	public Vector3[] ParkGates;
 
 	public GameObject[] PlayerObjectParents = new GameObject[2];
 	public GameObject PersonObj;
