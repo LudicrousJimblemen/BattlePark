@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
-using System.Collections;
+﻿using System;
 
-public abstract class VendorItem {
-	// I don't know what to put here.
+[Flags]
+public enum VendorItem : short {
+	None = 0,
+	Macaroni = 2,
+	SaltLick = 4
 }

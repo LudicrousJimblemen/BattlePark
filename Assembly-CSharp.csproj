@@ -123,6 +123,7 @@
      <Compile Include="Assets\Scripts\Controls\GameInput.cs" />
      <Compile Include="Assets\Scripts\Controls\NetworkCameraPan.cs" />
      <Compile Include="Assets\Scripts\DraggablePanel.cs" />
+     <Compile Include="Assets\Scripts\Extensions.cs" />
      <Compile Include="Assets\Scripts\GUI\GUI.cs" />
      <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
      <Compile Include="Assets\Scripts\GUI\Localization\LanguageManager.cs" />
@@ -139,15 +140,15 @@
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridSculpture.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendor.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendors\GridMacaroniStall.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendors\GridSaltStall.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridRegion.cs" />
+     <Compile Include="Assets\Scripts\Game\Person\DesireType.cs" />
      <Compile Include="Assets\Scripts\Game\Person\Person.cs" />
      <Compile Include="Assets\Scripts\Game\Person\PersonManager.cs" />
      <Compile Include="Assets\Scripts\Game\Person\Thought.cs" />
      <Compile Include="Assets\Scripts\Game\Person\ThoughtSyncList.cs" />
      <Compile Include="Assets\Scripts\Game\Person\dynamicobstacle.cs" />
      <Compile Include="Assets\Scripts\Game\VendorItem.cs" />
-     <Compile Include="Assets\Scripts\Game\VendorItems\VendorFood.cs" />
-     <Compile Include="Assets\Scripts\Game\VendorItems\VendorFoods\VendorMacaroni.cs" />
      <Compile Include="Assets\Scripts\Game\VendorProduct.cs" />
      <Compile Include="Assets\Scripts\GridOverlay.cs" />
      <Compile Include="Assets\Scripts\Network\ChatMessage.cs" />

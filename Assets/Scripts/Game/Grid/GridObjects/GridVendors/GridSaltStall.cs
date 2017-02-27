@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class GridMacaroniStall : GridVendor {
-	public override VendorItem AllowedProductFlags { get { return VendorItem.Macaroni; } }
+public class GridSaltStall : GridVendor {
+	public override VendorItem AllowedProductFlags { get { return VendorItem.SaltLick; } }
 	
 	public override VendorItem ProductFlags { get; set; }
 	public override List<VendorProduct> Products { get; set; }
 	
-	public override int Cost { get { return 400000; } }
+	public override int Cost { get { return 350000; } }
 	
 	public override Vector3[] OccupiedOffsets {
 		get {
@@ -22,9 +22,9 @@ public class GridMacaroniStall : GridVendor {
 	public override void OnPlaced() {
 		base.OnPlaced();
 		
-		ProductFlags = VendorItem.Macaroni;
+		ProductFlags = VendorItem.SaltLick;
 		Products = new List<VendorProduct> {
-			new VendorProduct { Cost = 150, Item = VendorItem.Macaroni }
+			new VendorProduct { Cost = 75, Item = VendorItem.SaltLick }
 		};
 	}
 }
