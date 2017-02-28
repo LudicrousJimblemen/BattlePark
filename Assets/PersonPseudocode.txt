@@ -1,0 +1,45 @@
+﻿Properties:
+	Money (0.0 to inf): Gaussian(120.0, 30.0)
+	Energy (0.0 to 100.0): Gaussian(70.0, 20.0)
+	Hunger (0.0 to 100.0): Gaussian(15.0, 4.0)
+	Thirst (0.0 to 100.0): Gaussian(10.0, 5.0)
+	Nausea (0.0 to 100.0): Gaussian(1.0, 0.5)
+	Bathroomosity (0.0 to 100.0): Gaussian(12.0, 6.0)
+
+	List of food types and how much person likes them:
+		Food X (0.0 to 100.0): Gaussian(60.0, 12.0)
+	
+	List of food types and how much the person thinks that they might cost:
+		Food X (0.0 to inf): Gaussian(Food X's base cost + ((Money - 120.0) / 90) * 45.0% of Food X's base cost, 8.0% of Food X's base cost)
+
+	List of souvenir types and how much person likes them:
+		Souvenir X (0.0 to 100.0): Gaussian(40.0, 15.0)
+	
+	List of souvenir types and how much the person thinks that they might cost:
+		Souvenir X (0.0 to inf): Gaussian(Souvenir X's base cost + ((Money - 120.0) / 90) * 45.0% of Souvenir X's base cost, 8.0% of Souvenir X's base cost)
+
+	List of ride types and how much person likes them:
+		Ride X (0.0 to 100.0): Gaussian(65.0, 15.0)
+	
+	List of ride types and how much the person thinks that they might cost:
+		Ride X (0.0 to inf): Gaussian(Ride X's base cost + ((Money - 120.0) / 90) * 45.0% of Ride X's base cost, 8.0% of Ride X's base cost)
+
+When walking:
+	If a bench enters range of vision:
+		Higher likelihood as energy gets lower (0.0% at 55.0, 100.0% at 0.0):
+			Seek bench
+
+	If a vendor enters range of vision:
+		If vendor is a souvenir stall:
+			If the person doesn't have Souvenir X sold at the stall already:
+				Probability of buying is ((-((Souvenir X's cost - person's projected cost of Souvenir X) / person's projected cost of Souvenir X) + 1) / 2) * (1 + ((how much person likes Souvenir X - 50) / 25.0))
+				
+		If vendor is a food stall:
+			If the person doesn't have Food X sold at the stall already:
+				
+
+	Higher likelihood as hunger gets higher (0.0% at 55.0, 100.0% at 100.0):
+		Become very hungry
+
+When sitting on bench:
+	Wait until energy exceeds Gaussian(65.0, 18.0)
