@@ -23,7 +23,7 @@
 	"chat.userJoined": "{0} joined.",
 	"chat.userLeft": "{0} left.",
 	
-	"game.gui.currency": "Moneys",
+	"game.gui.currencyLabel": "Moneys",
 	"game.gui.numericCurrency": "{0}µ",
 	
 	"game.win": "{0} wins!",

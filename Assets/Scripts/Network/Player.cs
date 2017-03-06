@@ -2,9 +2,10 @@
  * everything else is done outside this class and passed into the iris
 */
 
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Linq;
 
 public class Player : NetworkBehaviour {
 	//"hotbar"
@@ -16,6 +17,13 @@ public class Player : NetworkBehaviour {
 	private void UpdateUsername(string newUsername) {
 		Username = newUsername;
 		name = newUsername;
+	}
+
+	[SyncVar(hook = "UpdateMoney")]
+	public int Money;
+	private void UpdateMoney(int newMoney) {
+		Money = newMoney;
+		GameGUI.Instance.Money.text = String.Format(LanguageManager.GetString("game.gui.numericCurrency"), newMoney);
 	}
 
 	[SyncVar]
@@ -35,13 +43,13 @@ public class Player : NetworkBehaviour {
 		for (int i = 0; i < 9; i++) {
 			ObjectIndices[i] = GameManager.Instance.Objects[i] == null ? -1 : i;
 		}
-		for(int g = 0; g < 2; g++) {
+		for (int g = 0; g < 2; g++) {
 			ServerSpawnPaths(g, Grid.Instance.GridSizeX, Grid.Instance.GridStepXZ, GameManager.Instance.ParkGates);
 		}
 	}
 
 	public void PlaceObject(int hotbarIndex, Vector3? position, int direction) {
-		if (position == null || ObjectIndices[hotbarIndex] == -1 || !getObject(hotbarIndex).Valid(position.Value, (Direction) direction, PlayerNumber))
+		if (position == null || ObjectIndices[hotbarIndex] == -1 || !getObject(hotbarIndex).Valid(position.Value, (Direction)direction, PlayerNumber))
 			return;
 		// boy it sure is a good thing that return is on a new line
 		// really breaks up that one-liner into sizeable chunks
@@ -56,24 +64,25 @@ public class Player : NetworkBehaviour {
 	[Command]
 	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
 		GameObject newObject = Instantiate(GameManager.Instance.Objects[ObjIndex].gameObject,
-										   Grid.Instance.SnapToGrid(position, playerNumber),
-										   Quaternion.Euler(-90, 0, direction * 90),
-										   GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform
-										   ) as GameObject;
+			                       Grid.Instance.SnapToGrid(position, playerNumber),
+			                       Quaternion.Euler(-90, 0, direction * 90),
+			                       GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform
+		                       ) as GameObject;
 		newObject.name = GameManager.Instance.Objects[ObjIndex].gameObject.name;
 		GridObject obj = newObject.GetComponent<GridObject>();
 		obj.GridPosition = position;
-		obj.Direction = (Direction) direction;
+		obj.Direction = (Direction)direction;
 		obj.Owner = playerNumber;
 		NetworkServer.Spawn(newObject);
 	}
+	
 	[Server]
-	public void ServerSpawnPaths (int player, float sizeX, float step, Vector3[] parkGates) {
-		for(int i = 0; i < (int)sizeX / 2; i++) {
+	public void ServerSpawnPaths(int player, float sizeX, float step, Vector3[] parkGates) {
+		for (int i = 0; i < (int)sizeX / 2; i++) {
 			GridObject path = Instantiate(GameManager.Instance.Objects.First(x => x.GetType() == typeof(GridPath)),
-			parkGates[player] + (player * 2 - 1) * (0.5f + step / 2f + step * i) * Vector3.right,
-			Quaternion.Euler(-90,0,0),
-			GameManager.Instance.PlayerObjectParents[player].transform);
+				                  parkGates[player] + (player * 2 - 1) * (0.5f + step / 2f + step * i) * Vector3.right,
+				                  Quaternion.Euler(-90, 0, 0),
+				                  GameManager.Instance.PlayerObjectParents[player].transform);
 			path.Owner = player + 1;
 			NetworkServer.Spawn(path.gameObject);
 		}
