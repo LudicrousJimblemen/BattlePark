@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: fb414d576d6c8d24498f640ae439df61
-timeCreated: 1488234577
+guid: 983ad18f1b58f5d4386939e06d69b111
+timeCreated: 1488843559
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: CarRideForward
+    4300000: InfoKiosk
     7400000: Default Take
     9500000: //RootNode
   materials:

@@ -38,8 +38,6 @@ public class Person : NetworkBehaviour {
 	[SyncVar]
 	public float Suspicion = 0; // criminals don't exist, that's illegal
 
-	public ThoughtSyncList Thoughts = new ThoughtSyncList();
-
 	private Animator animator;
 	
 	private Vector3 previousLocation;
@@ -68,11 +66,6 @@ public class Person : NetworkBehaviour {
 		Bathroomosity = UnityEngine.Random.Range(0, 10f);
 		Mood = UnityEngine.Random.Range(50f, 100f);
 		Suspicion = UnityEngine.Random.Range(0, 1f);
-	}
-
-	[Command]
-	public void CmdThink(string thought, params string[] parameters) {
-		Thoughts.Add(new Thought(thought, parameters));
 	}
 
 	private static string GenerateName() {
