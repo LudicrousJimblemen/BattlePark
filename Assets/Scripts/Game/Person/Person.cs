@@ -94,8 +94,8 @@ public class Person : NetworkBehaviour {
 	private void Start() {
 		GameManager.Instance.Guests.Add(this);
 		
-		foreach (var gridObject in Grid.Instance.Objects) {
-			SeenObjects.Add(gridObject);
+		foreach (KeyValuePair<Vector3, GridObject> gridObject in Grid.Instance.Objects) {
+			SeenObjects.Add(gridObject.Value);
 		}
 		
 		Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
@@ -114,7 +114,7 @@ public class Person : NetworkBehaviour {
 				if (foodDesire.Food != null) {
 					aiPath.target = SeenObjects.OfType<GridVendor>()
 						.Where(vendor => vendor.Product is ItemFood)
-						.Where(vendor => vendor.Product.Id == foodDesire.Food)
+						.Where(vendor => vendor.Product.Id == foodDesire.Food.Id)
 						.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
 						.First().transform;
 				} else {

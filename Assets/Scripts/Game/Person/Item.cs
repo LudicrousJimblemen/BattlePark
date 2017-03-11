@@ -1,7 +1,7 @@
 ﻿using System;
 
 public abstract class Item {
-	public int Id { get; private set; }
+	public int Id { get; protected set; }
 	
 	protected string languageId;
 	
@@ -10,7 +10,7 @@ public abstract class Item {
 	public string PluralString { get { return String.Format("vendorItems.{0}.plural", languageId); } }
 	public string IndefiniteString { get { return String.Format("vendorItems.{0}.indefinite", languageId); } }
 	
-	public Money DefaultPrice { get; private set; }
+	public Money DefaultPrice { get; protected set; }
 	
 	public float Explosivosity { get; set; }
 	public Money Price { get; set; }

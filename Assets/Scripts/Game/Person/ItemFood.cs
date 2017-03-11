@@ -1,5 +1,5 @@
 ﻿public class ItemFood : Item {
-	public int ServingSize { get; private set; }
+	public int ServingSize { get; protected set; }
 		
 	public ItemFood(int id, string languageId, Money defaultPrice, int servingSize) {
 		this.Id = id;

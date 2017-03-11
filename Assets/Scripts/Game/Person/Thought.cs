@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class Thought {
-	public DateTime Time { get; }
+	public DateTime Time { get; private set; }
 	
 	public string ThoughtString;
 	public string[] Parameters;

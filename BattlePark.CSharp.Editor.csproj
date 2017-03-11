@@ -151,8 +151,11 @@
     <None Include="Assets\AstarPathfindingProject\Readme_upgrading.txt" />
     <None Include="Assets\AstarPathfindingProject\link.xml" />
     <None Include="Assets\Fonts\OFL.txt" />
+    <None Include="Assets\GridObject inheritance.txt" />
+    <None Include="Assets\PersonPseudocode.txt" />
     <None Include="Assets\Resources\Language\en.txt" />
     <None Include="Assets\Resources\Language\jp.txt" />
+    <None Include="Assets\Scripts\names.txt" />
     <None Include="Assets\Shaders\Hologram.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

@@ -15,7 +15,7 @@ public abstract class GridVendor : GridObject {
 	
 	public Item Product;
 	
-	public void SellTo(Person person) {
+	public bool SellTo(Person person) {
 		if (person.Money >= Product.Price) {
 			person.Money -= Product.Price;
 			
@@ -23,6 +23,10 @@ public abstract class GridVendor : GridObject {
 			if (foodProduct != null) {
 				person.Inventory.Add(new InventoryFood { Food = foodProduct, Amount = foodProduct.ServingSize });
 			}
+
+			return true;
 		}
+
+		return false;
 	}
 }
