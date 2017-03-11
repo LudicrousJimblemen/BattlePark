@@ -272,8 +272,6 @@ public class Grid : MonoBehaviour {
 		return snapped;
 	}
 
-
-
 	public bool IsValid(Vector3 location, Vector3[] offsets, int playerNumber) {
 		/*
 		if(Objects.WillIntersect(location,offsets))
@@ -285,7 +283,7 @@ public class Grid : MonoBehaviour {
 			ValidRegion(location, offsets, playerNumber); // TODO add logic
 	}
 
-	void OnDrawGizmos() {
+	private void OnDrawGizmos() {
 		foreach (KeyValuePair<Vector3, GridObject> entry in Objects) {
 			foreach (Vector3 offset in entry.Value.RotatedOffsets()) {
 				Gizmos.DrawSphere(offset + entry.Key, 0.1f);

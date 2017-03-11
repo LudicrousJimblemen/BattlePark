@@ -1,0 +1,4 @@
+gridobjects
+	gridvendor
+	gridpath
+	gridattraction

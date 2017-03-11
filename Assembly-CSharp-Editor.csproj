@@ -65,6 +65,8 @@
      <None Include="Assets\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh.shader" />
      <None Include="Assets\PersonPseudocode.txt" />
      <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\DotNetZipLicense.txt" />
+     <None Include="Assets\GridObject inheritance.txt" />
+     <None Include="Assets\Scripts\names.txt" />
      <None Include="Assets\Resources\Language\jp.txt" />
      <None Include="Assets\AstarPathfindingProject\Plugins\dependencies.txt" />
      <None Include="Assets\Shaders\Hologram.shader" />

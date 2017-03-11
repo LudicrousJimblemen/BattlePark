@@ -4,13 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class GridObjects : IEnumerable {
+public class GridObjects : IEnumerable<GridObject> {
 	private Dictionary<Vector3, GridObject> dictionary = new Dictionary<Vector3, GridObject>();
 	
 	public int Count { get { return dictionary.Count; } }
 	
-	public IEnumerator GetEnumerator() {
-		return dictionary.GetEnumerator();
+	public IEnumerator<GridObject> GetEnumerator() {
+		return dictionary.AsEnumerable<GridObject>().GetEnumerator();
 	}
 
 	public void Add(Vector3 position, GridObject gridObject) {

@@ -12,7 +12,7 @@ public class GridPath : GridObject {
 	public GameObject CornerNorthWest;
 	public GameObject CornerNorthEast;
 
-	public override int Cost { get { return 1000; } }
+	public override Money Cost { get { return new Money(10, 00); } }
 
 	public override Vector3[] OccupiedOffsets {
 		get {
@@ -47,19 +47,19 @@ public class GridPath : GridObject {
 	public void UpdateMesh() {
 		GridObject[] adj = Grid.Instance.Objects.AdjacentObjects(GetPosition(), true);
 		
-		bool W = adj[0] as GridPath != null;
-		bool E = adj[1] as GridPath != null;
-		bool S = adj[2] as GridPath != null;
-		bool N = adj[3] as GridPath != null;
+		bool W = adj[0] is GridPath;
+		bool E = adj[1] is GridPath;
+		bool S = adj[2] is GridPath;
+		bool N = adj[3] is GridPath;
 
 		EdgeWest.SetActive(W);
 		EdgeEast.SetActive(E);
 		EdgeSouth.SetActive(S);
 		EdgeNorth.SetActive(N);
 
-		CornerSouthWest.SetActive(adj[4] as GridPath != null && S && W);
-		CornerNorthWest.SetActive(adj[5] as GridPath != null && N && W);
-		CornerSouthEast.SetActive(adj[6] as GridPath != null && S && E);
-		CornerNorthEast.SetActive(adj[7] as GridPath != null && N && E);
+		CornerSouthWest.SetActive(adj[4] is GridPath && S && W);
+		CornerNorthWest.SetActive(adj[5] is GridPath && N && W);
+		CornerSouthEast.SetActive(adj[6] is GridPath && S && E);
+		CornerNorthEast.SetActive(adj[7] is GridPath && N && E);
 	}
 }

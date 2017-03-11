@@ -42,10 +42,10 @@
 	"person.stats.anger": "Anger: ",
 	"person.stats.suspicion": "Suspicion: ",
 
-	"person.thoughts.wantFood.mild": "I kinda feel like having some {0}.",
-	"person.thoughts.wantFood.normal": "I want to eat some {0}.",
-	"person.thoughts.wantFood.strong": "I really want to eat some {0}.",
-	"person.thoughts.wantFood.ludicrous": "I am positively craving some {0}!",
+	"person.thoughts.wantFood.mild": "I kinda feel like having {0}.",
+	"person.thoughts.wantFood.normal": "I want to eat {0}.",
+	"person.thoughts.wantFood.strong": "I really want to eat {0}.",
+	"person.thoughts.wantFood.ludicrous": "I am positively craving {0}!",
 
 	"person.thoughts.lost.mild": "I'm not sure where I am.",
 	"person.thoughts.lost.normal": "I'm lost.",
@@ -57,7 +57,20 @@
 	"person.thoughts.wantToGoHome.strong": "I really want to go home.",
 	"person.thoughts.wantToGoHome.ludicrous": "Please let me go home.",
 	
-	"vendorItems.macaroni": "Macaroni",
+	"vendorItems.macaroni.proper": "Macaroni",
+	"vendorItems.macaroni.singular": "a macaroni",
+	"vendorItems.macaroni.plural": "macaronis",
+	"vendorItems.macaroni.indefinite": "some macaroni",
+	
+	"vendorItems.saltLick.proper": "Salt Lick",
+	"vendorItems.saltLick.singular": "a salt lick",
+	"vendorItems.saltLick.plural": "salt licks",
+	"vendorItems.saltLick.indefinite": "some salt licks",
+	
+	"vendorItems.map.proper": "Park Map",
+	"vendorItems.map.singular": "a park map",
+	"vendorItems.map.plural": "park maps",
+	"vendorItems.map.indefinite": "some park maps",
 	
 	"gridObjects.Gate":"Gate",
 	"gridObjects.Fence":"Fence",

@@ -23,7 +23,7 @@ public abstract class GridObject : NetworkBehaviour {
 	/// <summary>
 	/// Cost of the grid object, in cents.
 	/// </summary>
-	public virtual int Cost { get { return 0; } }
+	public virtual Money Cost { get { return new Money(); } }
 
 	/// <summary>
 	/// If the grid object is often placed multiple times.
