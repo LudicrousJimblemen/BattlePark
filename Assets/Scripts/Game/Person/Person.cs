@@ -199,7 +199,7 @@ public class Person : NetworkBehaviour {
 		foreach (var desire in Desires) {
 			DesireFood foodDesire = desire as DesireFood;
 			if (foodDesire != null) {
-				label += String.Format("        DesireFood: Food = ({0}), Target = ({1})\n", foodDesire.Food, foodDesire.Target);
+				label += String.Format("        DesireFood: Food = ({0}), Target = ({1})\n", LanguageManager.GetString(foodDesire.Food.ProperString), foodDesire.Target);
 			}
 		}
 
