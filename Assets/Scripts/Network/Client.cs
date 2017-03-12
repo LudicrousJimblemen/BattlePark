@@ -8,33 +8,33 @@ using UnityEngine.Networking.Types;
 
 public class Client : NetworkLobbyManager {
 	public static Client Instance;
-	
+
 	[HideInInspector]
 	public bool IsHost;
-	
+
 	public LobbyPlayer localPlayer;
 
 	private short highestPlayerNum;
-	
+
 	private void Awake() {
 		if (FindObjectsOfType<Client>().Length > 1) {
 			Destroy(gameObject);
 			return;
 		}
-		
+
 		DontDestroyOnLoad(gameObject);
 		Instance = this;
 		// print (NetworkManager.singleton == null);
 		// StartCoroutine(WaitForNetworkManager());
 	}
-	
+
 	private IEnumerator WaitForNetworkManager() {
 		while (NetworkManager.singleton == null) {
 			yield return new WaitForEndOfFrame();
 		}
 		// NetworkManager.singleton.StartMatchMaker();
 	}
-	
+
 	public void CreateMatch(string roomName, uint size, NetworkMatch.DataResponseDelegate<MatchInfo> callback) {
 		base.matchMaker.CreateMatch(
 			roomName,
@@ -54,7 +54,7 @@ public class Client : NetworkLobbyManager {
 				callback(success, extendedInfo, matchInfo);
 			});
 	}
-	
+
 	public void ListMatches(int maxResults, NetworkMatch.DataResponseDelegate<List<MatchInfoSnapshot>> callback) {
 		matchMaker.ListMatches(
 			0,
@@ -65,7 +65,7 @@ public class Client : NetworkLobbyManager {
 			0,
 			callback);
 	}
-	
+
 	public void JoinMatch(NetworkID id, NetworkMatch.DataResponseDelegate<MatchInfo> callback) {
 		matchMaker.JoinMatch(
 			id,
@@ -82,7 +82,7 @@ public class Client : NetworkLobbyManager {
 				callback(success, extendedInfo, matchInfo);
 			});
 	}
-	
+
 	private void DropConnection() {
 		StopMatchMaker();
 		if (IsHost) {
@@ -90,31 +90,30 @@ public class Client : NetworkLobbyManager {
 		} else {
 			StopClient();
 		}
-		
+
 		if (localPlayer != null) {
 			localPlayer.RemovePlayer();
 			Destroy(localPlayer.gameObject);
 		}
 		BattlePark.GUI.LobbyGUI.Instance.LoadMain();
 	}
-	
+
 	private IEnumerator StartGame() {
 		for (int i = 0; i < lobbySlots.Length; i++) {
 			if (lobbySlots[i] == null)
 				break;
-			((LobbyPlayer)lobbySlots[i]).RpcPrepareReady();
+			((LobbyPlayer) lobbySlots[i]).RpcPrepareReady();
 		}
 		yield return new WaitForSeconds(2.0f);
 		ServerChangeScene(playScene);
 	}
-	
+
 	public override void OnLobbyServerPlayersReady() {
-		print ("mate, we're shipshape");
 		StartCoroutine(StartGame());
 	}
-	
+
 	public override void OnDropConnection(bool success, string extendedInfo) {
-		localPlayer.LogChat(string.Format(LanguageManager.GetString("chat.userLeft"),localPlayer.Username),LobbyPlayer.LogType.Leave);
+		localPlayer.LogChat(string.Format(LanguageManager.GetString("chat.userLeft"), localPlayer.Username), LobbyPlayer.LogType.Leave);
 		BattlePark.GUI.LobbyGUI.Instance.FadeToWhite(DropConnection);
 	}
 
@@ -140,9 +139,9 @@ public class Client : NetworkLobbyManager {
 		// so here it is
 		Transform startPos = GetStartPosition();
 		if (startPos != null) {
-			playerObj = (GameObject)Instantiate(gamePlayerPrefab, startPos.position, startPos.rotation);
+			playerObj = (GameObject) Instantiate(gamePlayerPrefab, startPos.position, startPos.rotation);
 		} else {
-			playerObj = (GameObject)Instantiate(gamePlayerPrefab, Vector3.zero, Quaternion.identity);
+			playerObj = (GameObject) Instantiate(gamePlayerPrefab, Vector3.zero, Quaternion.identity);
 		}
 
 		Player player = playerObj.GetComponent<Player>();

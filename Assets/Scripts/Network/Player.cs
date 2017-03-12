@@ -35,7 +35,6 @@ public class Player : NetworkBehaviour {
 		Camera.main.transform.position = transform.position;
 		Camera.main.transform.rotation = transform.rotation;
 		Camera.main.transform.SetParent(transform);
-		print("PlayerNumber: " + PlayerNumber);
 
 		// set hotbar
 		// just like last time, TODO make it dynamic
@@ -53,7 +52,6 @@ public class Player : NetworkBehaviour {
 			return;
 		// boy it sure is a good thing that return is on a new line
 		// really breaks up that one-liner into sizeable chunks
-		print(hotbarIndex);
 		CmdPlaceObject(ObjectIndices[hotbarIndex], position.Value, direction, PlayerNumber);
 	}
 
@@ -92,6 +90,5 @@ public class Player : NetworkBehaviour {
 	public void CmdSpawnPerson(Vector3 position) {
 		GameObject person = Instantiate(GameManager.Instance.PersonObj, position, Quaternion.identity) as GameObject;
 		NetworkServer.Spawn(person);
-		person.GetComponent<AIPath>().target = FindObjectOfType<AstarPath>().transform;
 	}
 }

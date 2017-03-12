@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class GridVendorNacaromiStall : GridObject {
+public class GridVendorMacaroniStall : GridVendor {
 	public override Money Cost { get { return new Money(200, 00); } }
 
 	public override Vector3[] OccupiedOffsets {
@@ -12,6 +12,6 @@ public abstract class GridVendorNacaromiStall : GridObject {
 			};
 		}
 	}
-	
-	public Item Product = ItemFood.Macaroni;
+
+	public override Item Product { get { return ItemFood.Macaroni; } }
 }

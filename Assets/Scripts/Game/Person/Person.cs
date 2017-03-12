@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.Networking;
 using System;
 using System.Collections;
@@ -27,7 +28,7 @@ public class Person : NetworkBehaviour {
 	[Range(0, 100f)]
 	[SyncVar]
 	public float Hunger = 0;
-	
+
 	/// <summary>
 	/// Represents how thirsty a person is.
 	/// </summary>
@@ -37,7 +38,7 @@ public class Person : NetworkBehaviour {
 	[Range(0, 100f)]
 	[SyncVar]
 	public float Thirst = 0;
-	
+
 	/// <summary>
 	/// Represents how nauseous a person is.
 	/// </summary>
@@ -47,7 +48,7 @@ public class Person : NetworkBehaviour {
 	[Range(0, 100f)]
 	[SyncVar]
 	public float Nausea = 0;
-	
+
 	/// <summary>
 	/// Represents how badly a person needs to use to the bathroom.
 	/// </summary>
@@ -57,7 +58,7 @@ public class Person : NetworkBehaviour {
 	[Range(0, 100f)]
 	[SyncVar]
 	public float Urgency = 0;
-	
+
 	/// <summary>
 	/// Represents how good the mood of a person is.
 	/// </summary>
@@ -67,7 +68,7 @@ public class Person : NetworkBehaviour {
 	[Range(0, 100f)]
 	[SyncVar]
 	public float Mood = 100;
-	
+
 	/// <summary>
 	/// Represents how suspicious a person is.
 	/// </summary>
@@ -77,62 +78,65 @@ public class Person : NetworkBehaviour {
 	[Range(0, 100f)]
 	[SyncVar]
 	public float Suspicion = 0;
-	
+
 	public Queue<Desire> Desires = new Queue<Desire>();
 	public List<Thought> Thoughts = new List<Thought>();
 	public List<GridObject> SeenObjects = new List<GridObject>();
 	public List<InventoryItem> Inventory = new List<InventoryItem>();
-	
+
 	private AIPath aiPath;
-	
+
 	private void Awake() {
 		Reroll();
-		
+
 		aiPath = GetComponent<AIPath>();
 	}
 
 	private void Start() {
 		GameManager.Instance.Guests.Add(this);
-		
+
 		foreach (KeyValuePair<Vector3, GridObject> gridObject in Grid.Instance.Objects) {
 			SeenObjects.Add(gridObject.Value);
 		}
-		
+
 		Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
-		Thoughts.Add(new Thought("person.thoughts.wantFood.ludicrous", "inventoryItems.macaroni.singular"));
+		Thoughts.Add(new Thought("person.thoughts.wantFood.ludicrous", ItemFood.Macaroni.SingularString));
 	}
-	
+
 	private void Update() {
-		Desire firstDesire = Desires.Peek();
-		
-		DesireFood foodDesire = firstDesire as DesireFood;
-		//TODO optimise - it's not necessary to perform these operations every frame
-		if (foodDesire != null) {
-			if (foodDesire.Target != null) {
-				aiPath.target = foodDesire.Target.transform;
-			} else {
-				if (foodDesire.Food != null) {
-					aiPath.target = SeenObjects.OfType<GridVendor>()
-						.Where(vendor => vendor.Product is ItemFood)
-						.Where(vendor => vendor.Product.Id == foodDesire.Food.Id)
-						.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
-						.First().transform;
+		if (Desires.Any()) {
+			Desire firstDesire = Desires.Peek();
+
+			DesireFood foodDesire = firstDesire as DesireFood;
+			//TODO optimise - it's not necessary to perform these operations every frame
+			if (foodDesire != null) {
+				if (foodDesire.Target != null) {
+					aiPath.target = foodDesire.Target.transform;
 				} else {
-					aiPath.target = SeenObjects.OfType<GridVendor>()
-						.Where(vendor => vendor.Product is ItemFood)
-						.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
-						.First().transform;
+					if (foodDesire.Food != null) {
+						aiPath.target = SeenObjects.OfType<GridVendor>()
+							.Where(vendor => vendor.Product is ItemFood)
+							.Where(vendor => vendor.Product.Id == foodDesire.Food.Id)
+							.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
+							.First().transform;
+					} else {
+						aiPath.target = SeenObjects.OfType<GridVendor>()
+							.Where(vendor => vendor.Product is ItemFood)
+							.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
+							.First().transform;
+					}
 				}
-			}
-			
-			if ((aiPath.target.position - this.transform.position).sqrMagnitude < 5) {
-				if (aiPath.target.GetComponent<GridVendor>().SellTo(this)) {
-					Desires.Dequeue();
+
+				if ((aiPath.target.position - this.transform.position).sqrMagnitude < 7) {
+					if (aiPath.target.GetComponent<GridVendor>().SellTo(this)) {
+						Desires.Dequeue();
+						Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) aiPath.target.GetComponent<GridVendor>().Product).PluralString));
+					}
 				}
 			}
 		}
 	}
-	
+
 	private void Reroll() {
 		Name = GenerateName();
 		// between 20µ and 100µ (inclusive)
@@ -179,5 +183,56 @@ public class Person : NetworkBehaviour {
 		}
 
 		return returnedName;
+	}
+
+	private void OnDrawGizmosSelected() {
+		string label = String.Format("<color=white><size=12>{0}\n", Name);
+		label += String.Format("    Money: {0}\n", String.Format(LanguageManager.GetString("game.gui.numericCurrencySmall"), Money.Large, Money.Small));
+		label += String.Format("    Hunger: {0}\n", Math.Round(Hunger, 1));
+		label += String.Format("    Thirst: {0}\n", Math.Round(Thirst, 1));
+		label += String.Format("    Nausea: {0}\n", Math.Round(Nausea, 1));
+		label += String.Format("    Urgency: {0}\n", Math.Round(Urgency, 1));
+		label += String.Format("    Mood: {0}\n", Math.Round(Mood, 1));
+		label += String.Format("    Suspicion: {0}\n", Math.Round(Suspicion, 1));
+		label += String.Format("    Desires:\n", Money);
+
+		foreach (var desire in Desires) {
+			DesireFood foodDesire = desire as DesireFood;
+			if (foodDesire != null) {
+				label += String.Format("        DesireFood: Food = ({0}), Target = ({1})\n", foodDesire.Food, foodDesire.Target);
+			}
+		}
+
+		label += "    Target:\n";
+		if (aiPath.target != null) {
+			label += String.Format("        Name: {0}\n", aiPath.target.name);
+			label += String.Format("        Square Distance: {0}\n", Math.Round((aiPath.target.position - this.transform.position).sqrMagnitude, 1));
+		} else {
+			label += "        null";
+		}
+
+		label += "    Thoughts:\n";
+		foreach (var thought in Thoughts) {
+			label += "        " + String.Format(LanguageManager.GetString(thought.ThoughtString), thought.Parameters.Select(parameter => LanguageManager.GetString(parameter)).ToArray()) + "\n";
+		}
+
+		label += "    Inventory:\n";
+		foreach (var item in Inventory) {
+			InventoryFood foodItem = item as InventoryFood;
+			if (item != null) {
+				label += String.Format("        InventoryFood: Food = ({0}), Amount = ({1})\n", LanguageManager.GetString(foodItem.Food.ProperString), foodItem.Amount);
+			}
+		}
+
+		label += "</size></color>";
+
+		Handles.Label(transform.position + 3 * Vector3.up, label, new GUIStyle() { richText = true, alignment = TextAnchor.LowerLeft });
+
+		if (aiPath.target != null) {
+			Gizmos.color = Color.white;
+			Gizmos.DrawLine(transform.position + Vector3.up, aiPath.target.transform.position);
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawSphere(transform.position + Vector3.up, 0.5f);
+		}
 	}
 }

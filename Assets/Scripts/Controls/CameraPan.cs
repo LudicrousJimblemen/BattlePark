@@ -62,7 +62,6 @@ public class CameraPan : MonoBehaviour {
 	}
 	private Vector3 GetPivot() {
 		float angle = Mathf.Acos(Vector3.Dot(Vector3.down, transform.forward)); // angle between down and forwards directions
-		print(angle);
 		float y = transform.position.y;
 		float flatDistToPivot = angle * y / (Mathf.PI / 2 - angle);
 		Vector3 flatForward = transform.forward;

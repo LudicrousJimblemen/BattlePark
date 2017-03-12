@@ -13,7 +13,7 @@ public abstract class GridVendor : GridObject {
 		}
 	}
 	
-	public Item Product;
+	public abstract Item Product { get; }
 	
 	public bool SellTo(Person person) {
 		if (person.Money >= Product.Price) {

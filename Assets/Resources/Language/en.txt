@@ -25,6 +25,7 @@
 	
 	"game.gui.currencyLabel": "Moneys",
 	"game.gui.numericCurrency": "{0}µ",
+	"game.gui.numericCurrencySmall": "{0}.{1}µ",
 	
 	"game.win": "{0} wins!",
 	
@@ -42,20 +43,17 @@
 	"person.stats.anger": "Anger: ",
 	"person.stats.suspicion": "Suspicion: ",
 
-	"person.thoughts.wantFood.mild": "I kinda feel like having {0}.",
 	"person.thoughts.wantFood.normal": "I want to eat {0}.",
-	"person.thoughts.wantFood.strong": "I really want to eat {0}.",
 	"person.thoughts.wantFood.ludicrous": "I am positively craving {0}!",
 
-	"person.thoughts.lost.mild": "I'm not sure where I am.",
 	"person.thoughts.lost.normal": "I'm lost.",
-	"person.thoughts.lost.strong": "I'm very lost.",
 	"person.thoughts.lost.ludicrous": "I'm not certain I'm in the right country anymore.",
 
-	"person.thoughts.wantToGoHome.mild": "I kinda want to go home.",
 	"person.thoughts.wantToGoHome.normal": "I want to go home.",
-	"person.thoughts.wantToGoHome.strong": "I really want to go home.",
 	"person.thoughts.wantToGoHome.ludicrous": "Please let me go home.",
+
+	"person.thoughts.likeFood.normal": "I really like {0}.",
+	"person.thoughts.likeFood.ludicrous": "I absolutely adore {0}.",
 	
 	"vendorItems.macaroni.proper": "Macaroni",
 	"vendorItems.macaroni.singular": "a macaroni",

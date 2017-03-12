@@ -82,7 +82,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	[ClientRpc]
 	public void RpcSendChat(string message) {
 		BattlePark.GUI.LobbyGUI.Instance.AddChat(message);
-		print(message);
 	}
 
 	// use for other stuff to update
