@@ -70,6 +70,10 @@
 	"vendorItems.map.plural": "park maps",
 	"vendorItems.map.indefinite": "some park maps",
 	
+	"attractions.funRide.proper": "Fun Ride",
+	"attractions.funRide.singular": "a Fun Ride",
+	"attractions.funRide.plural": "Fun Rides",
+	
 	"gridObjects.Gate":"Gate",
 	"gridObjects.Fence":"Fence",
 	"gridObjects.Path":"Path",

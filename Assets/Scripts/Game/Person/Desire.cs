@@ -12,3 +12,11 @@ public class DesireFood : Desire {
 	
 	public ItemFood Food;
 }
+
+public class DesireAttraction : Desire {
+	public DesireAttraction(Attraction attraction) {
+		this.Attraction = attraction;
+	}
+	
+	public Attraction Attraction;
+}

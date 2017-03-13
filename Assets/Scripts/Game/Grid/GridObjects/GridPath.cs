@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class GridPath : GridObject {
+public abstract class GridPath : GridObject {
 	public GameObject EdgeSouth;
 	public GameObject EdgeNorth;
 	public GameObject EdgeWest;
