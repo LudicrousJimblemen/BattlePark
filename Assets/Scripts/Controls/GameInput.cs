@@ -90,7 +90,7 @@ public class GameInput : MonoBehaviour {
 			}
 			if (mousePosition != null) {
 				Placeholder.transform.position = mousePosition.Value;
-				Placeholder.transform.rotation = Quaternion.Euler(-90, 0, (int)direction * 90);
+				Placeholder.transform.rotation = Quaternion.Euler(0, (int)direction * 90, 0);
 			} else {
 				Placeholder.gameObject.SetActive(false);
 			}
@@ -109,7 +109,7 @@ public class GameInput : MonoBehaviour {
 			}
 		}
 		if (Input.GetMouseButtonDown(1)) {
-			player.CmdSpawnPerson(rawMouse);
+			player.CmdSpawnPerson(rawMouse, player.PlayerNumber);
 		}
 	}
 

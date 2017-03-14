@@ -56,7 +56,7 @@ public abstract class GridObject : NetworkBehaviour {
 	}
 
 	public Quaternion GetRotation() {
-		return Quaternion.Euler(-90, 0, (int) Direction * 90);
+		return Quaternion.Euler(0, (int) Direction * 90, 0);
 	}
 
 	public Vector3[] RotatedOffsets() {

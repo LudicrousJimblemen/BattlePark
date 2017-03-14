@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections.Generic;
 using System.Linq;
+using Pathfinding;
 
 public class GridPath : GridObject {
 	public GameObject EdgeSouth;
@@ -11,6 +13,8 @@ public class GridPath : GridObject {
 	public GameObject CornerSouthEast;
 	public GameObject CornerNorthWest;
 	public GameObject CornerNorthEast;
+	
+	private PathNode[] Nodes;
 
 	public override Money Cost { get { return new Money(10, 00); } }
 
@@ -33,13 +37,7 @@ public class GridPath : GridObject {
 			}
 		}
 		
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 2; j++) {
-				Vector3 nodePos = GetPosition() + new Vector3(-.75f, 0, -.75f) + new Vector3(1.5f*i, 0, 1.5f*j);
-				Instantiate(GameManager.Instance.PathNode, nodePos, Quaternion.identity, GameObject.FindGameObjectWithTag("PathNode").transform);
-			}
-		}
-		AstarPath.active.Scan ();
+		ServerAddNodes (2);
 	}
 
 	public override bool CanRotate { get { return false; } }
@@ -61,5 +59,16 @@ public class GridPath : GridObject {
 		CornerNorthWest.SetActive(adj[5] is GridPath && N && W);
 		CornerSouthEast.SetActive(adj[6] is GridPath && S && E);
 		CornerNorthEast.SetActive(adj[7] is GridPath && N && E);
+	}
+	
+	[Server]
+	private void ServerAddNodes (int width) {
+		Nodes = new PathNode[width * width];
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < width; j++) {
+				Vector3 nodePos = GetPosition() + new Vector3(-.75f, 0, -.75f) + new Vector3(1.5f*i, 0, 1.5f*j);
+				Nodes[i * width + j] = GameManager.Instance.Graphs[Owner-1].AddNode(nodePos);
+			}
+		}
 	}
 }

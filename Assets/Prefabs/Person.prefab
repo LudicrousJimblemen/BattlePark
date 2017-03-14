@@ -235,8 +235,7 @@ GameObject:
   - component: {fileID: 143672410393856820}
   - component: {fileID: 114689473236430210}
   - component: {fileID: 114611296468841856}
-  - component: {fileID: 114561262682210310}
-  - component: {fileID: 114379205470402786}
+  - component: {fileID: 114635885679740338}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -482,63 +481,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Greg
-  Money: 0
   Hunger: 0
   Thirst: 0
   Nausea: 0
-  Bathroomosity: 0
-  Happiness: 100
-  Anger: 0
+  Urgency: 0
+  Mood: 100
   Suspicion: 0
---- !u!114 &114379205470402786
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1790509387394768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5ac18cdd242041b6bebc0e95b624c85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  repathRate: 0.5
-  target: {fileID: 0}
-  canSearch: 1
-  canMove: 1
-  speed: 3
-  turningSpeed: 5
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 2
-  forwardLook: 1
-  endReachedDistance: 0.2
-  closestOnPathCheck: 1
---- !u!114 &114561262682210310
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1790509387394768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  traversableTagsCompatibility:
-    tagsChange: -1
-    tagsSet: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  SeenObjects: []
 --- !u!114 &114611296468841856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -559,6 +508,25 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114635885679740338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1790509387394768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cdbc74326a3164428ecae2b24417b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graph: {fileID: 0}
+  Speed: 5
+  TurnSpeed: 10
+  TurnDistance: 1
+  StopDistance: 1
+  GiveUpTime: 1
+  FOVAngle: 0
+  target: {fileID: 0}
 --- !u!114 &114689473236430210
 MonoBehaviour:
   m_ObjectHideFlags: 1
