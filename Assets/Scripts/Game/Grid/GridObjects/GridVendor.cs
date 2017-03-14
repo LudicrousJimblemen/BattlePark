@@ -2,19 +2,16 @@
 using UnityEngine;
 
 public abstract class GridVendor : GridObject {
-	public override Money Cost { get { return new Money(200, 00); } }
-
-	public override Vector3[] OccupiedOffsets {
-		get {
-			return new[] {
-				Vector3.zero,
-				new Vector3(0, 1, 0)
-			};
-		}
-	}
-	
+	/// <summary>
+	/// The product being sold by a vendor.
+	/// </summary>
 	public abstract Item Product { get; }
 	
+	/// <summary>
+	/// Tries to sell a vendor's product to a person.
+	/// </summary>
+	/// <param name="person">The person to whom the product is being sold.</param>
+	/// <returns>True if the transaction was successful, false otherwise.</returns>
 	public bool SellTo(Person person) {
 		if (person.Money >= Product.Price) {
 			person.Money -= Product.Price;

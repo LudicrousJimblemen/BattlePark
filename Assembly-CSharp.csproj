@@ -61,12 +61,17 @@
      <Compile Include="Assets\Scripts\GUI\TabNav.cs" />
      <Compile Include="Assets\Scripts\GUI\Window.cs" />
      <Compile Include="Assets\Scripts\GUI\WindowResizer.cs" />
+     <Compile Include="Assets\Scripts\Game\Attraction.cs" />
      <Compile Include="Assets\Scripts\Game\GameManager.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\Direction.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\Grid.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObject.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridAttraction.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridAttractionFunRide.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPath.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPathAsphalt.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPathQueue.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridScenery.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendor.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendorMacaroniStall.cs" />

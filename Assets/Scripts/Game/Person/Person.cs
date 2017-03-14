@@ -98,10 +98,11 @@ public class Person : NetworkBehaviour {
 		foreach (KeyValuePair<Vector3, GridObject> gridObject in Grid.Instance.Objects) {
 			SeenObjects.Add(gridObject.Value);
 		}
-
-		Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
-		Thoughts.Add(new Thought("person.thoughts.wantFood.ludicrous", ItemFood.Macaroni.SingularString));
+		//Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
+		//Thoughts.Add(new Thought("person.thoughts.wantFood.ludicrous", ItemFood.Macaroni.SingularString));
 		//InvokeRepeating ("FullfillDesires", 0, 3);
+		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
+		Thoughts.Add(new Thought("person.thoughts.wantAttraction.normal", Attraction.FunRide.SingularString));
 	}
 	
 	private void Update () {
@@ -113,6 +114,7 @@ public class Person : NetworkBehaviour {
 		if (Desires.Any()) {
 			Desire firstDesire = Desires.Peek();
 			DesireFood foodDesire = firstDesire as DesireFood;
+			DesireAttraction attractionDesire = firstDesire as DesireAttraction;
 			//TODO optimise - it's not necessary to perform these operations every frame
 			//TODO make them not die when they can;t find food
 			if (foodDesire != null) {
@@ -139,6 +141,27 @@ public class Person : NetworkBehaviour {
 						walker.StopCoroutine ("followPathRoutine");
 						walker.Stop();
 					}
+				}
+			} else if (attractionDesire != null) {
+				if (attractionDesire.Target != null) {
+					walker.SetDestination (attractionDesire.Target.transform);
+				} else {
+					if (attractionDesire.Attraction != null) {
+						walker.SetDestination (SeenObjects.OfType<GridAttraction>()
+							.Where(attraction => attraction.Attraction.Id == attractionDesire.Attraction.Id)
+							.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
+							.First().transform);
+					} else {
+						walker.SetDestination (SeenObjects.OfType<GridAttraction>()
+							.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
+							.First().transform);
+					}
+				}
+
+				if ((walker.target.position - this.transform.position).sqrMagnitude < 7) {
+					/*
+					Ride the ride.
+					*/
 				}
 			}
 		}

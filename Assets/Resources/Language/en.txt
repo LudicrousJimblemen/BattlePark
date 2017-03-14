@@ -46,6 +46,9 @@
 	"person.thoughts.wantFood.normal": "I want to eat {0}.",
 	"person.thoughts.wantFood.ludicrous": "I am positively craving {0}!",
 
+	"person.thoughts.wantAttraction.normal": "I want to visit a {0}.",
+	"person.thoughts.wantAttraction.ludicrous": "I really want to visit a {0}!",
+	
 	"person.thoughts.lost.normal": "I'm lost.",
 	"person.thoughts.lost.ludicrous": "I'm not certain I'm in the right country anymore.",
 
@@ -69,6 +72,10 @@
 	"vendorItems.map.singular": "a park map",
 	"vendorItems.map.plural": "park maps",
 	"vendorItems.map.indefinite": "some park maps",
+	
+	"attractions.funRide.proper": "Fun Ride",
+	"attractions.funRide.singular": "a Fun Ride",
+	"attractions.funRide.plural": "Fun Rides",
 	
 	"gridObjects.Gate":"Gate",
 	"gridObjects.Fence":"Fence",
