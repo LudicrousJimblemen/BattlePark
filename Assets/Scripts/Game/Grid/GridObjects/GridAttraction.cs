@@ -3,6 +3,11 @@ using UnityEngine;
 
 public abstract class GridAttraction : GridObject {
 	/// <summary>
+	/// The type of attraction.
+	/// </summary>
+	public abstract Attraction Attraction { get; }
+
+	/// <summary>
 	/// The maximum number of people that can be on an attraction at once.
 	/// </summary>
 	public abstract int MaximumPassengers { get; }

@@ -19,5 +19,5 @@ public class Attraction {
 		this.DefaultPrice = defaultPrice;
 	}
 	
-	public static readonly Attraction FunRide = new Attraction(2, "funRide", new Money(600, 00));
+	public static readonly Attraction FunRide = new Attraction(1, "funRide", new Money(600, 00));
 }

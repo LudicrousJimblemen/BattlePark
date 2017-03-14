@@ -15,7 +15,9 @@ public class GridAttractionFunRide : GridAttraction {
 	}
 	
 	public override int MaximumPassengers { get { return 9; } }
-	
+
+	public override Attraction Attraction { get { return Attraction.FunRide; } }
+
 	private void Awake() {
 		PassengerSlots = new GameObject[MaximumPassengers];
 		Passengers = new GameObject[MaximumPassengers];

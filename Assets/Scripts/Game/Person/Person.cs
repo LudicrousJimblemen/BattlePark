@@ -99,8 +99,8 @@ public class Person : NetworkBehaviour {
 			SeenObjects.Add(gridObject.Value);
 		}
 
-		Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
-		Thoughts.Add(new Thought("person.thoughts.wantFood.ludicrous", ItemFood.Macaroni.SingularString));
+		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
+		Thoughts.Add(new Thought("person.thoughts.wantAttraction.normal", Attraction.FunRide.SingularString));
 	}
 
 	private void Update() {
@@ -108,6 +108,7 @@ public class Person : NetworkBehaviour {
 			Desire firstDesire = Desires.Peek();
 
 			DesireFood foodDesire = firstDesire as DesireFood;
+			DesireAttraction attractionDesire = firstDesire as DesireAttraction;
 			//TODO optimise - it's not necessary to perform these operations every frame
 			if (foodDesire != null) {
 				if (foodDesire.Target != null) {
@@ -132,6 +133,27 @@ public class Person : NetworkBehaviour {
 						Desires.Dequeue();
 						Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) aiPath.target.GetComponent<GridVendor>().Product).PluralString));
 					}
+				}
+			} else if (attractionDesire != null) {
+				if (attractionDesire.Target != null) {
+					aiPath.target = attractionDesire.Target.transform;
+				} else {
+					if (attractionDesire.Attraction != null) {
+						aiPath.target = SeenObjects.OfType<GridAttraction>()
+							.Where(attraction => attraction.Attraction.Id == attractionDesire.Attraction.Id)
+							.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
+							.First().transform;
+					} else {
+						aiPath.target = SeenObjects.OfType<GridAttraction>()
+							.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
+							.First().transform;
+					}
+				}
+
+				if ((aiPath.target.position - this.transform.position).sqrMagnitude < 7) {
+					/*
+					Ride the ride.
+					*/
 				}
 			}
 		}
