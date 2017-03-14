@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Pathfinding;
 
 public class GameManager : MonoBehaviour {
 	public static GameManager Instance;
 	public Vector3[] ParkCenters;
 	public Vector3[] ParkGates;
+	public NodeGraph[] Graphs;
 
 	public GameObject[] PlayerObjectParents = new GameObject[2];
 	public GameObject PersonObj;
-	public GameObject PathNode;
 
 	public GridObject[] Objects;
 	public List<Person> Guests;

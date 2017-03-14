@@ -63,7 +63,7 @@ public class Player : NetworkBehaviour {
 	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
 		GameObject newObject = Instantiate(GameManager.Instance.Objects[ObjIndex].gameObject,
 			                       Grid.Instance.SnapToGrid(position, playerNumber),
-			                       Quaternion.Euler(-90, 0, direction * 90),
+			                       Quaternion.Euler(0, direction * 90, 0),
 			                       GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform
 		                       ) as GameObject;
 		newObject.name = GameManager.Instance.Objects[ObjIndex].gameObject.name;
@@ -76,19 +76,21 @@ public class Player : NetworkBehaviour {
 	
 	[Server]
 	public void ServerSpawnPaths(int player, float sizeX, float step, Vector3[] parkGates) {
+		print ("geg");
 		for (int i = 0; i < (int)sizeX / 2; i++) {
-			GridObject path = Instantiate(GameManager.Instance.Objects.First(x => x.GetType() == typeof(GridPathAsphalt)),
+			GridObject path = Instantiate(GameManager.Instance.Objects.First(x => x is GridPathAsphalt),
 				                  parkGates[player] + (player * 2 - 1) * (0.5f + step / 2f + step * i) * Vector3.right,
-				                  Quaternion.Euler(-90, 0, 0),
+				                  Quaternion.identity,
 				                  GameManager.Instance.PlayerObjectParents[player].transform);
 			path.Owner = player + 1;
-			NetworkServer.Spawn(path.gameObject);
 		}
 	}
-
+	
+	// TODO put this in person manager instead
 	[Command]
-	public void CmdSpawnPerson(Vector3 position) {
+	public void CmdSpawnPerson(Vector3 position, int owner) {
 		GameObject person = Instantiate(GameManager.Instance.PersonObj, position, Quaternion.identity) as GameObject;
 		NetworkServer.Spawn(person);
+		person.GetComponent<Pathfinding.PathWalker> ().graph = GameManager.Instance.Graphs[owner-1];
 	}
 }

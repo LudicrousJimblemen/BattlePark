@@ -237,7 +237,7 @@ public class Grid : MonoBehaviour {
 
 	public void AddSpecial() {
 		for(int g = 0; g < 2; g++) {
-			Instantiate(Gate,parkGates[g],Quaternion.Euler(-90,0,(1 + g * 2) * 90),transform);
+			Instantiate(Gate,parkGates[g],Quaternion.Euler(0,(g * 2 + 1) * 90,0),transform);
 		}
 	}
 
