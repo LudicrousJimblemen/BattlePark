@@ -98,11 +98,11 @@ public class Person : NetworkBehaviour {
 		foreach (KeyValuePair<Vector3, GridObject> gridObject in Grid.Instance.Objects) {
 			SeenObjects.Add(gridObject.Value);
 		}
-		//Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
-		//Thoughts.Add(new Thought("person.thoughts.wantFood.ludicrous", ItemFood.Macaroni.SingularString));
+		Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
+		Thoughts.Add(new Thought("person.thoughts.wantFood.ludicrous", ItemFood.Macaroni.SingularString));
 		//InvokeRepeating ("FullfillDesires", 0, 3);
-		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
-		Thoughts.Add(new Thought("person.thoughts.wantAttraction.normal", Attraction.FunRide.SingularString));
+		//Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
+		//Thoughts.Add(new Thought("person.thoughts.wantAttraction.normal", Attraction.FunRide.SingularString));
 	}
 	
 	private void Update () {
