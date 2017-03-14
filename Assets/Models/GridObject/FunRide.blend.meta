@@ -18,6 +18,17 @@ ModelImporter:
     100020: Slot_7
     100022: Slot_8
     100024: Slot_9
+    100026: Root
+    100028: Armature
+    100030: Slot_1_base
+    100032: Slot_2_base
+    100034: Slot_3_base
+    100036: Slot_4_base
+    100038: Slot_5_base
+    100040: Slot_6_base
+    100042: Slot_7_base
+    100044: Slot_8_base
+    100046: Slot_9_base
     400000: Bone
     400002: //RootNode
     400004: FunRide
@@ -31,12 +42,23 @@ ModelImporter:
     400020: Slot_7
     400022: Slot_8
     400024: Slot_9
+    400026: Root
+    400028: Armature
+    400030: Slot_1_base
+    400032: Slot_2_base
+    400034: Slot_3_base
+    400036: Slot_4_base
+    400038: Slot_5_base
+    400040: Slot_6_base
+    400042: Slot_7_base
+    400044: Slot_8_base
+    400046: Slot_9_base
     4300000: FunRide
     7400000: Default Take
     9500000: //RootNode
     13700000: FunRide
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -78,7 +100,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

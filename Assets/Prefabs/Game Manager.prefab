@@ -59,9 +59,9 @@ MonoBehaviour:
   PersonObj: {fileID: 1790509387394768, guid: 7dacb1a3d60754140b8f50ae58eb510a, type: 2}
   PathNode: {fileID: 1426777701357842, guid: 3a584568634ad914bb9ae390c4f9b189, type: 2}
   Objects:
-  - {fileID: 114745626266240458, guid: 0c3c3eaf4af5933409abf61a0b65cda7, type: 2}
   - {fileID: 114878924806304404, guid: 2412b5c8568621a448688496227007b6, type: 2}
-  - {fileID: 0}
+  - {fileID: 114745626266240458, guid: 0c3c3eaf4af5933409abf61a0b65cda7, type: 2}
+  - {fileID: 114143104728208998, guid: 90cb30d424793484eb9ed9c399ad5239, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

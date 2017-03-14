@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4793846827468252}
+  - component: {fileID: 114256218911379084}
   - component: {fileID: 33997663591279450}
   - component: {fileID: 23374896239213568}
-  - component: {fileID: 114256218911379084}
   - component: {fileID: 114745626266240458}
   m_Layer: 0
   m_Name: MacaroniStall

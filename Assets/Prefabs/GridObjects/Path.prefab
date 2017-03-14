@@ -36,8 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4155797268481494}
-  - component: {fileID: 33302209220072864}
   - component: {fileID: 114727758618899828}
+  - component: {fileID: 33302209220072864}
   - component: {fileID: 114878924806304404}
   m_Layer: 0
   m_Name: Path
@@ -710,7 +710,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1202308574564032}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cac512eac02ab645a702b58b9fce023, type: 3}
+  m_Script: {fileID: 11500000, guid: 0783689537cde6d49a75b9f8b3d5a11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: 0

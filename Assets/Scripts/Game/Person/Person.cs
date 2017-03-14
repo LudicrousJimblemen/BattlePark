@@ -78,6 +78,11 @@ public class Person : NetworkBehaviour {
 	[Range(0, 100f)]
 	[SyncVar]
 	public float Suspicion = 0;
+	
+	/// <summary>
+	/// If a person is currently in an attraction.
+	/// </summary>
+	public bool InAttraction;
 
 	public Queue<Desire> Desires = new Queue<Desire>();
 	public List<Thought> Thoughts = new List<Thought>();
@@ -100,7 +105,6 @@ public class Person : NetworkBehaviour {
 		}
 
 		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
-		Thoughts.Add(new Thought("person.thoughts.wantAttraction.normal", Attraction.FunRide.SingularString));
 	}
 
 	private void Update() {
@@ -131,7 +135,6 @@ public class Person : NetworkBehaviour {
 				if ((aiPath.target.position - this.transform.position).sqrMagnitude < 7) {
 					if (aiPath.target.GetComponent<GridVendor>().SellTo(this)) {
 						Desires.Dequeue();
-						Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) aiPath.target.GetComponent<GridVendor>().Product).PluralString));
 					}
 				}
 			} else if (attractionDesire != null) {
@@ -151,9 +154,9 @@ public class Person : NetworkBehaviour {
 				}
 
 				if ((aiPath.target.position - this.transform.position).sqrMagnitude < 7) {
-					/*
-					Ride the ride.
-					*/
+					if (aiPath.target.GetComponent<GridAttraction>().Admit(this)) {
+						Desires.Dequeue();
+					}
 				}
 			}
 		}
@@ -208,7 +211,7 @@ public class Person : NetworkBehaviour {
 	}
 
 	private void OnDrawGizmosSelected() {
-		string label = String.Format("<color=white><size=12>{0}\n", Name);
+		string label = String.Format("<color=white><size=10>{0}\n", Name);
 		label += String.Format("    Money: {0}\n", String.Format(LanguageManager.GetString("game.gui.numericCurrencySmall"), Money.Large, Money.Small));
 		label += String.Format("    Hunger: {0}\n", Math.Round(Hunger, 1));
 		label += String.Format("    Thirst: {0}\n", Math.Round(Thirst, 1));
@@ -216,12 +219,15 @@ public class Person : NetworkBehaviour {
 		label += String.Format("    Urgency: {0}\n", Math.Round(Urgency, 1));
 		label += String.Format("    Mood: {0}\n", Math.Round(Mood, 1));
 		label += String.Format("    Suspicion: {0}\n", Math.Round(Suspicion, 1));
-		label += String.Format("    Desires:\n", Money);
-
+		
+		label += "    Desires:\n";
 		foreach (var desire in Desires) {
 			DesireFood foodDesire = desire as DesireFood;
+			DesireAttraction attractionDesire = desire as DesireAttraction;
 			if (foodDesire != null) {
 				label += String.Format("        DesireFood: Food = ({0}), Target = ({1})\n", LanguageManager.GetString(foodDesire.Food.ProperString), foodDesire.Target);
+			} else if (attractionDesire != null) {
+				label += String.Format("        DesireAttraction: Attraction = ({0}), Target = ({1})\n", LanguageManager.GetString(attractionDesire.Attraction.ProperString), attractionDesire.Target);
 			}
 		}
 
@@ -248,7 +254,7 @@ public class Person : NetworkBehaviour {
 
 		label += "</size></color>";
 
-		Handles.Label(transform.position + 3 * Vector3.up, label, new GUIStyle() { richText = true, alignment = TextAnchor.LowerLeft });
+		Handles.Label(transform.position + 3 * Vector3.up, label, new GUIStyle { richText = true, alignment = TextAnchor.LowerLeft });
 
 		if (aiPath.target != null) {
 			Gizmos.color = Color.white;

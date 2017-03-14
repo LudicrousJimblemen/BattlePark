@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public abstract class GridAttraction : GridObject {
@@ -20,6 +21,7 @@ public abstract class GridAttraction : GridObject {
 		get { return inCycle; }
 		protected set {
 			if (inCycle != value) {
+				inCycle = value;
 				if (value == false) {
 					lastCycle = DateTime.Now;
 				}
@@ -27,7 +29,7 @@ public abstract class GridAttraction : GridObject {
 		}
 	}
 	
-	private DateTime lastCycle;
+	private DateTime lastCycle = DateTime.Now;
 	/// <summary>
 	/// The time since the last cycle ended.
 	/// </summary>
@@ -46,9 +48,44 @@ public abstract class GridAttraction : GridObject {
 	/// <summary>
 	/// The number of people an attraction must have before starting an attraction cycle.
 	/// </summary>
-	public int MinimumPassengers;
+	public int MinimumPassengers = 1;
 	/// <summary>
 	/// The maximum time before an attraction starts a cycle, regardless of the number of passengers.
 	/// </summary>
-	public TimeSpan MaximumWaitTime;
+	public TimeSpan MaximumWaitTime = new TimeSpan(0, 0, 15);
+	
+	/// <summary>
+	/// Tries to admit a person into the attraction.
+	/// </summary>
+	/// <param name="person">The person who would be admitted into the attraction.</param>
+	/// <returns>True if the person is allowed into the attraction, false otherwise.</returns>
+	public bool Admit(Person person) {
+		if (!InCycle) {
+			for (int i = 0; i < MaximumPassengers; i++) {
+				if (Passengers[i] == null) {
+					Passengers[i] = person.gameObject;
+					person.transform.SetParent(PassengerSlots[i].transform, false);
+					person.transform.localPosition = Vector3.zero;
+					person.InAttraction = true;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void EndCycle() {
+		for (int i = 0; i < MaximumPassengers; i++) {
+			if (Passengers[i] != null) {
+				Passengers[i].transform.SetParent(null, true);
+				Passengers[i] = null;
+			}
+		}
+		InCycle = false;
+	}
+	
+	private void OnDrawGizmos() {
+		Gizmos.color = InCycle ? Color.red : Color.green;
+		Gizmos.DrawSphere(transform.position + Vector3.up * 2, 2f);
+	}
 }
