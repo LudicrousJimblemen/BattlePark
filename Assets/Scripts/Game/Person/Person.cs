@@ -113,9 +113,6 @@ public class Person : NetworkBehaviour {
 			return;
 		}
 		*/
-		if (InAttraction) {
-			walker.enabled = false;
-		}
 		
 		if (Desires.Any()) {
 			Desire firstDesire = Desires.Peek();

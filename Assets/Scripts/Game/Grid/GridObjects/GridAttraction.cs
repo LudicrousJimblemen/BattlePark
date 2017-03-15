@@ -53,6 +53,10 @@ public abstract class GridAttraction : GridObject {
 	/// The maximum time before an attraction starts a cycle, regardless of the number of passengers.
 	/// </summary>
 	public TimeSpan MaximumWaitTime = new TimeSpan(0, 0, 15);
+	/// <summary>
+	/// The minimum time before an attraction starts a cycle, regardless of the number of passengers.
+	/// </summary>
+	public TimeSpan MinimumWaitTime = new TimeSpan(0, 0, 10);
 	
 	/// <summary>
 	/// Tries to admit a person into the attraction.
@@ -64,6 +68,7 @@ public abstract class GridAttraction : GridObject {
 			for (int i = 0; i < MaximumPassengers; i++) {
 				if (Passengers[i] == null) {
 					Passengers[i] = person.gameObject;
+					person.GetComponent<Pathfinding.PathWalker>().enabled = false;
 					person.transform.SetParent(PassengerSlots[i].transform, false);
 					person.transform.localPosition = Vector3.zero;
 					person.InAttraction = true;
@@ -78,7 +83,8 @@ public abstract class GridAttraction : GridObject {
 		for (int i = 0; i < MaximumPassengers; i++) {
 			if (Passengers[i] != null) {
 				Passengers[i].transform.SetParent(null, true);
-				Passengers[i].GetComponent<Person>().InAttraction = true;
+				Passengers[i].GetComponent<Person>().InAttraction = false;
+				Passengers[i].GetComponent<Pathfinding.PathWalker>().enabled = true;
 				Passengers[i] = null;
 			}
 		}

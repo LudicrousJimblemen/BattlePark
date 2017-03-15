@@ -26,7 +26,7 @@ public class GridAttractionFunRide : GridAttraction {
 				// TODO: Check if anyone is waiting to enter the ride, let them in
 				StartCoroutine(StartCycle());
 			} else {
-				if (Passengers.Count(passenger => passenger != null) >= MinimumPassengers) {
+				if (Passengers.Count(passenger => passenger != null) >= MinimumPassengers && TimeSinceLastCycle >= MinimumWaitTime) {
 					// TODO: Check if anyone is waiting to enter the ride, let them in
 					StartCoroutine(StartCycle());
 				}
@@ -54,6 +54,6 @@ public class GridAttractionFunRide : GridAttraction {
 			}
 			yield return null;
 		}
-		InCycle = false;
+		EndCycle();
 	}
 }
