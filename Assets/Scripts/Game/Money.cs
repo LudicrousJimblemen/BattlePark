@@ -92,4 +92,12 @@ public struct Money {
 	public static Money FromSmall(int small) {
 		return new Money((int)Math.Floor(small / 100f), (int)(small / 100f) - (int)Math.Floor(small / 100f));
 	}
+	
+	public override string ToString() {
+		return string.Format("{0}.{1}", Large, Small);
+	}
+	
+	public static implicit operator int(Money money) {
+		return money.Large * 100 + money.Small;
+	}
 }
