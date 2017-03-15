@@ -78,14 +78,14 @@ public abstract class GridAttraction : GridObject {
 		for (int i = 0; i < MaximumPassengers; i++) {
 			if (Passengers[i] != null) {
 				Passengers[i].transform.SetParent(null, true);
+				Passengers[i].GetComponent<Person>().InAttraction = true;
 				Passengers[i] = null;
 			}
 		}
 		InCycle = false;
 	}
 	
-	private void OnDrawGizmos() {
-		Gizmos.color = InCycle ? Color.red : Color.green;
-		Gizmos.DrawSphere(transform.position + Vector3.up * 2, 2f);
+	protected void Awake() {
+		Attraction.Price = Attraction.DefaultPrice;
 	}
 }
