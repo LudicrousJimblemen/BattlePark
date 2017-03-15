@@ -95,7 +95,31 @@ public struct Money {
 	}
 	
 	public override string ToString() {
-		return string.Format("{0}.{1}", Large, Small);
+		return ToString ("{0}.{1}");
+	}
+	
+	public string ToString (string format) {
+		string large = Large.ToString ();
+		string largeFinal = "";
+		if (large.Length > 3) {
+			int rem = large.Length % 3;
+			for (int i = 0; i < rem; i ++) {
+				largeFinal += large[i];
+			}
+			int groups = (int) large.Length / 3;
+			for (int g = 0; g < groups; g ++) {
+				if (g != 0) 
+					largeFinal += ",";
+				for (int k = 0; k < 3; k++) {
+					largeFinal += large[rem + g * 3 + k];
+				}
+			}
+		}
+		string smallString = small.ToString ();
+		if (small < 10) {
+			smallString = "0" + smallString;
+		}
+		return string.Format(format, largeFinal, smallString);
 	}
 	
 	public static implicit operator int(Money money) {

@@ -22,12 +22,15 @@ namespace Pathfinding {
 		
 		public Transform Target;
 		
+		public bool Wandering;
+		
 		private Vector3 angleDir;
 		private CharacterController controller;
 		private Animator anim;
 		public void Awake() {
 			controller = GetComponent<CharacterController>();
 			anim = GetComponent<Animator>();
+			Wandering = true;
 		}
 		public void Start() {
 			if (graph == null) {
@@ -42,8 +45,10 @@ namespace Pathfinding {
 			graph.RequestPath(transform.position, destination.position, FollowPath);
 		}
 		public void Wander() {
+			Wandering = true;
 			StopCoroutine("followPathRoutine");
 		}
+		// RUN F O R E V E R
 		IEnumerator Repath() {
 			while (true) {
 				if (Target != null)
@@ -58,6 +63,7 @@ namespace Pathfinding {
 			StartCoroutine(followPathRoutine(path));
 		}
 		IEnumerator followPathRoutine(Path path) {
+			Wandering = false;
 			int count = path.Count;
 			int waypointIndex = 0; // index of next node to go towards
 			bool following = true;
@@ -124,6 +130,7 @@ namespace Pathfinding {
 			if (anim != null) {
 				anim.SetFloat("Speed", 0);
 			}
+			Wandering = false;
 		}
 	}
 }

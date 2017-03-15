@@ -105,7 +105,7 @@ public class Person : NetworkBehaviour {
 			SeenObjects.Add(gridObject.Value);
 		}
 		
-		Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
+		//Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
 		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
 	}
 	
@@ -121,57 +121,66 @@ public class Person : NetworkBehaviour {
 		
 		if (Desires.Any()) {
 			Desire firstDesire = Desires.Peek();
-			DesireFood foodDesire = firstDesire as DesireFood;
-			DesireAttraction attractionDesire = firstDesire as DesireAttraction;
 			//TODO optimise - it's not necessary to perform these operations every frame
-			//TODO make them not die when they can;t find food
-			if (foodDesire != null) {
-				if (foodDesire.Target != null) {
-					walker.Target = foodDesire.Target.transform;
-				} else {
-					if (foodDesire.Food != null) {
-						walker.Target = SeenObjects.OfType<GridVendor>()
-							.Where(vendor => vendor.Product is ItemFood)
-							.Where(vendor => vendor.Product.Id == foodDesire.Food.Id)
-							.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
-							.First().transform;
+			switch ((DesireType)firstDesire) {
+				case DesireType.Food:
+					DesireFood foodDesire = (DesireFood)firstDesire;
+					if (foodDesire.Target != null) {
+						walker.Target = foodDesire.Target.transform;
 					} else {
-						walker.Target = SeenObjects.OfType<GridVendor>()
-							.Where(vendor => vendor.Product is ItemFood)
-							.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
-							.First().transform;
+						if (foodDesire.Food != null) {
+							walker.Target = SeenObjects.OfType<GridVendor>()
+								.Where(vendor => vendor.Product is ItemFood)
+								.Where(vendor => vendor.Product.Id == foodDesire.Food.Id)
+								.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
+								.First().transform;
+						} else {
+							GridVendor Target = SeenObjects.OfType<GridVendor>()
+								.Where(vendor => vendor.Product is ItemFood)
+								.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
+								.First();
+							if (Target != null) {
+								walker.Target = Target.transform;
+							}
+						}
 					}
-				}
-				if ((walker.Target.position - this.transform.position).sqrMagnitude < 7) {
-					if (walker.Target.GetComponent<GridVendor>().SellTo(this)) {
-						Desires.Dequeue();
-						Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) walker.Target.GetComponent<GridVendor>().Product).PluralString));
-						walker.StopCoroutine ("followPathRoutine");
-						walker.Stop();
+					if ((walker.Target.position - transform.position).sqrMagnitude < 7) {
+						if (walker.Target.GetComponent<GridVendor>().SellTo(this)) {
+							Desires.Dequeue();
+							Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) walker.Target.GetComponent<GridVendor>().Product).PluralString));
+							walker.StopCoroutine ("followPathRoutine");
+							walker.Stop();
+						}
 					}
-				}
-			} else if (attractionDesire != null) {
-				if (attractionDesire.Target != null) {
-					walker.SetDestination (attractionDesire.Target.transform);
-				} else {
-					if (attractionDesire.Attraction != null) {
-						walker.SetDestination (SeenObjects.OfType<GridAttraction>()
-							.Where(attraction => attraction.Attraction.Id == attractionDesire.Attraction.Id)
-							.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
-							.First().transform);
+					break;
+				case DesireType.Attraction:
+					DesireAttraction attractionDesire = (DesireAttraction)firstDesire;
+					if (attractionDesire.Target != null) {
+						walker.Target = attractionDesire.Target.transform;
 					} else {
-						walker.SetDestination (SeenObjects.OfType<GridAttraction>()
-							.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
-							.First().transform);
+						if (attractionDesire.Attraction != null) {
+							walker.Target = SeenObjects.OfType<GridAttraction>()
+								.Where(attraction => attraction.Attraction.Id == attractionDesire.Attraction.Id)
+								.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
+								.First().transform;
+						} else {
+							GridAttraction Target = SeenObjects.OfType<GridAttraction>()
+								.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
+								.First();
+							if (Target != null) {
+								walker.Target = Target.transform;
+							}
+						}
 					}
-				}
-
-				if ((walker.Target.position - this.transform.position).sqrMagnitude < 7) {
-					if (walker.Target.GetComponent<GridAttraction>().Admit(this)) {
-						Desires.Dequeue();
+					if ((walker.Target.position - this.transform.position).sqrMagnitude < 7) {
+						if (walker.Target.GetComponent<GridAttraction>().Admit(this)) {
+							Desires.Dequeue();
+						}
 					}
-				}
+					break;
 			}
+		} else {
+			// wander
 		}
 	}
 

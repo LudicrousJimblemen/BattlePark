@@ -23,7 +23,8 @@ public class Player : NetworkBehaviour {
 	public Money Money;
 	private void UpdateMoney(Money newMoney) {
 		Money = newMoney;
-		GameGUI.Instance.Money.text = String.Format(LanguageManager.GetString("game.gui.numericCurrencySmall"), newMoney.Large, newMoney.Small);
+		//GameGUI.Instance.Money.text = String.Format(LanguageManager.GetString("game.gui.numericCurrencySmall"), newMoney.Large, newMoney.Small);
+		GameGUI.Instance.Money.text = Money.ToString (LanguageManager.GetString("game.gui.numericCurrencySmall"));
 	}
 
 	[SyncVar]
