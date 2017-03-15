@@ -104,8 +104,6 @@ public class Person : NetworkBehaviour {
 		foreach (KeyValuePair<Vector3, GridObject> gridObject in Grid.Instance.Objects) {
 			SeenObjects.Add(gridObject.Value);
 		}
-		
-		//Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
 		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
 	}
 	
@@ -144,7 +142,7 @@ public class Person : NetworkBehaviour {
 							}
 						}
 					}
-					if ((walker.Target.position - transform.position).sqrMagnitude < 7) {
+					if ((walker.Target.position - this.transform.position).sqrMagnitude < 7) {
 						if (walker.Target.GetComponent<GridVendor>().SellTo(this)) {
 							Desires.Dequeue();
 							Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) walker.Target.GetComponent<GridVendor>().Product).PluralString));
@@ -187,7 +185,7 @@ public class Person : NetworkBehaviour {
 	private void Reroll() {
 		Name = GenerateName();
 		// between 20µ and 100µ (inclusive)
-		Money = Money.FromSmall(UnityEngine.Random.Range(2000, 10001));
+		Money = (Money)UnityEngine.Random.Range(2000, 10001);
 		Hunger = UnityEngine.Random.Range(0, 20f);
 		Thirst = UnityEngine.Random.Range(0, 15f);
 		Nausea = UnityEngine.Random.Range(0, 2f);

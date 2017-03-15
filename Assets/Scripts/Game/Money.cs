@@ -89,16 +89,11 @@ public struct Money {
 	public static Money operator -(Money left, Money right) {
 		return new Money(left.Large - right.Large, left.Small - right.Small);
 	}
-
-	public static Money FromSmall(int small) {
-		return new Money((int)Math.Floor(small / 100f), (int)(small / 100f) - (int)Math.Floor(small / 100f));
-	}
 	
 	public override string ToString() {
 		return ToString ("{0}.{1}");
 	}
-	
-	public string ToString (string format) {
+	public string ToString (string format, bool showSmall = true) {
 		string large = Large.ToString ();
 		string largeFinal = "";
 		if (large.Length > 3) {
@@ -119,9 +114,20 @@ public struct Money {
 		if (small < 10) {
 			smallString = "0" + smallString;
 		}
-		return string.Format(format, largeFinal, smallString);
+		if (showSmall) {
+			return string.Format(format, largeFinal, smallString);
+		} else {
+			return string.Format(format, largeFinal);
+		}
 	}
 	
+	public string ToString(bool includeSmall) {
+		return String.Format(LanguageManager.GetString(includeSmall? "game.gui.numericCurrencySmall" : "game.gui.numericCurrency"), Large, Small);
+	}
+	
+	public static implicit operator Money(int small) {
+		return new Money(small / 100, small % 100);
+	}
 	public static implicit operator int(Money money) {
 		return money.Large * 100 + money.Small;
 	}
