@@ -176,7 +176,7 @@ public class Person : NetworkBehaviour {
 	private void Reroll() {
 		Name = GenerateName();
 		// between 20µ and 100µ (inclusive)
-		Money = Money.FromSmall(UnityEngine.Random.Range(2000, 10001));
+		Money = (Money)UnityEngine.Random.Range(2000, 10001);
 		Hunger = UnityEngine.Random.Range(0, 20f);
 		Thirst = UnityEngine.Random.Range(0, 15f);
 		Nausea = UnityEngine.Random.Range(0, 2f);

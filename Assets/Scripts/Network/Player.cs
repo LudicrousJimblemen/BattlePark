@@ -65,11 +65,9 @@ public class Player : NetworkBehaviour {
 	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
 		GameObject newObject = (GameObject)Instantiate(
 			GameManager.Instance.Objects[ObjIndex].gameObject,
-		    Grid.Instance.SnapToGrid(position, playerNumber),
-		    Quaternion.identity);
-		
-		newObject.transform.Rotate(0, direction * 90, 0);
-		newObject.transform.parent = GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform;
+			Grid.Instance.SnapToGrid(position, playerNumber),
+			Quaternion.Euler(0, direction * 90, 0),
+			GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform);
 		newObject.name = GameManager.Instance.Objects[ObjIndex].gameObject.name;
 		
 		GridObject obj = newObject.GetComponent<GridObject>();
@@ -82,12 +80,12 @@ public class Player : NetworkBehaviour {
 	
 	[Server]
 	public void ServerSpawnPaths(int player, float sizeX, float step, Vector3[] parkGates) {
-		print ("geg");
 		for (int i = 0; i < (int)sizeX / 2; i++) {
-			GridObject path = Instantiate(GameManager.Instance.Objects.First(x => x is GridPathAsphalt),
-				                  parkGates[player] + (player * 2 - 1) * (0.5f + step / 2f + step * i) * Vector3.right,
-				                  Quaternion.identity,
-				                  GameManager.Instance.PlayerObjectParents[player].transform);
+			GridObject path = Instantiate(
+				GameManager.Instance.Objects.First(x => x is GridPathAsphalt),
+				parkGates[player] + (player * 2 - 1) * (0.5f + step / 2f + step * i) * Vector3.right,
+				Quaternion.identity,
+				GameManager.Instance.PlayerObjectParents[player].transform);
 			path.Owner = player + 1;
 		}
 	}
@@ -97,6 +95,6 @@ public class Player : NetworkBehaviour {
 	public void CmdSpawnPerson(Vector3 position, int owner) {
 		GameObject person = Instantiate(GameManager.Instance.PersonObj, position, Quaternion.identity) as GameObject;
 		NetworkServer.Spawn(person);
-		person.GetComponent<Pathfinding.PathWalker> ().graph = GameManager.Instance.Graphs[owner-1];
+		person.GetComponent<Pathfinding.PathWalker>().graph = GameManager.Instance.Graphs[owner - 1];
 	}
 }
