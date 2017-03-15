@@ -11,15 +11,16 @@ public struct Money {
 				Large += value / 100;
 				small = value % 100;
 			} else if (value < 0) {
-				Large += value / 100;
-				small = value % -100;
+				Large += (value - 100) / 100;
+				small = 100 + (value % -100);
 			}
 		}
 	}
 
 	public Money(int large, int small) {
 		this.Large = large;
-		this.small = small;
+		this.small = small; // Assign value.
+		this.Small = small; // Run through sanity check.
 	}
 
 	public override bool Equals(object obj) {
