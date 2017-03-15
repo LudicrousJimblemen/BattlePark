@@ -26,4 +26,8 @@ public abstract class GridVendor : GridObject {
 
 		return false;
 	}
+	
+	protected void Awake() {
+		Product.Price = Product.DefaultPrice;
+	}
 }

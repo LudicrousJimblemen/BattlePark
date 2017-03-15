@@ -115,6 +115,10 @@ public class Person : NetworkBehaviour {
 			return;
 		}
 		*/
+		if (InAttraction) {
+			walker.enabled = false;
+		}
+		
 		if (Desires.Any()) {
 			Desire firstDesire = Desires.Peek();
 			DesireFood foodDesire = firstDesire as DesireFood;
@@ -123,25 +127,25 @@ public class Person : NetworkBehaviour {
 			//TODO make them not die when they can;t find food
 			if (foodDesire != null) {
 				if (foodDesire.Target != null) {
-					walker.target = foodDesire.Target.transform;
+					walker.Target = foodDesire.Target.transform;
 				} else {
 					if (foodDesire.Food != null) {
-						walker.target = SeenObjects.OfType<GridVendor>()
+						walker.Target = SeenObjects.OfType<GridVendor>()
 							.Where(vendor => vendor.Product is ItemFood)
 							.Where(vendor => vendor.Product.Id == foodDesire.Food.Id)
 							.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
 							.First().transform;
 					} else {
-						walker.target = SeenObjects.OfType<GridVendor>()
+						walker.Target = SeenObjects.OfType<GridVendor>()
 							.Where(vendor => vendor.Product is ItemFood)
 							.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
 							.First().transform;
 					}
 				}
-				if ((walker.target.position - this.transform.position).sqrMagnitude < 7) {
-					if (walker.target.GetComponent<GridVendor>().SellTo(this)) {
+				if ((walker.Target.position - this.transform.position).sqrMagnitude < 7) {
+					if (walker.Target.GetComponent<GridVendor>().SellTo(this)) {
 						Desires.Dequeue();
-						Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) walker.target.GetComponent<GridVendor>().Product).PluralString));
+						Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) walker.Target.GetComponent<GridVendor>().Product).PluralString));
 						walker.StopCoroutine ("followPathRoutine");
 						walker.Stop();
 					}
@@ -162,8 +166,8 @@ public class Person : NetworkBehaviour {
 					}
 				}
 
-				if ((walker.target.position - this.transform.position).sqrMagnitude < 7) {
-					if (aiPath.target.GetComponent<GridAttraction>().Admit(this)) {
+				if ((walker.Target.position - this.transform.position).sqrMagnitude < 7) {
+					if (walker.Target.GetComponent<GridAttraction>().Admit(this)) {
 						Desires.Dequeue();
 					}
 				}
@@ -241,9 +245,9 @@ public class Person : NetworkBehaviour {
 		}
 
 		label += "    Target:\n";
-		if (walker.target != null) {
-			label += String.Format("        Name: {0}\n", walker.target.name);
-			label += String.Format("        Square Distance: {0}\n", Math.Round((walker.target.position - this.transform.position).sqrMagnitude, 1));
+		if (walker.Target != null) {
+			label += String.Format("        Name: {0}\n", walker.Target.name);
+			label += String.Format("        Square Distance: {0}\n", Math.Round((walker.Target.position - this.transform.position).sqrMagnitude, 1));
 		} else {
 			label += "        null";
 		}
@@ -265,9 +269,9 @@ public class Person : NetworkBehaviour {
 
 		Handles.Label(transform.position + 3 * Vector3.up, label, new GUIStyle { richText = true, alignment = TextAnchor.LowerLeft });
 
-		if (walker.target != null) {
+		if (walker.Target != null) {
 			Gizmos.color = Color.white;
-			Gizmos.DrawLine(transform.position + Vector3.up, walker.target.position);
+			Gizmos.DrawLine(transform.position + Vector3.up, walker.Target.position);
 			Gizmos.color = Color.cyan;
 			Gizmos.DrawSphere(transform.position + Vector3.up, 0.5f);
 		}
