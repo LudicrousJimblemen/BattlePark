@@ -105,7 +105,6 @@ public class Person : NetworkBehaviour {
 			SeenObjects.Add(gridObject.Value);
 		}
 		
-		Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
 		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
 	}
 	
@@ -145,7 +144,6 @@ public class Person : NetworkBehaviour {
 				if ((walker.Target.position - this.transform.position).sqrMagnitude < 7) {
 					if (walker.Target.GetComponent<GridVendor>().SellTo(this)) {
 						Desires.Dequeue();
-						Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) walker.Target.GetComponent<GridVendor>().Product).PluralString));
 						walker.StopCoroutine ("followPathRoutine");
 						walker.Stop();
 					}

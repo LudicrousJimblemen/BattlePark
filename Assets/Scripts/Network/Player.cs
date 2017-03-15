@@ -63,16 +63,20 @@ public class Player : NetworkBehaviour {
 
 	[Command]
 	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
-		GameObject newObject = Instantiate(GameManager.Instance.Objects[ObjIndex].gameObject,
-			                       Grid.Instance.SnapToGrid(position, playerNumber),
-			                       Quaternion.Euler(0, direction * 90, 0),
-			                       GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform
-		                       ) as GameObject;
+		GameObject newObject = (GameObject)Instantiate(
+			GameManager.Instance.Objects[ObjIndex].gameObject,
+		    Grid.Instance.SnapToGrid(position, playerNumber),
+		    Quaternion.identity);
+		
+		newObject.transform.Rotate(0, direction * 90, 0);
+		newObject.transform.parent = GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform;
 		newObject.name = GameManager.Instance.Objects[ObjIndex].gameObject.name;
+		
 		GridObject obj = newObject.GetComponent<GridObject>();
 		obj.GridPosition = position;
 		obj.Direction = (Direction)direction;
 		obj.Owner = playerNumber;
+		
 		NetworkServer.Spawn(newObject);
 	}
 	
