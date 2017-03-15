@@ -20,10 +20,10 @@ public class Player : NetworkBehaviour {
 	}
 
 	[SyncVar(hook = "UpdateMoney")]
-	public int Money;
-	private void UpdateMoney(int newMoney) {
+	public Money Money;
+	private void UpdateMoney(Money newMoney) {
 		Money = newMoney;
-		GameGUI.Instance.Money.text = String.Format(LanguageManager.GetString("game.gui.numericCurrency"), newMoney);
+		GameGUI.Instance.Money.text = String.Format(LanguageManager.GetString("game.gui.numericCurrencySmall"), newMoney.Large, newMoney.Small);
 	}
 
 	[SyncVar]
@@ -45,6 +45,8 @@ public class Player : NetworkBehaviour {
 		for (int g = 0; g < 2; g++) {
 			ServerSpawnPaths(g, Grid.Instance.GridSizeX, Grid.Instance.GridStepXZ, GameManager.Instance.ParkGates);
 		}
+		
+		Money = new Money(700000000, 00);
 	}
 
 	public void PlaceObject(int hotbarIndex, Vector3? position, int direction) {
