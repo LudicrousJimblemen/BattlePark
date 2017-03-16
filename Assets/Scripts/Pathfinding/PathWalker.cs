@@ -50,9 +50,12 @@ namespace Pathfinding {
 		}
 		// RUN F O R E V E R
 		IEnumerator Repath() {
+			Transform lastTarget = Target;
 			while (true) {
-				if (Target != null)
+				if(Target != null && Target != lastTarget) {
 					SetDestination(Target);
+					lastTarget = Target;
+				}
 				yield return new WaitForSeconds(RepathRate);
 			}
 		}
@@ -123,9 +126,13 @@ namespace Pathfinding {
 				yield return null;
 			}
 			//DestinationReachedCallback?.Invoke ();
-			Stop();
+			StopInternal();
 		}
 		public void Stop() {
+			StopAllCoroutines();
+			StopInternal();
+		}
+		private void StopInternal() {
 			Target = null;
 			if (anim != null) {
 				anim.SetFloat("Speed", 0);

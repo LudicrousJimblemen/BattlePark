@@ -68,7 +68,8 @@ public abstract class GridAttraction : GridObject {
 			for (int i = 0; i < MaximumPassengers; i++) {
 				if (Passengers[i] == null) {
 					Passengers[i] = person.gameObject;
-					person.GetComponent<Pathfinding.PathWalker>().enabled = false;
+					person.walker.Stop();
+					person.walker.enabled = false;
 					person.transform.SetParent(PassengerSlots[i].transform, false);
 					person.transform.localPosition = Vector3.zero;
 					person.InAttraction = true;

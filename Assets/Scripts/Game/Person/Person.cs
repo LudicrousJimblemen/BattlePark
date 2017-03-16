@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Pathfinding;
@@ -90,7 +89,7 @@ public class Person : NetworkBehaviour {
 	public List<GridObject> SeenObjects = new List<GridObject>();
 	public List<InventoryItem> Inventory = new List<InventoryItem>();
 
-	private PathWalker walker;
+	public PathWalker walker;
 
 	private void Awake() {
 		Reroll();
@@ -101,19 +100,16 @@ public class Person : NetworkBehaviour {
 		GameManager.Instance.Guests.Add(this);
 		
 		// TODO make this real
-		foreach (KeyValuePair<Vector3, GridObject> gridObject in Grid.Instance.Objects) {
-			SeenObjects.Add(gridObject.Value);
-		}
+		
 		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
 	}
 	
 	private void Update () {
-		/*
-		if (!Network.isServer) {
-			return;
+		// Look around
+		foreach(KeyValuePair<Vector3,GridObject> gridObject in Grid.Instance.Objects) {
+			if(!gridObject.GetType().IsAssignableFrom(typeof(GridPath)))
+				SeenObjects.Add(gridObject.Value);
 		}
-		*/
-		
 		if (Desires.Any()) {
 			Desire firstDesire = Desires.Peek();
 			//TODO optimise - it's not necessary to perform these operations every frame
@@ -123,27 +119,28 @@ public class Person : NetworkBehaviour {
 					if (foodDesire.Target != null) {
 						walker.Target = foodDesire.Target.transform;
 					} else {
-						if (foodDesire.Food != null) {
-							walker.Target = SeenObjects.OfType<GridVendor>()
-								.Where(vendor => vendor.Product is ItemFood)
-								.Where(vendor => vendor.Product.Id == foodDesire.Food.Id)
-								.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
-								.First().transform;
-						} else {
-							GridVendor Target = SeenObjects.OfType<GridVendor>()
-								.Where(vendor => vendor.Product is ItemFood)
-								.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
-								.First();
-							if (Target != null) {
-								walker.Target = Target.transform;
+						GridVendor Target = null;
+						IEnumerable<GridVendor> valid = SeenObjects.OfType<GridVendor>().Where(vendor => vendor.Product is ItemFood);
+						if(valid.Count() > 0) {
+							if(foodDesire.Food != null) {
+								Target = valid
+									.Where(vendor => vendor.Product.Id == foodDesire.Food.Id)
+									.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
+									.First();
+							} else {
+								Target = valid
+									.OrderBy(vendor => (vendor.transform.position - this.transform.position).sqrMagnitude)
+									.First();
 							}
 						}
+						if(Target != null) {
+							walker.Target = Target.transform;
+						}
 					}
-					if ((walker.Target.position - this.transform.position).sqrMagnitude < 7) {
+					if (walker.Target != null && (walker.Target.position - this.transform.position).sqrMagnitude < 7) {
 						if (walker.Target.GetComponent<GridVendor>().SellTo(this)) {
 							Desires.Dequeue();
 							Thoughts.Add(new Thought("person.thoughts.likeFood.ludicrous", ((ItemFood) walker.Target.GetComponent<GridVendor>().Product).PluralString));
-							walker.StopCoroutine ("followPathRoutine");
 							walker.Stop();
 						}
 					}
@@ -153,21 +150,25 @@ public class Person : NetworkBehaviour {
 					if (attractionDesire.Target != null) {
 						walker.Target = attractionDesire.Target.transform;
 					} else {
-						if (attractionDesire.Attraction != null) {
-							walker.Target = SeenObjects.OfType<GridAttraction>()
-								.Where(attraction => attraction.Attraction.Id == attractionDesire.Attraction.Id)
-								.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
-								.First().transform;
-						} else {
-							GridAttraction Target = SeenObjects.OfType<GridAttraction>()
-								.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
-								.First();
-							if (Target != null) {
-								walker.Target = Target.transform;
+						GridAttraction Target = null;
+						IEnumerable<GridAttraction> valid = SeenObjects.OfType<GridAttraction>();
+						if(valid.Count() > 0) {
+							if(attractionDesire.Attraction != null) {
+								Target = valid
+									.Where(attraction => attraction.Attraction.Id == attractionDesire.Attraction.Id)
+									.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
+									.First();
+							} else {
+								Target = valid
+									.OrderBy(attraction => (attraction.transform.position - this.transform.position).sqrMagnitude)
+									.First();
 							}
 						}
+						if(Target != null) {
+							walker.Target = Target.transform;
+						}
 					}
-					if ((walker.Target.position - this.transform.position).sqrMagnitude < 7) {
+					if (walker.Target != null && (walker.Target.position - this.transform.position).sqrMagnitude < 7) {
 						if (walker.Target.GetComponent<GridAttraction>().Admit(this)) {
 							Desires.Dequeue();
 						}
