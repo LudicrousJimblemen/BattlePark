@@ -31,8 +31,8 @@ public class Grid : MonoBehaviour {
 
 	public GameObject Gate;
 
-	private Vector3[] parkCenters;
-	private Vector3[] parkGates;
+	public Vector3[] parkCenters;
+	public Vector3[] parkGates;
 
 	public void Awake() {
 		if (FindObjectsOfType<Grid>().Length > 1) {
@@ -58,11 +58,13 @@ public class Grid : MonoBehaviour {
 		} else if (checkerboardWidth <= 0) {
 			throw new System.ArgumentOutOfRangeException("checkerboardWidth");
 		}
+		/*
 		GridOverlay.Instance.StartX = -GridSizeX;
 		GridOverlay.Instance.StartZ = -GridSizeZ;
 		GridOverlay.Instance.GridSizeX = GridSizeX * 2;
 		GridOverlay.Instance.GridSizeZ = GridSizeZ * 2;
 		GridOverlay.Instance.MainStep = GridStepXZ;
+		*/
 		StartCoroutine(generateMeshCoroutine(xSize, zSize, checkerboardWidth));
 	}
 	
