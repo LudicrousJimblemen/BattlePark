@@ -106,11 +106,8 @@ public class Person : NetworkBehaviour {
 	}
 	
 	private void Update () {
-		// Look around
-		foreach(KeyValuePair<Vector3,GridObject> gridObject in Grid.Instance.Objects) {
-			if(!gridObject.GetType().IsAssignableFrom(typeof(GridPath)))
-				SeenObjects.Add(gridObject.Value);
-		}
+		SeenObjects = Grid.Instance.Objects.Dictionary.Values.ToList();
+		
 		if (Desires.Any()) {
 			Desire firstDesire = Desires.Peek();
 			//TODO optimise - it's not necessary to perform these operations every frame
@@ -153,7 +150,7 @@ public class Person : NetworkBehaviour {
 					} else {
 						GridAttraction Target = null;
 						IEnumerable<GridAttraction> valid = SeenObjects.OfType<GridAttraction>();
-						if(valid.Any ()) {
+						if(valid.Any()) {
 							if(attractionDesire.Attraction != null) {
 								Target = valid
 									.Where(attraction => attraction.Attraction.Id == attractionDesire.Attraction.Id)

@@ -5,20 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class GridObjects : IEnumerable {
-	private Dictionary<Vector3, GridObject> dictionary = new Dictionary<Vector3, GridObject>();
+	public Dictionary<Vector3, GridObject> Dictionary = new Dictionary<Vector3, GridObject>();
 	
-	public int Count { get { return dictionary.Count; } }
+	public int Count { get { return Dictionary.Count; } }
 	
 	public IEnumerator GetEnumerator() {
-		return dictionary.GetEnumerator();
+		return Dictionary.GetEnumerator();
 	}
 
 	public void Add(Vector3 position, GridObject gridObject) {
-		dictionary.Add(position, gridObject);
+		Dictionary.Add(position, gridObject);
 	}
 
 	public void Remove(Vector3 position) {
-		dictionary.Remove(position);
+		Dictionary.Remove(position);
 	}
 
 	/// <summary>
@@ -28,7 +28,7 @@ public class GridObjects : IEnumerable {
 	/// <returns>The GridObject found if there is one, null otherwise.</returns>
 	public GridObject ObjectAt(Vector3 location) {
 		GridObject foundObject;
-		if (dictionary.TryGetValue(location, out foundObject)) {
+		if (Dictionary.TryGetValue(location, out foundObject)) {
 			return foundObject;
 		}
 		
@@ -42,10 +42,10 @@ public class GridObjects : IEnumerable {
 	/// <returns>The GridObject found if there is one, null otherwise.</returns>
 	public GridObject ObjectIn(Vector3 location) {
 		GridObject foundObject;
-		if (dictionary.TryGetValue(location, out foundObject)) {
+		if (Dictionary.TryGetValue(location, out foundObject)) {
 			return foundObject;
 		} else {
-			foreach (var item in dictionary.Values) {
+			foreach (var item in Dictionary.Values) {
 				foreach (var offset in item.RotatedOffsets()) {
 					if (item.GridPosition + offset == location) {
 						return item;
