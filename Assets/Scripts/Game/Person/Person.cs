@@ -106,9 +106,9 @@ public class Person : NetworkBehaviour {
 	}
 	
 	private void Update () {
-		SeenObjects = Grid.Instance.Objects.Dictionary.Values.ToList();
+		SeenObjects = Grid.Instance.Objects.Dictionary.Values.Where(x => !x.GetType().IsAssignableFrom(typeof(GridPath))).ToList();
 		
-		if (Desires.Any()) {
+		if (Desires.Any() && !InAttraction) {
 			Desire firstDesire = Desires.Peek();
 			//TODO optimise - it's not necessary to perform these operations every frame
 			switch ((DesireType)firstDesire) {

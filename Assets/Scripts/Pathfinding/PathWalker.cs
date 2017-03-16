@@ -18,12 +18,11 @@ namespace Pathfinding {
 		[Tooltip("One half of the angle of the cone representing a unit's field of view")]
 		public float FOVAngle;
 		
-		public float RepathRate = 3f;
+		public float RepathRate = 1f;
 		
 		public Transform Target;
 		
 		public bool Wandering;
-		
 		private Vector3 angleDir;
 		private CharacterController controller;
 		private Animator anim;
@@ -36,7 +35,12 @@ namespace Pathfinding {
 			if (graph == null) {
 				graph = FindObjectsOfType<NodeGraph>().First();
 			}
-			StartCoroutine(Repath());
+		}
+		public void OnEnable() {
+			StartCoroutine("Repath");
+		}
+		public void OnDisable() {
+			StopCoroutine("Repath");
 		}
 		public void SetDestination(Vector3 destination) {
 			graph.RequestPath(transform.position, destination, FollowPath);
@@ -46,26 +50,31 @@ namespace Pathfinding {
 		}
 		public void Wander() {
 			Wandering = true;
-			StopCoroutine("followPathRoutine");
+			if (followPathRoutine != null) {
+				StopCoroutine(followPathRoutine);
+			}
 		}
 		// RUN F O R E V E R
 		IEnumerator Repath() {
-			Transform lastTarget = Target;
 			while (true) {
-				if(Target != null && Target != lastTarget) {
+				GetComponentInChildren<SkinnedMeshRenderer>().material.color = UnityEngine.Random.ColorHSV();
+				if(Target != null) {
 					SetDestination(Target);
-					lastTarget = Target;
 				}
 				yield return new WaitForSeconds(RepathRate);
 			}
 		}
+		public IEnumerator followPathRoutine;
 		public void FollowPath(Path path, bool success) {
 			if (!success)
 				return;
-			StopAllCoroutines();
-			StartCoroutine(followPathRoutine(path));
+			if (followPathRoutine != null) {
+				StopCoroutine(followPathRoutine);
+			}
+			followPathRoutine = _followPath(path);
+			StartCoroutine(followPathRoutine);
 		}
-		IEnumerator followPathRoutine(Path path) {
+		IEnumerator _followPath(Path path) {
 			Wandering = false;
 			int count = path.Count;
 			int waypointIndex = 0; // index of next node to go towards
@@ -129,7 +138,9 @@ namespace Pathfinding {
 			StopInternal();
 		}
 		public void Stop() {
-			StopAllCoroutines();
+			if (followPathRoutine != null) {
+				StopCoroutine(followPathRoutine);
+			}
 			StopInternal();
 		}
 		private void StopInternal() {
@@ -138,6 +149,7 @@ namespace Pathfinding {
 				anim.SetFloat("Speed", 0);
 			}
 			Wandering = false;
+			followPathRoutine = null;
 		}
 	}
 }

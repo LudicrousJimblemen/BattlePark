@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597436263aa45424c9788770442e3886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LogLevel: 1
   ScanDistance: 2.5
 --- !u!114 &114144792024245604
 MonoBehaviour:
@@ -212,4 +213,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597436263aa45424c9788770442e3886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LogLevel: 1
   ScanDistance: 2.5

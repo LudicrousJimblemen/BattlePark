@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
 
 namespace Pathfinding {
 	public class NodeGraph : MonoBehaviour {
-		public PathNode NodeObj;
+		
+		[HideInInspector]
+		public enum logLevel {
+			None,
+			Debug
+		}
+		public logLevel LogLevel = logLevel.None;
 		
 		[Tooltip("The maximum distance that new nodes will scan and create connections with other nodes")]
 		public float ScanDistance = 5f;
@@ -75,8 +82,10 @@ namespace Pathfinding {
 			
 			bool success = false;
 			
-			//Stopwatch sw = new Stopwatch ();
-			//sw.Start ();
+			Stopwatch sw = new Stopwatch ();
+			if (LogLevel == logLevel.Debug) {
+				sw.Start ();
+			}
 			
 			while(open.Count > 0) {			
 				PathNode node = open[0];
@@ -91,7 +100,9 @@ namespace Pathfinding {
 				closed.Add(node);
 	
 				if(node == destNode) {
-					//sw.Stop ();
+					if (LogLevel == logLevel.Debug) {
+						sw.Stop ();
+					}
 					success = true;
 					break;
 				}
@@ -119,7 +130,9 @@ namespace Pathfinding {
 				if (foundPath.Count == 1) { // if it ONLY contains the end node, then it's an idiot and didn't succeed
 					success = false;
 				} else {
-					//print(string.Format("Path found: {0} ms",sw.ElapsedMilliseconds));
+					if (LogLevel == logLevel.Debug) {
+						print(string.Format("Path found: {0} ms",sw.ElapsedMilliseconds));
+					}
 				}
 			}
 			callback (new PathResult (foundPath, success, request, request.callback));

@@ -254,11 +254,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowGrid: 1
-  GridSizeX: 2
-  GridSizeZ: 2
-  MainStep: 1
-  StartX: 0
-  StartZ: 0
   mainColor: {r: 0, g: 0, b: 0, a: 0.16470589}
 --- !u!1 &505937264
 GameObject:
