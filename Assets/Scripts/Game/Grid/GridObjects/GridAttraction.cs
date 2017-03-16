@@ -70,7 +70,7 @@ public abstract class GridAttraction : GridObject {
 					Passengers[i] = person.gameObject;
 					person.walker.Stop();
 					person.walker.enabled = false;
-					person.transform.SetParent(PassengerSlots[i].transform, false);
+					person.transform.SetParent(PassengerSlots[i].transform, true);
 					person.transform.localPosition = Vector3.zero;
 					person.InAttraction = true;
 					return true;

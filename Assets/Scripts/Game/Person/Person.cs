@@ -102,6 +102,7 @@ public class Person : NetworkBehaviour {
 		// TODO make this real
 		
 		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
+		Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
 	}
 	
 	private void Update () {
@@ -121,7 +122,7 @@ public class Person : NetworkBehaviour {
 					} else {
 						GridVendor Target = null;
 						IEnumerable<GridVendor> valid = SeenObjects.OfType<GridVendor>().Where(vendor => vendor.Product is ItemFood);
-						if(valid.Count() > 0) {
+						if(valid.Any()) {
 							if(foodDesire.Food != null) {
 								Target = valid
 									.Where(vendor => vendor.Product.Id == foodDesire.Food.Id)
@@ -152,7 +153,7 @@ public class Person : NetworkBehaviour {
 					} else {
 						GridAttraction Target = null;
 						IEnumerable<GridAttraction> valid = SeenObjects.OfType<GridAttraction>();
-						if(valid.Count() > 0) {
+						if(valid.Any ()) {
 							if(attractionDesire.Attraction != null) {
 								Target = valid
 									.Where(attraction => attraction.Attraction.Id == attractionDesire.Attraction.Id)
