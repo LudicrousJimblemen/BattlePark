@@ -134,7 +134,6 @@ namespace Pathfinding {
 				}
 				yield return null;
 			}
-			//DestinationReachedCallback?.Invoke ();
 			StopInternal();
 		}
 		public void Stop() {

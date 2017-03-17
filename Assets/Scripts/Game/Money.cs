@@ -114,14 +114,15 @@ public struct Money {
 		for (int i = 0; i < rem; i ++) {
 			largeFinal += large[i];
 		}
-		if (large.Length > 3) {
-			int groups = (int) large.Length / 3;
-			for (int g = 0; g < groups; g ++) {
-				if (g != 0) 
-					largeFinal += ",";
-				for (int k = 0; k < 3; k++) {
-					largeFinal += large[rem + g * 3 + k];
-				}
+		if (rem != 0) {
+			largeFinal += ",";
+		}
+		int groups = (int) large.Length / 3;
+		for (int g = 0; g < groups; g ++) {
+			if (g != 0) 
+				largeFinal += ",";
+			for (int k = 0; k < 3; k++) {
+				largeFinal += large[rem + g * 3 + k];
 			}
 		}
 		

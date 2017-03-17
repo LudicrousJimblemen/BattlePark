@@ -7,6 +7,16 @@ public abstract class GridAttraction : GridObject {
 	/// The type of attraction.
 	/// </summary>
 	public abstract Attraction Attraction { get; }
+	
+	/// <summary>
+	/// The transform defining where persons will path towards to ride the ride 
+	/// </summary>
+	public Transform Entrance;
+	
+	/// <summary>
+	/// The transform defining where exiting persons will path towards first
+	/// </summary>
+	public Transform Exit;
 
 	/// <summary>
 	/// The maximum number of people that can be on an attraction at once.

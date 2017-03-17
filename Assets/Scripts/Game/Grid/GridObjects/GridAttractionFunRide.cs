@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -11,6 +10,16 @@ public class GridAttractionFunRide : GridAttraction {
 		get {
 			return new[] {
 				Vector3.zero,
+				/* TODO make these the real offsets later
+				new Vector3(1, 0, 0),
+				new Vector3(1, 0, 1),
+				new Vector3(0, 0, 1),
+				new Vector3(-1, 0, 0),
+				new Vector3(-1, 0, -1),
+				new Vector3(0, 0, -1),
+				new Vector3(1, 0, -1),
+				new Vector3(-1, 0, 1),
+				*/
 				new Vector3(0, 1, 0)
 			};
 		}
