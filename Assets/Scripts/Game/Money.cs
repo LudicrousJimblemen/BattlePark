@@ -2,15 +2,15 @@
 
 public struct Money {
 	
-	public long Value;
+	public int Value;
 
-	private long Large {
+	private int Large {
 		get {
 			return (Value - Value % 100)/100;
 		}
 	}
 	
-	private long Small {
+	private int Small {
 		get {
 			return Value % 100;
 		}
@@ -29,7 +29,7 @@ public struct Money {
 	}
 
 	public Money(int large, int small) {
-		Value = (long) large * 100 + (long) small;
+		Value = large * 100 + small;
 	}
 
 	public override bool Equals(object obj) {
@@ -65,7 +65,7 @@ public struct Money {
 			return false;
 		}
 		
-		return left < right;
+		return left.Value < right.Value;
 		/*
 
 		if (left.Large < right.Large) {
@@ -110,11 +110,11 @@ public struct Money {
 	public string ToString (string format, bool showSmall = true) {
 		string large = Large.ToString ();
 		string largeFinal = "";
+		int rem = large.Length % 3;
+		for (int i = 0; i < rem; i ++) {
+			largeFinal += large[i];
+		}
 		if (large.Length > 3) {
-			int rem = large.Length % 3;
-			for (int i = 0; i < rem; i ++) {
-				largeFinal += large[i];
-			}
 			int groups = (int) large.Length / 3;
 			for (int g = 0; g < groups; g ++) {
 				if (g != 0) 
@@ -124,6 +124,7 @@ public struct Money {
 				}
 			}
 		}
+		
 		string smallString = Small.ToString ();
 		if (Small < 10) {
 			smallString = "0" + smallString;

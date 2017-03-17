@@ -5,7 +5,7 @@ using UnityEditor;
 
 [CustomEditor(typeof(Person))]
 public class PersonInspector : Editor {
-	void OnDrawGizmosSelected () {
+	public void OnSceneGUI () {
 		Person person = target as Person;
 		string label = String.Format("<color=white><size=10>{0}\n",person.Name);
 		label += String.Format("    Money: {0}\n", person.Money.ToString (LanguageManager.GetString("game.gui.numericCurrencySmall")));

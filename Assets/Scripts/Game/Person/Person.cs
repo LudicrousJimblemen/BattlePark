@@ -14,7 +14,6 @@ public class Person : NetworkBehaviour {
 	/// <summary>
 	/// Represents how much money a person has.
 	/// </summary>
-	[Range(0, Int32.MaxValue)]
 	[SyncVar]
 	public Money Money;
 
@@ -102,6 +101,8 @@ public class Person : NetworkBehaviour {
 		
 		Desires.Enqueue(new DesireAttraction(Attraction.FunRide));
 		Desires.Enqueue(new DesireFood(ItemFood.Macaroni));
+		print (Money);
+		print (Money.Value);
 	}
 	
 	private void Update () {
@@ -180,7 +181,7 @@ public class Person : NetworkBehaviour {
 	private void Reroll() {
 		Name = GenerateName();
 		// between 20µ and 100µ (inclusive)
-		Money = (Money)UnityEngine.Random.Range(2000, 10001);
+		Money = (Money)UnityEngine.Random.Range(1000, 500001);
 		Hunger = UnityEngine.Random.Range(0, 20f);
 		Thirst = UnityEngine.Random.Range(0, 15f);
 		Nausea = UnityEngine.Random.Range(0, 2f);

@@ -232,10 +232,11 @@ GameObject:
   - component: {fileID: 4725737092109810}
   - component: {fileID: 95334856744788818}
   - component: {fileID: 114262431309738036}
+  - component: {fileID: 114635885679740338}
   - component: {fileID: 143672410393856820}
   - component: {fileID: 114689473236430210}
   - component: {fileID: 114611296468841856}
-  - component: {fileID: 114635885679740338}
+  - component: {fileID: 114866012715320628}
   m_Layer: 0
   m_Name: Person
   m_TagString: Untagged
@@ -487,7 +488,9 @@ MonoBehaviour:
   Urgency: 0
   Mood: 100
   Suspicion: 0
+  InAttraction: 0
   SeenObjects: []
+  walker: {fileID: 0}
 --- !u!114 &114611296468841856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -526,7 +529,9 @@ MonoBehaviour:
   StopDistance: 1
   GiveUpTime: 1
   FOVAngle: 0
-  target: {fileID: 0}
+  RepathRate: 1
+  Target: {fileID: 0}
+  Wandering: 0
 --- !u!114 &114689473236430210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -559,6 +564,25 @@ MonoBehaviour:
     i15: 10
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114866012715320628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1790509387394768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95334856744788818}
+  m_ParameterSendBits: 1
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!137 &137910743661418152
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

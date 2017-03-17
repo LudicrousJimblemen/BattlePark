@@ -53,7 +53,7 @@ public class Player : NetworkBehaviour {
 		for(int g = 0; g < 2; g++) {
 			ServerSpawnPaths(g,Grid.Instance.GridSizeX,Grid.Instance.GridStepXZ,GameManager.Instance.ParkGates[g]);
 		}
-		CmdUpdateMoney (new Money(700000000,00));
+		CmdUpdateMoney (new Money(1500,00)); // we monopoly now
 	}
 
 	public void PlaceObject(int hotbarIndex, Vector3? position, int direction) {
