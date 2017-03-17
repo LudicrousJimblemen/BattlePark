@@ -2,15 +2,15 @@
 
 public struct Money {
 	
-	public int Value;
+	public long Value;
 
-	private int Large {
+	private long Large {
 		get {
-			return Value - Value % 100;
+			return (Value - Value % 100)/100;
 		}
 	}
 	
-	private int Small {
+	private long Small {
 		get {
 			return Value % 100;
 		}
@@ -29,8 +29,7 @@ public struct Money {
 	}
 
 	public Money(int large, int small) {
-		
-		Value = large * 100 + small;
+		Value = (long) large * 100 + (long) small;
 	}
 
 	public override bool Equals(object obj) {
@@ -143,7 +142,7 @@ public struct Money {
 	public static implicit operator Money(int small) {
 		return new Money(small / 100, small % 100);
 	}
-	public static implicit operator int(Money money) {
+	public static implicit operator long(Money money) {
 		return money.Value;
 	}
 }
