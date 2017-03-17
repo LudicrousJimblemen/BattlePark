@@ -123,6 +123,7 @@ public class Client : NetworkLobbyManager {
 		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
 		Player game = gamePlayer.GetComponent<Player>();
 		game.Username = lobby.Username;
+		game.Money = new Money(700000000,00);
 
 		//gamePlayer.name = game.Username;
 

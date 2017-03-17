@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using System;
 using System.Collections.Generic;
@@ -224,59 +223,5 @@ public class Person : NetworkBehaviour {
 		}
 
 		return returnedName;
-	}
-
-	private void OnDrawGizmosSelected() {
-		string label = String.Format("<color=white><size=10>{0}\n", Name);
-		label += String.Format("    Money: {0}\n", String.Format(LanguageManager.GetString("game.gui.numericCurrencySmall"), Money.Large, Money.Small));
-		label += String.Format("    Hunger: {0}\n", Math.Round(Hunger, 1));
-		label += String.Format("    Thirst: {0}\n", Math.Round(Thirst, 1));
-		label += String.Format("    Nausea: {0}\n", Math.Round(Nausea, 1));
-		label += String.Format("    Urgency: {0}\n", Math.Round(Urgency, 1));
-		label += String.Format("    Mood: {0}\n", Math.Round(Mood, 1));
-		label += String.Format("    Suspicion: {0}\n", Math.Round(Suspicion, 1));
-		
-		label += "    Desires:\n";
-		foreach (var desire in Desires) {
-			DesireFood foodDesire = desire as DesireFood;
-			DesireAttraction attractionDesire = desire as DesireAttraction;
-			if (foodDesire != null) {
-				label += String.Format("        DesireFood: Food = ({0}), Target = ({1})\n", LanguageManager.GetString(foodDesire.Food.ProperString), foodDesire.Target);
-			} else if (attractionDesire != null) {
-				label += String.Format("        DesireAttraction: Attraction = ({0}), Target = ({1})\n", LanguageManager.GetString(attractionDesire.Attraction.ProperString), attractionDesire.Target);
-			}
-		}
-
-		label += "    Target:\n";
-		if (walker.Target != null) {
-			label += String.Format("        Name: {0}\n", walker.Target.name);
-			label += String.Format("        Square Distance: {0}\n", Math.Round((walker.Target.position - this.transform.position).sqrMagnitude, 1));
-		} else {
-			label += "        null";
-		}
-
-		label += "    Thoughts:\n";
-		foreach (var thought in Thoughts) {
-			label += "        " + String.Format(LanguageManager.GetString(thought.ThoughtString), thought.Parameters.Select(parameter => LanguageManager.GetString(parameter)).ToArray()) + "\n";
-		}
-
-		label += "    Inventory:\n";
-		foreach (var item in Inventory) {
-			InventoryFood foodItem = item as InventoryFood;
-			if (item != null) {
-				label += String.Format("        InventoryFood: Food = ({0}), Amount = ({1})\n", LanguageManager.GetString(foodItem.Food.ProperString), foodItem.Amount);
-			}
-		}
-
-		label += "</size></color>";
-
-		Handles.Label(transform.position + 3 * Vector3.up, label, new GUIStyle { richText = true, alignment = TextAnchor.LowerLeft });
-
-		if (walker.Target != null) {
-			Gizmos.color = Color.white;
-			Gizmos.DrawLine(transform.position + Vector3.up, walker.Target.position);
-			Gizmos.color = Color.cyan;
-			Gizmos.DrawSphere(transform.position + Vector3.up, 0.5f);
-		}
 	}
 }

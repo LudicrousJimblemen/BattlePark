@@ -19,8 +19,16 @@ public class Player : NetworkBehaviour {
 		name = newUsername;
 	}
 
+	/// <summary>
+	/// DO NOT UPDATE THIS CLIENT-SIDE, USE CMDUPDATEMONEY INSTEAD
+	/// </summary>
+	// garbage code that approaches being a hack
 	[SyncVar(hook = "UpdateMoney")]
 	public Money Money;
+	[Command]
+	public void CmdUpdateMoney(Money newMoney) {
+		Money = newMoney;
+	}
 	private void UpdateMoney(Money newMoney) {
 		Money = newMoney;
 		GameGUI.Instance.Money.text = Money.ToString (LanguageManager.GetString("game.gui.numericCurrencySmall"));
@@ -42,11 +50,9 @@ public class Player : NetworkBehaviour {
 		for (int i = 0; i < 9; i++) {
 			ObjectIndices[i] = GameManager.Instance.Objects[i] == null ? -1 : i;
 		}
-		for (int g = 0; g < 2; g++) {
-			ServerSpawnPaths(g, Grid.Instance.GridSizeX, Grid.Instance.GridStepXZ, GameManager.Instance.ParkGates);
+		for(int g = 0; g < 2; g++) {
+			ServerSpawnPaths(g,Grid.Instance.GridSizeX,Grid.Instance.GridStepXZ,GameManager.Instance.ParkGates[g]);
 		}
-		
-		Money = new Money(700000000, 00);
 	}
 
 	public void PlaceObject(int hotbarIndex, Vector3? position, int direction) {
@@ -78,15 +84,17 @@ public class Player : NetworkBehaviour {
 		NetworkServer.Spawn(newObject);
 	}
 	
+	// stupid unet parameters not allowing arrays of unity structs
 	[Server]
-	public void ServerSpawnPaths(int player, float sizeX, float step, Vector3[] parkGates) {
-		for (int i = 0; i < (int)sizeX / 2; i++) {
+	public void ServerSpawnPaths(int player, float sizeX, float step, Vector3 parkGate) {
+		for(int i = 0; i < (int)sizeX / 2; i++) {
 			GridObject path = Instantiate(
 				GameManager.Instance.Objects.First(x => x is GridPathAsphalt),
-				parkGates[player] + (player * 2 - 1) * (0.5f + step / 2f + step * i) * Vector3.right,
+				parkGate + (player * 2 - 1) * (0.5f + step / 2f + step * i) * Vector3.right,
 				Quaternion.identity,
 				GameManager.Instance.PlayerObjectParents[player].transform);
 			path.Owner = player + 1;
+			NetworkServer.Spawn(path.gameObject);
 		}
 	}
 	

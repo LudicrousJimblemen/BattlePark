@@ -23,5 +23,10 @@ public static class Extensions {
 		vec = ret;
 		return ret;
 	}
+	public static Vector3 Flat(this Vector3 vec) {
+		Vector3 returnV = vec;
+		returnV.y = 0;
+		return returnV;
+	}
 	#endregion
 }
