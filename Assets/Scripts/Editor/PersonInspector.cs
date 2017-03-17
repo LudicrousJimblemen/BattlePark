@@ -8,7 +8,7 @@ public class PersonInspector : Editor {
 	void OnDrawGizmosSelected () {
 		Person person = target as Person;
 		string label = String.Format("<color=white><size=10>{0}\n",person.Name);
-		label += String.Format("    Money: {0}\n",String.Format(LanguageManager.GetString("game.gui.numericCurrencySmall"),person.Money.Large,person.Money.Small));
+		label += String.Format("    Money: {0}\n", person.Money.ToString (LanguageManager.GetString("game.gui.numericCurrencySmall")));
 		label += String.Format("    Hunger: {0}\n",Math.Round(person.Hunger,1));
 		label += String.Format("    Thirst: {0}\n",Math.Round(person.Thirst,1));
 		label += String.Format("    Nausea: {0}\n",Math.Round(person.Nausea,1));
@@ -18,12 +18,16 @@ public class PersonInspector : Editor {
 
 		label += "    Desires:\n";
 		foreach(var desire in person.Desires) {
-			DesireFood foodDesire = desire as DesireFood;
-			DesireAttraction attractionDesire = desire as DesireAttraction;
-			if(foodDesire != null) {
-				label += String.Format("        DesireFood: Food = ({0}), Target = ({1})\n",LanguageManager.GetString(foodDesire.Food.ProperString),foodDesire.Target);
-			} else if(attractionDesire != null) {
-				label += String.Format("        DesireAttraction: Attraction = ({0}), Target = ({1})\n",LanguageManager.GetString(attractionDesire.Attraction.ProperString),attractionDesire.Target);
+			DesireType type = (DesireType)desire;
+			switch (type) {
+				case DesireType.Food:
+					var f = (DesireFood) desire;
+					label += String.Format("        DesireFood: Food = ({0}), Target = ({1})\n",LanguageManager.GetString(f.Food.ProperString),f.Target);
+					break;
+				case DesireType.Attraction:
+					var d = (DesireAttraction) desire;
+					label += String.Format("        DesireAttraction: Attraction = ({0}), Target = ({1})\n",LanguageManager.GetString(d.Attraction.ProperString),d.Target);
+					break;
 			}
 		}
 
@@ -32,7 +36,7 @@ public class PersonInspector : Editor {
 			label += String.Format("        Name: {0}\n",person.walker.Target.name);
 			label += String.Format("        Square Distance: {0}\n",Math.Round((person.walker.Target.position - person.transform.position).sqrMagnitude,1));
 		} else {
-			label += "        null";
+			label += "        null\n";
 		}
 
 		label += "    Thoughts:\n";

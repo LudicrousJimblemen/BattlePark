@@ -1,28 +1,36 @@
 ﻿using System;
 
 public struct Money {
+	
+	public int Value;
 
-
-	public int Large;
-
-	public int small;
-	public int Small {
-		get { return small; }
+	private int Large {
+		get {
+			return Value - Value % 100;
+		}
+	}
+	
+	private int Small {
+		get {
+			return Value % 100;
+		}
+		/*
+		get { return Small; }
 		set {
 			if (value >= 100) {
 				Large += value / 100;
-				small = value % 100;
+				Small = value % 100;
 			} else if (value < 0) {
 				Large += (value - 100) / 100;
-				small = 100 + (value % -100);
+				Small = 100 + (value % -100);
 			}
 		}
+		*/
 	}
 
 	public Money(int large, int small) {
-		this.Large = large;
-		this.small = small; // Assign value.
-		this.Small = small; // Run through sanity check.
+		
+		Value = large * 100 + small;
 	}
 
 	public override bool Equals(object obj) {
@@ -38,8 +46,7 @@ public struct Money {
 	}
 
 	public bool Equals(Money other) {
-		return this.Large == other.Large &&
-			this.Small == other.Small;
+		return this.Value == other.Value;
 	}
 
 	public override int GetHashCode() {
@@ -58,6 +65,9 @@ public struct Money {
 		if (left.Equals(right)) {
 			return false;
 		}
+		
+		return left < right;
+		/*
 
 		if (left.Large < right.Large) {
 			return true;
@@ -70,6 +80,7 @@ public struct Money {
 			return false;
 		}
 		return false;
+		*/
 	}
 
 	public static bool operator >(Money left, Money right) {
@@ -85,11 +96,13 @@ public struct Money {
 	}
 
 	public static Money operator +(Money left, Money right) {
-		return new Money(left.Large + right.Large, left.Small + right.Small);
+		return (Money)(left.Value + right.Value);
+		//return new Money(left.Large + right.Large, left.Small + right.Small);
 	}
 
 	public static Money operator -(Money left, Money right) {
-		return new Money(left.Large - right.Large, left.Small - right.Small);
+		return (Money)(left.Value - right.Value);
+		//return new Money(left.Large - right.Large, left.Small - right.Small);
 	}
 	
 	public override string ToString() {
@@ -112,8 +125,8 @@ public struct Money {
 				}
 			}
 		}
-		string smallString = small.ToString ();
-		if (small < 10) {
+		string smallString = Small.ToString ();
+		if (Small < 10) {
 			smallString = "0" + smallString;
 		}
 		if (showSmall) {
@@ -131,6 +144,6 @@ public struct Money {
 		return new Money(small / 100, small % 100);
 	}
 	public static implicit operator int(Money money) {
-		return money.Large * 100 + money.Small;
+		return money.Value;
 	}
 }
