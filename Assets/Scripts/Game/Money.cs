@@ -1,10 +1,11 @@
 ﻿using System;
 
-[Serializable]
 public struct Money {
-	public int Large { get; set; }
 
-	private int small;
+
+	public int Large;
+
+	public int small;
 	public int Small {
 		get { return small; }
 		set {
