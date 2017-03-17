@@ -1,25 +1,58 @@
 fileFormatVersion: 2
-guid: 983ad18f1b58f5d4386939e06d69b111
-timeCreated: 1488843559
+guid: 6cd5ac97c19374c489ee6b11d8eb63df
+timeCreated: 1489769375
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Armature
-    100004: Bone
-    100006: InfoKiosk
+    100002: PathCenter
+    100004: PathCornerNorthEast
+    100006: PathCornerNorthWest
+    100008: PathCornerSouthEast
+    100010: PathCornerSouthWest
+    100012: PathEdgeEast
+    100014: PathEdgeNorth
+    100016: PathEdgeSouth
+    100018: PathEdgeWest
+    100020: Armature
+    100022: Root
+    100024: Root_end
     400000: //RootNode
-    400002: Armature
-    400004: Bone
-    400006: InfoKiosk
-    2300000: //RootNode
-    2300002: InfoKiosk
-    3300000: //RootNode
-    3300002: InfoKiosk
-    4300000: InfoKiosk
-    7400000: Default Take
-    9500000: //RootNode
+    400002: PathCenter
+    400004: PathCornerNorthEast
+    400006: PathCornerNorthWest
+    400008: PathCornerSouthEast
+    400010: PathCornerSouthWest
+    400012: PathEdgeEast
+    400014: PathEdgeNorth
+    400016: PathEdgeSouth
+    400018: PathEdgeWest
+    400020: Armature
+    400022: Root
+    400024: Root_end
+    2300000: PathCenter
+    2300002: PathCornerNorthEast
+    2300004: PathCornerNorthWest
+    2300006: PathCornerSouthEast
+    2300008: PathCornerSouthWest
+    2300010: PathEdgeEast
+    2300012: PathEdgeNorth
+    2300014: PathEdgeSouth
+    2300016: PathEdgeWest
+    3300000: PathCenter
+    3300002: PathCornerNorthEast
+    3300004: PathCornerNorthWest
+    3300006: PathCornerSouthEast
+    3300008: PathCornerSouthWest
+    3300010: PathEdgeEast
+    3300012: PathEdgeNorth
+    3300014: PathEdgeSouth
+    3300016: PathEdgeWest
+    4300000: PathEdgeEast
+    4300002: PathEdgeSouth
+    4300004: PathCornerNorthWest
+    4300006: PathCenter
   materials:
     importMaterials: 0
     materialName: 0
@@ -41,17 +74,17 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 0
+    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -61,8 +94,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 2
-    tangentImportMode: 2
+    normalImportMode: 0
+    tangentImportMode: 3
   importAnimation: 0
   copyAvatar: 0
   humanDescription:

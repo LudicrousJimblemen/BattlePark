@@ -1,25 +1,75 @@
 fileFormatVersion: 2
-guid: 983ad18f1b58f5d4386939e06d69b111
-timeCreated: 1488843559
+guid: 5fc29d834e6d5574791af1506de41f41
+timeCreated: 1489767591
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Armature
-    100004: Bone
-    100006: InfoKiosk
-    400000: //RootNode
-    400002: Armature
-    400004: Bone
-    400006: InfoKiosk
-    2300000: //RootNode
-    2300002: InfoKiosk
-    3300000: //RootNode
-    3300002: InfoKiosk
-    4300000: InfoKiosk
-    7400000: Default Take
+    100000: Armature
+    100002: //RootNode
+    100004: FunRide
+    100006: Root
+    100008: Slot 1
+    100010: Slot 1 base
+    100012: Slot 1_end
+    100014: Slot 2
+    100016: Slot 2 base
+    100018: Slot 2_end
+    100020: Slot 3
+    100022: Slot 3 base
+    100024: Slot 3_end
+    100026: Slot 4
+    100028: Slot 4 base
+    100030: Slot 4_end
+    100032: Slot 5
+    100034: Slot 5 base
+    100036: Slot 5_end
+    100038: Slot 6
+    100040: Slot 6 base
+    100042: Slot 6_end
+    100044: Slot 7
+    100046: Slot 7 base
+    100048: Slot 7_end
+    100050: Slot 8
+    100052: Slot 8 base
+    100054: Slot 8_end
+    100056: Slot 9
+    100058: Slot 9 base
+    100060: Slot 9_end
+    400000: Armature
+    400002: //RootNode
+    400004: FunRide
+    400006: Root
+    400008: Slot 1
+    400010: Slot 1 base
+    400012: Slot 1_end
+    400014: Slot 2
+    400016: Slot 2 base
+    400018: Slot 2_end
+    400020: Slot 3
+    400022: Slot 3 base
+    400024: Slot 3_end
+    400026: Slot 4
+    400028: Slot 4 base
+    400030: Slot 4_end
+    400032: Slot 5
+    400034: Slot 5 base
+    400036: Slot 5_end
+    400038: Slot 6
+    400040: Slot 6 base
+    400042: Slot 6_end
+    400044: Slot 7
+    400046: Slot 7 base
+    400048: Slot 7_end
+    400050: Slot 8
+    400052: Slot 8 base
+    400054: Slot 8_end
+    400056: Slot 9
+    400058: Slot 9 base
+    400060: Slot 9_end
+    4300000: FunRide
     9500000: //RootNode
+    13700000: FunRide
   materials:
     importMaterials: 0
     materialName: 0
@@ -41,17 +91,17 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 0
+    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -61,8 +111,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 2
-    tangentImportMode: 2
+    normalImportMode: 0
+    tangentImportMode: 3
   importAnimation: 0
   copyAvatar: 0
   humanDescription:
@@ -82,7 +132,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

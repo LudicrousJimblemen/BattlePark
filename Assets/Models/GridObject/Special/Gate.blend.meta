@@ -6,11 +6,20 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Armature
+    100004: Gate
+    100006: Root
     400000: //RootNode
+    400002: Armature
+    400004: Gate
+    400006: Root
     2300000: //RootNode
+    2300002: Gate
     3300000: //RootNode
+    3300002: Gate
     4300000: Pingu
     4300002: Cube
+    4300004: Gate
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -34,17 +43,17 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 1
+    importBlendShapes: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    optimizeMeshForGPU: 0
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -54,8 +63,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
-    tangentImportMode: 3
+    normalImportMode: 2
+    tangentImportMode: 2
   importAnimation: 0
   copyAvatar: 0
   humanDescription:

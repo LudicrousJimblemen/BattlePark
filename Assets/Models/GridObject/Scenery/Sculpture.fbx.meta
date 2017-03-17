@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: 983ad18f1b58f5d4386939e06d69b111
-timeCreated: 1488843559
+guid: 881b6fab15c07be4cb9997f61c96c487
+timeCreated: 1489769380
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
     100002: Armature
-    100004: Bone
-    100006: InfoKiosk
+    100004: Pingu
+    100006: Root
+    100008: Root_end
     400000: //RootNode
     400002: Armature
-    400004: Bone
-    400006: InfoKiosk
+    400004: Pingu
+    400006: Root
+    400008: Root_end
     2300000: //RootNode
-    2300002: InfoKiosk
+    2300002: Pingu
     3300000: //RootNode
-    3300002: InfoKiosk
-    4300000: InfoKiosk
-    7400000: Default Take
-    9500000: //RootNode
+    3300002: Pingu
+    4300000: Pingu
   materials:
     importMaterials: 0
     materialName: 0
@@ -41,17 +41,17 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 0
+    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -61,8 +61,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 2
-    tangentImportMode: 2
+    normalImportMode: 0
+    tangentImportMode: 3
   importAnimation: 0
   copyAvatar: 0
   humanDescription:

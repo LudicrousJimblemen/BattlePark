@@ -1,25 +1,49 @@
 fileFormatVersion: 2
-guid: 983ad18f1b58f5d4386939e06d69b111
-timeCreated: 1488843559
+guid: d50c5ac06fe5a504089a98b3672041bc
+timeCreated: 1489769392
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Armature
-    100004: Bone
-    100006: InfoKiosk
-    400000: //RootNode
-    400002: Armature
-    400004: Bone
-    400006: InfoKiosk
-    2300000: //RootNode
-    2300002: InfoKiosk
-    3300000: //RootNode
-    3300002: InfoKiosk
-    4300000: InfoKiosk
-    7400000: Default Take
+    100000: Armature
+    100002: Center
+    100004: Chest
+    100006: Head
+    100008: Head_end
+    100010: Left Foot
+    100012: Left Foot_end
+    100014: Left Foreleg
+    100016: Left Leg
+    100018: Neck
+    100020: //RootNode
+    100022: Person
+    100024: Right Foot
+    100026: Right Foot_end
+    100028: Right Foreleg
+    100030: Right Leg
+    100032: Root
+    100034: Waist
+    400000: Armature
+    400002: Center
+    400004: Chest
+    400006: Head
+    400008: Head_end
+    400010: Left Foot
+    400012: Left Foot_end
+    400014: Left Foreleg
+    400016: Left Leg
+    400018: Neck
+    400020: //RootNode
+    400022: Person
+    400024: Right Foot
+    400026: Right Foot_end
+    400028: Right Foreleg
+    400030: Right Leg
+    400032: Root
+    400034: Waist
+    4300000: Person
     9500000: //RootNode
+    13700000: Person
   materials:
     importMaterials: 0
     materialName: 0
@@ -41,17 +65,17 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 0
+    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -61,8 +85,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 2
-    tangentImportMode: 2
+    normalImportMode: 0
+    tangentImportMode: 3
   importAnimation: 0
   copyAvatar: 0
   humanDescription:
@@ -82,7 +106,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -43,18 +43,18 @@ namespace BattlePark.Menu {
 				bodyRotationPrev = Body.transform.rotation;
 			
 				leftLegRotation = leftLegRotationPrev * Quaternion.Euler(
-					0,
 					Random.Range(-25f * PersonRotationTimerMultiple, -15f * PersonRotationTimerMultiple),
+					0,
 					0
 				);
 				rightLegRotation = rightLegRotationPrev * Quaternion.Euler(
-					0,
 					Random.Range(-25f * PersonRotationTimerMultiple, -15f * PersonRotationTimerMultiple),
+					0,
 					0
 				);
 				bodyRotation = bodyRotationPrev * Quaternion.Euler(
-					0,
 					Random.Range(-8f * PersonRotationTimerMultiple, 8f * PersonRotationTimerMultiple),
+					0,
 					0
 				);
 			}

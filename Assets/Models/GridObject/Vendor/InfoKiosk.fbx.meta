@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 983ad18f1b58f5d4386939e06d69b111
-timeCreated: 1488843559
+guid: 03ff8f4393cfad347a5e44e99da28637
+timeCreated: 1489769355
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -8,18 +8,18 @@ ModelImporter:
     100000: //RootNode
     100002: Armature
     100004: Bone
-    100006: InfoKiosk
+    100006: Bone_end
+    100008: InfoKiosk
     400000: //RootNode
     400002: Armature
     400004: Bone
-    400006: InfoKiosk
+    400006: Bone_end
+    400008: InfoKiosk
     2300000: //RootNode
     2300002: InfoKiosk
     3300000: //RootNode
     3300002: InfoKiosk
     4300000: InfoKiosk
-    7400000: Default Take
-    9500000: //RootNode
   materials:
     importMaterials: 0
     materialName: 0
@@ -41,17 +41,17 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 0
+    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -61,8 +61,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 2
-    tangentImportMode: 2
+    normalImportMode: 0
+    tangentImportMode: 3
   importAnimation: 0
   copyAvatar: 0
   humanDescription:

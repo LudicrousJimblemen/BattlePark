@@ -15,6 +15,8 @@ ModelImporter:
     100014: PathEdgeSouth
     100016: PathEdgeWest
     100018: //RootNode
+    100020: Armature
+    100022: Root
     400000: PathCenter
     400002: PathCornerNorthEast
     400004: PathCornerNorthWest
@@ -25,6 +27,8 @@ ModelImporter:
     400014: PathEdgeSouth
     400016: PathEdgeWest
     400018: //RootNode
+    400020: Armature
+    400022: Root
     2300000: PathCenter
     2300002: PathCornerNorthEast
     2300004: PathCornerNorthWest
@@ -75,17 +79,17 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 1
+    importBlendShapes: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    optimizeMeshForGPU: 0
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -95,8 +99,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
-    tangentImportMode: 3
+    normalImportMode: 2
+    tangentImportMode: 2
   importAnimation: 0
   copyAvatar: 0
   humanDescription:
