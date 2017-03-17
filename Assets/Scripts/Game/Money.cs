@@ -1,5 +1,6 @@
 ﻿using System;
 
+[Serializable]
 public struct Money {
 	public int Large { get; set; }
 

@@ -53,6 +53,7 @@ public class Player : NetworkBehaviour {
 		for(int g = 0; g < 2; g++) {
 			ServerSpawnPaths(g,Grid.Instance.GridSizeX,Grid.Instance.GridStepXZ,GameManager.Instance.ParkGates[g]);
 		}
+		CmdUpdateMoney (new Money(700000000,00));
 	}
 
 	public void PlaceObject(int hotbarIndex, Vector3? position, int direction) {
@@ -95,6 +96,7 @@ public class Player : NetworkBehaviour {
 				GameManager.Instance.PlayerObjectParents[player].transform);
 			path.Owner = player + 1;
 			NetworkServer.Spawn(path.gameObject);
+			print(path.Owner);
 		}
 	}
 	

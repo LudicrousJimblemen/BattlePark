@@ -263,7 +263,8 @@ public class Grid : MonoBehaviour {
 	/// <returns>The snapped position.</returns>
 	public Vector3 SnapToGrid(Vector3 position, int playerNum = 1) {
 		if (playerNum < 1 || playerNum > 2) {
-			throw new System.ArgumentOutOfRangeException("playerNum: " + playerNum);
+			playerNum = Mathf.Clamp(playerNum,1,2);
+			//throw new System.ArgumentOutOfRangeException("playerNum: " + playerNum);
 		}
 
 		Vector3 center = GameManager.Instance.ParkCenters[playerNum - 1];
