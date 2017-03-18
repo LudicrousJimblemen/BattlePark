@@ -132,6 +132,9 @@ public abstract class GridObject : NetworkBehaviour {
 			Gizmos.DrawWireCube(offset + GetPosition(), new Vector3(Grid.Instance.GridStepXZ,Grid.Instance.GridStepY,Grid.Instance.GridStepXZ));
 			//UnityEditor.Handles.Label(offset + GetPosition(),(offset + GetPosition()).ToString());
 		}
+		
+		Gizmos.color = Color.red;
+		Gizmos.DrawRay (GetPosition () + Vector3.up * 3f, transform.forward);
 		//UnityEditor.Handles.color = Color.white;
 		//UnityEditor.Handles.Label(GridPosition + Vector3.up * 2,((int)Direction).ToString());
 	}

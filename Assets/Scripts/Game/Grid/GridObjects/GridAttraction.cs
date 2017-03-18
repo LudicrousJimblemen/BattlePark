@@ -7,6 +7,16 @@ public abstract class GridAttraction : GridObject {
 	/// The type of attraction.
 	/// </summary>
 	public abstract Attraction Attraction { get; }
+	
+	/// <summary>
+	/// The transform defining where persons will path towards to ride the ride 
+	/// </summary>
+	public Transform Entrance;
+	
+	/// <summary>
+	/// The transform defining where exiting persons will path towards first
+	/// </summary>
+	public Transform Exit;
 
 	/// <summary>
 	/// The maximum number of people that can be on an attraction at once.
@@ -68,6 +78,7 @@ public abstract class GridAttraction : GridObject {
 			for (int i = 0; i < MaximumPassengers; i++) {
 				if (Passengers[i] == null) {
 					Passengers[i] = person.gameObject;
+					person.GetComponent<UnityEngine.Networking.NetworkTransform> ().enabled = false;
 					person.walker.Stop();
 					person.walker.enabled = false;
 					person.transform.SetParent(PassengerSlots[i].transform, true);
@@ -84,6 +95,7 @@ public abstract class GridAttraction : GridObject {
 		for (int i = 0; i < MaximumPassengers; i++) {
 			if (Passengers[i] != null) {
 				Passengers[i].transform.SetParent(null, true);
+				Passengers[i].GetComponent<UnityEngine.Networking.NetworkTransform> ().enabled = true;
 				Passengers[i].GetComponent<Person>().InAttraction = false;
 				Passengers[i].GetComponent<Pathfinding.PathWalker>().enabled = true;
 				Passengers[i] = null;

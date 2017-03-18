@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -11,6 +10,16 @@ public class GridAttractionFunRide : GridAttraction {
 		get {
 			return new[] {
 				Vector3.zero,
+				/* TODO make these the real offsets later
+				new Vector3(1, 0, 0),
+				new Vector3(1, 0, 1),
+				new Vector3(0, 0, 1),
+				new Vector3(-1, 0, 0),
+				new Vector3(-1, 0, -1),
+				new Vector3(0, 0, -1),
+				new Vector3(1, 0, -1),
+				new Vector3(-1, 0, 1),
+				*/
 				new Vector3(0, 1, 0)
 			};
 		}
@@ -36,21 +45,21 @@ public class GridAttractionFunRide : GridAttraction {
 	
 	public IEnumerator StartCycle() {
 		InCycle = true;
-		for (int i = 0; i < 100; i++) {
+		for (float i = 0; i < 1f; i+= Time.deltaTime) {
 			foreach (var slot in PassengerSlots) {
-				slot.transform.localPosition = new Vector3(-Random.value * Mathf.SmoothStep(0, 2.5f, i / 100f), 0, 0);
+				slot.transform.localPosition = new Vector3(-Random.value * Mathf.SmoothStep(0, 2.5f, i), 0, 0);
 			}
 			yield return null;
 		}
-		for (int i = 0; i < 400; i++) {
+		for (float i = 0; i < 4f; i+= Time.deltaTime) {
 			foreach (var slot in PassengerSlots) {
 				slot.transform.localPosition = new Vector3(-Random.value * 2.5f, 0, 0);
 			}
 			yield return null;
 		}
-		for (int i = 0; i < 100; i++) {
+		for (float i = 0; i < 1f; i+= Time.deltaTime) {
 			foreach (var slot in PassengerSlots) {
-				slot.transform.localPosition = new Vector3(-Random.value * Mathf.SmoothStep(2.5f, 0, i / 100f), 0, 0);
+				slot.transform.localPosition = new Vector3(-Random.value * Mathf.SmoothStep(2.5f, 0, i), 0, 0);
 			}
 			yield return null;
 		}
