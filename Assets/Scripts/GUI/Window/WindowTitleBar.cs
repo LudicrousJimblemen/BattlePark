@@ -4,11 +4,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class WindowTitleBar : MonoBehaviour {
-	private readonly float minX;
-	private readonly float maxX = Screen.width;
-	private readonly float minY;
-	private readonly float maxY = Screen.height;
- 
 	private Vector3 lastMousePosition;
 	private RectTransform rectTransform;
 	
@@ -32,8 +27,8 @@ public class WindowTitleBar : MonoBehaviour {
 		transform.parent.position += GetClampedMousePosition() - lastMousePosition;
  
 		Vector3 position = transform.parent.position;
-		position.x = Mathf.Clamp(position.x, minX, maxX);
-		position.y = Mathf.Clamp(position.y, minY, maxY);
+		position.x = Mathf.Clamp(position.x, 0, Screen.width - rectTransform.rect.width);
+		position.y = Mathf.Clamp(position.y, 0, Screen.height - rectTransform.rect.height);
  
 		transform.parent.position = position;
  
