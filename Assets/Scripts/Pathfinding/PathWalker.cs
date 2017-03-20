@@ -57,7 +57,6 @@ namespace Pathfinding {
 		// RUN F O R E V E R
 		IEnumerator Repath() {
 			while (true) {
-				GetComponentInChildren<SkinnedMeshRenderer>().material.color = UnityEngine.Random.ColorHSV();
 				if(Target != null) {
 					SetDestination(Target);
 				}
