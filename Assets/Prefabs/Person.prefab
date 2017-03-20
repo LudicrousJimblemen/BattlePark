@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 114262431309738036}
   - component: {fileID: 143672410393856820}
   - component: {fileID: 114635885679740338}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Person
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5dbf5210e29fc7144bc40e8f8edb54df, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
