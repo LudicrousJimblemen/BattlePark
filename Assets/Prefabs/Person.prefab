@@ -548,7 +548,7 @@ Animator:
   m_GameObject: {fileID: 1790509387394768}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d50c5ac06fe5a504089a98b3672041bc, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5dbf5210e29fc7144bc40e8f8edb54df, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -576,7 +576,7 @@ MonoBehaviour:
   Suspicion: 0
   InAttraction: 0
   SeenObjects: []
-  walker: {fileID: 0}
+  Walker: {fileID: 0}
 --- !u!114 &114611296468841856
 MonoBehaviour:
   m_ObjectHideFlags: 1
