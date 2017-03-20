@@ -42,7 +42,7 @@ public abstract class GridPath : GridObject {
 
 	public override bool CanRotate { get { return false; } }
 
-	public void UpdateMesh() {
+	public virtual void UpdateMesh() {
 		GridObject[] adj = Grid.Instance.Objects.AdjacentObjects(GetPosition(), true);
 		
 		bool W = adj[0] is GridPath;
