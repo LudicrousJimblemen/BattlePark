@@ -49,19 +49,19 @@ public class GridAttractionFunRide : GridAttraction {
 			foreach (var slot in PassengerSlots) {
 				slot.transform.parent.localPosition = new Vector3(0, Random.value * Mathf.SmoothStep(0, 0.025f, i), 0);
 			}
-			yield return new WaitForSeconds(1 / 60f);
+			yield return null;
 		}
-		for (float i = 0; i < 4f; i+= Time.deltaTime) {
+		for (float i = 0; i < 8; i+= Time.deltaTime) {
 			foreach (var slot in PassengerSlots) {
 				slot.transform.parent.localPosition = new Vector3(0, Random.value * 0.025f, 0);
 			}
-			yield return new WaitForSeconds(1 / 60f);
+			yield return null;
 		}
 		for (float i = 0; i < 1f; i+= Time.deltaTime) {
 			foreach (var slot in PassengerSlots) {
 				slot.transform.parent.localPosition = new Vector3(0, Random.value * Mathf.SmoothStep(0.025f, 0, i), 0);
 			}
-			yield return new WaitForSeconds(1 / 60f);
+			yield return null;
 		}
 		EndCycle();
 	}

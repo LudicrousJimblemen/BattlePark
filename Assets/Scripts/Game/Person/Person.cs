@@ -95,6 +95,7 @@ public class Person : NetworkBehaviour {
 		Reroll();
 		Walker = GetComponent<PathWalker>();
 		controller = GetComponent<CharacterController>();
+		GetComponentInChildren<SkinnedMeshRenderer>().material.color = UnityEngine.Random.ColorHSV();
 	}
 
 	private void Start() {
