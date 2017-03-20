@@ -1,7 +1,6 @@
 ﻿using System;
 
 public struct Money {
-	
 	public int Value;
 
 	private int Large {

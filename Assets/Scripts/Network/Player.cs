@@ -96,7 +96,6 @@ public class Player : NetworkBehaviour {
 				GameManager.Instance.PlayerObjectParents[player].transform);
 			path.Owner = player + 1;
 			NetworkServer.Spawn(path.gameObject);
-			print(path.Owner);
 		}
 	}
 	

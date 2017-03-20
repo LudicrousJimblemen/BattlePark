@@ -46,79 +46,81 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AppVersion.cs" />
-     <Compile Include="Assets\Scripts\Controls\CameraPan.cs" />
-     <Compile Include="Assets\Scripts\Controls\GameInput.cs" />
-     <Compile Include="Assets\Scripts\Controls\NetworkCameraPan.cs" />
-     <Compile Include="Assets\Scripts\Extensions.cs" />
-     <Compile Include="Assets\Scripts\GUI\GUI.cs" />
-     <Compile Include="Assets\Scripts\GUI\GameGUI.cs" />
-     <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
-     <Compile Include="Assets\Scripts\GUI\Localization\LanguageManager.cs" />
-     <Compile Include="Assets\Scripts\GUI\Localization\TextLocalizer.cs" />
-     <Compile Include="Assets\Scripts\GUI\TabNav.cs" />
-     <Compile Include="Assets\Scripts\Game\Attraction.cs" />
-     <Compile Include="Assets\Scripts\Game\GameManager.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\Direction.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\Grid.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObject.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObjects.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridAttraction.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridAttractionFunRide.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPath.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPathAsphalt.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPathQueue.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridScenery.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendor.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendorMacaroniStall.cs" />
-     <Compile Include="Assets\Scripts\Game\Grid\GridRegion.cs" />
-     <Compile Include="Assets\Scripts\Game\Money.cs" />
-     <Compile Include="Assets\Scripts\Game\Person\Desire.cs" />
-     <Compile Include="Assets\Scripts\Game\Person\InventoryFood.cs" />
-     <Compile Include="Assets\Scripts\Game\Person\InventoryItem.cs" />
-     <Compile Include="Assets\Scripts\Game\Person\Item.cs" />
-     <Compile Include="Assets\Scripts\Game\Person\ItemFood.cs" />
-     <Compile Include="Assets\Scripts\Game\Person\Person.cs" />
-     <Compile Include="Assets\Scripts\Game\Person\PersonManager.cs" />
-     <Compile Include="Assets\Scripts\Game\Person\Thought.cs" />
-     <Compile Include="Assets\Scripts\GridOverlay.cs" />
-     <Compile Include="Assets\Scripts\Network\ChatMessage.cs" />
-     <Compile Include="Assets\Scripts\Network\Client.cs" />
-     <Compile Include="Assets\Scripts\Network\LobbyPlayer.cs" />
-     <Compile Include="Assets\Scripts\Network\Player.cs" />
-     <Compile Include="Assets\Scripts\Pathfinding\NodeGraph.cs" />
-     <Compile Include="Assets\Scripts\Pathfinding\Path.cs" />
-     <Compile Include="Assets\Scripts\Pathfinding\PathConnection.cs" />
-     <Compile Include="Assets\Scripts\Pathfinding\PathNode.cs" />
-     <Compile Include="Assets\Scripts\Pathfinding\PathWalker.cs" />
-     <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
-     <None Include="Assets\Fonts\OFL.txt" />
-     <None Include="Assets\PersonPseudocode.txt" />
-     <None Include="Assets\Scripts\names.txt" />
-     <None Include="Assets\Resources\Language\jp.txt" />
-     <None Include="Assets\Shaders\Hologram.shader" />
-     <None Include="Assets\Resources\Language\en.txt" />
- <Reference Include="UnityEngine.UI">
- <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.PlaymodeTestsRunner">
- <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.HoloLens">
- <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VR">
- <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
- </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/s-asengupta/Documents/GitHub/BattlePark/Assets/Assemblies/Newtonsoft.Json.dll</HintPath>
- </Reference>
+    <Compile Include="Assets\Scripts\AppVersion.cs" />
+    <Compile Include="Assets\Scripts\Controls\CameraPan.cs" />
+    <Compile Include="Assets\Scripts\Controls\GameInput.cs" />
+    <Compile Include="Assets\Scripts\Controls\NetworkCameraPan.cs" />
+    <Compile Include="Assets\Scripts\Extensions.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\InventoryFood.cs">
+      <DependentUpon>GridRegion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Assets\Scripts\GUI\GUI.cs" />
+    <Compile Include="Assets\Scripts\GUI\GameGUI.cs" />
+    <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
+    <Compile Include="Assets\Scripts\GUI\Localization\LanguageManager.cs" />
+    <Compile Include="Assets\Scripts\GUI\Localization\TextLocalizer.cs" />
+    <Compile Include="Assets\Scripts\GUI\TabNav.cs" />
+    <Compile Include="Assets\Scripts\Game\Attraction.cs" />
+    <Compile Include="Assets\Scripts\Game\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\Direction.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\Grid.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObject.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObjects.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridAttraction.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridAttractionFunRide.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPath.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPathAsphalt.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPathQueue.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridScenery.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendor.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendorMacaroniStall.cs" />
+    <Compile Include="Assets\Scripts\Game\Grid\GridRegion.cs" />
+    <Compile Include="Assets\Scripts\Game\Money.cs" />
+    <Compile Include="Assets\Scripts\Game\Person\Desire.cs" />
+    <Compile Include="Assets\Scripts\Game\Person\InventoryItem.cs" />
+    <Compile Include="Assets\Scripts\Game\Person\Item.cs" />
+    <Compile Include="Assets\Scripts\Game\Person\ItemFood.cs" />
+    <Compile Include="Assets\Scripts\Game\Person\Person.cs" />
+    <Compile Include="Assets\Scripts\Game\Person\PersonManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Person\Thought.cs" />
+    <Compile Include="Assets\Scripts\GridOverlay.cs" />
+    <Compile Include="Assets\Scripts\Network\ChatMessage.cs" />
+    <Compile Include="Assets\Scripts\Network\Client.cs" />
+    <Compile Include="Assets\Scripts\Network\LobbyPlayer.cs" />
+    <Compile Include="Assets\Scripts\Network\Player.cs" />
+    <Compile Include="Assets\Scripts\Pathfinding\NodeGraph.cs" />
+    <Compile Include="Assets\Scripts\Pathfinding\Path.cs" />
+    <Compile Include="Assets\Scripts\Pathfinding\PathConnection.cs" />
+    <Compile Include="Assets\Scripts\Pathfinding\PathNode.cs" />
+    <Compile Include="Assets\Scripts\Pathfinding\PathWalker.cs" />
+    <Compile Include="Assets\Scripts\TitleScreenBackground.cs" />
+    <None Include="Assets\Fonts\OFL.txt" />
+    <None Include="Assets\PersonPseudocode.txt" />
+    <None Include="Assets\Scripts\names.txt" />
+    <None Include="Assets\Resources\Language\jp.txt" />
+    <None Include="Assets\Shaders\Hologram.shader" />
+    <None Include="Assets\Resources\Language\en.txt" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PlaymodeTestsRunner">
+      <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VR">
+      <HintPath>D:/Essentials/Unity/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:/Users/s-asengupta/Documents/GitHub/BattlePark/Assets/Assemblies/Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -128,5 +130,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>

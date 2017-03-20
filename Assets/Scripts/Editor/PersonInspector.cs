@@ -31,9 +31,9 @@ public class PersonInspector : Editor {
 		}
 
 		label += "    Target:\n";
-		if(person.walker.Target != null) {
-			label += String.Format("            Name: {0}\n",person.walker.Target.name);
-			label += String.Format("            Square Distance: {0}\n",Math.Round((person.walker.Target.position - person.transform.position).sqrMagnitude,1));
+		if(person.Walker.Target != null) {
+			label += String.Format("            Name: {0}\n",person.Walker.Target.name);
+			label += String.Format("            Square Distance: {0}\n",Math.Round((person.Walker.Target.position - person.transform.position).sqrMagnitude,1));
 		} else {
 			label += "            null\n";
 		}
@@ -56,9 +56,9 @@ public class PersonInspector : Editor {
 		//Handles.BeginGUI();
 		Handles.Label((person.InAttraction ? person.transform.position.Flat() : person.transform.position) + 3 * Vector3.up,label,new GUIStyle { richText = true,alignment = TextAnchor.LowerLeft });
 
-		if(person.walker.Target != null) {
+		if(person.Walker.Target != null) {
 			Handles.color = Color.white;
-			Handles.DrawLine(person.transform.position + Vector3.up,person.walker.Target.position);
+			Handles.DrawLine(person.transform.position + Vector3.up,person.Walker.Target.position);
 		}
 		//Handles.EndGUI();
 	}
