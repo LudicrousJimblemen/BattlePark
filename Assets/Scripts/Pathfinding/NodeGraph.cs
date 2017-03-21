@@ -127,12 +127,8 @@ namespace Pathfinding {
 			Path foundPath = null;
 			if (success) { // it found the end node
 				foundPath = RetracePath(startNode,destNode);
-				if (foundPath.Count == 1) { // if it ONLY contains the end node, then it's an idiot and didn't succeed
-					success = false;
-				} else {
-					if (LogLevel == logLevel.Debug) {
-						print(string.Format("Path found: {0} ms",sw.ElapsedMilliseconds));
-					}
+				if(LogLevel == logLevel.Debug) {
+					print(string.Format("Path found: {0} ms",sw.ElapsedMilliseconds));
 				}
 			}
 			callback (new PathResult (foundPath, success, request, request.callback));
