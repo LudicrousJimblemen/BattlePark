@@ -18,17 +18,34 @@ public class WindowResizer : MonoBehaviour {
 	public ResizePoint Point;
 	
 	private Vector2 lastMousePosition;
-	private RectTransform rectTransform;
+	
+	private Window window;
+	private RectTransform parent;
 	
 	private void Awake() {
-		rectTransform = transform.parent.GetComponent<RectTransform>();
+		window = transform.parent.GetComponent<Window>();
+		parent = transform.parent.GetComponent<RectTransform>();
 	}
  
 	private Vector3 GetClampedMousePosition() {
 		Vector3 mousePosition = Input.mousePosition;
+		
+		if (Point == ResizePoint.Top || Point == ResizePoint.TopLeft || Point == ResizePoint.TopRight) {
+			mousePosition.y = Mathf.Clamp(mousePosition.y, parent.position.y + window.MinimumHeight, parent.position.y + window.MaximumHeight);
+		}
+		if (Point == ResizePoint.Bottom || Point == ResizePoint.BottomLeft || Point == ResizePoint.BottomRight) {
+			mousePosition.y = Mathf.Clamp(mousePosition.y, parent.position.y + parent.rect.height - window.MaximumHeight, parent.position.y + parent.rect.height - window.MinimumHeight);
+		}
+		if (Point == ResizePoint.Left || Point == ResizePoint.BottomLeft || Point == ResizePoint.TopLeft) {
+			mousePosition.x = Mathf.Clamp(mousePosition.x, parent.position.x + parent.rect.width - window.MaximumWidth, parent.position.x + parent.rect.width - window.MinimumWidth);
+		}
+		if (Point == ResizePoint.Right || Point == ResizePoint.BottomRight || Point == ResizePoint.TopRight) {
+			mousePosition.x = Mathf.Clamp(mousePosition.x, parent.position.x + window.MinimumWidth, parent.position.x + window.MaximumWidth);
+		}
+		
 		mousePosition.x = Mathf.Clamp(mousePosition.x, 0f, Screen.width);
 		mousePosition.y = Mathf.Clamp(mousePosition.y, 0f, Screen.height);
- 
+		
 		return mousePosition;
 	}
  
@@ -37,36 +54,37 @@ public class WindowResizer : MonoBehaviour {
 	}
  
 	public void OnMouseDrag() {
-		Vector2 clampedMouse = GetClampedMousePosition();
+		Vector2 mouse = Input.mousePosition;
 		
-		switch (Point) {
-			case ResizePoint.Top:
-				rectTransform.offsetMax += new Vector2(0, clampedMouse.y) - new Vector2(0, lastMousePosition.y);
-				break;
-			case ResizePoint.Bottom:
-				rectTransform.offsetMin += new Vector2(0, clampedMouse.y) - new Vector2(0, lastMousePosition.y);
-				break;
-			case ResizePoint.Left:
-				rectTransform.offsetMin += new Vector2(clampedMouse.x, 0) - new Vector2(lastMousePosition.x, 0);
-				break;
-			case ResizePoint.Right:
-				rectTransform.offsetMax += new Vector2(clampedMouse.x, 0) - new Vector2(lastMousePosition.x, 0);
-				break;
-			case ResizePoint.TopRight:
-				rectTransform.offsetMax += clampedMouse - lastMousePosition;
-				break;
-			case ResizePoint.TopLeft:
-				rectTransform.offsetMax += new Vector2(0, clampedMouse.y) - new Vector2(0, lastMousePosition.y);
-				rectTransform.offsetMin += new Vector2(clampedMouse.x, 0) - new Vector2(lastMousePosition.x, 0);
-				break;
-			case ResizePoint.BottomRight:
-				rectTransform.offsetMin += new Vector2(0, clampedMouse.y) - new Vector2(0, lastMousePosition.y);
-				rectTransform.offsetMax += new Vector2(clampedMouse.x, 0) - new Vector2(lastMousePosition.x, 0);
-				break;
-			case ResizePoint.BottomLeft:
-				rectTransform.offsetMin += clampedMouse - lastMousePosition;
-				break;
+		if (Point == ResizePoint.Top || Point == ResizePoint.TopLeft || Point == ResizePoint.TopRight) {
+			parent.offsetMax +=
+				new Vector2(
+					0,
+					Mathf.Clamp(mouse.y - lastMousePosition.y, -parent.rect.height + window.MinimumHeight, Screen.width - parent.rect.width - window.MaximumWidth + parent.position.y));
 		}
+		if (Point == ResizePoint.Bottom || Point == ResizePoint.BottomLeft || Point == ResizePoint.BottomRight) {
+			parent.offsetMin +=
+				new Vector2(
+					0,
+					Mathf.Clamp(mouse.y - lastMousePosition.y, -parent.position.y, parent.position.y + parent.rect.height));
+		}
+		if (Point == ResizePoint.Left || Point == ResizePoint.BottomLeft || Point == ResizePoint.TopLeft) {
+			parent.offsetMin +=
+				new Vector2(
+					Mathf.Clamp(mouse.x - lastMousePosition.x, -parent.position.x, parent.position.x + parent.rect.width),
+					0);
+		}
+		if (Point == ResizePoint.Right || Point == ResizePoint.BottomRight || Point == ResizePoint.TopRight) {
+			parent.offsetMax +=
+				new Vector2(
+					Mathf.Clamp(mouse.x - lastMousePosition.x, -parent.rect.width + window.MinimumWidth, Screen.width - parent.rect.width - window.MaximumWidth + parent.position.x),
+					0);
+		}
+ 
+		Vector3 position = parent.position;
+		position.x = Mathf.Clamp(position.x, 0, Screen.width - parent.rect.width);
+		position.y = Mathf.Clamp(position.y, 0, Screen.height - parent.rect.height);
+		parent.position = position;
 		
 		lastMousePosition = GetClampedMousePosition();
 	}

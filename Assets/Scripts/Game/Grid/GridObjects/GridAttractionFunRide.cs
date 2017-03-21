@@ -29,6 +29,8 @@ public class GridAttractionFunRide : GridAttraction {
 
 	public override Attraction Attraction { get { return Attraction.FunRide; } }
 	
+	protected override string languageId { get { return "attractionFunRide"; } }
+	
 	private void Update() {
 		if (!InCycle) {
 			if (TimeSinceLastCycle >= MaximumWaitTime) {
