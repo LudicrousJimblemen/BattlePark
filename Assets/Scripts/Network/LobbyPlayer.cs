@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
-using System.Collections;
+using BattlePark.GUI;
 
 public class LobbyPlayer : NetworkLobbyPlayer {
 	[SyncVar]
@@ -68,10 +68,11 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	public override void OnStartLocalPlayer() {
 		if (!isLocalPlayer) {
 			return;
+		} else {
+			LobbyGUI.Instance.LobbyReadyButton.interactable = true;
 		}
 		Client.Instance.localPlayer = this;
-		BattlePark.GUI.LobbyGUI.Instance.LobbyReadyButton.interactable = true;
-		CmdUpdateInfo(BattlePark.GUI.LobbyGUI.Instance.Username);
+		CmdUpdateInfo(LobbyGUI.Instance.Username);
 	}
 
 	[Command]
@@ -81,7 +82,7 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 
 	[ClientRpc]
 	public void RpcSendChat(string message) {
-		BattlePark.GUI.LobbyGUI.Instance.AddChat(message);
+		LobbyGUI.Instance.AddChat(message);
 	}
 
 	// use for other stuff to update
@@ -95,6 +96,6 @@ public class LobbyPlayer : NetworkLobbyPlayer {
 	[ClientRpc]
 	public void RpcPrepareReady() {
 		// TODO remove this garbage
-		BattlePark.GUI.LobbyGUI.Instance.FadeToWhite();
+		LobbyGUI.Instance.FadeToWhite();
 	}
 }

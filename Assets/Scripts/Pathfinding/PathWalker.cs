@@ -10,22 +10,24 @@ namespace Pathfinding {
 		
 		public NodeGraph graph;
 		public float Speed = 5;
-		public float TurnSpeed = 5;
+		public float TurnSpeed = 10;
 		public float TurnDistance = 1;
 		public float StopDistance = 0.1f;
-		[Tooltip("The time in seconds of being still before the unit stops trying to path")]
 		public float GiveUpTime = 5f;
-		[Tooltip("One half of the angle of the cone representing a unit's field of view")]
-		public float FOVAngle;
-		
 		public float RepathRate = 1f;
 		
 		public Transform Target;
 		
+		[HideInInspector]
 		public bool Wandering;
-		private Vector3 angleDir;
+
+		public bool Influenceable; // can the walker be influenced by other walkers?
+		private const float Mass = 50; // mass of the walker in kg, arbitrary
+		private Vector3 ExtInf = Vector3.zero; // external influence on the walker, internal
+
 		private CharacterController controller;
 		private Animator anim;
+
 		public void Awake() {
 			controller = GetComponent<CharacterController>();
 			anim = GetComponent<Animator>();
@@ -43,10 +45,10 @@ namespace Pathfinding {
 			StopCoroutine("Repath");
 		}
 		public void SetDestination(Vector3 destination) {
-			graph.RequestPath(transform.position, destination, FollowPath);
+			graph.RequestPath(transform, destination, FollowPath);
 		}
 		public void SetDestination(Transform destination) {
-			graph.RequestPath(transform.position, destination.position, FollowPath);
+			graph.RequestPath(transform, destination.position, FollowPath);
 		}
 		public void Wander() {
 			Wandering = true;
@@ -61,6 +63,17 @@ namespace Pathfinding {
 					SetDestination(Target);
 				}
 				yield return new WaitForSeconds(RepathRate);
+			}
+		}
+		public void Influence (Vector3 force) {
+			if (Influenceable && controller != null) {
+				ExtInf += force / Mass;
+			}
+		}
+		public void Update () {
+			if(Influenceable && controller != null) {
+				controller.SimpleMove(ExtInf);
+				ExtInf = Vector3.Lerp(ExtInf,Vector3.zero,50*Time.deltaTime);
 			}
 		}
 		public IEnumerator followPathRoutine;
@@ -79,7 +92,6 @@ namespace Pathfinding {
 			int waypointIndex = 0; // index of next node to go towards
 			bool following = true;
 			float speedPercent = 1f;
-			//Stopwatch giveUp = new Stopwatch();
 			float giveUpTimer = 0;
 			while (following) {
 				float frameSpeedPercent = speedPercent;
@@ -98,17 +110,12 @@ namespace Pathfinding {
 						break;
 					}
 				}
-				/*
-				RaycastHit[] lookHit;
-				if (controller != null) {
-					Ray ray = new Ray (controller.center + transform.position + transform.forward * controller.radius, transform.forward);
-					if (Physics.SphereCastNonAlloc(ray, controller.radius, lookHit, 1f) > 0) {
-						for (int i = 0; i < lookHit.Length; i ++) {
-							if (Vector3.AngleBetween (transform.forward, lookHit[i].point - transform.position) > FOVAngle) continue;
-						}
-					}
+				int mask = 1 << 12; // person mask
+				Collider[] overlap = Physics.OverlapSphere(transform.position + controller.center,1,mask);
+				for(int p = 0; p < overlap.Length; p++) {
+					//print(overlap[p].name);
+					overlap[p].GetComponent<PathWalker> ().Influence ((overlap[p].transform.position - transform.position).Flat().normalized * 10);
 				}
-				*/
 				Vector3 flatLook = path[waypointIndex].Position - transform.position;
 				flatLook.y = 0;
 				Quaternion targetRot = Quaternion.LookRotation(flatLook.normalized);
@@ -118,7 +125,7 @@ namespace Pathfinding {
 					if (anim != null) {
 						anim.SetFloat("Speed", frameSpeedPercent * Mathf.Clamp01(controller.velocity.magnitude));
 					}
-					if (controller.velocity.magnitude < 0.1f) {
+					if (controller.velocity.magnitude < 0.5f) {
 						giveUpTimer += Time.deltaTime;
 						if (giveUpTimer >= GiveUpTime) {
 							following = false;

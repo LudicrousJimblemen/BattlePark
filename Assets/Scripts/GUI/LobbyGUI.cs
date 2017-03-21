@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -137,9 +138,8 @@ namespace BattlePark.GUI {
 							newButton.GetComponent<Button>().onClick.AddListener(() => {
 								FadeGraphic(Fade, 0, 1, Color.clear, 0.3f, true);
 								Client.Instance.JoinMatch(match.networkId, (joinSuccess, joinExtendedInfo, matchInfo) => {
-									FadeGraphic(Fade, 0, 1, Fade.color, 0, true);
 									if (joinSuccess) {
-										AnimatePanel(LobbyPanel, 1);
+										WaitForGame(15);
 									} else {
 										AnimatePanel(MainPanel, -1);
 									}
@@ -158,6 +158,31 @@ namespace BattlePark.GUI {
 					AnimatePanel(FindGamePanel, 1);
 				}
 			});
+		}
+		
+		private void WaitForGame (float waitTime) {
+			for (int i = 2; i < FindGamePanel.transform.childCount; i ++) {
+				FindGamePanel.transform.GetChild(i).GetComponent<Button>().interactable = false;
+			}
+			StartCoroutine(JoinGameRoutine(waitTime));
+		}
+		
+		private IEnumerator JoinGameRoutine(float waitTime) {
+			print ("cooleo");
+			for (float Timer = 0; Timer <= waitTime; Timer += Time.deltaTime) {
+				if (Client.Instance.localPlayer != null) {
+					LobbyReadyButton.interactable = true;
+					print ("cool");
+					AnimatePanel(LobbyPanel, 1);
+					break;
+				}
+				yield return null;
+			}
+			FadeGraphic(Fade, 0, 1, Fade.color, 0, true);
+			for(int i = 2; i < FindGamePanel.transform.childCount; i++) {
+				Destroy(FindGamePanel.transform.GetChild(i).gameObject);
+			}
+			PopulateServerList ();
 		}
 	
 		private void CreateMatch() {
