@@ -108,6 +108,7 @@ public class Person : NetworkBehaviour {
 	}
 	
 	private void Update() {
+		Walker.Influenceable = !InAttraction;
 		SeenObjects = Grid.Instance.Objects.Dictionary.Values.Where(x => !x.GetType().IsAssignableFrom(typeof(GridPath))).ToList();
 		
 		// TODO fix - magnitude is often nonzero even when not moving, e.g. on a funride

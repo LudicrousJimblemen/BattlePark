@@ -51,7 +51,7 @@ namespace Pathfinding {
 		/// <param name="destination">The position to end up at, need not be the position of an exisiting node</param>
 		/// <param name="callback">The method to be called upon receiving the path</param>
 		/// <returns>Returns a Path object, simply a list of destinations to visit in order. If a path is not found, returns null</returns>
-		public void RequestPath (Vector3 start, Vector3 destination, Action<Path, bool> callback) {
+		public void RequestPath (Transform start, Vector3 destination, Action<Path, bool> callback) {
 			PathRequest request = new PathRequest(start,destination,callback);
 			requests.Enqueue(request);
 		}
@@ -74,7 +74,7 @@ namespace Pathfinding {
 			}
 		}
 		private void CalculatePath(PathRequest request, Action<PathResult> callback) {
-			PathNode startNode = ClosestNode(request.start); //Node startNode = grid.NodeFromWorldPoint(startPos);
+			PathNode startNode = ClosestNode(request.start.position); //Node startNode = grid.NodeFromWorldPoint(startPos);
 			PathNode destNode = ClosestNode(request.destination); //Node destNode = grid.NodeFromWorldPoint(targetPos);
 			List<PathNode> open = new List<PathNode>();
 			HashSet<PathNode> closed = new HashSet<PathNode>();
@@ -165,10 +165,10 @@ namespace Pathfinding {
 	}
 	
 	public struct PathRequest {
-		public Vector3 start;
+		public Transform start;
 		public Vector3 destination;
 		public Action<Path, bool> callback;
-		public PathRequest (Vector3 _start, Vector3 _destination, Action<Path, bool> _callback) {
+		public PathRequest (Transform _start, Vector3 _destination, Action<Path, bool> _callback) {
 			start = _start;
 			destination = _destination;
 			callback = _callback;

@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 114262431309738036}
   - component: {fileID: 143672410393856820}
   - component: {fileID: 114635885679740338}
+  - component: {fileID: 136619778580869204}
   m_Layer: 12
   m_Name: Person
   m_TagString: Untagged
@@ -527,10 +528,10 @@ MonoBehaviour:
   TurnDistance: 1
   StopDistance: 1
   GiveUpTime: 1
-  FOVAngle: 0
   RepathRate: 1
   Target: {fileID: 0}
   Wandering: 0
+  Influenceable: 0
 --- !u!114 &114689473236430210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -563,6 +564,19 @@ MonoBehaviour:
     i15: 10
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!136 &136619778580869204
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1790509387394768}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 1.7
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!137 &137910743661418152
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
