@@ -27,6 +27,8 @@
 	"game.gui.numericCurrency": "{0}µ",
 	"game.gui.numericCurrencySmall": "{0}.{1}µ",
 	
+	"game.gui.placing": "Placing {0}",
+	
 	"game.win": "{0} wins!",
 	
 	"stats.guest": "Unique guests: ",
@@ -73,12 +75,19 @@
 	"vendorItems.map.plural": "park maps",
 	"vendorItems.map.indefinite": "some park maps",
 	
-	"attractions.funRide.proper": "Fun Ride",
-	"attractions.funRide.singular": "a Fun Ride",
-	"attractions.funRide.plural": "Fun Rides",
+	"gridObjects.attractionFunRide.proper": "Fun Ride",
+	"gridObjects.attractionFunRide.singular": "a Fun Ride",
+	"gridObjects.attractionFunRide.plural": "Fun Rides",
 	
-	"gridObjects.Gate":"Gate",
-	"gridObjects.Fence":"Fence",
-	"gridObjects.Path":"Path",
-	"gridObjects.Sculpture":"Sculpture"
+	"gridObjects.pathAsphalt.proper": "Asphalt Path",
+	"gridObjects.pathAsphalt.singular": "an asphalt path",
+	"gridObjects.pathAsphalt.plural": "asphalt paths",
+	
+	"gridObjects.pathQueue.proper": "Queue",
+	"gridObjects.pathQueue.singular": "a queue",
+	"gridObjects.pathQueue.plural": "queues",
+	
+	"gridObjects.vendorMacaroniStall.proper": "Macaroni Stall",
+	"gridObjects.vendorMacaroniStall.singular": "a macaroni stall",
+	"gridObjects.vendorMacaroniStall.plural": "macaroni stalls"
 }

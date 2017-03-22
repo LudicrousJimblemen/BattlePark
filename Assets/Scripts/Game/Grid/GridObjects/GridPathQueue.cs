@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class GridPathQueue : GridPath {
+	protected override string languageId { get { return "pathQueue"; } }
+	
 	public GridObject[] Connections = new GridObject[4];
 	
 	public override void UpdateMesh() {

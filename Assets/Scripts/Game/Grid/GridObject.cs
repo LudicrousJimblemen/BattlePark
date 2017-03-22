@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using System;
 using System.Collections;
 
 public abstract class GridObject : NetworkBehaviour {
@@ -39,7 +40,13 @@ public abstract class GridObject : NetworkBehaviour {
 	/// The player number of the owner of this grid object.
 	/// </summary>
 	public int Owner;
-
+	
+	protected abstract string languageId { get; }
+	
+	public string ProperString { get { return String.Format("gridObjects.{0}.proper", languageId); } }
+	public string SingularString { get { return String.Format("gridObjects.{0}.singular", languageId); } }
+	public string PluralString { get { return String.Format("gridObjects.{0}.plural", languageId); } }
+	
 	#endregion
 
 	public void Start() {
