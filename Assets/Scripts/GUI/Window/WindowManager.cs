@@ -8,8 +8,7 @@ public class WindowManager : MonoBehaviour {
 	public GameObject WindowPrefab;
 	
 	private void Awake() {
-		Instance = this;
-		WindowManager.Instance.CreateWindow("cunt");		
+		Instance = this;		
 	}
 	
 	public Window CreateWindow(string title) {
