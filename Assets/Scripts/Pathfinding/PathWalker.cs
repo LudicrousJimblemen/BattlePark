@@ -66,12 +66,12 @@ namespace Pathfinding {
 			}
 		}
 		public void Influence (Vector3 force) {
-			if (Influenceable && controller != null) {
+			if (Influenceable && controller != null && controller.enabled) {
 				ExtInf += force / Mass;
 			}
 		}
 		public void Update () {
-			if(Influenceable && controller != null) {
+			if(Influenceable && controller != null && controller.enabled) {
 				controller.SimpleMove(ExtInf);
 				ExtInf = Vector3.Lerp(ExtInf,Vector3.zero,50*Time.deltaTime);
 			}
@@ -93,6 +93,7 @@ namespace Pathfinding {
 			bool following = true;
 			float speedPercent = 1f;
 			float giveUpTimer = 0;
+			Vector3 lastPos = transform.position;
 			while (following) {
 				float frameSpeedPercent = speedPercent;
 				Vector3 adjustedPos = transform.position;
@@ -125,7 +126,7 @@ namespace Pathfinding {
 					if (anim != null) {
 						anim.SetFloat("Speed", frameSpeedPercent * Mathf.Clamp01(controller.velocity.magnitude));
 					}
-					if (controller.velocity.magnitude < 0.5f) {
+					if (Vector3.SqrMagnitude(transform.position - lastPos) < 0.1f * 0.1f) {
 						giveUpTimer += Time.deltaTime;
 						if (giveUpTimer >= GiveUpTime) {
 							following = false;
@@ -138,6 +139,7 @@ namespace Pathfinding {
 				} else {
 					transform.Translate(transform.forward * Time.deltaTime * Speed * frameSpeedPercent, Space.World);
 				}
+				lastPos = transform.position;
 				yield return null;
 			}
 			StopInternal();

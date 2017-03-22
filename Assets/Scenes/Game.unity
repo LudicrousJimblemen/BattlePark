@@ -618,16 +618,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114618802316008808, guid: 721957ef6d0ff814e9c30dfe5221e580,
-        type: 2}
-      propertyPath: GridSizeX
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 114618802316008808, guid: 721957ef6d0ff814e9c30dfe5221e580,
-        type: 2}
-      propertyPath: GridSizeZ
-      value: 45
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 721957ef6d0ff814e9c30dfe5221e580, type: 2}
   m_IsPrefabParent: 0
