@@ -123,5 +123,7 @@ MonoBehaviour:
     type: 2}
   Placeholder: {fileID: 33633144559159830, guid: 2027468ba1c520b47b490071c7c7d8e8,
     type: 2}
+  PlaceholderCameraPrefab: {fileID: 1634854044801770, guid: 56a0471a83ed0614281e8d23c6dd02c3,
+    type: 2}
   ValidColor: {r: 0, g: 0, b: 1, a: 1}
   InvalidColor: {r: 1, g: 0, b: 0, a: 1}

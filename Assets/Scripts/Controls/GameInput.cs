@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 /// <summary>
 /// Controls input, and is the only class that recognizes input.
@@ -7,6 +8,8 @@
 public class GameInput : MonoBehaviour {
 	public Transform VerticalConstraint;
 	public MeshFilter Placeholder;
+	public GameObject PlaceholderCameraPrefab;
+	
 	private GridObject placeholderGridObject;
 	private Vector3[] placeholderOffsets;
 
@@ -41,6 +44,8 @@ public class GameInput : MonoBehaviour {
 					continue;
 				hotbarIndex = i;
 				placeholderGridObject = GameManager.Instance.Objects[player.ObjectIndices[i]];
+				WindowManager.Instance.CreateWindow(String.Format(LanguageManager.GetString("game.gui.placing"), LanguageManager.GetString(placeholderGridObject.ProperString)), 200, 200, 265, 265, WindowType.Placeholder);
+				((GameObject)Instantiate(PlaceholderCameraPrefab)).GetComponent<FollowCamera>().Target = Placeholder.transform;
 				Placeholder.mesh = placeholderGridObject.GetComponent<MeshFilter>().sharedMesh;
 				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction)direction);
 				break;

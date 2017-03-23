@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4010367667836514}
   - component: {fileID: 20753033623542522}
-  - component: {fileID: 124581620041556154}
+  - component: {fileID: 114087966366164444}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: PlaceholderCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -75,10 +75,15 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!124 &124581620041556154
-Behaviour:
+--- !u!114 &114087966366164444
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1634854044801770}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838a43c697f801a4a9adf55070e9737e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 0}

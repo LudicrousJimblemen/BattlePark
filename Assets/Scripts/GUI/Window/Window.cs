@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum WindowType {
+	Placeholder
+}
+
 public class Window : MonoBehaviour {
 	public Image TitleBar;
 	public Text TitleText;
@@ -11,4 +15,6 @@ public class Window : MonoBehaviour {
 	public int MaximumWidth = 400;
 	public int MinimumHeight = 120;
 	public int MaximumHeight = 300;
+	
+	public WindowType Type;
 }

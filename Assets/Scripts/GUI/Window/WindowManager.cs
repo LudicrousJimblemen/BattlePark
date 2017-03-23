@@ -8,22 +8,18 @@ public class WindowManager : MonoBehaviour {
 	public GameObject WindowPrefab;
 	
 	private void Awake() {
-		Instance = this;		
+		Instance = this;
 	}
 	
-	public Window CreateWindow(string title) {
-		Window newWindow = ((GameObject)Instantiate(WindowPrefab, Vector3.zero, Quaternion.identity, transform)).GetComponent<Window>();
-		newWindow.TitleText.text = title;
-		return newWindow;
-	}
-	
-	public Window CreateWindow(string title, int minWidth, int maxWidth, int minHeight, int maxHeight) {
+	public Window CreateWindow(string title, int minWidth, int maxWidth, int minHeight, int maxHeight, WindowType type) {
 		Window newWindow = ((GameObject)Instantiate(WindowPrefab, Vector3.zero, Quaternion.identity, transform)).GetComponent<Window>();
 		newWindow.TitleText.text = title;
 		newWindow.MinimumWidth = minWidth;
 		newWindow.MaximumWidth = maxWidth;
 		newWindow.MinimumHeight = minHeight;
 		newWindow.MaximumHeight = maxHeight;
+		newWindow.Type = type;
+		newWindow.GetComponent<RectTransform>().offsetMax = new Vector2(minWidth, minHeight);
 		return newWindow;
 	}
 }
