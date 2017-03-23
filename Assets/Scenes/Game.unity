@@ -505,7 +505,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b80c5c522c85fc49b4d31aa03517302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlaceholderCameraPrefab: {fileID: 1634854044801770, guid: 56a0471a83ed0614281e8d23c6dd02c3,
+    type: 2}
   WindowPrefab: {fileID: 1076390497828356, guid: d0db84f815e82eb48a56ae62cf3790ab,
+    type: 2}
+  PlaceholderWindowPrefab: {fileID: 1679375522533530, guid: b85e4812efe80584c8bcaba009a8e6da,
     type: 2}
   Windows: []
 --- !u!1 &1093074382
