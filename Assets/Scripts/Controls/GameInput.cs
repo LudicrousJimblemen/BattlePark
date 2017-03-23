@@ -47,6 +47,8 @@ public class GameInput : MonoBehaviour {
 				WindowManager.Instance.CreateWindow(String.Format(LanguageManager.GetString("game.gui.placing"), LanguageManager.GetString(placeholderGridObject.ProperString)), 200, 200, 265, 265, WindowType.Placeholder);
 				((GameObject)Instantiate(PlaceholderCameraPrefab)).GetComponent<FollowCamera>().Target = Placeholder.transform;
 				Placeholder.mesh = placeholderGridObject.GetComponent<MeshFilter>().sharedMesh;
+				Placeholder.GetComponent<SkinnedMeshRenderer>().sharedMesh = Placeholder.mesh;
+				print (Placeholder.mesh.name);
 				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction)direction);
 				break;
 			}
@@ -59,6 +61,7 @@ public class GameInput : MonoBehaviour {
 		GridOverlay.Instance.ShowGrid = hotbarIndex != -1;
 		
 		Placeholder.gameObject.SetActive(hotbarIndex != -1);
+		print (hotbarIndex != -1);
 		bool verticalConstraint = Input.GetKey(KeyCode.LeftControl);
 		VerticalConstraint.gameObject.SetActive(verticalConstraint);
 		RaycastHit hit;
@@ -72,6 +75,7 @@ public class GameInput : MonoBehaviour {
 			mousePosition = Grid.Instance.SnapToGrid(mousePosition.Value, player.PlayerNumber);
 		} else {
 			mousePosition = null;
+			print ("null mousepos");
 			Placeholder.gameObject.SetActive(false);
 		}
 		if (hotbarIndex != -1) {
@@ -95,12 +99,13 @@ public class GameInput : MonoBehaviour {
 			}
 			if (mousePosition != null) {
 				Placeholder.transform.position = mousePosition.Value;
-				Placeholder.transform.rotation = Quaternion.Euler(0, (int)direction * 90, 0);
+				Placeholder.transform.rotation = Quaternion.Euler(-90, 0, (int)direction * 90);
 			} else {
+				print ("null mousepos2");
 				Placeholder.gameObject.SetActive(false);
 			}
 			bool valid = mousePosition != null && player.getObject(hotbarIndex).Valid(mousePosition.Value, (Direction)direction, player.PlayerNumber);
-			Placeholder.GetComponent<MeshRenderer>().material.SetColor("_RimColor", valid ? ValidColor : InvalidColor);
+			Placeholder.GetComponent<SkinnedMeshRenderer>().material.SetColor("_RimColor", valid ? ValidColor : InvalidColor);
 			if (Input.GetMouseButtonDown(0)) {
 				if (valid) {
 					if (mousePosition != null && hotbarIndex != -1) {

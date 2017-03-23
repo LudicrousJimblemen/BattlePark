@@ -83,6 +83,7 @@ public abstract class GridAttraction : GridObject {
 					person.Walker.enabled = false;
 					person.transform.SetParent(PassengerSlots[i].transform, true);
 					person.transform.localPosition = Vector3.zero;
+					Passengers[i].GetComponent<CharacterController>().enabled = false;
 					person.InAttraction = true;
 					return true;
 				}
@@ -95,6 +96,7 @@ public abstract class GridAttraction : GridObject {
 		for (int i = 0; i < MaximumPassengers; i++) {
 			if (Passengers[i] != null) {
 				Passengers[i].transform.SetParent(null, true);
+				Passengers[i].GetComponent<CharacterController>().enabled = true;
 				Passengers[i].GetComponent<UnityEngine.Networking.NetworkTransform>().enabled = true;
 				Passengers[i].GetComponent<Person>().InAttraction = false;
 				Passengers[i].GetComponent<Pathfinding.PathWalker>().enabled = true;

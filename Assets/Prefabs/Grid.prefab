@@ -111,8 +111,8 @@ MonoBehaviour:
   VerticalConstraintRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  GridSizeX: 27
-  GridSizeZ: 27
+  GridSizeX: 45
+  GridSizeZ: 45
   GridStepXZ: 3
   GridStepY: 1.5
   PathWidth: 4

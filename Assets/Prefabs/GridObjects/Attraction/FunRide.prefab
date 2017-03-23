@@ -502,7 +502,7 @@ Transform:
   m_GameObject: {fileID: 1618956916952596}
   m_LocalRotation: {x: 0.00000003675688, y: -0.00000011920929, z: -4.3817616e-15,
     w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.001, z: -1.3322676e-17}
+  m_LocalPosition: {x: -1, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4772206689436202}
@@ -516,7 +516,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1289463410013738}
   m_LocalRotation: {x: 0, y: -2.220446e-16, z: 1.1014076e-25, w: 1}
-  m_LocalPosition: {x: 0.01, y: 0.0009999998, z: 0.01}
+  m_LocalPosition: {x: 1, y: 0.1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4648335917593672}
@@ -530,7 +530,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1173360842801778}
   m_LocalRotation: {x: 0, y: -2.220446e-16, z: 1.1014076e-25, w: 1}
-  m_LocalPosition: {x: 0.01, y: 0.0010000002, z: -0.01}
+  m_LocalPosition: {x: 1, y: 0.1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4746306302830214}
@@ -584,7 +584,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1703309821057974}
   m_LocalRotation: {x: 0, y: -1.1255162e-22, z: -2.6458766e-22, w: 1}
-  m_LocalPosition: {x: 2.2204458e-18, y: 0.0009999998, z: 0.01}
+  m_LocalPosition: {x: 0, y: 0.1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4188019808748568}
@@ -599,7 +599,7 @@ Transform:
   m_GameObject: {fileID: 1490784372863876}
   m_LocalRotation: {x: 0.00000003675688, y: -0.00000011920929, z: -4.3817616e-15,
     w: 1}
-  m_LocalPosition: {x: 0.01, y: 0.001, z: -3.1086245e-17}
+  m_LocalPosition: {x: 1, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4644178672953996}
@@ -613,7 +613,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1563337889277468}
   m_LocalRotation: {x: 0, y: -4.637719e-23, z: 6.6284587e-23, w: 1}
-  m_LocalPosition: {x: -2.2204458e-18, y: 0.0010000002, z: -0.01}
+  m_LocalPosition: {x: 0, y: 0.1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4517111384429012}
@@ -667,7 +667,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1404356811508722}
   m_LocalRotation: {x: 0, y: -2.220446e-16, z: 1.1014076e-25, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.0010000002, z: -0.01}
+  m_LocalPosition: {x: -1, y: 0.1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4562456122159972}
@@ -736,7 +736,7 @@ Transform:
   m_GameObject: {fileID: 1064963646420248}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4949129981257676}
   m_RootOrder: 1
@@ -811,7 +811,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628933737846050}
   m_LocalRotation: {x: 0, y: -2.220446e-16, z: 1.1014076e-25, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.0009999998, z: 0.01}
+  m_LocalPosition: {x: -1, y: 0.1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4461901964498298}
@@ -826,7 +826,7 @@ Transform:
   m_GameObject: {fileID: 1549379978316716}
   m_LocalRotation: {x: 0.00000003675688, y: -0.00000011920929, z: -4.3817616e-15,
     w: 1}
-  m_LocalPosition: {x: 1.279431e-26, y: 0.001, z: -2.6645352e-17}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000526561531422}
@@ -895,7 +895,7 @@ Transform:
   m_GameObject: {fileID: 1206259702071222}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4683118895302532}
   m_Father: {fileID: 4949129981257676}
@@ -967,6 +967,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: 0
+  Entrance: {fileID: 0}
+  Exit: {fileID: 0}
   PassengerSlots:
   - {fileID: 1576198637356920}
   - {fileID: 1267390340910940}
