@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace BattlePark.Menu {
@@ -16,7 +16,7 @@ namespace BattlePark.Menu {
 		public float PlaneSpeed = 0.1f;
 		public GameObject Plane;
 	
-		private int timer;
+		private float timer;
 	
 		private Quaternion leftLegRotationPrev;
 		private Quaternion rightLegRotationPrev;
@@ -25,51 +25,71 @@ namespace BattlePark.Menu {
 		private Quaternion leftLegRotation;
 		private Quaternion rightLegRotation;
 		private Quaternion bodyRotation;
-		
-		private void Update() {
-			if (timer <= 130) {
-				transform.position = Vector3.Lerp(
-					new Vector3(0, 0.5f, -1.25f),
-					new Vector3(0, 1.8f, -3f),
-					Mathf.SmoothStep(0f, 1f, timer / 130f)
-				);
+
+		public void Start() {
+			StartCoroutine(CameraMove());
+			StartCoroutine(PlaneMove());
+			StartCoroutine(GenerateRotationDeltas());
+			StartCoroutine(Run());
+		}
+
+		IEnumerator CameraMove() {
+			float startTimer = 0;
+			while (true) {
+				if (startTimer <= 1.3f) {
+					transform.position = Vector3.Lerp(
+						new Vector3(0,0.5f,-1.25f),
+						new Vector3(0,1.8f,-3f),
+						Mathf.SmoothStep(0f,1f,startTimer / 1.3f)
+					);
+				}
+				startTimer += Time.deltaTime;
+				transform.RotateAround(Vector3.zero,Vector3.up,CameraRotationSpeed * Time.deltaTime * Mathf.SmoothStep(0, 1, (startTimer - 1.3f) / 1.8f));
+				yield return null;
 			}
-		
-			transform.RotateAround(Vector3.zero, Vector3.up, CameraRotationSpeed * Mathf.SmoothStep(0f, 1f, (timer - 130f) / 180f));
-		
-			if (timer % Mathf.RoundToInt(PersonRotationTimerMultiple) == 0) {
+		}
+		IEnumerator PlaneMove() {
+			while (true) {
+				Plane.transform.Translate(0,0,PlaneSpeed * Time.deltaTime);
+				if(Plane.transform.position.z >= 8f) {
+					Plane.transform.position = Vector3.zero;
+				}
+				yield return null;
+			}
+		}
+		IEnumerator GenerateRotationDeltas() {
+			while (true) {
 				leftLegRotationPrev = LeftLeg.transform.rotation;
 				rightLegRotationPrev = RightLeg.transform.rotation;
 				bodyRotationPrev = Body.transform.rotation;
-			
+
 				leftLegRotation = leftLegRotationPrev * Quaternion.Euler(
-					Random.Range(-25f * PersonRotationTimerMultiple, -15f * PersonRotationTimerMultiple),
+					Random.Range(-25f * PersonRotationTimerMultiple,-15f * PersonRotationTimerMultiple),
 					0,
 					0
 				);
 				rightLegRotation = rightLegRotationPrev * Quaternion.Euler(
-					Random.Range(-25f * PersonRotationTimerMultiple, -15f * PersonRotationTimerMultiple),
+					Random.Range(-25f * PersonRotationTimerMultiple,-15f * PersonRotationTimerMultiple),
 					0,
 					0
 				);
 				bodyRotation = bodyRotationPrev * Quaternion.Euler(
-					Random.Range(-8f * PersonRotationTimerMultiple, 8f * PersonRotationTimerMultiple),
+					Random.Range(-8f * PersonRotationTimerMultiple,8f * PersonRotationTimerMultiple),
 					0,
 					0
 				);
+				for (int i = 0; i < PersonRotationTimerMultiple; i ++) {
+					yield return null;
+				}
 			}
-		
-			LeftLeg.transform.rotation = Quaternion.Lerp(leftLegRotationPrev, leftLegRotation, ((timer % PersonRotationTimerMultiple) + 1) / PersonRotationTimerMultiple);
-			RightLeg.transform.rotation = Quaternion.Lerp(rightLegRotationPrev, rightLegRotation, ((timer % PersonRotationTimerMultiple) + 1) / PersonRotationTimerMultiple);
-			Body.transform.rotation = Quaternion.Lerp(bodyRotationPrev, bodyRotation, ((timer % PersonRotationTimerMultiple) + 1) / PersonRotationTimerMultiple);
-		
-			Plane.transform.Translate(0, 0, PlaneSpeed);
-		
-			if (Plane.transform.position.z >= 8f) {
-				Plane.transform.position = Vector3.zero;
+		}
+		IEnumerator Run () {
+			while (true) {
+				LeftLeg.transform.rotation = Quaternion.Lerp(LeftLeg.transform.rotation,leftLegRotation,25 * Time.deltaTime);
+				RightLeg.transform.rotation = Quaternion.Lerp(RightLeg.transform.rotation,rightLegRotation,25 * Time.deltaTime);
+				Body.transform.rotation = Quaternion.Lerp(Body.transform.rotation,bodyRotation,25 * Time.deltaTime);
+				yield return null;
 			}
-		
-			timer++;
 		}
 	}
 }

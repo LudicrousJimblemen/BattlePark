@@ -49,7 +49,7 @@ namespace Pathfinding {
 			graph.RequestPath(transform, destination, FollowPath);
 		}
 		public void SetDestination(Transform destination) {
-			graph.RequestPath(transform, destination.position, FollowPath);
+			graph.RequestPath(transform, destination.position, FollowPath, PathPriority);
 		}
 		public void Wander() {
 			Wandering = true;
