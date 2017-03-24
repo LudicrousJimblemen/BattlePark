@@ -45,6 +45,34 @@
 	"person.stats.anger": "Anger: ",
 	"person.stats.suspicion": "Suspicion: ",
 
+	"person.thoughts.hunger.maximum": "I'm starving!",
+	"person.thoughts.hunger.medium": "I'm a little hungry",
+	"person.thoughts.hunger.minimum": "I'm full.",
+
+	"person.thoughts.thirst.maximum": "I'm parched!",
+	"person.thoughts.thirst.medium": "I'm a little thirsty.",
+	"person.thoughts.thirst.minimum": "I'm not thirsty.",
+
+	"person.thoughts.thirst.maximum": "My stomach is going to explode.",
+	"person.thoughts.thirst.medium": "I'm slightly nauseous.",
+	"person.thoughts.thirst.minimum": "I'm feeling fine.",
+
+	"person.thoughts.bathroomosity.maximum": "I really need to go to the bathroom!",
+	"person.thoughts.bathroomosity.medium": "I want to go to the bathroom.",
+	"person.thoughts.bathroomosity.minimum": "I'm feeling fine.",
+
+	"person.thoughts.happiness.maximum": "I'm really happy!",
+	"person.thoughts.happiness.medium": "I'm feeling alright.",
+	"person.thoughts.happiness.minimum": "I'm feeling down.",
+
+	"person.thoughts.anger.maximum": "I'm positively INFURIATED!",
+	"person.thoughts.anger.medium": "I'm pretty mad.",
+	"person.thoughts.anger.minimum": "I'm feeling alright.",,
+
+	"person.thoughts.suspicion.maximum": "I'm certain this park is messed up.",
+	"person.thoughts.suspicion.medium": "This park seems suspicious.",
+	"person.thoughts.suspicion.minimum": "This park is fine.",
+
 	"person.thoughts.wantFood.normal": "I want to eat {0}.",
 	"person.thoughts.wantFood.ludicrous": "I am positively craving {0}!",
 
@@ -89,5 +117,13 @@
 	
 	"gridObjects.vendorMacaroniStall.proper": "Macaroni Stall",
 	"gridObjects.vendorMacaroniStall.singular": "a macaroni stall",
-	"gridObjects.vendorMacaroniStall.plural": "macaroni stalls"
+	"gridObjects.vendorMacaroniStall.plural": "macaroni stalls",
+	
+	"gridObjects.vendorSaltLickStall.proper": "Salt Lick Stall",
+	"gridObjects.vendorSaltLickStall.singular": "a salt lick stall",
+	"gridObjects.vendorSaltLickStall.plural": "salt lick stalls",
+	
+	"gridObjects.vendorInfoKioskStall.proper": "Info Kiosk",
+	"gridObjects.vendorInfoKioskStall.singular": "an info kiosk",
+	"gridObjects.vendorInfoKioskStall.plural": "info kiosks"
 }

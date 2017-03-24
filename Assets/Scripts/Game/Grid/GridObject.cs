@@ -22,7 +22,7 @@ public abstract class GridObject : NetworkBehaviour {
 	public abstract Vector3[] OccupiedOffsets { get; }
 
 	/// <summary>
-	/// Cost of the grid object, in cents.
+	/// Cost of the grid object.
 	/// </summary>
 	public virtual Money Cost { get { return new Money(); } }
 

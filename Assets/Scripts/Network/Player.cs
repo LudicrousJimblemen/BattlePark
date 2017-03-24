@@ -31,7 +31,7 @@ public class Player : NetworkBehaviour {
 	}
 	private void UpdateMoney(Money newMoney) {
 		Money = newMoney;
-		GameGUI.Instance.Money.text = Money.ToString (LanguageManager.GetString("game.gui.numericCurrencySmall"));
+		GameGUI.Instance.Money.text = Money.ToString(LanguageManager.GetString("game.gui.numericCurrencySmall"));
 	}
 
 	[SyncVar]
@@ -50,10 +50,10 @@ public class Player : NetworkBehaviour {
 		for (int i = 0; i < 9; i++) {
 			ObjectIndices[i] = GameManager.Instance.Objects[i] == null ? -1 : i;
 		}
-		for(int g = 0; g < 2; g++) {
-			ServerSpawnPaths(g,Grid.Instance.GridSizeX,Grid.Instance.GridStepXZ,GameManager.Instance.ParkGates[g]);
+		for (int g = 0; g < 2; g++) {
+			ServerSpawnPaths(g, Grid.Instance.GridSizeX, Grid.Instance.GridStepXZ, GameManager.Instance.ParkGates[g]);
 		}
-		CmdUpdateMoney (new Money(1500,00)); // we monopoly now
+		CmdUpdateMoney(new Money(1500, 00)); // we monopoly now
 	}
 
 	public void PlaceObject(int hotbarIndex, Vector3? position, int direction) {
@@ -70,6 +70,10 @@ public class Player : NetworkBehaviour {
 
 	[Command]
 	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
+		if (Money >= GameManager.Instance.Objects[ObjIndex].GetComponent<GridObject>().Cost) {
+			return;
+		}
+		
 		GameObject newObject = (GameObject)Instantiate(
 			GameManager.Instance.Objects[ObjIndex].gameObject,
 			Grid.Instance.SnapToGrid(position, playerNumber),
