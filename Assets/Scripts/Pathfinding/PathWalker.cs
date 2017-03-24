@@ -17,6 +17,7 @@ namespace Pathfinding {
 		public float RepathRate = 1f;
 		
 		public Transform Target;
+		public int PathPriority; // the priority to be used in pathfinding
 		
 		[HideInInspector]
 		public bool Wandering;
@@ -58,9 +59,11 @@ namespace Pathfinding {
 		}
 		// RUN F O R E V E R
 		IEnumerator Repath() {
+			Transform lastTarget = null;
 			while (true) {
-				if(Target != null) {
+				if(Target != null && Target != lastTarget) {
 					SetDestination(Target);
+					lastTarget = Target;
 				}
 				yield return new WaitForSeconds(RepathRate);
 			}

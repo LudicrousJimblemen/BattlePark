@@ -22,7 +22,7 @@ namespace Pathfinding {
 		public Dictionary<Vector3, PathNode> Nodes = new Dictionary<Vector3, PathNode>();
 	
 		private Queue<PathResult> results = new Queue<PathResult>();
-		private Queue<PathRequest> requests = new Queue<PathRequest>();
+		private List<PathRequest> requests = new List<PathRequest>();
 		public PathNode AddNode (Vector3 position, bool scan = true) {
 			if(Nodes.ContainsKey(position))
 				return null;
@@ -51,15 +51,19 @@ namespace Pathfinding {
 		/// <param name="destination">The position to end up at, need not be the position of an exisiting node</param>
 		/// <param name="callback">The method to be called upon receiving the path</param>
 		/// <returns>Returns a Path object, simply a list of destinations to visit in order. If a path is not found, returns null</returns>
-		public void RequestPath (Transform start, Vector3 destination, Action<Path, bool> callback) {
-			PathRequest request = new PathRequest(start,destination,callback);
-			requests.Enqueue(request);
+		public void RequestPath (Transform start, Vector3 destination, Action<Path, bool> callback, int priority = 0) {
+			PathRequest request = new PathRequest(start,destination,callback,priority);
+			requests.Add(request);
 		}
 		private void Update () {
 			if (requests.Count > 0) {
+				PathRequest request = requests
+					.OrderByDescending(x => x.priority) // order requests by highest priority
+					.ThenBy(x => x.time).First(); // then, order them by earliest
+				requests.Remove(request);
 				lock (requests) {
 					ThreadStart thread = delegate {
-						CalculatePath(requests.Dequeue(),OnReceivedPath);
+						CalculatePath(request,OnReceivedPath);
 					};
 					thread.Invoke();
 				}
@@ -168,10 +172,14 @@ namespace Pathfinding {
 		public Transform start;
 		public Vector3 destination;
 		public Action<Path, bool> callback;
-		public PathRequest (Transform _start, Vector3 _destination, Action<Path, bool> _callback) {
+		public int priority;
+		public float time;
+		public PathRequest (Transform _start, Vector3 _destination, Action<Path, bool> _callback, int _priority = 0) {
 			start = _start;
 			destination = _destination;
 			callback = _callback;
+			priority = _priority;
+			time = Time.time;
 		}
 	}
 	public struct PathResult {
