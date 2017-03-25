@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System;
 
+/// <summary>
+/// Follows an object with an isometric perspective.
+/// </summary>
 [RequireComponent(typeof(Camera))]
 public class FollowCamera : MonoBehaviour {
 	public Transform Target;

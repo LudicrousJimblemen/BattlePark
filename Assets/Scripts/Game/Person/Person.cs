@@ -92,7 +92,16 @@ public class Person : NetworkBehaviour {
 	private CharacterController controller;
 	
 	private void Awake() {
-		Reroll();
+		Name = GenerateName();
+		// between 20µ and 100µ (inclusive)
+		Money = (Money)UnityEngine.Random.Range(1000, 500001);
+		Hunger = UnityEngine.Random.Range(0, 20f);
+		Thirst = UnityEngine.Random.Range(0, 15f);
+		Nausea = UnityEngine.Random.Range(0, 2f);
+		Urgency = UnityEngine.Random.Range(0, 10f);
+		Mood = UnityEngine.Random.Range(50f, 100f);
+		Suspicion = UnityEngine.Random.Range(0, 1f);
+		
 		Walker = GetComponent<PathWalker>();
 		controller = GetComponent<CharacterController>();
 		GetComponentInChildren<SkinnedMeshRenderer>().material.color = UnityEngine.Random.ColorHSV();
@@ -183,19 +192,7 @@ public class Person : NetworkBehaviour {
 			// wander
 		}
 	}
-
-	private void Reroll() {
-		Name = GenerateName();
-		// between 20µ and 100µ (inclusive)
-		Money = (Money)UnityEngine.Random.Range(1000, 500001);
-		Hunger = UnityEngine.Random.Range(0, 20f);
-		Thirst = UnityEngine.Random.Range(0, 15f);
-		Nausea = UnityEngine.Random.Range(0, 2f);
-		Urgency = UnityEngine.Random.Range(0, 10f);
-		Mood = UnityEngine.Random.Range(50f, 100f);
-		Suspicion = UnityEngine.Random.Range(0, 1f);
-	}
-
+	
 	private static string GenerateName() {
 		const string consonants = "bbbbbbbbbbbbbbbbbbbbbbbcdffgghjklmnppppppppppppppppppppppqrsssstvwxzzzz";
 		const string vowels = "aaeeiiiiiooooooooooouuuuuuuuuuuuuy";
