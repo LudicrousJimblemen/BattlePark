@@ -3345,12 +3345,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8659b5a7fc3b5a443a7fe69a0faf9313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraRotationSpeed: 0.25
+  CameraRotationSpeed: 25
   PersonRotationTimerMultiple: 3
   LeftLeg: {fileID: 388448847}
   RightLeg: {fileID: 388448846}
   Body: {fileID: 388448848}
-  PlaneSpeed: 0.1
+  PlaneSpeed: 10
   Plane: {fileID: 1424955255}
 --- !u!1 &1659195184
 GameObject:

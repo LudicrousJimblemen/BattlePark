@@ -23,10 +23,10 @@ namespace Pathfinding {
 	
 		private Queue<PathResult> results = new Queue<PathResult>();
 		private List<PathRequest> requests = new List<PathRequest>();
-		public PathNode AddNode (Vector3 position, bool scan = true) {
+		public PathNode AddNode (Vector3 position, float scanDist = 0) {
 			if(Nodes.ContainsKey(position))
 				return null;
-			PathNode node = new PathNode(this,position,scan);
+			PathNode node = new PathNode(this,position,scanDist);
 			Nodes.Add (position, node);
 			return node;
 		}
@@ -133,6 +133,10 @@ namespace Pathfinding {
 				foundPath = RetracePath(startNode,destNode);
 				if(LogLevel == logLevel.Debug) {
 					print(string.Format("Path found: {0} ms",sw.ElapsedMilliseconds));
+				}
+			} else {
+				if(LogLevel == logLevel.Debug) {
+					print("Path failed");
 				}
 			}
 			callback (new PathResult (foundPath, success, request, request.callback));

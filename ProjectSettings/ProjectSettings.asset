@@ -531,7 +531,7 @@ PlayerSettings:
     Game_Performance: 0
     Hub: 0
     Purchasing: 0
-    UNet: 0
+    UNet: 1
     Unity_Ads: 0
   cloudProjectId: 8f96d387-0a1d-4310-b226-2c9a7da4ff8c
   projectName: Battle Park

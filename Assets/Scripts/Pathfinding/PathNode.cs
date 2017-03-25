@@ -19,13 +19,11 @@ namespace Pathfinding {
 	
 		public PathNode Parent;
 	
-		public PathNode (NodeGraph graph, Vector3 position, bool scan = true) {
+		public PathNode (NodeGraph graph, Vector3 position, float scanDist) {
 			Position = position;
 			this.graph = graph;
-			if (scan) {
-				foreach(KeyValuePair<Vector3,PathNode> entry in this.graph.Nodes.Where(x => Vector3.SqrMagnitude(Position - x.Key) <= this.graph.ScanDistance * this.graph.ScanDistance)) {
-					AddConnection(entry.Value);
-				}
+			foreach(KeyValuePair<Vector3,PathNode> entry in this.graph.Nodes.Where(x => Vector3.SqrMagnitude(Position - x.Key) <= scanDist * scanDist)) {
+				AddConnection(entry.Value);
 			}
 		}
 		public void AddConnection (PathNode node) {

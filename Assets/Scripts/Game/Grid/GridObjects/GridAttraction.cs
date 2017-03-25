@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public abstract class GridAttraction : GridObject {
 	/// <summary>
@@ -96,10 +97,12 @@ public abstract class GridAttraction : GridObject {
 		for (int i = 0; i < MaximumPassengers; i++) {
 			if (Passengers[i] != null) {
 				Passengers[i].transform.SetParent(null, true);
+				Passengers[i].transform.position = Exit.position;
 				Passengers[i].GetComponent<CharacterController>().enabled = true;
 				Passengers[i].GetComponent<UnityEngine.Networking.NetworkTransform>().enabled = true;
 				Passengers[i].GetComponent<Person>().InAttraction = false;
 				Passengers[i].GetComponent<Pathfinding.PathWalker>().enabled = true;
+				//Passengers[i].GetComponent<Pathfinding.PathWalker>().Target = Exit;
 				Passengers[i] = null;
 			}
 		}
@@ -108,5 +111,17 @@ public abstract class GridAttraction : GridObject {
 	
 	protected void Awake() {
 		Attraction.Price = Attraction.DefaultPrice;
+	}
+	
+	public override void OnPlaced() {
+		base.OnPlaced();
+		ServerAddNodes();
+	}
+	
+	[Server]
+	public void ServerAddNodes() {
+		Pathfinding.NodeGraph graph = GameManager.Instance.Graphs[Owner-1];
+		graph.AddNode(Entrance.position, graph.ScanDistance);
+		graph.AddNode(Exit.position, graph.ScanDistance);
 	}
 }

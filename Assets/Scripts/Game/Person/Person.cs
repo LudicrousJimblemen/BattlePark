@@ -115,7 +115,7 @@ public class Person : NetworkBehaviour {
 		Hunger += 0.002f * controller.velocity.magnitude;
 		Walker.Speed = Mathf.Lerp(5f, 1.5f, Hunger / 40f);
 		
-		if (Desires.Any() && !InAttraction) {
+		if (Desires.Any() && !InAttraction && Walker.tag != "Exit") {
 			Desire firstDesire = Desires.Peek();
 			// TODO optimise - it's not necessary to perform these operations every frame
 			switch ((DesireType)firstDesire) {
@@ -169,11 +169,11 @@ public class Person : NetworkBehaviour {
 							}
 						}
 						if (Target != null) {
-							Walker.Target = Target.transform;
+							Walker.Target = Target.GetComponent<GridAttraction>().Entrance;
 						}
 					}
 					if (Walker.Target != null && (Walker.Target.position - this.transform.position).sqrMagnitude < 7) {
-						if (Walker.Target.GetComponent<GridAttraction>().Admit(this)) {
+						if (Walker.Target.parent.GetComponent<GridAttraction>().Admit(this)) {
 							Desires.Dequeue();
 						}
 					}

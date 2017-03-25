@@ -37,7 +37,7 @@ public abstract class GridPath : GridObject {
 			}
 		}
 		
-		ServerAddNodes (2);
+		ServerAddNodes (3);
 	}
 
 	public override bool CanRotate { get { return false; } }
@@ -63,11 +63,12 @@ public abstract class GridPath : GridObject {
 	
 	[Server]
 	private void ServerAddNodes (int width) {
+		NodeGraph graph = GameManager.Instance.Graphs[Owner-1];
 		Nodes = new PathNode[width * width];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < width; j++) {
-				Vector3 nodePos = GetPosition() + new Vector3(-.75f, 0, -.75f) + new Vector3(1.5f*i, 0, 1.5f*j);
-				Nodes[i * width + j] = GameManager.Instance.Graphs[Owner-1].AddNode(nodePos);
+				Vector3 nodePos = GetPosition() + new Vector3(-1f, 0, -1f) + new Vector3(i, 0, j);
+				Nodes[i * width + j] =  graph.AddNode(nodePos, graph.ScanDistance);
 			}
 		}
 	}

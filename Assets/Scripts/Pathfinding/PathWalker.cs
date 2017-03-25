@@ -61,7 +61,7 @@ namespace Pathfinding {
 		IEnumerator Repath() {
 			Transform lastTarget = null;
 			while (true) {
-				if(Target != null && Target != lastTarget) {
+				if(Target != null) {
 					SetDestination(Target);
 					lastTarget = Target;
 				}
@@ -115,7 +115,7 @@ namespace Pathfinding {
 					}
 				}
 				int mask = 1 << 12; // person mask
-				Collider[] overlap = Physics.OverlapSphere(transform.position + controller.center,1,mask);
+				Collider[] overlap = Physics.OverlapSphere(transform.position + controller.center,controller.radius,mask);
 				for(int p = 0; p < overlap.Length; p++) {
 					//print(overlap[p].name);
 					overlap[p].GetComponent<PathWalker> ().Influence ((overlap[p].transform.position - transform.position).Flat().normalized * 10);

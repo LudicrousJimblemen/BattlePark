@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace BattlePark.Menu {
 	public class TitleScreenBackground : MonoBehaviour {
-		[Range(0f, 20f)]
-		public float CameraRotationSpeed = 0.25f;
+		[Range(20f, 50)]
+		public float CameraRotationSpeed = 25;
 	
 		[Range(1f, 6f)]
 		public float PersonRotationTimerMultiple = 3f;
@@ -12,11 +12,9 @@ namespace BattlePark.Menu {
 		public GameObject RightLeg;
 		public GameObject Body;
 	
-		[Range(0f, 0.5f)]
-		public float PlaneSpeed = 0.1f;
+		[Range(5, 10)]
+		public float PlaneSpeed = 5;
 		public GameObject Plane;
-	
-		private float timer;
 	
 		private Quaternion leftLegRotationPrev;
 		private Quaternion rightLegRotationPrev;

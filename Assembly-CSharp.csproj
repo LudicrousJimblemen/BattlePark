@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Controls\GameInput.cs" />
      <Compile Include="Assets\Scripts\Controls\NetworkCameraPan.cs" />
      <Compile Include="Assets\Scripts\Extensions.cs" />
+     <Compile Include="Assets\Scripts\GUI\FollowCamera.cs" />
      <Compile Include="Assets\Scripts\GUI\GUI.cs" />
      <Compile Include="Assets\Scripts\GUI\GameGUI.cs" />
      <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
