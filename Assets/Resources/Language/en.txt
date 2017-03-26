@@ -67,7 +67,7 @@
 
 	"person.thoughts.anger.maximum": "I'm positively INFURIATED!",
 	"person.thoughts.anger.medium": "I'm pretty mad.",
-	"person.thoughts.anger.minimum": "I'm feeling alright.",,
+	"person.thoughts.anger.minimum": "I'm feeling alright.",
 
 	"person.thoughts.suspicion.maximum": "I'm certain this park is messed up.",
 	"person.thoughts.suspicion.medium": "This park seems suspicious.",

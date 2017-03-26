@@ -70,7 +70,8 @@ public class Player : NetworkBehaviour {
 
 	[Command]
 	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
-		if (Money >= GameManager.Instance.Objects[ObjIndex].GetComponent<GridObject>().Cost) {
+		Money cost = GameManager.Instance.Objects[ObjIndex].GetComponent<GridObject>().Cost;
+        if (Money < cost) {
 			return;
 		}
 		
@@ -87,6 +88,8 @@ public class Player : NetworkBehaviour {
 		obj.Owner = playerNumber;
 		
 		NetworkServer.Spawn(newObject);
+
+		Money -= cost;
 	}
 	
 	// stupid unet parameters not allowing arrays of unity structs

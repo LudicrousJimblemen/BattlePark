@@ -102,7 +102,11 @@ public class GameInput : MonoBehaviour {
 			} else {
 				Placeholder.gameObject.SetActive(false);
 			}
-			bool valid = mousePosition != null && player.getObject(hotbarIndex).Valid(mousePosition.Value, (Direction)direction, player.PlayerNumber);
+
+			bool valid = mousePosition != null 
+				&& player.getObject(hotbarIndex).Valid(mousePosition.Value, (Direction)direction, player.PlayerNumber) 
+				&& player.Money >= placeholderGridObject.Cost;
+
 			Placeholder.GetComponent<SkinnedMeshRenderer>().material.SetColor("_RimColor", valid ? ValidColor : InvalidColor);
 			if (Input.GetMouseButtonDown(0)) {
 				if (valid) {
