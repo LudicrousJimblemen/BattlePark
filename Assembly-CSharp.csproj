@@ -75,7 +75,9 @@
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridPathQueue.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridScenery.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendor.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendorInfoKiosk.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendorMacaroniStall.cs" />
+     <Compile Include="Assets\Scripts\Game\Grid\GridObjects\GridVendorSaltLickStall.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\GridRegion.cs" />
      <Compile Include="Assets\Scripts\Game\Money.cs" />
      <Compile Include="Assets\Scripts\Game\Person\Desire.cs" />
