@@ -47,8 +47,8 @@ public class GameInput : MonoBehaviour {
 				placeholderGridObject = GameManager.Instance.Objects[player.ObjectIndices[i]];
 				Placeholder.mesh = placeholderGridObject.GetComponent<MeshFilter>().sharedMesh;
 				Placeholder.GetComponent<SkinnedMeshRenderer>().sharedMesh = Placeholder.mesh;
-				
-				WindowManager.Instance.SummonPlaceholderWindow(placeholderGridObject, Placeholder.transform);
+
+				GameGUI.Instance.UpdatePlaceholderWindow(placeholderGridObject,Placeholder.transform);
 				
 				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction)direction);
 				break;
@@ -56,6 +56,7 @@ public class GameInput : MonoBehaviour {
 		}
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			hotbarIndex = -1;
+			GameGUI.Instance.UpdatePlaceholderWindow(null,null);
 			placeholderOffsets = new [] { Vector3.zero };
 		}
 		
@@ -114,10 +115,13 @@ public class GameInput : MonoBehaviour {
 						player.PlaceObject(hotbarIndex, mousePosition, direction);
 						if (!GameManager.Instance.Objects[player.ObjectIndices[hotbarIndex]].PlaceMultiple) {
 							hotbarIndex = -1;
+							GameGUI.Instance.UpdatePlaceholderWindow(null,null);
 							placeholderOffsets = new [] { Vector3.zero };
+							/*
 							if (WindowManager.Instance.Windows.Any(w => w.Type == WindowType.Placeholder)) {
 								WindowManager.Instance.Windows.Remove(WindowManager.Instance.Windows.First(w => w.Type == WindowType.Placeholder));
 							}
+							*/
 						}
 					}
 				}

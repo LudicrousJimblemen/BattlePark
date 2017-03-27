@@ -29,6 +29,9 @@
 	
 	"game.gui.placing": "Placing {0}",
 	
+	"game.gui.error.costly": "You can't afford to place this.",
+	"game.gui.error.invalidPlacement": "This is not a valid place for this to go.",
+	
 	"game.win": "{0} wins!",
 	
 	"stats.guest": "Unique guests: ",

@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 114593734877516150}
   - component: {fileID: 114224858132742144}
   m_Layer: 5
-  m_Name: PlaceholderWindo
+  m_Name: PlaceholderWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

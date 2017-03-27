@@ -16,7 +16,9 @@ public class WindowManager : MonoBehaviour {
 	
 	public Window SummonPlaceholderWindow(GridObject placeholderObject, Transform target) {
 		if (Windows.Any(w => w.Type == WindowType.Placeholder)) {
-			Windows.Remove(Windows.First(w => w.Type == WindowType.Placeholder));
+			Window last = Windows.First(w => w.Type == WindowType.Placeholder);
+			print("ayy");
+			CloseWindow(last);
 		}
 		
 		FollowCamera followCamera = ((GameObject)Instantiate(PlaceholderCameraPrefab, Vector3.zero, Quaternion.identity)).GetComponent<FollowCamera>();
@@ -31,6 +33,14 @@ public class WindowManager : MonoBehaviour {
 		Windows.Add(newWindow);
 		
 		return newWindow;
+	}
+
+	public void CloseWindow (Window window) {
+		if (Windows.Contains (window)) {
+			print("cool");
+			Windows.Remove(window);
+			Destroy(window.gameObject);
+		}
 	}
 	
 	private void Awake() {

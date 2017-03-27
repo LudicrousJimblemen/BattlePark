@@ -129,7 +129,7 @@ namespace Pathfinding {
 					if (anim != null) {
 						anim.SetFloat("Speed", frameSpeedPercent * Mathf.Clamp01(controller.velocity.magnitude));
 					}
-					if (Vector3.SqrMagnitude(transform.position - lastPos) < 0.1f * 0.1f) {
+					if (Vector3.SqrMagnitude(transform.position - lastPos) < 0.01f * 0.01f) {
 						giveUpTimer += Time.deltaTime;
 						if (giveUpTimer >= GiveUpTime) {
 							following = false;
