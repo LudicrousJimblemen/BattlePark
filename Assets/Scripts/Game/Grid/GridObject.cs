@@ -20,6 +20,23 @@ public abstract class GridObject : NetworkBehaviour {
 	/// Used for validity checking when other objects are being placed.
 	/// </summary>
 	public abstract Vector3[] OccupiedOffsets { get; }
+	
+	public Vector3[] GenerateOffsets(int width, int length, int height) {
+		Vector3[] returned = new Vector3[width * length * height];
+		
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				for (int z = 0; z < length; z++) {
+					returned[
+						y * width * length +
+						x * length +
+						z] = new Vector3(x - (width / 2), y, z - (height / 2));
+				}
+			}
+		}
+		
+		return returned;
+	}
 
 	/// <summary>
 	/// Cost of the grid object.

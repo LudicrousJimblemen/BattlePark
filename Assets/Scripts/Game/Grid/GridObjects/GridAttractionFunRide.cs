@@ -8,20 +8,7 @@ public class GridAttractionFunRide : GridAttraction {
 	// TODO Fix offsets
 	public override Vector3[] OccupiedOffsets {
 		get {
-			return new[] {
-				Vector3.zero,
-				/* TODO make these the real offsets later
-				new Vector3(1, 0, 0),
-				new Vector3(1, 0, 1),
-				new Vector3(0, 0, 1),
-				new Vector3(-1, 0, 0),
-				new Vector3(-1, 0, -1),
-				new Vector3(0, 0, -1),
-				new Vector3(1, 0, -1),
-				new Vector3(-1, 0, 1),
-				*/
-				new Vector3(0, 1, 0)
-			};
+			return GenerateOffsets(3, 3, 2);
 		}
 	}
 	
