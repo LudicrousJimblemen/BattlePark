@@ -8,31 +8,28 @@ using System.Linq;
 /// </summary>
 public class GameInput : MonoBehaviour {
 	public Transform VerticalConstraint;
-	public MeshFilter Placeholder;
 	public GameObject PlaceholderCameraPrefab;
+	
+	public GridPlaceholder Placeholder;
 	
 	private GridObject placeholderGridObject;
 	private Vector3[] placeholderOffsets;
 
-	Vector3? mousePosition;
-	Vector3 rawMouse;
+	private Vector3? mousePosition;
+	private Vector3 rawMouse;
 
-	Player player;
+	private Player player;
 
-	int hotbarIndex = -1;
-	int direction;
-
-	public Color ValidColor = Color.blue;
-	public Color InvalidColor = Color.red;
-
+	private int hotbarIndex = -1;
+	
+	private void Awake() {
+		Placeholder = FindObjectOfType<GridPlaceholder>();
+	}
+	
 	private void Start() {
 		player = GetComponent<Player>();
 		if (!player.isLocalPlayer)
 			return;
-		VerticalConstraint = Instantiate(VerticalConstraint, transform);
-		VerticalConstraint.gameObject.SetActive(false);
-		Placeholder = Instantiate(Placeholder) as MeshFilter;
-		placeholderOffsets = new [] { Vector3.zero };
 	}
 
 	private void Update() {
@@ -44,29 +41,28 @@ public class GameInput : MonoBehaviour {
 					continue;
 				hotbarIndex = i;
 				placeholderGridObject = GameManager.Instance.Objects[player.ObjectIndices[i]];
-				Placeholder.mesh = placeholderGridObject.GetComponent<MeshFilter>().sharedMesh;
-				Placeholder.GetComponent<SkinnedMeshRenderer>().sharedMesh = Placeholder.mesh;
+				
+				Placeholder.Reset(placeholderGridObject);
 
 				GameGUI.Instance.UpdatePlaceholderWindow(placeholderGridObject,Placeholder.transform);
 				
-				if (!placeholderGridObject.CanRotate) {
-					direction = 0;
-				}
 				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction)direction);
 				break;
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			direction = 0;
+			Placeholder.Disable();
+			
 			hotbarIndex = -1;
 			GameGUI.Instance.UpdatePlaceholderWindow(null, null);
-			placeholderOffsets = new [] { Vector3.zero };
 		}
 		
 		GridOverlay.Instance.ShowGrid = hotbarIndex != -1;
 		
 		Placeholder.gameObject.SetActive(hotbarIndex != -1);
+		
 		bool verticalConstraint = Input.GetKey(KeyCode.LeftControl);
+		
 		VerticalConstraint.gameObject.SetActive(verticalConstraint);
 		RaycastHit hit;
 		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, verticalConstraint ? Grid.Instance.VerticalConstraintRaycastLayerMask : Grid.Instance.RaycastLayerMask)) {
@@ -83,14 +79,7 @@ public class GameInput : MonoBehaviour {
 		}
 		if (hotbarIndex != -1) {
 			if (Input.GetKeyDown(KeyCode.R) && placeholderGridObject.CanRotate) {
-				int counter = Input.GetKey(KeyCode.LeftShift) ? -1 : 1;
-				direction += counter;
-				if (direction > 3) {
-					direction = 0;
-				} else if (direction < 0) {
-					direction = 3;
-				}
-				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction)direction);
+				Placeholder.Rotate(Input.GetKey(KeyCode.LeftShift) ? -1 : 1);
 			}
 			if (!verticalConstraint) {
 				Vector3 corrected = mousePosition ?? Vector3.zero;
@@ -111,7 +100,6 @@ public class GameInput : MonoBehaviour {
 				&& player.getObject(hotbarIndex).Valid(mousePosition.Value, (Direction)direction, player.PlayerNumber) 
 				&& player.Money >= placeholderGridObject.Cost;
 
-			Placeholder.GetComponent<SkinnedMeshRenderer>().material.SetColor("_RimColor", valid ? ValidColor : InvalidColor);
 			if (Input.GetMouseButtonDown(0)) {
 				if (valid) {
 					if (mousePosition != null && hotbarIndex != -1) {
