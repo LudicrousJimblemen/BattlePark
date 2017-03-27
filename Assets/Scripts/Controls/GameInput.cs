@@ -40,7 +40,6 @@ public class GameInput : MonoBehaviour {
 			return;
 		for (int i = 0; i < 9; i++) {
 			if (Input.GetKeyDown(KeyCode.Alpha1 + i)) {
-				//print (player.ObjectIndices[0]);
 				if (player.ObjectIndices[i] == -1)
 					continue;
 				hotbarIndex = i;
@@ -50,13 +49,17 @@ public class GameInput : MonoBehaviour {
 
 				GameGUI.Instance.UpdatePlaceholderWindow(placeholderGridObject,Placeholder.transform);
 				
+				if (!placeholderGridObject.CanRotate) {
+					direction = 0;
+				}
 				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction)direction);
 				break;
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.Escape)) {
+			direction = 0;
 			hotbarIndex = -1;
-			GameGUI.Instance.UpdatePlaceholderWindow(null,null);
+			GameGUI.Instance.UpdatePlaceholderWindow(null, null);
 			placeholderOffsets = new [] { Vector3.zero };
 		}
 		
