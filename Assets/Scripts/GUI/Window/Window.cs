@@ -17,4 +17,8 @@ public class Window : MonoBehaviour {
 	public int MaximumHeight = 300;
 	
 	public WindowType Type;
+	
+	public void OnMouseDown() {
+		transform.SetAsLastSibling(); // bring it to the front upon click
+	}
 }

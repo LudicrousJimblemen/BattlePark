@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\GUI\Window\WindowManager.cs" />
      <Compile Include="Assets\Scripts\GUI\Window\WindowResizer.cs" />
      <Compile Include="Assets\Scripts\GUI\Window\WindowTitleBar.cs" />
+     <Compile Include="Assets\Scripts\GUI\Window\WindowToggle.cs" />
      <Compile Include="Assets\Scripts\Game\Attraction.cs" />
      <Compile Include="Assets\Scripts\Game\GameManager.cs" />
      <Compile Include="Assets\Scripts\Game\Grid\Direction.cs" />

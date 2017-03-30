@@ -23,10 +23,9 @@ public class GameGUI : MonoBehaviour {
 		PlaceholderWindow = Instantiate(PlaceholderWindow,Vector3.zero,Quaternion.identity,WindowManager.Instance.transform);
 		UpdatePlaceholderWindow(null,null);
 		PlaceholderWindow.Type = WindowType.Placeholder;
-		PlaceholderWindow.gameObject.SetActive(true);
+		PlaceholderWindow.gameObject.SetActive(false);
 
 		WindowManager.Instance.Windows.Add(PlaceholderWindow);
-		
 		TogglePlaceholderButton.onClick.AddListener(TogglePlaceholderWindow);
 	}
 
