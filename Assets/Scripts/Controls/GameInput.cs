@@ -49,9 +49,6 @@ public class GameInput : MonoBehaviour {
 
 				GameGUI.Instance.UpdatePlaceholderWindow(placeholderGridObject,Placeholder.transform);
 				
-				if (!placeholderGridObject.CanRotate) {
-					direction = 0;
-				}
 				placeholderOffsets = placeholderGridObject.RotatedOffsets((Direction)direction);
 				break;
 			}
@@ -115,7 +112,7 @@ public class GameInput : MonoBehaviour {
 			if (Input.GetMouseButtonDown(0)) {
 				if (valid) {
 					if (mousePosition != null && hotbarIndex != -1) {
-						player.PlaceObject(hotbarIndex, mousePosition, direction);
+						player.PlaceObject(hotbarIndex, mousePosition, placeholderGridObject.CanRotate ? direction : 0);
 						if (!GameManager.Instance.Objects[player.ObjectIndices[hotbarIndex]].PlaceMultiple) {
 							hotbarIndex = -1;
 							GameGUI.Instance.UpdatePlaceholderWindow(null,null);

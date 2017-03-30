@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 143672410393856820}
   - component: {fileID: 114635885679740338}
   - component: {fileID: 136619778580869204}
+  - component: {fileID: 114749772959125010}
   m_Layer: 12
   m_Name: Person
   m_TagString: Untagged
@@ -502,10 +503,10 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
+  m_TransformSyncMode: 4
+  m_SendInterval: 0.25
+  m_SyncRotationAxis: 2
+  m_RotationSyncCompression: 2
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
   m_SnapThreshold: 5
@@ -530,6 +531,7 @@ MonoBehaviour:
   GiveUpTime: 1
   RepathRate: 1
   Target: {fileID: 0}
+  PathPriority: 0
   Wandering: 0
   Influenceable: 0
 --- !u!114 &114689473236430210
@@ -564,6 +566,25 @@ MonoBehaviour:
     i15: 10
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114749772959125010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1790509387394768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95334856744788818}
+  m_ParameterSendBits: 1
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!136 &136619778580869204
 CapsuleCollider:
   m_ObjectHideFlags: 1

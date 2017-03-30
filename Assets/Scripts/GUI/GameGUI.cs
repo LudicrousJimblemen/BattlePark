@@ -10,6 +10,8 @@ public class GameGUI : MonoBehaviour {
 	public Window PlaceholderWindow;
 	public FollowCamera PlaceholderCamera;
 	
+	public Button TogglePlaceholderButton;
+	
 	private void Awake() {
 		Instance = this;
     }
@@ -24,6 +26,8 @@ public class GameGUI : MonoBehaviour {
 		PlaceholderWindow.gameObject.SetActive(true);
 
 		WindowManager.Instance.Windows.Add(PlaceholderWindow);
+		
+		TogglePlaceholderButton.onClick.AddListener(TogglePlaceholderWindow);
 	}
 
 	// placeholderObject null means no placing

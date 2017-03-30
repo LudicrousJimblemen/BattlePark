@@ -573,6 +573,7 @@ MonoBehaviour:
     type: 2}
   PlaceholderCamera: {fileID: 114087966366164444, guid: 56a0471a83ed0614281e8d23c6dd02c3,
     type: 2}
+  TogglePlaceholderButton: {fileID: 939542054}
 --- !u!1 &939542052
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +586,7 @@ GameObject:
   - component: {fileID: 939542055}
   - component: {fileID: 939542054}
   m_Layer: 5
-  m_Name: Button
+  m_Name: TogglePlaceholderButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
