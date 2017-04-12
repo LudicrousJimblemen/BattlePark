@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class Player : NetworkBehaviour {
+	public static Player Local;
 	//"hotbar"
 	//list of indices relating to objects in the gamemanager's list of objects
 	public int[] ObjectIndices;
@@ -23,23 +24,31 @@ public class Player : NetworkBehaviour {
 	/// DO NOT UPDATE THIS CLIENT-SIDE, USE CMDUPDATEMONEY INSTEAD
 	/// </summary>
 	// garbage code that approaches being a hack
-	[SyncVar(hook = "UpdateMoney")]
+	[SyncVar]
 	public Money Money;
 	[Command]
 	public void CmdUpdateMoney(Money newMoney) {
 		Money = newMoney;
 	}
+	/*
 	private void UpdateMoney(Money newMoney) {
-		Money = newMoney;
 		GameGUI.Instance.Money.text = Money.ToString(LanguageManager.GetString("game.gui.numericCurrencySmall"));
 	}
+	*/
 
 	[SyncVar]
 	public int PlayerNumber;
+	
+	PlayerData data {
+		get {
+			return new PlayerData (Money, PlayerNumber, netId);
+		}
+	}
 
 	private void Start() {
 		if (!isLocalPlayer)
 			return;
+		Local = this;
 		Camera.main.transform.position = transform.position;
 		Camera.main.transform.rotation = transform.rotation;
 		Camera.main.transform.SetParent(transform);
@@ -61,7 +70,7 @@ public class Player : NetworkBehaviour {
 			return;
 		// boy it sure is a good thing that return is on a new line
 		// really breaks up that one-liner into sizeable chunks
-		CmdPlaceObject(ObjectIndices[hotbarIndex], position.Value, direction, PlayerNumber);
+		CmdPlaceObject(data, ObjectIndices[hotbarIndex], position.Value, direction);
 	}
 
 	public GridObject getObject(int hotbarIndex) {
@@ -69,27 +78,27 @@ public class Player : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdPlaceObject(int ObjIndex, Vector3 position, int direction, int playerNumber) {
+	public void CmdPlaceObject(PlayerData player, int ObjIndex, Vector3 position, int direction) {
 		Money cost = GameManager.Instance.Objects[ObjIndex].GetComponent<GridObject>().Cost;
-        if (Money < cost) {
+        if (player.Money < cost) {
 			return;
 		}
 		
 		GameObject newObject = (GameObject)Instantiate(
 			GameManager.Instance.Objects[ObjIndex].gameObject,
-			Grid.Instance.SnapToGrid(position, playerNumber),
+			Grid.Instance.SnapToGrid(position, player.PlayerNumber),
 			Quaternion.Euler(0, direction * 90, 0),
-			GameManager.Instance.PlayerObjectParents[playerNumber - 1].transform);
+			GameManager.Instance.PlayerObjectParents[player.PlayerNumber - 1].transform);
 		newObject.name = GameManager.Instance.Objects[ObjIndex].gameObject.name;
 		
 		GridObject obj = newObject.GetComponent<GridObject>();
 		obj.GridPosition = position;
 		obj.Direction = (Direction)direction;
-		obj.Owner = playerNumber;
+		obj.Owner = player.PlayerNumber;
 		
 		NetworkServer.Spawn(newObject);
-
-		Money -= cost;
+		
+		NetworkServer.objects[player.ID].GetComponent<Player>().CmdUpdateMoney (player.Money - cost);
 	}
 	
 	// stupid unet parameters not allowing arrays of unity structs
@@ -112,5 +121,16 @@ public class Player : NetworkBehaviour {
 		GameObject person = Instantiate(GameManager.Instance.PersonObj, position, Quaternion.identity) as GameObject;
 		NetworkServer.Spawn(person);
 		person.GetComponent<Pathfinding.PathWalker>().graph = GameManager.Instance.Graphs[owner - 1];
+	}
+}
+
+public struct PlayerData {
+	public Money Money;
+	public int PlayerNumber;
+	public NetworkInstanceId ID;
+	public PlayerData (Money _Money, int _PlayerNumber, NetworkInstanceId _ID) {
+		Money = _Money;
+		PlayerNumber = _PlayerNumber;
+		ID = _ID;
 	}
 }

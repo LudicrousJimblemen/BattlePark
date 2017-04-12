@@ -15,6 +15,10 @@ public class GameGUI : MonoBehaviour {
 	private void Awake() {
 		Instance = this;
     }
+	
+	private void Update() {
+		Money.text = Player.Local.Money.ToString(LanguageManager.GetString("game.gui.numericCurrencySmall"));
+	}
 
 	private void Start() {
 		PlaceholderCamera = Instantiate(PlaceholderCamera,Vector3.zero,Quaternion.identity);
