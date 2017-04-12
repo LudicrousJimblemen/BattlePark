@@ -56,6 +56,7 @@ public abstract class GridObject : NetworkBehaviour {
 	/// <summary>
 	/// The player number of the owner of this grid object.
 	/// </summary>
+	[SyncVar]
 	public int Owner;
 	
 	protected abstract string languageId { get; }

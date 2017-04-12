@@ -282,7 +282,7 @@ public class Grid : MonoBehaviour {
 		if(!ValidRegion(location,offsets,playerNumber))
 			print("invalid: not entirely in valid region");
 		*/
-		return !Objects.WillIntersect(location, offsets) &
+		return !Objects.WillIntersect(location, offsets) &&
 			ValidRegion(location, offsets, playerNumber); // TODO add logic
 	}
 

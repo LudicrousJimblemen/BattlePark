@@ -104,14 +104,18 @@ public class Player : NetworkBehaviour {
 	// stupid unet parameters not allowing arrays of unity structs
 	[Server]
 	public void ServerSpawnPaths(int player, float sizeX, float step, Vector3 parkGate) {
+		GridObject path = GameManager.Instance.Objects.First(x => x is GridPathAsphalt);
 		for(int i = 0; i < (int)sizeX / 2; i++) {
-			GridObject path = Instantiate(
-				GameManager.Instance.Objects.First(x => x is GridPathAsphalt),
+			GameObject pathObj = (GameObject)Instantiate(
+				path.gameObject,
 				parkGate + (player * 2 - 1) * (0.5f + step / 2f + step * i) * Vector3.right,
 				Quaternion.identity,
 				GameManager.Instance.PlayerObjectParents[player].transform);
-			path.Owner = player + 1;
-			NetworkServer.Spawn(path.gameObject);
+			pathObj.name = path.gameObject.name;
+			
+			GridObject gridPath = pathObj.GetComponent<GridObject>();
+			gridPath.Owner = player + 1;
+			NetworkServer.Spawn(pathObj);
 		}
 	}
 	
