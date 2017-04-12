@@ -178,7 +178,7 @@ namespace BattlePark.GUI {
 				}
 				yield return null;
 			}
-			FadeGraphic(Fade, 0, 1, Fade.color, 0, true);
+			FadeGraphic(Fade, 0, 1, Fade.color, 0);
 			for(int i = 2; i < FindGamePanel.transform.childCount; i++) {
 				Destroy(FindGamePanel.transform.GetChild(i).gameObject);
 			}
