@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4087821560492590}
   - component: {fileID: 33226670486120380}
   - component: {fileID: 23678628087608434}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PathCornerNorthWest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4188931094402106}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4776135636525954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,8 @@ GameObject:
   - component: {fileID: 114727758618899828}
   - component: {fileID: 33302209220072864}
   - component: {fileID: 114878924806304404}
-  m_Layer: 0
+  - component: {fileID: 65242696760232462}
+  m_Layer: 8
   m_Name: Path
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +85,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4083571555830178}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Root_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +102,7 @@ GameObject:
   - component: {fileID: 4328062683471244}
   - component: {fileID: 33739250285917224}
   - component: {fileID: 23661239797768012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PathCornerNorthEast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +119,7 @@ GameObject:
   - component: {fileID: 4061875438500344}
   - component: {fileID: 33776441009845806}
   - component: {fileID: 23742080003430638}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PathEdgeEast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +136,7 @@ GameObject:
   - component: {fileID: 4966024053528416}
   - component: {fileID: 33797685971218950}
   - component: {fileID: 23026108074145030}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PathCornerSouthWest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +153,7 @@ GameObject:
   - component: {fileID: 4934722518126982}
   - component: {fileID: 33755834036576682}
   - component: {fileID: 23752125685615584}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PathCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +170,7 @@ GameObject:
   - component: {fileID: 4084722030305424}
   - component: {fileID: 33001386932403654}
   - component: {fileID: 23936156832965588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PathEdgeNorth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +187,7 @@ GameObject:
   - component: {fileID: 4346443125841776}
   - component: {fileID: 33301781427195934}
   - component: {fileID: 23754068635104060}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PathEdgeWest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +204,7 @@ GameObject:
   - component: {fileID: 4198732544067162}
   - component: {fileID: 33122556542382794}
   - component: {fileID: 23168839323777760}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PathEdgeSouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +221,7 @@ GameObject:
   - component: {fileID: 4918078593090346}
   - component: {fileID: 33474967622183384}
   - component: {fileID: 23610595377674366}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PathCornerSouthEast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,6 +439,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23168839323777760
 MeshRenderer:
@@ -469,6 +471,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23610595377674366
 MeshRenderer:
@@ -500,6 +503,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23661239797768012
 MeshRenderer:
@@ -531,6 +535,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23678628087608434
 MeshRenderer:
@@ -562,6 +567,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23742080003430638
 MeshRenderer:
@@ -593,6 +599,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23752125685615584
 MeshRenderer:
@@ -624,6 +631,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23754068635104060
 MeshRenderer:
@@ -655,6 +663,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23936156832965588
 MeshRenderer:
@@ -686,6 +695,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33001386932403654
 MeshFilter:
@@ -757,6 +767,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539978766341332}
   m_Mesh: {fileID: 4300004, guid: 6cd5ac97c19374c489ee6b11d8eb63df, type: 3}
+--- !u!65 &65242696760232462
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1202308574564032}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 0.2, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114727758618899828
 MonoBehaviour:
   m_ObjectHideFlags: 1

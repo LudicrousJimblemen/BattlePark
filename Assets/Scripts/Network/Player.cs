@@ -123,6 +123,7 @@ public class Player : NetworkBehaviour {
 	[Command]
 	public void CmdSpawnPerson(Vector3 position, int owner) {
 		GameObject person = Instantiate(GameManager.Instance.PersonObj, position, Quaternion.identity) as GameObject;
+		person.GetComponent<Person>().Owner = owner;
 		NetworkServer.Spawn(person);
 		person.GetComponent<Pathfinding.PathWalker>().graph = GameManager.Instance.Graphs[owner - 1];
 	}

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4650253621711082}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,8 @@ GameObject:
   - component: {fileID: 114256218911379084}
   - component: {fileID: 33997663591279450}
   - component: {fileID: 114745626266240458}
-  m_Layer: 0
+  - component: {fileID: 65385228891002076}
+  m_Layer: 8
   m_Name: MacaroniStall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4048268706970394}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +70,7 @@ GameObject:
   - component: {fileID: 4622089925024240}
   - component: {fileID: 33112245746054052}
   - component: {fileID: 23837885927456066}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MacaroniStall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +85,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4764272660576932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Root_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,6 +191,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33112245746054052
 MeshFilter:
@@ -205,6 +207,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1195107929083064}
   m_Mesh: {fileID: 4300000, guid: 339c124b8783d9d499561769305296cc, type: 3}
+--- !u!65 &65385228891002076
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1195107929083064}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8, y: 2.6, z: 2.8}
+  m_Center: {x: 0, y: 1.3, z: 0}
 --- !u!114 &114256218911379084
 MonoBehaviour:
   m_ObjectHideFlags: 1

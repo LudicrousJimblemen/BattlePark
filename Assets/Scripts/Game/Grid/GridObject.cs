@@ -73,6 +73,7 @@ public abstract class GridObject : NetworkBehaviour {
 
 	public virtual void OnPlaced() {
 		Grid.Instance.Objects.Add(GetPosition(), this);
+		transform.SetParent (GameManager.Instance.PlayerObjectParents[Owner-1].transform, true);
 	}
 	public virtual void OnDemolished() { }
 
