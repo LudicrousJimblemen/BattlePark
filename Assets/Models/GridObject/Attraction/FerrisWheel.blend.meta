@@ -1,0 +1,171 @@
+fileFormatVersion: 2
+guid: a9480f07a8a55af40bb6bebaa10c673a
+timeCreated: 1493745497
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Base
+    100002: //RootNode
+    100004: Slot_1
+    100006: Slot_10
+    100008: Slot_11
+    100010: Slot_12
+    100012: Slot_13
+    100014: Slot_14
+    100016: Slot_15
+    100018: Slot_16
+    100020: Slot_2
+    100022: Slot_3
+    100024: Slot_4
+    100026: Slot_5
+    100028: Slot_6
+    100030: Slot_7
+    100032: Slot_8
+    100034: Slot_9
+    100036: Wheel
+    400000: Base
+    400002: //RootNode
+    400004: Slot_1
+    400006: Slot_10
+    400008: Slot_11
+    400010: Slot_12
+    400012: Slot_13
+    400014: Slot_14
+    400016: Slot_15
+    400018: Slot_16
+    400020: Slot_2
+    400022: Slot_3
+    400024: Slot_4
+    400026: Slot_5
+    400028: Slot_6
+    400030: Slot_7
+    400032: Slot_8
+    400034: Slot_9
+    400036: Wheel
+    2300000: Base
+    2300002: Slot_1
+    2300004: Slot_10
+    2300006: Slot_11
+    2300008: Slot_12
+    2300010: Slot_13
+    2300012: Slot_14
+    2300014: Slot_15
+    2300016: Slot_16
+    2300018: Slot_2
+    2300020: Slot_3
+    2300022: Slot_4
+    2300024: Slot_5
+    2300026: Slot_6
+    2300028: Slot_7
+    2300030: Slot_8
+    2300032: Slot_9
+    2300034: Wheel
+    3300000: Base
+    3300002: Slot_1
+    3300004: Slot_10
+    3300006: Slot_11
+    3300008: Slot_12
+    3300010: Slot_13
+    3300012: Slot_14
+    3300014: Slot_15
+    3300016: Slot_16
+    3300018: Slot_2
+    3300020: Slot_3
+    3300022: Slot_4
+    3300024: Slot_5
+    3300026: Slot_6
+    3300028: Slot_7
+    3300030: Slot_8
+    3300032: Slot_9
+    3300034: Wheel
+    4300000: Wheel
+    4300002: Slot_16
+    4300004: Slot_15
+    4300006: Slot_14
+    4300008: Slot_13
+    4300010: Slot_12
+    4300012: Slot_11
+    4300014: Slot_10
+    4300016: Slot_9
+    4300018: Slot_8
+    4300020: Slot_7
+    4300022: Slot_6
+    4300024: Slot_5
+    4300026: Slot_4
+    4300028: Slot_3
+    4300030: Slot_1
+    4300032: Slot_2
+    4300034: Base
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
