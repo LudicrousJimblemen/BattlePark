@@ -66,16 +66,31 @@ public abstract class GridObject : NetworkBehaviour {
 	public string PluralString { get { return String.Format("gridObjects.{0}.plural", languageId); } }
 	
 	#endregion
-
-	public void Start() {
+	[ClientRpc]
+	public void RpcOnPlaced () {
 		OnPlaced();
 	}
-
-	public virtual void OnPlaced() {
+	public virtual void OnPlaced() { }
+	
+	public override void OnStartClient() {
+		base.OnStartClient();
 		Grid.Instance.Objects.Add(GetPosition(), this);
 		transform.SetParent (GameManager.Instance.PlayerObjectParents[Owner-1].transform, true);
 	}
-	public virtual void OnDemolished() { }
+	
+	[Command]
+	public void CmdDemolish () {
+		RpcOnDemolished ();
+	}
+	
+	[ClientRpc]
+	public void RpcOnDemolished () {
+		OnDemolished();
+	}
+	public virtual void OnDemolished() { 
+		Grid.Instance.Objects.Remove(GetPosition());
+		Destroy (gameObject);
+	}
 
 	public Vector3 GetPosition() {
 		return Grid.Instance.SnapToGrid(transform.position, Owner);

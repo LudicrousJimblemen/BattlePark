@@ -100,14 +100,13 @@ namespace Pathfinding {
 			while (following) {
 				float frameSpeedPercent = speedPercent;
 				Vector3 adjustedPos = transform.position;
-				adjustedPos.y = path[0].Position.y;
-				if (Vector3.SqrMagnitude(adjustedPos - path[waypointIndex].Position) < TurnDistance * TurnDistance) {
+				if (Vector3.SqrMagnitude(transform.position - path[waypointIndex].Position) < TurnDistance * TurnDistance) {
 					if (waypointIndex != path.Count - 1) {
 						waypointIndex++;
 					}
 				}
 				if (waypointIndex == path.Count - 1) {
-					speedPercent = Mathf.Clamp01(Vector3.Distance(adjustedPos, path[waypointIndex].Position) / StopDistance);
+					speedPercent = Mathf.Clamp01(Vector3.Distance(transform.position, path[waypointIndex].Position) / StopDistance);
 					frameSpeedPercent = speedPercent;
 					if (speedPercent < 0.1f) {
 						following = false;

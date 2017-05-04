@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using Pathfinding;
 
 public abstract class GridAttraction : GridObject {
 	/// <summary>
@@ -18,6 +19,8 @@ public abstract class GridAttraction : GridObject {
 	/// The transform defining where exiting persons will path towards first
 	/// </summary>
 	public Transform Exit;
+	
+	private PathNode[] Nodes = new PathNode[2];
 
 	/// <summary>
 	/// The maximum number of people that can be on an attraction at once.
@@ -118,10 +121,23 @@ public abstract class GridAttraction : GridObject {
 		ServerAddNodes();
 	}
 	
+	public override void OnDemolished() {
+		ServerRemoveNodes();
+		base.OnDemolished();
+	}
+	
 	[Server]
 	public void ServerAddNodes() {
 		Pathfinding.NodeGraph graph = GameManager.Instance.Graphs[Owner-1];
-		graph.AddNode(Entrance.position, graph.ScanDistance);
-		graph.AddNode(Exit.position, graph.ScanDistance);
+		Nodes[0] = graph.AddNode(Entrance.position, graph.ScanDistance);
+		Nodes[1] = graph.AddNode(Exit.position, graph.ScanDistance);
+	}
+	
+	[Server]
+	private void ServerRemoveNodes () {
+		NodeGraph graph = GameManager.Instance.Graphs[Owner-1];
+		foreach (PathNode node in Nodes) {
+			graph.RemoveNode (node);
+		}
 	}
 }

@@ -228,6 +228,8 @@ public class Grid : MonoBehaviour {
 		meshRenderer.materials = materials;
 
 		GetComponent<MeshCollider>().sharedMesh = meshFilter.mesh;
+		
+		Player.Local.ServerGridGenerated();
 	}
 
 	public void AddRegions() {
