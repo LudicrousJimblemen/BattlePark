@@ -18,7 +18,6 @@ namespace Pathfinding {
 		[Tooltip("The maximum distance that new nodes will scan and create connections with other nodes")]
 		public float ScanDistance = 5f;
 		
-		[HideInInspector]
 		public Dictionary<Vector3, PathNode> Nodes = new Dictionary<Vector3, PathNode>();
 	
 		private Queue<PathResult> results = new Queue<PathResult>();

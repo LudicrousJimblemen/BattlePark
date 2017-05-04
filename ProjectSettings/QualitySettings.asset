@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 0
+  m_CurrentQuality: 4
   m_QualitySettings:
   - serializedVersion: 2
     name: Toaster
@@ -13,7 +13,7 @@ QualitySettings:
     shadowResolution: 0
     shadowProjection: 0
     shadowCascades: 1
-    shadowDistance: 0
+    shadowDistance: 5.9749985
     shadowNearPlaneOffset: 0
     shadowCascade2Split: 0.33333334
     shadowCascade4Split: {x: 0.06666667, y: 0.19999999, z: 0.46666664}
@@ -26,7 +26,7 @@ QualitySettings:
     realtimeReflectionProbes: 0
     billboardsFaceCameraPosition: 0
     vSyncCount: 1
-    lodBias: 0
+    lodBias: 0.01
     maximumLODLevel: 0
     particleRaycastBudget: 64
     asyncUploadTimeSlice: 2
