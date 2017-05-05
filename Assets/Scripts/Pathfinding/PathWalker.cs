@@ -7,6 +7,7 @@ namespace Pathfinding {
 	[RequireComponent(typeof(CharacterController))]
 	public class PathWalker : MonoBehaviour {
 		public Action DestinationReachedCallback;
+		public bool DestinationReached;
 		
 		public NodeGraph graph;
 		public float Speed = 5;
@@ -49,7 +50,7 @@ namespace Pathfinding {
 			graph.RequestPath(transform, destination, FollowPath);
 		}
 		public void SetDestination(Transform destination) {
-			graph.RequestPath(transform, destination.position, FollowPath, PathPriority);
+			graph.RequestPath(transform, destination.position, FollowPath);
 		}
 		public void Wander() {
 			Wandering = true;
@@ -91,6 +92,7 @@ namespace Pathfinding {
 		}
 		IEnumerator _followPath(Path path) {
 			Wandering = false;
+			DestinationReached = false;
 			int count = path.Count;
 			int waypointIndex = 0; // index of next node to go towards
 			bool following = true;
@@ -145,6 +147,7 @@ namespace Pathfinding {
 				lastPos = transform.position;
 				yield return null;
 			}
+			DestinationReached = true;
 			StopInternal();
 		}
 		public void Stop() {

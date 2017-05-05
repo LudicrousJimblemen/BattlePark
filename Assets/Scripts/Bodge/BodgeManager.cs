@@ -16,8 +16,9 @@ public class BodgeManager : MonoBehaviour {
 
 	public GridObject[] Objects;
 	public List<Person> Guests;
-
-	private int timer = 0;
+	
+	[Header("BuildRollercoaster")]
+	public GameObject Coaster;
 	
 	private void Awake() {
 		if(FindObjectsOfType<BodgeManager>().Length > 1) {
@@ -25,10 +26,47 @@ public class BodgeManager : MonoBehaviour {
 			return;
 		}
 		Instance = this;
+		
+		if (Application.loadedLevelName == "PostIntro") {
+			StartCoroutine(PostIntro());
+		}
+		if (Application.loadedLevelName == "BuildRollercoaster") {
+			StartCoroutine(BuildRollercoaster());
+		}
 	}
 	
-	private void Update() {
-		timer++;
-		print(timer);
+	private IEnumerator PostIntro() {
+		for (int i = 0; i < 90; i++) {
+			Instantiate(PersonObj, new Vector3(-4.85f, 0, 0), Quaternion.identity);
+			yield return new WaitForSeconds(0.05f);
+		}
+	}
+	
+	private IEnumerator BuildRollercoaster() {
+		List<GameObject> coasterParts = new List<GameObject>();
+		for (int i = 0; i < Coaster.transform.childCount; i++) {
+			coasterParts.Add(Coaster.transform.GetChild(i).gameObject);
+		}
+		
+		foreach (var part in coasterParts) {
+			part.SetActive(false);
+		}
+		
+		for (int i = 0; i < 90; i++) {
+			Instantiate(PersonObj, new Vector3(-4.85f, 0, 0), Quaternion.identity);
+		}
+		
+		yield return new WaitForSeconds(5f);
+		
+		foreach (var part in coasterParts) {
+			part.SetActive(true);
+			yield return new WaitForSeconds(0.5f);
+		}
+	}
+	
+	private void OnGUI() {
+		if (Application.isEditor) {
+			GUI.Label(new Rect(12f, 12f, 200f, 200f), (Time.frameCount * Time.timeScale).ToString());
+		}
 	}
 }
