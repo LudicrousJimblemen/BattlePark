@@ -59,9 +59,16 @@ public class Player : NetworkBehaviour {
 		for (int i = 0; i < 9; i++) {
 			ObjectIndices[i] = GameManager.Instance.Objects[i] == null ? -1 : i;
 		}
+	}
+	
+	[Server]
+	public void ServerGridGenerated () {
 		for (int g = 0; g < 2; g++) {
 			ServerSpawnPaths(g, Grid.Instance.GridSizeX, Grid.Instance.GridStepXZ, GameManager.Instance.ParkGates[g]);
 		}
+	}
+	
+	public override void OnStartClient() {
 		CmdUpdateMoney(new Money(1500, 00)); // we monopoly now
 	}
 
@@ -97,8 +104,14 @@ public class Player : NetworkBehaviour {
 		obj.Owner = player.PlayerNumber;
 		
 		NetworkServer.Spawn(newObject);
+		newObject.GetComponent<GridObject> ().RpcOnPlaced ();
 		
 		NetworkServer.objects[player.ID].GetComponent<Player>().CmdUpdateMoney (player.Money - cost);
+	}
+	
+	[Command]
+	public void CmdDemolishObject (Vector3 position) {
+		
 	}
 	
 	// stupid unet parameters not allowing arrays of unity structs
@@ -116,6 +129,7 @@ public class Player : NetworkBehaviour {
 			GridObject gridPath = pathObj.GetComponent<GridObject>();
 			gridPath.Owner = player + 1;
 			NetworkServer.Spawn(pathObj);
+			pathObj.GetComponent<GridObject>().RpcOnPlaced ();
 		}
 	}
 	
@@ -123,6 +137,7 @@ public class Player : NetworkBehaviour {
 	[Command]
 	public void CmdSpawnPerson(Vector3 position, int owner) {
 		GameObject person = Instantiate(GameManager.Instance.PersonObj, position, Quaternion.identity) as GameObject;
+		person.GetComponent<Person>().Owner = owner;
 		NetworkServer.Spawn(person);
 		person.GetComponent<Pathfinding.PathWalker>().graph = GameManager.Instance.Graphs[owner - 1];
 	}

@@ -77,6 +77,9 @@ public class Person : NetworkBehaviour {
 	[SyncVar]
 	public float Suspicion = 0;
 	
+	[SyncVar]
+	public int Owner;
+	
 	/// <summary>
 	/// If a person is currently in an attraction.
 	/// </summary>
@@ -118,7 +121,7 @@ public class Person : NetworkBehaviour {
 	
 	private void Update() {
 		Walker.Influenceable = !InAttraction;
-		SeenObjects = Grid.Instance.Objects.Dictionary.Values.Where(x => !x.GetType().IsAssignableFrom(typeof(GridPath))).ToList();
+		SeenObjects = Grid.Instance.Objects.Dictionary.Values.Where(x => !x.GetType().IsAssignableFrom(typeof(GridPath)) && x.Owner == Owner).ToList();
 		
 		// TODO fix - magnitude is often nonzero even when not moving, e.g. on a funride
 		Hunger += 0.002f * controller.velocity.magnitude;

@@ -13,6 +13,8 @@ public class GameInput : MonoBehaviour {
 	
 	private GridObject placeholderGridObject;
 	private Vector3[] placeholderOffsets;
+	
+	private GridObject selected;
 
 	Vector3? mousePosition;
 	Vector3 rawMouse;
@@ -58,6 +60,10 @@ public class GameInput : MonoBehaviour {
 			hotbarIndex = -1;
 			GameGUI.Instance.UpdatePlaceholderWindow(null, null);
 			placeholderOffsets = new [] { Vector3.zero };
+			selected = null;
+		}
+		if (Input.GetKeyDown(KeyCode.Delete)) {
+			selected.CmdDemolish();
 		}
 		
 		GridOverlay.Instance.ShowGrid = hotbarIndex != -1;
@@ -123,6 +129,16 @@ public class GameInput : MonoBehaviour {
 							}
 							*/
 						}
+					}
+				}
+			}
+		} else {
+			RaycastHit selectedHit;
+			if (Input.GetMouseButtonDown(0)) {
+				if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out selectedHit, Mathf.Infinity, 1 << 8, QueryTriggerInteraction.Collide)) {
+					GridObject obj = selectedHit.collider.GetComponent<GridObject> ();
+					if (obj.Owner == player.PlayerNumber) {
+						selected = obj;
 					}
 				}
 			}

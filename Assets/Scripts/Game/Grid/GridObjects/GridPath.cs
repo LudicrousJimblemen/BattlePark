@@ -14,7 +14,7 @@ public abstract class GridPath : GridObject {
 	public GameObject CornerNorthWest;
 	public GameObject CornerNorthEast;
 	
-	private PathNode[] Nodes;
+	private PathNode[] Nodes = new PathNode[2];
 
 	public override Money Cost { get { return new Money(10, 00); } }
 
@@ -25,9 +25,19 @@ public abstract class GridPath : GridObject {
 	}
 
 	public override bool PlaceMultiple { get { return true; } }
+	
 	public override void OnPlaced() {
-		base.OnPlaced();
-
+		base.OnPlaced();		
+		ServerAddNodes (3);
+	}
+	public override void OnDemolished() {
+		ServerRemoveNodes ();
+		base.OnDemolished();
+	}
+	
+	public override void OnStartClient() {
+		base.OnStartClient();
+		
 		UpdateMesh();
 		foreach (var gridObject in Grid.Instance.Objects.AdjacentObjects(GetPosition(), true)) {
 			// "as" keyword returns null if cast is invalid
@@ -36,8 +46,6 @@ public abstract class GridPath : GridObject {
 				path.UpdateMesh();
 			}
 		}
-		
-		ServerAddNodes (3);
 	}
 
 	public override bool CanRotate { get { return false; } }
@@ -70,6 +78,14 @@ public abstract class GridPath : GridObject {
 				Vector3 nodePos = GetPosition() + new Vector3(-1f, 0, -1f) + new Vector3(i, 0, j);
 				Nodes[i * width + j] =  graph.AddNode(nodePos, graph.ScanDistance);
 			}
+		}
+	}
+	
+	[Server]
+	private void ServerRemoveNodes () {
+		NodeGraph graph = GameManager.Instance.Graphs[Owner-1];
+		foreach (PathNode node in Nodes) {
+			graph.RemoveNode (node);
 		}
 	}
 }

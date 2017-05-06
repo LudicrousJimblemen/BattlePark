@@ -30,7 +30,7 @@ namespace Pathfinding {
 			return node;
 		}
 		public void RemoveNode (PathNode node) {
-			if (!Nodes.ContainsKey(node.Position))
+			if (!Nodes.ContainsValue (node))
 				return;
 			foreach (PathConnection conn in node.Connections) {
 				node.RemoveConnection (conn);
@@ -161,7 +161,7 @@ namespace Pathfinding {
 			if (Nodes != null) {
 				foreach (KeyValuePair<Vector3, PathNode> node in Nodes) {
 					Gizmos.color = Color.black;
-					Gizmos.DrawSphere(node.Key,0.2f);
+					Gizmos.DrawSphere(node.Key + Vector3.up * 0.25f,0.2f);
 					Gizmos.color = Color.green;
 					foreach (PathConnection conn in node.Value.Connections) {
 						Gizmos.DrawLine(conn.n1.Position,conn.n2.Position);
