@@ -1,26 +1,19 @@
 fileFormatVersion: 2
-guid: bd80b62e89318754f840da2580d630e5
-timeCreated: 1493909484
+guid: 347474d869d13fb449b7792229a513de
+timeCreated: 1494002935
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Armature
-    100002: //RootNode
-    100004: MacaroniStall
-    100006: Root
-    400000: Armature
-    400002: //RootNode
-    400004: MacaroniStall
-    400006: Root
+    100000: //RootNode
+    400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: MacaroniStall
+    4300000: Dynamite
     7400000: Default Take
     9500000: //RootNode
-    13700000: MacaroniStall
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:

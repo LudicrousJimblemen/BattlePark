@@ -1,24 +1,36 @@
 fileFormatVersion: 2
-guid: bd80b62e89318754f840da2580d630e5
-timeCreated: 1493909484
+guid: e2ec9c527ecd80343bebc6e251fabb6a
+timeCreated: 1494004533
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Armature
-    100002: //RootNode
-    100004: MacaroniStall
-    100006: Root
-    400000: Armature
-    400002: //RootNode
-    400004: MacaroniStall
-    400006: Root
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: MacaroniStall
+    100000: //RootNode
+    100002: Person
+    100004: Person_001
+    100006: Person_002
+    100008: Person_003
+    400000: //RootNode
+    400002: Person
+    400004: Person_001
+    400006: Person_002
+    400008: Person_003
+    2300000: Person
+    2300002: Person_001
+    2300004: Person_002
+    2300006: Person_003
+    2300008: //RootNode
+    3300000: Person
+    3300002: Person_001
+    3300004: Person_002
+    3300006: Person_003
+    3300008: //RootNode
+    4300000: Person_003
+    4300002: Person_002
+    4300004: Person_001
+    4300006: Person
     7400000: Default Take
     9500000: //RootNode
-    13700000: MacaroniStall
   materials:
     importMaterials: 0
     materialName: 0
@@ -41,7 +53,45 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 499
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Person
+        weight: 1
+      - path: Person_001
+        weight: 1
+      - path: Person_002
+        weight: 1
+      - path: Person_003
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bd80b62e89318754f840da2580d630e5
-timeCreated: 1493909484
+guid: 19cb7017e06f9e44894d46b2d16f1fe3
+timeCreated: 1494002932
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -8,19 +8,16 @@ ModelImporter:
     100000: Armature
     100002: //RootNode
     100004: MacaroniStall
-    100006: Root
     400000: Armature
     400002: //RootNode
     400004: MacaroniStall
-    400006: Root
-    2300000: //RootNode
-    3300000: //RootNode
+    2300000: MacaroniStall
+    3300000: MacaroniStall
     4300000: MacaroniStall
     7400000: Default Take
     9500000: //RootNode
-    13700000: MacaroniStall
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:

@@ -25,6 +25,10 @@ public class BodgePerson : MonoBehaviour {
 			StartCoroutine(PostIntro());
 		} else if (Application.loadedLevelName == "BuildRollercoaster") {
 			StartCoroutine(PostIntro());
+		} else if (Application.loadedLevelName == "RideRollercoaster") {
+			StartCoroutine(PostIntro());
+		} else if (Application.loadedLevelName == "Infuse") {
+			StartCoroutine(PostIntro());
 		}
 	}
 	

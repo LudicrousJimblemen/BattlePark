@@ -20,6 +20,11 @@ public class BodgeManager : MonoBehaviour {
 	[Header("BuildRollercoaster")]
 	public GameObject Coaster;
 	
+	[Header("Infuse")]
+	public GameObject Macaroni;
+	public GameObject Dynamite;
+	public GameObject Dynamacaroni;
+	
 	private void Awake() {
 		if(FindObjectsOfType<BodgeManager>().Length > 1) {
 			Destroy(gameObject);
@@ -32,6 +37,12 @@ public class BodgeManager : MonoBehaviour {
 		}
 		if (Application.loadedLevelName == "BuildRollercoaster") {
 			StartCoroutine(BuildRollercoaster());
+		}
+		if (Application.loadedLevelName == "RideRollercoaster") {
+			StartCoroutine(PostIntro());
+		}
+		if (Application.loadedLevelName == "Infuse") {
+			StartCoroutine(Infuse());
 		}
 	}
 	
@@ -62,6 +73,20 @@ public class BodgeManager : MonoBehaviour {
 			part.SetActive(true);
 			yield return new WaitForSeconds(0.5f);
 		}
+	}
+	
+	private IEnumerator Infuse() {
+		Dynamacaroni.SetActive(false);
+		for (int i = 0; i < 50; i++) {
+			Instantiate(PersonObj, new Vector3(-4.85f, 0, 0), Quaternion.identity);
+			yield return new WaitForSeconds(0.05f);
+		}
+		
+		yield return new WaitForSeconds(12f);
+		Dynamacaroni.SetActive(true);
+		yield return new WaitForSeconds(0.4f);
+		Dynamite.SetActive(false);
+		Macaroni.SetActive(false);
 	}
 	
 	private void OnGUI() {
