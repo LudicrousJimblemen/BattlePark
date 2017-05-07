@@ -128,7 +128,7 @@ namespace Pathfinding {
 				if (controller != null) {
 					controller.SimpleMove(transform.forward * Speed * frameSpeedPercent);
 					if (anim != null) {
-						anim.SetFloat("Speed", frameSpeedPercent * Mathf.Clamp01(controller.velocity.magnitude));
+						anim.SetFloat("Speed", frameSpeedPercent * 0.9f);
 					}
 					if (Vector3.SqrMagnitude(transform.position - lastPos) < 0.01f * 0.01f) {
 						giveUpTimer += Time.deltaTime;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641263, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465791, g: 0.4964133, b: 0.57481784, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -17671,6 +17671,9 @@ MonoBehaviour:
   Objects: []
   Guests: []
   Coaster: {fileID: 1888377985}
+  Macaroni: {fileID: 0}
+  Dynamite: {fileID: 0}
+  Dynamacaroni: {fileID: 0}
 --- !u!1 &865044348
 GameObject:
   m_ObjectHideFlags: 0
@@ -24906,7 +24909,7 @@ Animator:
   m_GameObject: {fileID: 1209725805}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6e8b21e8bfc2bd4478ab10ee8021edfa, type: 2}
+  m_Controller: {fileID: 9100000, guid: 323db4439d4c09c489be521140789982, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
