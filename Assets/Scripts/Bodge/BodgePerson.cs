@@ -33,8 +33,12 @@ public class BodgePerson : MonoBehaviour {
 			StartCoroutine(TwoParks());
 		} else if (Application.loadedLevelName == "LaunchExplosion") {
 			StartCoroutine(TwoParks());
+		} else if (Application.loadedLevelName == "LaunchFerriswheel") {
+			StartCoroutine(TwoParks());
 		} else if (Application.loadedLevelName == "InfuseSalt") {
 			StartCoroutine(InfuseSalt());
+		} else if (Application.loadedLevelName == "CheesyZoom") {
+			StartCoroutine(TwoParks());
 		}
 	}
 

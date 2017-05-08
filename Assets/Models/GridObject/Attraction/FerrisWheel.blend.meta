@@ -61,6 +61,7 @@ ModelImporter:
     2300030: Slot_8
     2300032: Slot_9
     2300034: Wheel
+    2300036: //RootNode
     3300000: Base
     3300002: Slot_1
     3300004: Slot_10
@@ -79,6 +80,7 @@ ModelImporter:
     3300030: Slot_8
     3300032: Slot_9
     3300034: Wheel
+    3300036: //RootNode
     4300000: Wheel
     4300002: Slot_16
     4300004: Slot_15

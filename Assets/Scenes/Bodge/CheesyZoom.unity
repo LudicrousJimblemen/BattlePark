@@ -47917,7 +47917,12 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: de15acf4c17f4104f998957d5c140403, type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 9500000, guid: a9480f07a8a55af40bb6bebaa10c673a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: a9480f07a8a55af40bb6bebaa10c673a, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: a9480f07a8a55af40bb6bebaa10c673a, type: 3}
   m_IsPrefabParent: 0
 --- !u!4 &1127937814 stripped
@@ -50903,13 +50908,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1209725805}
-  m_LocalRotation: {x: -0.03630089, y: 0.95055485, z: -0.121768914, w: -0.2833727}
-  m_LocalPosition: {x: -7.6, y: 11.7, z: 1.51}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 14.6, y: 213.2, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!95 &1209725811
 Animator:
   serializedVersion: 3
@@ -50919,7 +50924,7 @@ Animator:
   m_GameObject: {fileID: 1209725805}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0ae7eb515c30bf74f861036838ec0b58, type: 2}
+  m_Controller: {fileID: 9100000, guid: 27c051c0ee032a941a436f181eb74e98, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -56943,6 +56948,27 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1354872606}
   m_Mesh: {fileID: 4300002, guid: 6cd5ac97c19374c489ee6b11d8eb63df, type: 3}
+--- !u!1 &1355245060 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100002, guid: a9480f07a8a55af40bb6bebaa10c673a, type: 3}
+  m_PrefabInternal: {fileID: 1127937813}
+--- !u!95 &1355245061
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1355245060}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 60c5102f8d525ff428b6640037943818, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1357626311
 GameObject:
   m_ObjectHideFlags: 0
