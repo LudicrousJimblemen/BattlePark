@@ -50,6 +50,9 @@ public class BodgeManager : MonoBehaviour {
 		if (Application.loadedLevelName == "Infuse") {
 			StartCoroutine(Infuse());
 		}
+		if (Application.loadedLevelName == "InfuseSalt") {
+			StartCoroutine(Infuse());
+		}
 		if (Application.loadedLevelName == "TwoParks") {
 			StartCoroutine(TwoParks());
 		}
@@ -88,6 +91,21 @@ public class BodgeManager : MonoBehaviour {
 	}
 
 	private IEnumerator Infuse() {
+		Dynamacaroni.SetActive(false);
+		for (int i = 0; i < 50; i++) {
+			Instantiate(PersonObj, new Vector3(-4.85f, 0, 0), Quaternion.identity);
+			yield return new WaitForSeconds(0.05f);
+		}
+
+		yield return new WaitForSeconds(12f);
+		Dynamacaroni.SetActive(true);
+		yield return new WaitForSeconds(0.4f);
+		Text.text = "Infused!";
+		Dynamite.SetActive(false);
+		Macaroni.SetActive(false);
+	}
+
+	private IEnumerator InfuseSalt() {
 		Dynamacaroni.SetActive(false);
 		for (int i = 0; i < 50; i++) {
 			Instantiate(PersonObj, new Vector3(-4.85f, 0, 0), Quaternion.identity);
