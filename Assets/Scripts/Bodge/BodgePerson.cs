@@ -31,6 +31,8 @@ public class BodgePerson : MonoBehaviour {
 			StartCoroutine(PostIntro());
 		} else if (Application.loadedLevelName == "TwoParks") {
 			StartCoroutine(TwoParks());
+		} else if (Application.loadedLevelName == "LaunchExplosion") {
+			StartCoroutine(TwoParks());
 		}
 	}
 
