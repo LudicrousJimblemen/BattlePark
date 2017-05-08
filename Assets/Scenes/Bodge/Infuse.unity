@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641263, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465791, g: 0.4964133, b: 0.57481784, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -581,6 +581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &11163914
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1536,6 +1537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &57343268
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2097,6 +2099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &103838025
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2700,6 +2703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &132700811
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2828,6 +2832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &139828131
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3631,6 +3636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &171676218
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4160,6 +4166,80 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 197704642}
   m_Mesh: {fileID: 4300062, guid: 71bb1830cd5d6534790bb6662e41b08f, type: 3}
+--- !u!1 &197824545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 197824546}
+  - component: {fileID: 197824548}
+  - component: {fileID: 197824547}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &197824546
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 197824545}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 288719111}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 102}
+  m_SizeDelta: {x: 300, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &197824547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 197824545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9485294, g: 0.9485294, b: 0.9485294, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 62d8c44b786035d49bff8e7581e77cbd, type: 3}
+    m_FontSize: 51
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Infusing Macaroni...
+--- !u!222 &197824548
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 197824545}
 --- !u!1 &200090568
 GameObject:
   m_ObjectHideFlags: 0
@@ -6471,6 +6551,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 329344767}
+  - {fileID: 197824546}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6729,6 +6810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &295640195
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7202,6 +7284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &325735998
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7568,6 +7651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &337916043
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7934,6 +8018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &346983403
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8474,6 +8559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &383353532
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11130,6 +11216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &497895889
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -12588,6 +12675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &561091127
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -12856,6 +12944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &579245753
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13193,6 +13282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &594160223
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13530,6 +13620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &611670225
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13756,6 +13847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &617794286
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -14022,6 +14114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &630476648
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -15355,6 +15448,72 @@ Transform:
   m_Father: {fileID: 995551830}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &719937813
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 860454975}
+    m_Modifications:
+    - target: {fileID: 400000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -41.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 23.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 836922f48655a8c4b9290e45b6cad7ea, type: 2}
+    - target: {fileID: 2300000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a04d4f593f210f419af825924eda580, type: 2}
+    - target: {fileID: 2300002, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a04d4f593f210f419af825924eda580, type: 2}
+    - target: {fileID: 2300004, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a04d4f593f210f419af825924eda580, type: 2}
+    - target: {fileID: 2300006, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a04d4f593f210f419af825924eda580, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+  m_IsPrefabParent: 0
+--- !u!4 &719937814 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: e2ec9c527ecd80343bebc6e251fabb6a, type: 3}
+  m_PrefabInternal: {fileID: 719937813}
 --- !u!1 &723026323
 GameObject:
   m_ObjectHideFlags: 0
@@ -16286,6 +16445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &756591951
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18011,6 +18171,7 @@ Transform:
   - {fileID: 22409355}
   - {fileID: 502942903}
   - {fileID: 1701177002}
+  - {fileID: 719937814}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18037,6 +18198,7 @@ MonoBehaviour:
   Objects: []
   Guests: []
   Coaster: {fileID: 1888377985}
+  Text: {fileID: 197824547}
   Macaroni: {fileID: 807579451}
   Dynamite: {fileID: 536426350}
   Dynamacaroni: {fileID: 106720785}
@@ -22996,6 +23158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1082428142
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24080,6 +24243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1151170195
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -25273,7 +25437,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1209725805}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6e8b21e8bfc2bd4478ab10ee8021edfa, type: 2}
   m_CullingMode: 0
@@ -25720,7 +25884,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1225767977}
   m_LocalRotation: {x: 0, y: 0.92387956, z: 0, w: 0.38268343}
-  m_LocalPosition: {x: 0, y: 100.25, z: 0}
+  m_LocalPosition: {x: 0, y: 100.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -25876,6 +26040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1229423684
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -26201,6 +26366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1241746092
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -28752,6 +28918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1391449736
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -29708,6 +29875,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1448845604
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -30100,6 +30268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1469081987
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -30733,6 +30902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1505093854
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -31573,6 +31743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1557922799
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -31999,6 +32170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1582927636
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -32870,6 +33042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1618369992
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -33209,6 +33382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1631930396
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -33477,6 +33651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1636650360
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -34780,6 +34955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1708250152
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -37566,6 +37742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1839656578
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -37820,6 +37997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1851036552
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -38313,6 +38491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1866987674
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -39584,6 +39763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1922650773
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -41493,6 +41673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &1995439711
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -42305,6 +42486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &2035550831
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -44621,6 +44803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graph: {fileID: 1061862938}
+  Number: 0
 --- !u!33 &2146274609
 MeshFilter:
   m_ObjectHideFlags: 0
