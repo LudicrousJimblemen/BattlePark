@@ -29,6 +29,7 @@ public class BodgeManager : MonoBehaviour {
 	[Header("LaunchExplosion")]
 	public GameObject RidingPerson;
 	public GameObject LaunchedPerson;
+	public ParticleSystem Exploderino;
 
 	[Header("LaunchFerriswheel")]
 	public GameObject BodgeWheelPerson;
@@ -153,7 +154,8 @@ public class BodgeManager : MonoBehaviour {
 		LaunchedPerson.SetActive(true);
 		LaunchedPerson.GetComponent<Rigidbody>().AddForce(new Vector3(-12f, 12f, 0f), ForceMode.VelocityChange);
 		LaunchedPerson.GetComponent<Rigidbody>().AddTorque(new Vector3(-2f, 2f, 0f), ForceMode.VelocityChange);
-		yield return new WaitForSeconds(19f / 12f);
+		yield return new WaitForSeconds(2.631f);
+		Exploderino.Play();
 	}
 
 	private IEnumerator LaunchFerriswheel() {
@@ -180,7 +182,7 @@ public class BodgeManager : MonoBehaviour {
 		foreach (var person in persons) {
 			person.transform.parent = null;
 			person.GetComponent<Rigidbody>().isKinematic = false;
-			person.GetComponent<Rigidbody>().AddForce(new Vector3(17f, 5f, 0), ForceMode.VelocityChange);
+			person.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(15f, 18f), Random.Range(3f, 7f), Random.Range(-2f, 2f)), ForceMode.VelocityChange);
 			person.GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(Random.Range(-15f, 15f), Random.Range(-4f, 4f), Random.Range(-4f, 4f)), ForceMode.VelocityChange);
 			yield return new WaitForSeconds(0.09f);
 		}
@@ -198,7 +200,7 @@ public class BodgeManager : MonoBehaviour {
 
 	private void OnGUI() {
 		if (Application.isEditor) {
-			GUI.Label(new Rect(12f, 12f, 200f, 200f), (Time.frameCount * Time.timeScale).ToString());
+			GUI.Label(new Rect(12f, 12f, 200f, 200f), Time.timeSinceLevelLoad.ToString());
 		}
 	}
 }

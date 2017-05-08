@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AppVersion.cs" />
+     <Compile Include="Assets\Scripts\Bodge\BodgeFerriswheelPerson.cs" />
      <Compile Include="Assets\Scripts\Bodge\BodgeGrid.cs" />
      <Compile Include="Assets\Scripts\Bodge\BodgeLifetime.cs" />
      <Compile Include="Assets\Scripts\Bodge\BodgeManager.cs" />
